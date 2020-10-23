@@ -11,6 +11,13 @@
             "program": "./lib/main.dart"
         },
         {
+            "name": "Flutter: Profile app",
+            "request": "launch",
+            "type": "dart",
+            "program": "./lib/main.dart",
+            "flutterMode": "profile"
+        },
+        {
             "name": "Flutter: Run unit tests",
             "request": "launch",
             "type": "dart",
