@@ -4,21 +4,27 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'l10n/messages_all.dart';
 
+//
 // https://pub.dev/packages/intl - package used to localize strings.
 // To add localized strings:
 //
-// 1. Add newlines here to app_localizations.dart (as described in intl documentation)
-// 1. Run the command in the terminal to generate a template file .abr:
+// 1. Add newlines here to app_localizations.dart (as described 
+// in intl documentation)
+//
+// 2. Run the command in the terminal to generate a template file .abr:
 //
 //    flutter pub run intl_translation: extract_to_arb \
 //      --output-dir = lib / l10n lib / app_localizations.dart
 //
-// 3. Add new translations according to the generated template to intl _ *. Arb files for each language.
+// 3. Add new translations according to the generated template 
+// to intl _ *. Arb files for each language.
+//
 // 4. Run the command in the terminal to generate localizations:
 //
 //    flutter pub run intl_translation: generate_from_arb \
 //      --output-dir = lib / l10n --no-use-deferred-loading \
 //      lib / app_localizations.dart lib / l10n / intl _ *. arb
+//
 
 class AppLocalizations {
   AppLocalizations(this.localeName);
