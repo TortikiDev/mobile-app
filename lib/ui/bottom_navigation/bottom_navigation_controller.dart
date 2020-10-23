@@ -19,20 +19,18 @@ class _BottomNaigationControllerState extends State<BottomNaigationController> {
 
   _BottomNaigationControllerState(AppLocalizations localizations)
       : _items = [
+          BottomNaigationControllerItem(Center(child: Text('Главная')),
+              BottomNavigationBarItem(icon: Icon(Icons.cake), label: '')),
           BottomNaigationControllerItem(
-              Center(child: Text('Главная')),
+              Center(child: Text('Карта')),
               BottomNavigationBarItem(
-                icon: Icon(Icons.cake),
-              )),
-          BottomNaigationControllerItem(Center(child: Text('Карта')),
-              BottomNavigationBarItem(icon: Icon(Icons.location_pin))),
+                  icon: Icon(Icons.location_pin), label: '')),
           BottomNaigationControllerItem(Center(child: Text('Избранное')),
-              BottomNavigationBarItem(icon: Icon(Icons.bookmark))),
+              BottomNavigationBarItem(icon: Icon(Icons.bookmark), label: '')),
           BottomNaigationControllerItem(
               Center(child: Text('Профиль')),
               BottomNavigationBarItem(
-                icon: Icon(Icons.account_circle),
-              ))
+                  icon: Icon(Icons.account_circle), label: ''))
         ];
 
   @override
@@ -40,6 +38,8 @@ class _BottomNaigationControllerState extends State<BottomNaigationController> {
     return Scaffold(
       body: _items.map((e) => e.page).toList()[_currentPage],
       bottomNavigationBar: BottomNavigationBar(
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
         items: _items.map((e) => e.barItem).toList(),
         currentIndex: _currentPage,
         onTap: _onItemTapped,

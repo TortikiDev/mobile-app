@@ -6,4 +6,4 @@ linter:
 
 analyzer:
   exclude:
-    - "lib/app/l10n/**"
+    - "lib/l10n/**"
