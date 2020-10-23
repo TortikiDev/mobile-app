@@ -1,4 +1,4 @@
-name: Dart CI
+name: Flutter CI
 
 on:
   push:
@@ -15,8 +15,7 @@ jobs:
       with:
         java-version: '12.x'
     - uses: subosito/flutter-action@v1
-      with:
-        flutter-version: '1.9.1+hotfix.6'
+    - run: flutter upgrade
     - run: flutter pub get
     - run: flutter analyze
     - run: flutter test
