@@ -1,0 +1,14 @@
+{
+  "@@locale": "ru",
+  "@@last_modified": "2020-10-23T17:54:52.662269",
+  "ok": "OK",
+  "@ok": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "error": "Ошибка",
+  "@error": {
+    "type": "text",
+    "placeholders": {}
+  }
+}
