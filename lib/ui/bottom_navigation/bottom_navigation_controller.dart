@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../app_localizations.dart';
+import '../app_theme.dart';
 import 'bottom_navigation_item.dart';
 
 class BottomNaigationController extends StatefulWidget {
@@ -19,16 +20,28 @@ class _BottomNaigationControllerState extends State<BottomNaigationController> {
 
   _BottomNaigationControllerState(AppLocalizations localizations)
       : _items = [
-          BottomNaigationControllerItem(Center(child: Text('Главная')),
-              BottomNavigationBarItem(icon: Image.asset('assets/cherry.png'), label: '')),
           BottomNaigationControllerItem(
-              Center(child: Text('Карта')),
+              Container(
+                  color: appTheme.colorScheme.background,
+                  child: Center(child: Text('Главная'))),
+              BottomNavigationBarItem(
+                  icon: ImageIcon(AssetImage('assets/cherry.png'), size: 24),
+                  label: '')),
+          BottomNaigationControllerItem(
+              Container(
+                  color: appTheme.colorScheme.background,
+                  child: Center(child: Text('Карта'))),
               BottomNavigationBarItem(
                   icon: Icon(Icons.location_pin), label: '')),
-          BottomNaigationControllerItem(Center(child: Text('Избранное')),
+          BottomNaigationControllerItem(
+              Container(
+                  color: appTheme.colorScheme.background,
+                  child: Center(child: Text('Избранное'))),
               BottomNavigationBarItem(icon: Icon(Icons.bookmark), label: '')),
           BottomNaigationControllerItem(
-              Center(child: Text('Профиль')),
+              Container(
+                  color: appTheme.colorScheme.background,
+                  child: Center(child: Text('Профиль'))),
               BottomNavigationBarItem(
                   icon: Icon(Icons.account_circle), label: ''))
         ];
