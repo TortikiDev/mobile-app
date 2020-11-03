@@ -20,7 +20,7 @@ class _BottomNaigationControllerState extends State<BottomNaigationController> {
   _BottomNaigationControllerState(AppLocalizations localizations)
       : _items = [
           BottomNaigationControllerItem(Center(child: Text('Главная')),
-              BottomNavigationBarItem(icon: Icon(Icons.cake), label: '')),
+              BottomNavigationBarItem(icon: Image.asset('assets/cherry.png'), label: '')),
           BottomNaigationControllerItem(
               Center(child: Text('Карта')),
               BottomNavigationBarItem(
