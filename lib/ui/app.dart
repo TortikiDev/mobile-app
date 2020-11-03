@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 import '../app_localizations.dart';
 import 'app_theme.dart';
@@ -10,6 +12,16 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: 'Tortiki',
       theme: appTheme,
+      localizationsDelegates: [
+        const AppLocalizationsDelegate(),
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate
+      ],
+      supportedLocales: [
+        const Locale('en'),
+        const Locale('ru'),
+      ],
+      // TODO: use device locale
       home: BottomNaigationController(localizations: AppLocalizations('ru')),
     );
   }

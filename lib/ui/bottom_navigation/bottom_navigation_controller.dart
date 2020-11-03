@@ -25,7 +25,8 @@ class _BottomNaigationControllerState extends State<BottomNaigationController> {
                   color: appTheme.colorScheme.background,
                   child: Center(child: Text('Главная'))),
               BottomNavigationBarItem(
-                  icon: ImageIcon(AssetImage('assets/cherry.png'), size: 24),
+                  icon: ImageIcon(AssetImage('assets/cherry.png'),
+                      key: ValueKey('cherry icon'), size: 24),
                   label: '')),
           BottomNaigationControllerItem(
               Container(
