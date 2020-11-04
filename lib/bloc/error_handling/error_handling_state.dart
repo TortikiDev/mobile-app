@@ -17,14 +17,3 @@ class ShowDialog extends ErrorHandlingState {
   @override
   List<Object> get props => [message];
 }
-
-class ShowApiErrorDialog extends ErrorHandlingState {
-  final String title;
-  final String correlationId;
-  final String message;
-
-  ShowApiErrorDialog(this.title, this.correlationId, this.message);
-
-  @override
-  List<Object> get props => [title, correlationId, message];
-}
