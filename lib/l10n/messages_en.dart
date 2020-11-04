@@ -21,7 +21,19 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
+    "apiResponseParsingError" : MessageLookupByLibrary.simpleMessage("Response parsing error. Please contact support"),
+    "authorizationError" : MessageLookupByLibrary.simpleMessage("Authorization error"),
+    "badGateway" : MessageLookupByLibrary.simpleMessage("Bad Gateway"),
+    "badRequest" : MessageLookupByLibrary.simpleMessage("Bad request"),
+    "connectionError" : MessageLookupByLibrary.simpleMessage("Connection error"),
+    "connectionTimeout" : MessageLookupByLibrary.simpleMessage("Connection timeout"),
     "error" : MessageLookupByLibrary.simpleMessage("Error"),
-    "ok" : MessageLookupByLibrary.simpleMessage("OK")
+    "forbidder" : MessageLookupByLibrary.simpleMessage("Forbidden"),
+    "internalServerError" : MessageLookupByLibrary.simpleMessage("Internal server error"),
+    "methodNotAllowed" : MessageLookupByLibrary.simpleMessage("Method Not Allowed"),
+    "ok" : MessageLookupByLibrary.simpleMessage("OK"),
+    "resourceNotFound" : MessageLookupByLibrary.simpleMessage("Resource not found"),
+    "serverIsNotAvailable" : MessageLookupByLibrary.simpleMessage("Server is not available"),
+    "somethingWentWrong" : MessageLookupByLibrary.simpleMessage("Something went wrong")
   };
 }

@@ -21,7 +21,19 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
+    "apiResponseParsingError" : MessageLookupByLibrary.simpleMessage("Ошибка обработки ответа"),
+    "authorizationError" : MessageLookupByLibrary.simpleMessage("Ошибка авторизации"),
+    "badGateway" : MessageLookupByLibrary.simpleMessage("Ошибочный шлюз"),
+    "badRequest" : MessageLookupByLibrary.simpleMessage("Неверный запрос"),
+    "connectionError" : MessageLookupByLibrary.simpleMessage("Ошибка соединения"),
+    "connectionTimeout" : MessageLookupByLibrary.simpleMessage("Таймаут соединения"),
     "error" : MessageLookupByLibrary.simpleMessage("Ошибка"),
-    "ok" : MessageLookupByLibrary.simpleMessage("OK")
+    "forbidder" : MessageLookupByLibrary.simpleMessage("Отказано в доступе"),
+    "internalServerError" : MessageLookupByLibrary.simpleMessage("Внутренняя ошибка сервера"),
+    "methodNotAllowed" : MessageLookupByLibrary.simpleMessage("Метод не доступен"),
+    "ok" : MessageLookupByLibrary.simpleMessage("OK"),
+    "resourceNotFound" : MessageLookupByLibrary.simpleMessage("Ресурс не найден"),
+    "serverIsNotAvailable" : MessageLookupByLibrary.simpleMessage("Сервер недоступен"),
+    "somethingWentWrong" : MessageLookupByLibrary.simpleMessage("Что-то пошло не так")
   };
 }
