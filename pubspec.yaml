@@ -26,10 +26,18 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
+  # Business logic
+  flutter_bloc: ^6.0.6
+  equatable: ^1.2.5
+  package_info: ^0.4.3
+  # Networking
+  dio: ^3.0.10
+
 dev_dependencies:
   # Test
   flutter_test:
     sdk: flutter
+  bloc_test: ^7.1.0
   # Linter
   effective_dart: ^1.2.4
   # Localization

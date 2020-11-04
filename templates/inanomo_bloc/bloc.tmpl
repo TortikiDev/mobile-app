@@ -1,0 +1,27 @@
+import 'dart:async';
+
+import 'package:flutter/foundation.dart';
+
+import '../base_bloc.dart';
+import '../error_handling/index.dart';
+import 'index.dart';
+
+class ${upperName}Bloc extends BaseBloc<${upperName}Event, ${upperName}State> {
+  // region Properties
+
+  // endregion
+
+  // region Lifecycle
+
+  ${upperName}Bloc({@required ErrorHandlingBloc errorHandlingBloc})
+      : super(
+            initialState: ${upperName}State(), errorHandlingBloc: errorHandlingBloc);
+
+  @override
+  Stream<${upperName}State> mapEventToState(${upperName}Event event) async* {
+    // TODO: implement event to state mapping
+    throw UnimplementedError();
+  }
+
+  // endregion
+}
