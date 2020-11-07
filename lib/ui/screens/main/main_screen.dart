@@ -6,8 +6,22 @@ import '../../../bloc/main/index.dart';
 class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // TODO: add scaffold body
+    // TODO: Localize strings
     return BlocBuilder<MainBloc, MainState>(
-        builder: (context, state) => Scaffold());
+        builder: (context, state) => DefaultTabController(
+              length: 2,
+              child: Scaffold(
+                  appBar: AppBar(
+                      title: Image.asset('assets/main_app_bar_title.png',
+                          height: 40),
+                      bottom: TabBar(tabs: [
+                        Tab(text: 'Лента'.toUpperCase()),
+                        Tab(text: 'Рецепты'.toUpperCase()),
+                      ])),
+                  body: TabBarView(children: [
+                    Center(child: Text('Главная')),
+                    Center(child: Text('Рецепты'))
+                  ])),
+            ));
   }
 }

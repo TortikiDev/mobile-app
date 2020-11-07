@@ -6,6 +6,14 @@ final appTheme = ThemeData(
     textTheme: _textTheme,
     fontFamily: 'Rubik',
     visualDensity: VisualDensity.adaptivePlatformDensity,
+    scaffoldBackgroundColor: Colors.white,
+    appBarTheme: AppBarTheme(color: _colorScheme.primary),
+    tabBarTheme: TabBarTheme(
+        indicator: UnderlineTabIndicator(
+            borderSide: BorderSide(width: 2.0, color: _colorScheme.onPrimary)),
+        labelColor: _colorScheme.onPrimary,
+        unselectedLabelColor: _colorScheme.primaryVariant,
+        labelStyle: _textTheme.button),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
         showSelectedLabels: false,
         showUnselectedLabels: false,
@@ -30,55 +38,31 @@ final _colorScheme = ColorScheme(
 
 final _textTheme = TextTheme(
   headline1: TextStyle(
-      fontWeight: FontWeight.w300,
-      fontSize: 96,
-      color: _colorScheme.onPrimary),
+      fontWeight: FontWeight.w300, fontSize: 96, color: _colorScheme.onPrimary),
   headline2: TextStyle(
-      fontWeight: FontWeight.w300,
-      fontSize: 60,
-      color: _colorScheme.onPrimary),
+      fontWeight: FontWeight.w300, fontSize: 60, color: _colorScheme.onPrimary),
   headline3: TextStyle(
-      fontWeight: FontWeight.w400,
-      fontSize: 48,
-      color: _colorScheme.onPrimary),
+      fontWeight: FontWeight.w400, fontSize: 48, color: _colorScheme.onPrimary),
   headline4: TextStyle(
-      fontWeight: FontWeight.w300,
-      fontSize: 30,
-      color: _colorScheme.onPrimary),
+      fontWeight: FontWeight.w300, fontSize: 30, color: _colorScheme.onPrimary),
   headline5: TextStyle(
-      fontWeight: FontWeight.w400,
-      fontSize: 24,
-      color: _colorScheme.onPrimary),
+      fontWeight: FontWeight.w400, fontSize: 24, color: _colorScheme.onPrimary),
   headline6: TextStyle(
-      fontWeight: FontWeight.w500,
-      fontSize: 20,
-      color: _colorScheme.onPrimary),
+      fontWeight: FontWeight.w500, fontSize: 20, color: _colorScheme.onPrimary),
   subtitle1: TextStyle(
-      fontWeight: FontWeight.w400,
-      fontSize: 16,
-      color: _colorScheme.onPrimary),
+      fontWeight: FontWeight.w400, fontSize: 16, color: _colorScheme.onPrimary),
   subtitle2: TextStyle(
-      fontWeight: FontWeight.w400,
-      fontSize: 14,
-      color: _colorScheme.onPrimary),
+      fontWeight: FontWeight.w400, fontSize: 14, color: _colorScheme.onPrimary),
   bodyText1: TextStyle(
-      fontWeight: FontWeight.w400,
-      fontSize: 18,
-      color: _colorScheme.onPrimary),
+      fontWeight: FontWeight.w400, fontSize: 18, color: _colorScheme.onPrimary),
   bodyText2: TextStyle(
       fontWeight: FontWeight.normal,
       fontSize: 14,
       color: _colorScheme.onPrimary),
   caption: TextStyle(
-      fontWeight: FontWeight.w400,
-      fontSize: 12,
-      color: _colorScheme.onPrimary),
+      fontWeight: FontWeight.w400, fontSize: 12, color: _colorScheme.onPrimary),
   button: TextStyle(
-      fontWeight: FontWeight.w500,
-      fontSize: 14,
-      color: _colorScheme.onPrimary),
+      fontWeight: FontWeight.w500, fontSize: 14, color: _colorScheme.onPrimary),
   overline: TextStyle(
-      fontWeight: FontWeight.w500,
-      fontSize: 10,
-      color: _colorScheme.onPrimary),
+      fontWeight: FontWeight.w500, fontSize: 10, color: _colorScheme.onPrimary),
 );

@@ -14,13 +14,11 @@ class MainBloc extends BaseBloc<MainEvent, MainState> {
   // region Lifecycle
 
   MainBloc({@required ErrorHandlingBloc errorHandlingBloc})
-      : super(
-            initialState: MainState(), errorHandlingBloc: errorHandlingBloc);
+      : super(initialState: MainState(), errorHandlingBloc: errorHandlingBloc);
 
   @override
   Stream<MainState> mapEventToState(MainEvent event) async* {
     // TODO: implement event to state mapping
-    throw UnimplementedError();
   }
 
   // endregion

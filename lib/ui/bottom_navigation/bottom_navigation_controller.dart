@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+
 import '../app_theme.dart';
+import '../screens/main/main_screen_factory.dart';
 import 'bottom_navigation_item.dart';
 
 class BottomNaigationController extends StatefulWidget {
@@ -25,10 +27,7 @@ class _BottomNaigationControllerState extends State<BottomNaigationController> {
       final theme = Theme.of(context);
       _items = [
         BottomNaigationControllerItem(
-            Container(
-                color: appTheme.colorScheme.background,
-                child: Center(
-                    child: Text('Главная', style: theme.textTheme.bodyText1))),
+            MainScreenFactory().createWidget(),
             BottomNavigationBarItem(
                 icon: ImageIcon(AssetImage('assets/cherry.png'),
                     key: ValueKey('cherry icon'), size: 24),
