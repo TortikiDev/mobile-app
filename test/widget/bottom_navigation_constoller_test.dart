@@ -1,14 +1,12 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter/material.dart';
-import 'package:tortiki/app_localizations.dart';
 import 'package:tortiki/ui/bottom_navigation/bottom_navigation_controller.dart';
 import 'make_testable_widget.dart';
 
 void main() {
   testWidgets('Bottom navigation controller smoke test', (tester) async {
-    final localizations = AppLocalizations('en');
-    await tester.pumpWidget(makeTestableWidget(
-        child: BottomNaigationController(localizations: localizations)));
+    await tester
+        .pumpWidget(makeTestableWidget(child: BottomNaigationController()));
     await tester.pumpAndSettle();
     expect(find.byType(BottomNavigationBar), findsOneWidget);
     await tester.tap(find.byIcon(Icons.location_pin));

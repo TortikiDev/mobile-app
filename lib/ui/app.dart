@@ -9,7 +9,7 @@ import 'app_theme.dart';
 import 'bottom_navigation/bottom_navigation_controller.dart';
 import 'reusable/show_dialog_mixin.dart';
 
-class App extends StatelessWidget with ShowDialogMixin {
+class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -24,7 +24,20 @@ class App extends StatelessWidget with ShowDialogMixin {
           const Locale('en'),
           const Locale('ru'),
         ],
-        home: BlocListener<ErrorHandlingBloc, ErrorHandlingState>(
+        home: _ErrorHandlinhDecorator(child: BottomNaigationController()));
+  }
+}
+
+class _ErrorHandlinhDecorator extends StatelessWidget with ShowDialogMixin {
+  final Widget child;
+  const _ErrorHandlinhDecorator({Key key, @required this.child})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+        create: (context) => ErrorHandlingBloc(),
+        child: BlocListener<ErrorHandlingBloc, ErrorHandlingState>(
             listenWhen: (previous, current) => current is ShowDialog,
             listener: (context, state) {
               void dismissError() => BlocProvider.of<ErrorHandlingBloc>(context)
@@ -38,8 +51,6 @@ class App extends StatelessWidget with ShowDialogMixin {
                     onDismiss: dismissError);
               }
             },
-            child: Builder(
-                builder: (context) => BottomNaigationController(
-                    localizations: AppLocalizations.of(context)))));
+            child: child));
   }
 }
