@@ -25,6 +25,7 @@ class FeedBloc extends BaseBloc<FeedEvent, FeedState> {
       // TODO: Load posts from server
       final postsStub = [
         PostViewModel(
+            id: '123',
             userAvaratUrl:
                 'https://images.unsplash.com/photo-1510616022132-9976466385a8',
             userName: 'Granny',
@@ -35,6 +36,7 @@ class FeedBloc extends BaseBloc<FeedEvent, FeedState> {
             likes: 0,
             liked: false),
         PostViewModel(
+            id: '124',
             userAvaratUrl: null,
             userName: 'DEady',
             imageUrl:

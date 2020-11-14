@@ -7,12 +7,13 @@ import 'post/post_view.dart';
 class FeedScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return BlocBuilder<FeedBloc, FeedState>(builder: (context, state) {
       return ListView.builder(
           itemCount: state.postsViewModels.length,
           itemBuilder: (context, index) {
             final model = state.postsViewModels[index];
-            return PostView(model: model);
+            return PostView(model: model, theme: theme);
           });
     });
   }

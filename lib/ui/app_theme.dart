@@ -35,8 +35,8 @@ final _colorScheme = ColorScheme(
     error: Colors.red,
     onPrimary: Color(0xFFB2404F),
     onSecondary: Color(0xFFB2404F),
-    onSurface: Colors.black,
-    onBackground: Color(0xFF989898),
+    onSurface: Color(0xFF989898),
+    onBackground: Colors.black,
     onError: Colors.white,
     brightness: Brightness.light);
 
@@ -54,17 +54,23 @@ final _textTheme = TextTheme(
   headline6: TextStyle(
       fontWeight: FontWeight.w500, fontSize: 20, color: _colorScheme.onPrimary),
   subtitle1: TextStyle(
-      fontWeight: FontWeight.w400, fontSize: 16, color: _colorScheme.onPrimary),
+      fontWeight: FontWeight.w400,
+      fontSize: 16,
+      color: _colorScheme.onBackground),
   subtitle2: TextStyle(
-      fontWeight: FontWeight.w400, fontSize: 14, color: _colorScheme.onPrimary),
+      fontWeight: FontWeight.w400,
+      fontSize: 14,
+      color: _colorScheme.onBackground),
   bodyText1: TextStyle(
-      fontWeight: FontWeight.w400, fontSize: 18, color: _colorScheme.onPrimary),
+      fontWeight: FontWeight.w400,
+      fontSize: 18,
+      color: _colorScheme.onBackground),
   bodyText2: TextStyle(
       fontWeight: FontWeight.normal,
       fontSize: 14,
-      color: _colorScheme.onPrimary),
+      color: _colorScheme.onBackground),
   caption: TextStyle(
-      fontWeight: FontWeight.w400, fontSize: 12, color: _colorScheme.onPrimary),
+      fontWeight: FontWeight.w400, fontSize: 12, color: _colorScheme.onSurface),
   button: TextStyle(
       fontWeight: FontWeight.w500, fontSize: 14, color: _colorScheme.onPrimary),
   overline: TextStyle(
