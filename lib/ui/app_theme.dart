@@ -6,6 +6,8 @@ final appTheme = ThemeData(
     textTheme: _textTheme,
     fontFamily: 'Rubik',
     visualDensity: VisualDensity.adaptivePlatformDensity,
+    highlightColor: Colors.transparent,
+    splashColor: Colors.white30,
     scaffoldBackgroundColor: Colors.white,
     appBarTheme: AppBarTheme(color: _colorScheme.primary),
     tabBarTheme: TabBarTheme(

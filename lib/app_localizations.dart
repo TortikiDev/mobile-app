@@ -97,6 +97,8 @@ class AppLocalizations {
 
   // region Feed
 
+  String get main => Intl.message('Main', name: 'main', locale: localeName);
+
   String get feed => Intl.message('Feed', name: 'feed', locale: localeName);
 
   // endregion
@@ -105,6 +107,26 @@ class AppLocalizations {
 
   String get recipes =>
       Intl.message('Recipes', name: 'recipes', locale: localeName);
+
+  // endregion
+
+  // region Map
+
+  String get map => Intl.message('Map', name: 'map', locale: localeName);
+
+  // endregion
+
+  // region Bookmarks
+
+  String get bookmarks =>
+      Intl.message('Bookmarks', name: 'bookmarks', locale: localeName);
+
+  // endregion
+
+  // region Profile
+
+  String get profile =>
+      Intl.message('Profile', name: 'profile', locale: localeName);
 
   // endregion
 }
