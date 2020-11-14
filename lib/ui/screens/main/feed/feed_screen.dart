@@ -2,12 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../bloc/feed/index.dart';
+import 'post/post_view.dart';
 
 class FeedScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // TODO: add scaffold body
-    return BlocBuilder<FeedBloc, FeedState>(
-        builder: (context, state) => Scaffold());
+    return BlocBuilder<FeedBloc, FeedState>(builder: (context, state) {
+      return ListView.builder(
+          itemCount: state.postsViewModels.length,
+          itemBuilder: (context, index) {
+            final model = state.postsViewModels[index];
+            return PostView(model: model);
+          });
+    });
   }
 }

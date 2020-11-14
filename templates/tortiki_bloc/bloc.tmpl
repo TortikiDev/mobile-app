@@ -15,7 +15,8 @@ class ${upperName}Bloc extends BaseBloc<${upperName}Event, ${upperName}State> {
 
   ${upperName}Bloc({@required ErrorHandlingBloc errorHandlingBloc})
       : super(
-            initialState: ${upperName}State(), errorHandlingBloc: errorHandlingBloc);
+            initialState: ${upperName}State.initial(), 
+            errorHandlingBloc: errorHandlingBloc);
 
   @override
   Stream<${upperName}State> mapEventToState(${upperName}Event event) async* {
