@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-class MainState extends Equatable {
+class FeedState extends Equatable {
   @override
   List<Object> get props => [];
 }
