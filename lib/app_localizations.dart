@@ -50,6 +50,8 @@ class AppLocalizations {
 
   String get error => Intl.message('Error', name: 'error', locale: localeName);
 
+  String get more => Intl.message('more', name: 'more', locale: localeName);
+
   // endregion
 
   // region Errors
@@ -90,6 +92,19 @@ class AppLocalizations {
 
   String get badGateway =>
       Intl.message('Bad Gateway', name: 'badGateway', locale: localeName);
+
+  // endregion
+
+  // region Feed
+
+  String get feed => Intl.message('Feed', name: 'feed', locale: localeName);
+
+  // endregion
+
+  // region Recipes
+
+  String get recipes =>
+      Intl.message('Recipes', name: 'recipes', locale: localeName);
 
   // endregion
 }

@@ -28,10 +28,13 @@ class MessageLookup extends MessageLookupByLibrary {
     "connectionError" : MessageLookupByLibrary.simpleMessage("Connection error"),
     "connectionTimeout" : MessageLookupByLibrary.simpleMessage("Connection timeout"),
     "error" : MessageLookupByLibrary.simpleMessage("Error"),
+    "feed" : MessageLookupByLibrary.simpleMessage("Feed"),
     "forbidder" : MessageLookupByLibrary.simpleMessage("Forbidden"),
     "internalServerError" : MessageLookupByLibrary.simpleMessage("Internal server error"),
     "methodNotAllowed" : MessageLookupByLibrary.simpleMessage("Method Not Allowed"),
+    "more" : MessageLookupByLibrary.simpleMessage("more"),
     "ok" : MessageLookupByLibrary.simpleMessage("OK"),
+    "recipes" : MessageLookupByLibrary.simpleMessage("Recipes"),
     "resourceNotFound" : MessageLookupByLibrary.simpleMessage("Resource not found"),
     "serverIsNotAvailable" : MessageLookupByLibrary.simpleMessage("Server is not available"),
     "somethingWentWrong" : MessageLookupByLibrary.simpleMessage("Something went wrong")

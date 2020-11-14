@@ -10,6 +10,11 @@
     "type": "text",
     "placeholders": {}
   },
+  "more": "more",
+  "@more": {
+    "type": "text",
+    "placeholders": {}
+  },
   "somethingWentWrong": "Something went wrong",
   "@somethingWentWrong": {
     "type": "text",
@@ -67,6 +72,16 @@
   },
   "badGateway": "Bad Gateway",
   "@badGateway": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "feed": "Feed",
+  "@feed": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "recipes": "Recipes",
+  "@recipes": {
     "type": "text",
     "placeholders": {}
   }

@@ -10,6 +10,11 @@
     "type": "text",
     "placeholders": {}
   },
+  "more": "ещё",
+  "@more": {
+    "type": "text",
+    "placeholders": {}
+  },
   "somethingWentWrong": "Что-то пошло не так",
   "@somethingWentWrong": {
     "type": "text",
@@ -67,6 +72,16 @@
   },
   "badGateway": "Ошибочный шлюз",
   "@badGateway": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "feed": "Лента",
+  "@feed": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "recipes": "Рецепты",
+  "@recipes": {
     "type": "text",
     "placeholders": {}
   }

@@ -28,10 +28,13 @@ class MessageLookup extends MessageLookupByLibrary {
     "connectionError" : MessageLookupByLibrary.simpleMessage("Ошибка соединения"),
     "connectionTimeout" : MessageLookupByLibrary.simpleMessage("Таймаут соединения"),
     "error" : MessageLookupByLibrary.simpleMessage("Ошибка"),
+    "feed" : MessageLookupByLibrary.simpleMessage("Лента"),
     "forbidder" : MessageLookupByLibrary.simpleMessage("Отказано в доступе"),
     "internalServerError" : MessageLookupByLibrary.simpleMessage("Внутренняя ошибка сервера"),
     "methodNotAllowed" : MessageLookupByLibrary.simpleMessage("Метод не доступен"),
+    "more" : MessageLookupByLibrary.simpleMessage("ещё"),
     "ok" : MessageLookupByLibrary.simpleMessage("OK"),
+    "recipes" : MessageLookupByLibrary.simpleMessage("Рецепты"),
     "resourceNotFound" : MessageLookupByLibrary.simpleMessage("Ресурс не найден"),
     "serverIsNotAvailable" : MessageLookupByLibrary.simpleMessage("Сервер недоступен"),
     "somethingWentWrong" : MessageLookupByLibrary.simpleMessage("Что-то пошло не так")
