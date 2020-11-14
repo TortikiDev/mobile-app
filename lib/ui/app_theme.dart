@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 final appTheme = ThemeData(
+    brightness: Brightness.light,
     colorScheme: _colorScheme,
     canvasColor: _colorScheme.primary,
     textTheme: _textTheme,
@@ -9,7 +10,8 @@ final appTheme = ThemeData(
     highlightColor: Colors.transparent,
     splashColor: Colors.white30,
     scaffoldBackgroundColor: Colors.white,
-    appBarTheme: AppBarTheme(color: _colorScheme.primary),
+    appBarTheme:
+        AppBarTheme(color: _colorScheme.primary, brightness: Brightness.light),
     tabBarTheme: TabBarTheme(
         indicator: UnderlineTabIndicator(
             borderSide: BorderSide(width: 2.0, color: _colorScheme.onPrimary)),
