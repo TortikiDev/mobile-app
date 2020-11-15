@@ -1,16 +1,53 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tortiki/bloc/feed/index.dart';
 
+import '../../../../../app_localizations.dart';
+import '../../../../../bloc/feed/index.dart';
 import 'post_view_model.dart';
 
-class PostView extends StatelessWidget {
+class PostView extends StatefulWidget {
   final PostViewModel model;
   final ThemeData theme;
+  final AppLocalizations localizations;
 
-  const PostView({Key key, @required this.model, @required this.theme})
+  PostView(
+      {Key key,
+      @required this.model,
+      @required this.theme,
+      @required this.localizations})
       : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() =>
+      _PostViewState(model: model, theme: theme, localizations: localizations);
+}
+
+class _PostViewState extends State<PostView> {
+  final PostViewModel model;
+  final ThemeData theme;
+  final AppLocalizations localizations;
+
+  TapGestureRecognizer _moreTapGestureRecognizer;
+
+  _PostViewState(
+      {@required this.model,
+      @required this.theme,
+      @required this.localizations});
+
+  @override
+  void initState() {
+    super.initState();
+    _moreTapGestureRecognizer = TapGestureRecognizer()
+      ..onTap = _expandDesccription;
+  }
+
+  @override
+  void dispose() {
+    _moreTapGestureRecognizer.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,12 +86,20 @@ class PostView extends StatelessWidget {
                       : Image.network(model.imageUrl, fit: BoxFit.cover),
                 ))),
         Padding(
-          padding: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 8.0),
-          child: Text(model.description,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              style: theme.textTheme.bodyText2),
-        ),
+            padding: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 8.0),
+            child: RichText(
+                maxLines: model.descriptionExpanded ? null : 2,
+                overflow: TextOverflow.ellipsis,
+                text: TextSpan(children: [
+                  TextSpan(
+                      text: model.description,
+                      style: theme.textTheme.bodyText2),
+                  TextSpan(
+                      text: localizations.more,
+                      style: theme.textTheme.bodyText2
+                          .copyWith(color: theme.colorScheme.onSurface),
+                      recognizer: _moreTapGestureRecognizer),
+                ]))),
         Padding(
           padding: EdgeInsets.only(left: 16.0, right: 16.0),
           child: Row(
@@ -65,7 +110,7 @@ class PostView extends StatelessWidget {
                       color: model.liked
                           ? theme.colorScheme.onPrimary
                           : theme.colorScheme.secondaryVariant),
-                  onPressed: () => _likePressed(context)),
+                  onPressed: _likePressed),
               Padding(
                   padding: EdgeInsets.only(right: 4),
                   child: Text(model.likes.toString(),
@@ -81,12 +126,16 @@ class PostView extends StatelessWidget {
     );
   }
 
-  void _likePressed(BuildContext context) {
+  void _likePressed() {
     BlocProvider.of<FeedBloc>(context).add(Like(model.id));
   }
 
   void _sharePressed() {
     // TODO: implement sharing
     print('share');
+  }
+
+  void _expandDesccription() {
+    BlocProvider.of<FeedBloc>(context).add(ExpandDesccription(model.id));
   }
 }

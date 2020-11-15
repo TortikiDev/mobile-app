@@ -55,8 +55,33 @@ class FeedBloc extends BaseBloc<FeedEvent, FeedState> {
       ];
       yield state.copy(postsViewModels: postsStub);
     } else if (event is Like) {
-      // TODO: handle post like
-      print('[LIKE] postId: ${event.postId}');
+      yield _mapLikeEventToState(event.postId);
+    } else if (event is ExpandDesccription) {
+      yield _mapExpandDescriptionEventToState(event.postId);
+    }
+  }
+
+  // endregion
+
+  // Private methods
+
+  FeedState _mapLikeEventToState(String postId) {
+    // TODO: handle post like
+    print('[LIKE] postId: $postId');
+    return state.copy();
+  }
+
+  FeedState _mapExpandDescriptionEventToState(String postId) {
+    final post = state.postsViewModels.firstWhere((e) => e.id == postId);
+    if (post != null) {
+      final expandedPost = post.copy(descriptionExpanded: true);
+      final updatedPostsViewModels = state.postsViewModels;
+      final postIndex = updatedPostsViewModels.indexOf(post);
+      updatedPostsViewModels
+          .replaceRange(postIndex, postIndex + 1, [expandedPost]);
+      return state.copy(postsViewModels: updatedPostsViewModels);
+    } else {
+      return state.copy();
     }
   }
 

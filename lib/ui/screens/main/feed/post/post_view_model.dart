@@ -7,7 +7,7 @@ class PostViewModel extends Equatable {
   final String userName;
   final String imageUrl;
   final String description;
-  final bool descriptionexpanded;
+  final bool descriptionExpanded;
   final int likes;
   final bool liked;
 
@@ -17,9 +17,28 @@ class PostViewModel extends Equatable {
       @required this.userName,
       @required this.imageUrl,
       @required this.description,
-      this.descriptionexpanded = false,
+      this.descriptionExpanded = false,
       @required this.likes,
       @required this.liked});
+
+  PostViewModel copy(
+          {String id,
+          String userAvaratUrl,
+          String userName,
+          String imageUrl,
+          String description,
+          bool descriptionExpanded,
+          int likes,
+          bool liked}) =>
+      PostViewModel(
+          id: id ?? this.id,
+          userAvaratUrl: userAvaratUrl ?? this.userAvaratUrl,
+          userName: userName ?? this.userName,
+          imageUrl: imageUrl ?? this.imageUrl,
+          description: description ?? this.description,
+          descriptionExpanded: descriptionExpanded ?? this.descriptionExpanded,
+          likes: likes ?? this.likes,
+          liked: liked ?? this.liked);
 
   @override
   List<Object> get props =>
