@@ -54,6 +54,9 @@ class FeedBloc extends BaseBloc<FeedEvent, FeedState> {
             liked: true)
       ];
       yield state.copy(postsViewModels: postsStub);
+    } else if (event is Like) {
+      // TODO: handle post like
+      print('[LIKE] postId: ${event.postId}');
     }
   }
 

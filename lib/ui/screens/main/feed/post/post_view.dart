@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tortiki/bloc/feed/index.dart';
 
 import 'post_view_model.dart';
 
@@ -63,7 +65,7 @@ class PostView extends StatelessWidget {
                       color: model.liked
                           ? theme.colorScheme.onPrimary
                           : theme.colorScheme.secondaryVariant),
-                  onPressed: _likePressed),
+                  onPressed: () => _likePressed(context)),
               Padding(
                   padding: EdgeInsets.only(right: 4),
                   child: Text(model.likes.toString(),
@@ -79,9 +81,8 @@ class PostView extends StatelessWidget {
     );
   }
 
-  void _likePressed() {
-    // TODO: implement like
-    print('like');
+  void _likePressed(BuildContext context) {
+    BlocProvider.of<FeedBloc>(context).add(Like(model.id));
   }
 
   void _sharePressed() {

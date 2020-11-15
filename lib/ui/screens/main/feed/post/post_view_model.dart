@@ -7,6 +7,7 @@ class PostViewModel extends Equatable {
   final String userName;
   final String imageUrl;
   final String description;
+  final bool descriptionexpanded;
   final int likes;
   final bool liked;
 
@@ -16,6 +17,7 @@ class PostViewModel extends Equatable {
       @required this.userName,
       @required this.imageUrl,
       @required this.description,
+      this.descriptionexpanded = false,
       @required this.likes,
       @required this.liked});
 
