@@ -41,6 +41,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "recipes" : MessageLookupByLibrary.simpleMessage("Рецепты"),
     "resourceNotFound" : MessageLookupByLibrary.simpleMessage("Ресурс не найден"),
     "serverIsNotAvailable" : MessageLookupByLibrary.simpleMessage("Сервер недоступен"),
+    "showLess" : MessageLookupByLibrary.simpleMessage("свернуть"),
     "somethingWentWrong" : MessageLookupByLibrary.simpleMessage("Что-то пошло не так")
   };
 }

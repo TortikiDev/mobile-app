@@ -50,8 +50,6 @@ class AppLocalizations {
 
   String get error => Intl.message('Error', name: 'error', locale: localeName);
 
-  String get more => Intl.message('more', name: 'more', locale: localeName);
-
   // endregion
 
   // region Errors
@@ -100,6 +98,11 @@ class AppLocalizations {
   String get main => Intl.message('Main', name: 'main', locale: localeName);
 
   String get feed => Intl.message('Feed', name: 'feed', locale: localeName);
+
+  String get more => Intl.message('more', name: 'more', locale: localeName);
+  
+  String get showLess =>
+      Intl.message('show less', name: 'showLess', locale: localeName);
 
   // endregion
 

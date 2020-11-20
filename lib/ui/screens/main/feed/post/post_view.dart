@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -7,6 +8,7 @@ import '../../../../../app_localizations.dart';
 import '../../../../../bloc/feed/index.dart';
 import '../../../../reusable/text/expandable_text.dart';
 import 'post_view_model.dart';
+import 'package:tortiki/utils/string_is_valid_url.dart';
 
 class PostView extends StatefulWidget {
   final PostViewModel model;
@@ -57,18 +59,21 @@ class _PostViewState extends State<PostView> {
         Row(
           children: [
             Padding(
-              padding: EdgeInsets.all(16.0),
-              child: CircleAvatar(
-                  radius: 20,
-                  backgroundColor: Colors.grey[300],
-                  child: CircleAvatar(
-                    radius: 19.5,
-                    backgroundColor: Colors.transparent,
-                    backgroundImage: (model.userAvaratUrl?.isEmpty ?? true)
-                        ? null
-                        : NetworkImage(model.userAvaratUrl),
-                  )),
-            ),
+                padding: EdgeInsets.all(16.0),
+                child: CircleAvatar(
+                    radius: 20,
+                    backgroundColor: Colors.grey[300],
+                    child: model.userAvaratUrl?.isValidUrl() ?? false
+                        ? CachedNetworkImage(
+                            imageUrl: model.userAvaratUrl,
+                            imageBuilder: (context, imageProvider) {
+                              return CircleAvatar(
+                                  radius: 19.5,
+                                  backgroundColor: Colors.transparent,
+                                  backgroundImage: imageProvider);
+                            },
+                            fit: BoxFit.cover)
+                        : null)),
             Expanded(
                 child: Padding(
                     padding: EdgeInsets.only(right: 16.0),
@@ -82,15 +87,16 @@ class _PostViewState extends State<PostView> {
                 color: Colors.grey[300],
                 child: Padding(
                   padding: EdgeInsets.only(top: 0.5, bottom: 0.5),
-                  child: (model.imageUrl?.isEmpty ?? true)
-                      ? null
-                      : Image.network(model.imageUrl, fit: BoxFit.cover),
+                  child: model.imageUrl?.isValidUrl() ?? false
+                      ? CachedNetworkImage(
+                          imageUrl: model.imageUrl, fit: BoxFit.cover)
+                      : null,
                 ))),
         Padding(
             padding: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 8.0),
             child: ExpandableText(model.description,
                 readMoreText: localizations.more,
-                readLessText: 'свернуть',
+                readLessText: localizations.showLess,
                 theme: theme)),
         Padding(
           padding: EdgeInsets.only(left: 16.0, right: 16.0),

@@ -10,11 +10,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "more": "more",
-  "@more": {
-    "type": "text",
-    "placeholders": {}
-  },
   "somethingWentWrong": "Something went wrong",
   "@somethingWentWrong": {
     "type": "text",
@@ -82,6 +77,16 @@
   },
   "recipes": "Recipes",
   "@recipes": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "more": "more",
+  "@more": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "showLess": "show less",
+  "@showLess": {
     "type": "text",
     "placeholders": {}
   },

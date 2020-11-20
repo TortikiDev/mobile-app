@@ -10,11 +10,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "more": "ещё",
-  "@more": {
-    "type": "text",
-    "placeholders": {}
-  },
   "somethingWentWrong": "Что-то пошло не так",
   "@somethingWentWrong": {
     "type": "text",
@@ -82,6 +77,16 @@
   },
   "recipes": "Рецепты",
   "@recipes": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "more": "ещё",
+  "@more": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "showLess": "свернуть",
+  "@showLess": {
     "type": "text",
     "placeholders": {}
   },
