@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 final appTheme = ThemeData(
     brightness: Brightness.light,
     colorScheme: _colorScheme,
+    accentColor: _colorScheme.onPrimary,
     canvasColor: _colorScheme.primary,
     textTheme: _textTheme,
     fontFamily: 'Rubik',
