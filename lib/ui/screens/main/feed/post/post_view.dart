@@ -3,6 +3,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pinch_zoom/pinch_zoom.dart';
 
 import '../../../../../app_localizations.dart';
 import '../../../../../bloc/feed/index.dart';
@@ -88,8 +89,11 @@ class _PostViewState extends State<PostView> {
                 child: Padding(
                   padding: EdgeInsets.only(top: 0.5, bottom: 0.5),
                   child: model.imageUrl?.isValidUrl() ?? false
-                      ? CachedNetworkImage(
-                          imageUrl: model.imageUrl, fit: BoxFit.cover)
+                      ? PinchZoom(
+                          maxScale: 1.2,
+                          zoomedBackgroundColor: Colors.black.withOpacity(0.1),
+                          image: CachedNetworkImage(
+                              imageUrl: model.imageUrl, fit: BoxFit.cover))
                       : null,
                 ))),
         Padding(
