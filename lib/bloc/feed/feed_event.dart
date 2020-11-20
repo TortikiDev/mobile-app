@@ -16,10 +16,10 @@ class Like extends FeedEvent {
   List<Object> get props => [postId];
 }
 
-class ExpandDesccription extends FeedEvent {
+class ExpandDescription extends FeedEvent {
   final String postId;
 
-  ExpandDesccription(this.postId);
+  ExpandDescription(this.postId);
 
   @override
   List<Object> get props => [postId];

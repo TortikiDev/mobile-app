@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../app_localizations.dart';
 
+import '../../../../app_localizations.dart';
 import '../../../../bloc/feed/index.dart';
 import 'post/post_view.dart';
 
@@ -13,11 +13,15 @@ class FeedScreen extends StatelessWidget {
 
     return BlocBuilder<FeedBloc, FeedState>(builder: (context, state) {
       return ListView.builder(
+          padding: EdgeInsets.only(bottom: 8),
           itemCount: state.postsViewModels.length,
           itemBuilder: (context, index) {
             final model = state.postsViewModels[index];
             return PostView(
-                model: model, theme: theme, localizations: localizations);
+                key: ObjectKey(model),
+                model: model,
+                theme: theme,
+                localizations: localizations);
           });
     });
   }

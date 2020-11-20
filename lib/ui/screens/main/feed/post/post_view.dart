@@ -88,18 +88,9 @@ class _PostViewState extends State<PostView> {
         Padding(
             padding: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 8.0),
             child: RichText(
-                maxLines: model.descriptionExpanded ? null : 2,
+                maxLines: 50,//model.descriptionExpanded ? null : 2,
                 overflow: TextOverflow.ellipsis,
-                text: TextSpan(children: [
-                  TextSpan(
-                      text: model.description,
-                      style: theme.textTheme.bodyText2),
-                  TextSpan(
-                      text: localizations.more,
-                      style: theme.textTheme.bodyText2
-                          .copyWith(color: theme.colorScheme.onSurface),
-                      recognizer: _moreTapGestureRecognizer),
-                ]))),
+                text: _getDescriptionSpan(model.descriptionExpanded))),
         Padding(
           padding: EdgeInsets.only(left: 16.0, right: 16.0),
           child: Row(
@@ -126,6 +117,24 @@ class _PostViewState extends State<PostView> {
     );
   }
 
+  InlineSpan _getDescriptionSpan(bool isExpanded) {
+    final descriptionTextSpan =
+        TextSpan(text: model.description, style: theme.textTheme.bodyText2);
+    if (model.descriptionExpanded) {
+      return descriptionTextSpan;
+    } else {
+      return TextSpan(children: [
+        descriptionTextSpan,
+        WidgetSpan(
+            child: GestureDetector(
+                child: Text(localizations.more,
+                    style: theme.textTheme.bodyText2
+                        .copyWith(color: theme.colorScheme.onSurface)),
+                onTap: _expandDesccription))
+      ]);
+    }
+  }
+
   void _likePressed() {
     BlocProvider.of<FeedBloc>(context).add(Like(model.id));
   }
@@ -136,6 +145,6 @@ class _PostViewState extends State<PostView> {
   }
 
   void _expandDesccription() {
-    BlocProvider.of<FeedBloc>(context).add(ExpandDesccription(model.id));
+    BlocProvider.of<FeedBloc>(context).add(ExpandDescription(model.id));
   }
 }

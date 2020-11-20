@@ -41,8 +41,16 @@ class PostViewModel extends Equatable {
           liked: liked ?? this.liked);
 
   @override
-  List<Object> get props =>
-      [id, userAvaratUrl, userName, imageUrl, description, likes, liked];
+  List<Object> get props => [
+        id,
+        userAvaratUrl,
+        userName,
+        imageUrl,
+        description,
+        descriptionExpanded,
+        likes,
+        liked
+      ];
 
   @override
   bool get stringify => true;

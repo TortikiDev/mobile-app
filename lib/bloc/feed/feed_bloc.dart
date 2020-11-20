@@ -56,7 +56,7 @@ class FeedBloc extends BaseBloc<FeedEvent, FeedState> {
       yield state.copy(postsViewModels: postsStub);
     } else if (event is Like) {
       yield _mapLikeEventToState(event.postId);
-    } else if (event is ExpandDesccription) {
+    } else if (event is ExpandDescription) {
       yield _mapExpandDescriptionEventToState(event.postId);
     }
   }
@@ -75,7 +75,7 @@ class FeedBloc extends BaseBloc<FeedEvent, FeedState> {
     final post = state.postsViewModels.firstWhere((e) => e.id == postId);
     if (post != null) {
       final expandedPost = post.copy(descriptionExpanded: true);
-      final updatedPostsViewModels = state.postsViewModels;
+      final updatedPostsViewModels = List.of(state.postsViewModels);
       final postIndex = updatedPostsViewModels.indexOf(post);
       updatedPostsViewModels
           .replaceRange(postIndex, postIndex + 1, [expandedPost]);

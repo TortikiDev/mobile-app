@@ -24,13 +24,13 @@ class App extends StatelessWidget {
           const Locale('en'),
           const Locale('ru'),
         ],
-        home: _ErrorHandlinhDecorator(child: BottomNaigationController()));
+        home: _ErrorHandlingDecorator(child: BottomNaigationController()));
   }
 }
 
-class _ErrorHandlinhDecorator extends StatelessWidget with ShowDialogMixin {
+class _ErrorHandlingDecorator extends StatelessWidget with ShowDialogMixin {
   final Widget child;
-  const _ErrorHandlinhDecorator({Key key, @required this.child})
+  const _ErrorHandlingDecorator({Key key, @required this.child})
       : super(key: key);
 
   @override
