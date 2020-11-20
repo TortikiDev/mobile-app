@@ -7,7 +7,6 @@ class PostViewModel extends Equatable {
   final String userName;
   final String imageUrl;
   final String description;
-  final bool descriptionExpanded;
   final int likes;
   final bool liked;
 
@@ -17,7 +16,6 @@ class PostViewModel extends Equatable {
       @required this.userName,
       @required this.imageUrl,
       @required this.description,
-      this.descriptionExpanded = false,
       @required this.likes,
       @required this.liked});
 
@@ -36,21 +34,12 @@ class PostViewModel extends Equatable {
           userName: userName ?? this.userName,
           imageUrl: imageUrl ?? this.imageUrl,
           description: description ?? this.description,
-          descriptionExpanded: descriptionExpanded ?? this.descriptionExpanded,
           likes: likes ?? this.likes,
           liked: liked ?? this.liked);
 
   @override
-  List<Object> get props => [
-        id,
-        userAvaratUrl,
-        userName,
-        imageUrl,
-        description,
-        descriptionExpanded,
-        likes,
-        liked
-      ];
+  List<Object> get props =>
+      [id, userAvaratUrl, userName, imageUrl, description, likes, liked];
 
   @override
   bool get stringify => true;

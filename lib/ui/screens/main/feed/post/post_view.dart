@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../app_localizations.dart';
 import '../../../../../bloc/feed/index.dart';
+import '../../../../reusable/text/expandable_text.dart';
 import 'post_view_model.dart';
 
 class PostView extends StatefulWidget {
@@ -87,10 +88,10 @@ class _PostViewState extends State<PostView> {
                 ))),
         Padding(
             padding: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 8.0),
-            child: RichText(
-                maxLines: 50,//model.descriptionExpanded ? null : 2,
-                overflow: TextOverflow.ellipsis,
-                text: _getDescriptionSpan(model.descriptionExpanded))),
+            child: ExpandableText(model.description,
+                readMoreText: localizations.more,
+                readLessText: 'свернуть',
+                theme: theme)),
         Padding(
           padding: EdgeInsets.only(left: 16.0, right: 16.0),
           child: Row(
@@ -115,24 +116,6 @@ class _PostViewState extends State<PostView> {
         ),
       ],
     );
-  }
-
-  InlineSpan _getDescriptionSpan(bool isExpanded) {
-    final descriptionTextSpan =
-        TextSpan(text: model.description, style: theme.textTheme.bodyText2);
-    if (model.descriptionExpanded) {
-      return descriptionTextSpan;
-    } else {
-      return TextSpan(children: [
-        descriptionTextSpan,
-        WidgetSpan(
-            child: GestureDetector(
-                child: Text(localizations.more,
-                    style: theme.textTheme.bodyText2
-                        .copyWith(color: theme.colorScheme.onSurface)),
-                onTap: _expandDesccription))
-      ]);
-    }
   }
 
   void _likePressed() {
