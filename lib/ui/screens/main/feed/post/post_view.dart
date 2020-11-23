@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,9 +6,9 @@ import 'package:pinch_zoom/pinch_zoom.dart';
 
 import '../../../../../app_localizations.dart';
 import '../../../../../bloc/feed/index.dart';
+import '../../../../../utils/string_is_valid_url.dart';
 import '../../../../reusable/text/expandable_text.dart';
 import 'post_view_model.dart';
-import 'package:tortiki/utils/string_is_valid_url.dart';
 
 class PostView extends StatefulWidget {
   final PostViewModel model;
@@ -116,7 +115,8 @@ class _PostViewState extends State<PostView> {
   }
 
   void _likePressed() {
-    BlocProvider.of<FeedBloc>(context).add(Like(model.id));
+    final event = model.liked ? Unlike(model.id) : Like(model.id);
+    BlocProvider.of<FeedBloc>(context).add(event);
   }
 
   void _sharePressed() {

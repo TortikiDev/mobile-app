@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:flutter/foundation.dart';
 
@@ -25,12 +26,8 @@ class FeedBloc extends BaseBloc<FeedEvent, FeedState> {
       yield state.copy(loadingFirstPage: true);
       final posts = await _getPostsFirstPage();
       yield state.copy(postsViewModels: posts, loadingFirstPage: false);
-    } else if (event is Like) {
-      yield _mapLikeEventToState(event.postId);
-    } else if (event is ExpandDescription) {
-      yield _mapExpandEventToState(event.postId, true);
-    } else if (event is CollapseDescription) {
-      yield _mapExpandEventToState(event.postId, false);
+    } else if (event is PostEvent) {
+      yield _mapPostEventToState(event);
     }
   }
 
@@ -80,20 +77,28 @@ class FeedBloc extends BaseBloc<FeedEvent, FeedState> {
         .then((_) => Future.value(result2));
   }
 
-  FeedState _mapLikeEventToState(String postId) {
-    // TODO: handle post like
-    print('[LIKE] postId: $postId');
-    return state.copy();
-  }
-
-  FeedState _mapExpandEventToState(String postId, bool isExpanded) {
-    final post = state.postsViewModels.firstWhere((e) => e.id == postId);
+  FeedState _mapPostEventToState(PostEvent event) {
+    final post = state.postsViewModels.firstWhere((e) => e.id == event.postId);
     if (post != null) {
-      final expandedPost = post.copy(descriptionExpanded: isExpanded);
+      PostViewModel postToUpdate;
+      if (event is Like) {
+        final likes = post.likes + 1;
+        postToUpdate = post.copy(liked: true, likes: likes);
+        // TODO: send like http request
+      } else if (event is Unlike) {
+        final likes = max(0, post.likes - 1);
+        postToUpdate = post.copy(liked: false, likes: likes);
+        // TODO: send unlike http request
+      } else if (event is ExpandDescription) {
+        postToUpdate = post.copy(descriptionExpanded: true);
+      } else if (event is CollapseDescription) {
+        postToUpdate = post.copy(descriptionExpanded: false);
+      }
+
       final updatedPostsViewModels = List.of(state.postsViewModels);
       final postIndex = updatedPostsViewModels.indexOf(post);
       updatedPostsViewModels
-          .replaceRange(postIndex, postIndex + 1, [expandedPost]);
+          .replaceRange(postIndex, postIndex + 1, [postToUpdate]);
       return state.copy(postsViewModels: updatedPostsViewModels);
     } else {
       return state.copy();

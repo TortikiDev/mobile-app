@@ -20,6 +20,10 @@ class Like extends PostEvent {
   Like(String postId) : super(postId);
 }
 
+class Unlike extends PostEvent {
+  Unlike(String postId) : super(postId);
+}
+
 class ExpandDescription extends PostEvent {
   ExpandDescription(String postId) : super(postId);
 }
