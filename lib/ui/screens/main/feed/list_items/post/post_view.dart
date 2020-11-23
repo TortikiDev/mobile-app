@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pinch_zoom/pinch_zoom.dart';
+import 'package:share/share.dart';
 
 import '../../../../../../app_localizations.dart';
 import '../../../../../../bloc/feed/index.dart';
@@ -120,8 +121,10 @@ class _PostViewState extends State<PostView> {
   }
 
   void _sharePressed() {
-    // TODO: implement sharing
-    print('share');
+    // TODO: specify actual base url
+    final baseUrl = 'https://tortiki.ru';
+    final postUrl = '$baseUrl/post/${model.id}';
+    Share.share(postUrl);
   }
 
   void _expandDescription(bool isExpanded) {
