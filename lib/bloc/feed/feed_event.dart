@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 abstract class FeedEvent extends Equatable {}
 
 abstract class PostEvent extends FeedEvent {
-  final String postId;
+  final int postId;
 
   PostEvent(this.postId);
 
@@ -17,17 +17,22 @@ class BlocInit extends FeedEvent {
 }
 
 class Like extends PostEvent {
-  Like(String postId) : super(postId);
+  Like(int postId) : super(postId);
 }
 
 class Unlike extends PostEvent {
-  Unlike(String postId) : super(postId);
+  Unlike(int postId) : super(postId);
 }
 
 class ExpandDescription extends PostEvent {
-  ExpandDescription(String postId) : super(postId);
+  ExpandDescription(int postId) : super(postId);
 }
 
 class CollapseDescription extends PostEvent {
-  CollapseDescription(String postId) : super(postId);
+  CollapseDescription(int postId) : super(postId);
+}
+
+class LoadNextPage extends FeedEvent {
+  @override
+  List<Object> get props => [];
 }

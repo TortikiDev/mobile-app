@@ -1,27 +1,32 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 
-import '../../ui/screens/main/feed/post/post_view_model.dart';
+import '../../ui/screens/main/feed/list_items/feed_list_item.dart';
 
 class FeedState extends Equatable {
-  final List<PostViewModel> _postsViewModels;
+  final List<FeedListItem> _feedItems;
   final bool loadingFirstPage;
+  final bool loadingNextPage;
 
-  List<PostViewModel> get postsViewModels => _postsViewModels;
+  List<FeedListItem> get feedItems => _feedItems;
 
   FeedState(
-      {@required List<PostViewModel> postsViewModels,
-      this.loadingFirstPage = false})
-      : _postsViewModels = postsViewModels;
+      {@required List<FeedListItem> feedItems,
+      this.loadingFirstPage = false,
+      this.loadingNextPage = false})
+      : _feedItems = feedItems;
 
-  factory FeedState.initial() => FeedState(postsViewModels: []);
+  factory FeedState.initial() => FeedState(feedItems: []);
 
   FeedState copy(
-          {List<PostViewModel> postsViewModels, bool loadingFirstPage}) =>
+          {List<FeedListItem> feedItems,
+          bool loadingFirstPage,
+          bool loadingNextPage}) =>
       FeedState(
-          postsViewModels: postsViewModels ?? _postsViewModels,
-          loadingFirstPage: loadingFirstPage ?? this.loadingFirstPage);
+          feedItems: feedItems ?? _feedItems,
+          loadingFirstPage: loadingFirstPage ?? this.loadingFirstPage,
+          loadingNextPage: loadingNextPage ?? this.loadingNextPage);
 
   @override
-  List<Object> get props => [_postsViewModels, loadingFirstPage];
+  List<Object> get props => [_feedItems, loadingFirstPage, loadingNextPage];
 }

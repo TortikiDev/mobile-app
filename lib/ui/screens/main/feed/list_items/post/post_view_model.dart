@@ -1,8 +1,10 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 
-class PostViewModel extends Equatable {
-  final String id;
+import '../../list_items/feed_list_item.dart';
+
+class PostViewModel extends Equatable implements FeedListItem {
+  final int id;
   final String userAvaratUrl;
   final String userName;
   final String imageUrl;
@@ -22,7 +24,7 @@ class PostViewModel extends Equatable {
       this.descriptionExpanded = false});
 
   PostViewModel copy(
-          {String id,
+          {int id,
           String userAvaratUrl,
           String userName,
           String imageUrl,
