@@ -34,6 +34,14 @@ class FeedBloc extends BaseBloc<FeedEvent, FeedState> {
       }
     } else if (event is PostEvent) {
       yield _mapPostEventToState(event);
+    } else if (event is PullToRefresh) {
+      try {
+        final posts = await _getPostsFirstPage();
+        yield state.copy(feedItems: posts);
+      } on Exception catch (e) {
+        errorHandlingBloc.add(ExceptionRaised(e));
+      }
+      event.onComplete();
     } else if (event is LoadNextPage) {
       final updatedFeedItems = List.of(state.feedItems);
       updatedFeedItems.add(ProgressIndicatorItem());

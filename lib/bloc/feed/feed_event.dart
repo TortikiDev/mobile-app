@@ -32,6 +32,15 @@ class CollapseDescription extends PostEvent {
   CollapseDescription(int postId) : super(postId);
 }
 
+class PullToRefresh extends FeedEvent {
+  final Function onComplete;
+
+  PullToRefresh(this.onComplete);
+
+  @override
+  List<Object> get props => [];
+}
+
 class LoadNextPage extends FeedEvent {
   @override
   List<Object> get props => [];
