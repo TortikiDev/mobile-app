@@ -33,25 +33,10 @@ class _PostViewState extends State<PostView> {
   final ThemeData theme;
   final AppLocalizations localizations;
 
-  TapGestureRecognizer _moreTapGestureRecognizer;
-
   _PostViewState(
       {@required this.model,
       @required this.theme,
       @required this.localizations});
-
-  @override
-  void initState() {
-    super.initState();
-    _moreTapGestureRecognizer = TapGestureRecognizer()
-      ..onTap = _expandDesccription;
-  }
-
-  @override
-  void dispose() {
-    _moreTapGestureRecognizer.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -101,7 +86,9 @@ class _PostViewState extends State<PostView> {
             child: ExpandableText(model.description,
                 readMoreText: localizations.more,
                 readLessText: localizations.showLess,
-                theme: theme)),
+                theme: theme,
+                onExpand: _expandDescription,
+                initialExpandedValue: model.descriptionExpanded)),
         Padding(
           padding: EdgeInsets.only(left: 16.0, right: 16.0),
           child: Row(
@@ -137,7 +124,10 @@ class _PostViewState extends State<PostView> {
     print('share');
   }
 
-  void _expandDesccription() {
-    BlocProvider.of<FeedBloc>(context).add(ExpandDescription(model.id));
+  void _expandDescription(bool isExpanded) {
+    final event = isExpanded
+        ? ExpandDescription(model.id)
+        : CollapseDescription(model.id);
+    BlocProvider.of<FeedBloc>(context).add(event);
   }
 }

@@ -2,14 +2,15 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class ExpandableText extends StatefulWidget {
-  const ExpandableText(
-    this.text, {
-    Key key,
-    @required this.readMoreText,
-    @required this.readLessText,
-    @required this.theme,
-    this.trimLines = 2,
-  })  : assert(text != null),
+  const ExpandableText(this.text,
+      {Key key,
+      @required this.readMoreText,
+      @required this.readLessText,
+      @required this.theme,
+      this.trimLines = 2,
+      this.initialExpandedValue = false,
+      this.onExpand})
+      : assert(text != null),
         super(key: key);
 
   final String text;
@@ -17,19 +18,24 @@ class ExpandableText extends StatefulWidget {
   final String readLessText;
   final ThemeData theme;
   final int trimLines;
+  final bool initialExpandedValue;
+  final Function(bool) onExpand;
 
   @override
-  ExpandableTextState createState() => ExpandableTextState();
+  ExpandableTextState createState() =>
+      ExpandableTextState(expanded: initialExpandedValue);
 }
 
 class ExpandableTextState extends State<ExpandableText> {
-  bool _expanded = false;
+  bool _expanded;
   TapGestureRecognizer _readMoreTapGesture;
+
+  ExpandableTextState({@required bool expanded}) : _expanded = expanded;
 
   @override
   void initState() {
     super.initState();
-    _readMoreTapGesture = TapGestureRecognizer()..onTap = _onTapReadMore;
+    _readMoreTapGesture = TapGestureRecognizer()..onTap = _onTapExpand;
   }
 
   @override
@@ -100,7 +106,9 @@ class ExpandableTextState extends State<ExpandableText> {
     return result;
   }
 
-  void _onTapReadMore() {
-    setState(() => _expanded = !_expanded);
+  void _onTapExpand() {
+    final newExpandedValue = !_expanded;
+    setState(() => _expanded = !newExpandedValue);
+    widget.onExpand(newExpandedValue);
   }
 }

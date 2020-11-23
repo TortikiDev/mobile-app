@@ -27,6 +27,10 @@ class FeedBloc extends BaseBloc<FeedEvent, FeedState> {
       yield state.copy(postsViewModels: posts, loadingFirstPage: false);
     } else if (event is Like) {
       yield _mapLikeEventToState(event.postId);
+    } else if (event is ExpandDescription) {
+      yield _mapExpandEventToState(event.postId, true);
+    } else if (event is CollapseDescription) {
+      yield _mapExpandEventToState(event.postId, false);
     }
   }
 
@@ -66,14 +70,34 @@ class FeedBloc extends BaseBloc<FeedEvent, FeedState> {
           likes: 1250,
           liked: true)
     ];
+    final result1 = postsStub + postsStub + postsStub + postsStub + postsStub;
+    final result2 = result1
+        .asMap()
+        .map((key, value) => MapEntry(key, value.copy(id: key.toString())))
+        .values
+        .toList();
     return Future.delayed(Duration(seconds: 2))
-        .then((_) => Future.value(postsStub));
+        .then((_) => Future.value(result2));
   }
 
   FeedState _mapLikeEventToState(String postId) {
     // TODO: handle post like
     print('[LIKE] postId: $postId');
     return state.copy();
+  }
+
+  FeedState _mapExpandEventToState(String postId, bool isExpanded) {
+    final post = state.postsViewModels.firstWhere((e) => e.id == postId);
+    if (post != null) {
+      final expandedPost = post.copy(descriptionExpanded: isExpanded);
+      final updatedPostsViewModels = List.of(state.postsViewModels);
+      final postIndex = updatedPostsViewModels.indexOf(post);
+      updatedPostsViewModels
+          .replaceRange(postIndex, postIndex + 1, [expandedPost]);
+      return state.copy(postsViewModels: updatedPostsViewModels);
+    } else {
+      return state.copy();
+    }
   }
 
   // endregion

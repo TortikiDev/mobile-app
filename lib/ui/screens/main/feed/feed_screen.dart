@@ -15,17 +15,18 @@ class FeedScreen extends StatelessWidget {
       return state.loadingFirstPage
           ? Center(
               child: SizedBox(width: 32, child: CircularProgressIndicator()))
-          : ListView.builder(
-              padding: EdgeInsets.only(bottom: 8),
-              itemCount: state.postsViewModels.length,
-              itemBuilder: (context, index) {
-                final model = state.postsViewModels[index];
-                return PostView(
-                    key: ObjectKey(model),
-                    model: model,
-                    theme: theme,
-                    localizations: localizations);
-              });
+          : Scrollbar(
+              child: ListView.builder(
+                  padding: EdgeInsets.only(bottom: 8),
+                  itemCount: state.postsViewModels.length,
+                  itemBuilder: (context, index) {
+                    final model = state.postsViewModels[index];
+                    return PostView(
+                        key: ObjectKey(model),
+                        model: model,
+                        theme: theme,
+                        localizations: localizations);
+                  }));
     });
   }
 }
