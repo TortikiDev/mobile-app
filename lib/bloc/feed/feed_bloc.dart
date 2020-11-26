@@ -3,6 +3,8 @@ import 'dart:math';
 
 import 'package:flutter/foundation.dart';
 
+import '../../data/repositories/repositories.dart';
+import '../../data/responses/responses.dart';
 import '../../ui/screens/main/feed/list_items/post/post_view_model.dart';
 import '../../ui/screens/main/feed/list_items/progress_indicator_item.dart';
 import '../base_bloc.dart';
@@ -12,11 +14,15 @@ import 'index.dart';
 class FeedBloc extends BaseBloc<FeedEvent, FeedState> {
   // region Properties
 
+  final PostsRepository postsRepository;
+
   // endregion
 
   // region Lifecycle
 
-  FeedBloc({@required ErrorHandlingBloc errorHandlingBloc})
+  FeedBloc(
+      {@required this.postsRepository,
+      @required ErrorHandlingBloc errorHandlingBloc})
       : super(
             initialState: FeedState.initial(),
             errorHandlingBloc: errorHandlingBloc);
@@ -25,38 +31,21 @@ class FeedBloc extends BaseBloc<FeedEvent, FeedState> {
   Stream<FeedState> mapEventToState(FeedEvent event) async* {
     if (event is BlocInit) {
       yield state.copy(loadingFirstPage: true);
-      try {
-        final posts = await _getPostsFirstPage();
-        yield state.copy(feedItems: posts, loadingFirstPage: false);
-      } on Exception catch (e) {
-        errorHandlingBloc.add(ExceptionRaised(e));
-        yield state.copy(loadingFirstPage: false);
-      }
-    } else if (event is PostEvent) {
-      yield _mapPostEventToState(event);
+      final posts = await _getPostsFirstPage();
+      yield state.copy(feedItems: posts, loadingFirstPage: false);
     } else if (event is PullToRefresh) {
-      try {
-        final posts = await _getPostsFirstPage();
-        yield state.copy(feedItems: posts);
-      } on Exception catch (e) {
-        errorHandlingBloc.add(ExceptionRaised(e));
-      }
+      final posts = await _getPostsFirstPage();
+      yield state.copy(feedItems: posts);
       event.onComplete();
     } else if (event is LoadNextPage) {
-      final updatedFeedItems = List.of(state.feedItems);
-      updatedFeedItems.add(ProgressIndicatorItem());
-      yield state.copy(loadingNextPage: true, feedItems: updatedFeedItems);
-
-      final postNextPage = <PostViewModel>[];
-      try {
-        final nextPage = await _getPostsNextPage();
-        postNextPage.addAll(nextPage);
-      } on Exception catch (e) {
-        errorHandlingBloc.add(ExceptionRaised(e));
-      }
-      updatedFeedItems.removeLast();
-      updatedFeedItems.addAll(postNextPage);
+      final initialFeedItems = List.of(state.feedItems);
+      final feedItemsOnLoad = initialFeedItems + [ProgressIndicatorItem()];
+      yield state.copy(loadingNextPage: true, feedItems: feedItemsOnLoad);
+      final postNextPage = await _getPostsNextPage();
+      final updatedFeedItems = initialFeedItems + postNextPage;
       yield state.copy(loadingNextPage: false, feedItems: updatedFeedItems);
+    } else if (event is PostEvent) {
+      yield _mapPostEventToState(event);
     }
   }
 
@@ -64,31 +53,42 @@ class FeedBloc extends BaseBloc<FeedEvent, FeedState> {
 
   // Private methods
 
-  Future<List<PostViewModel>> _getPostsFirstPage() {
-    // TODO: Load posts from server
-    final firstPage = _generatePostsPage();
-    final result = firstPage
-        .asMap()
-        .map((key, value) => MapEntry(key, value.copy(id: key)))
-        .values
-        .toList();
-    return Future.delayed(Duration(seconds: 2))
-        .then((_) => Future.value(result));
+  Future<List<PostViewModel>> _getPostsFirstPage() async {
+    List<PostResponse> firstPageResponse;
+    try {
+      firstPageResponse = await postsRepository.getPosts();
+    } on Exception catch (e) {
+      errorHandlingBloc.add(ExceptionRaised(e));
+      return null;
+    }
+    final result = firstPageResponse.map(_mapPostResponseToViewModel).toList();
+    return result;
   }
 
-  Future<List<PostViewModel>> _getPostsNextPage() {
+  Future<List<PostViewModel>> _getPostsNextPage() async {
     final lastItem =
         state.feedItems.lastWhere((e) => e is PostViewModel) as PostViewModel;
     final lastId = lastItem.id;
-    final nextPage = _generatePostsPage();
-    final result = nextPage
-        .asMap()
-        .map((key, value) => MapEntry(key, value.copy(id: key + lastId)))
-        .values
-        .toList();
-    return Future.delayed(Duration(seconds: 2))
-        .then((_) => Future.value(result));
+    List<PostResponse> nextPageResponse;
+    try {
+      nextPageResponse = await postsRepository.getPosts(lastId: lastId);
+    } on Exception catch (e) {
+      errorHandlingBloc.add(ExceptionRaised(e));
+      nextPageResponse = [];
+    }
+    final result = nextPageResponse.map(_mapPostResponseToViewModel).toList();
+    return result;
   }
+
+  PostViewModel _mapPostResponseToViewModel(PostResponse response) =>
+      PostViewModel(
+          id: response.id,
+          userAvaratUrl: response.userAvaratUrl,
+          userName: response.userName,
+          imageUrl: response.imageUrl,
+          description: response.description,
+          likes: response.likes,
+          liked: response.liked);
 
   FeedState _mapPostEventToState(PostEvent event) {
     final post = state.feedItems
@@ -99,11 +99,19 @@ class FeedBloc extends BaseBloc<FeedEvent, FeedState> {
       if (event is Like) {
         final likes = post.likes + 1;
         postToUpdate = post.copy(liked: true, likes: likes);
-        // TODO: send like http request
+        try {
+          postsRepository.likePost(postId: event.postId);
+        } on Exception catch (e) {
+          errorHandlingBloc.add(ExceptionRaised(e));
+        }
       } else if (event is Unlike) {
         final likes = max<int>(0, post.likes - 1);
         postToUpdate = post.copy(liked: false, likes: likes);
-        // TODO: send unlike http request
+        try {
+          postsRepository.unlikePost(postId: event.postId);
+        } on Exception catch (e) {
+          errorHandlingBloc.add(ExceptionRaised(e));
+        }
       } else if (event is ExpandDescription) {
         postToUpdate = post.copy(descriptionExpanded: true);
       } else if (event is CollapseDescription) {
@@ -121,40 +129,4 @@ class FeedBloc extends BaseBloc<FeedEvent, FeedState> {
   }
 
   // endregion
-
-  // TODO: delete generating posts func
-
-  List<PostViewModel> _generatePostsPage() {
-    final postsStub = [
-      PostViewModel(
-          id: 123,
-          userAvaratUrl:
-              'https://images.unsplash.com/photo-1510616022132-9976466385a8',
-          userName: 'Granny',
-          imageUrl:
-              'https://images.unsplash.com/photo-1486427944299-d1955d23e34d',
-          description:
-              'В качестве рекламы моего рецепта могу сказать следующее.',
-          likes: 0,
-          liked: false),
-      PostViewModel(
-          id: 124,
-          userAvaratUrl: null,
-          userName: 'DEady',
-          imageUrl:
-              'https://images.unsplash.com/photo-1510616022132-9976466385a8',
-          description:
-              'В качестве рекламы моего рецепта могу сказать следующее: '
-              'когда муж моей подруги, капитан рыболовного судна, возвращался'
-              ' после 4 - 6 месяцев отсутствия домой, он звонил из Норвегии '
-              'или уже из Мурманска и просил меня испечь для него этот торт. '
-              'И я пекла. Оля рассказывает, что огромный торт он съедал один,'
-              ' никому не давал ни кусочка... говорил: "Это МОЙ торт! Он ДЛЯ'
-              ' МЕНЯ сделан!" И все. Ингредиентов - самый минимум!!! '
-              'Результат просто превосходный!',
-          likes: 1250,
-          liked: true)
-    ];
-    return postsStub + postsStub + postsStub + postsStub + postsStub;
-  }
 }

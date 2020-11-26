@@ -29,4 +29,7 @@ class FeedState extends Equatable {
 
   @override
   List<Object> get props => [_feedItems, loadingFirstPage, loadingNextPage];
+
+  @override
+  bool get stringify => true;
 }

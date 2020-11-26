@@ -1,3 +1,8 @@
-import 'package:tortiki/ui/screens/main/feed/list_items/feed_list_item.dart';
+import 'package:equatable/equatable.dart';
 
-class ProgressIndicatorItem implements FeedListItem {}
+import 'feed_list_item.dart';
+
+class ProgressIndicatorItem extends Equatable implements FeedListItem {
+  @override
+  List<Object> get props => [];
+}
