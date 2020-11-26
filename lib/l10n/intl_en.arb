@@ -1,6 +1,5 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2020-10-23T17:54:52.662269",
   "ok": "OK",
   "@ok": {
     "type": "text",
@@ -8,6 +7,106 @@
   },
   "error": "Error",
   "@error": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "somethingWentWrong": "Something went wrong",
+  "@somethingWentWrong": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "serverIsNotAvailable": "Server is not available",
+  "@serverIsNotAvailable": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "connectionTimeout": "Connection timeout",
+  "@connectionTimeout": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "connectionError": "Connection error",
+  "@connectionError": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "apiResponseParsingError": "Response parsing error. Please contact support",
+  "@apiResponseParsingError": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "badRequest": "Bad request",
+  "@badRequest": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "authorizationError": "Authorization error",
+  "@authorizationError": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "forbidder": "Forbidden",
+  "@forbidder": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "resourceNotFound": "Resource not found",
+  "@resourceNotFound": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "methodNotAllowed": "Method Not Allowed",
+  "@methodNotAllowed": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "internalServerError": "Internal server error",
+  "@internalServerError": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "badGateway": "Bad Gateway",
+  "@badGateway": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "feed": "Feed",
+  "@feed": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "recipes": "Recipes",
+  "@recipes": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "more": "more",
+  "@more": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "showLess": "show less",
+  "@showLess": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "main": "Main",
+  "@main": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "map": "Map",
+  "@map": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "bookmarks": "Bookmarks",
+  "@bookmarks": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "profile": "Profile",
+  "@profile": {
     "type": "text",
     "placeholders": {}
   }

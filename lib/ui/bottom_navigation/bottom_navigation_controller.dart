@@ -1,54 +1,66 @@
 import 'package:flutter/material.dart';
+
 import '../../app_localizations.dart';
 import '../app_theme.dart';
+import '../screens/main/main_screen_factory.dart';
 import 'bottom_navigation_item.dart';
 
 class BottomNaigationController extends StatefulWidget {
-  final AppLocalizations localizations;
-
-  BottomNaigationController({Key key, @required this.localizations})
-      : super(key: key);
+  BottomNaigationController({Key key}) : super(key: key);
 
   @override
   _BottomNaigationControllerState createState() =>
-      _BottomNaigationControllerState(localizations);
+      _BottomNaigationControllerState();
 }
 
 class _BottomNaigationControllerState extends State<BottomNaigationController> {
-  final List<BottomNaigationControllerItem> _items;
+  List<BottomNaigationControllerItem> _items;
   int _currentPage = 0;
 
-  _BottomNaigationControllerState(AppLocalizations localizations)
-      : _items = [
-          BottomNaigationControllerItem(
-              Container(
-                  color: appTheme.colorScheme.background,
-                  child: Center(child: Text('Главная'))),
-              BottomNavigationBarItem(
-                  icon: ImageIcon(AssetImage('assets/cherry.png'),
-                      key: ValueKey('cherry icon'), size: 24),
-                  label: '')),
-          BottomNaigationControllerItem(
-              Container(
-                  color: appTheme.colorScheme.background,
-                  child: Center(child: Text('Карта'))),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.location_pin), label: '')),
-          BottomNaigationControllerItem(
-              Container(
-                  color: appTheme.colorScheme.background,
-                  child: Center(child: Text('Избранное'))),
-              BottomNavigationBarItem(icon: Icon(Icons.bookmark), label: '')),
-          BottomNaigationControllerItem(
-              Container(
-                  color: appTheme.colorScheme.background,
-                  child: Center(child: Text('Профиль'))),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.account_circle), label: ''))
-        ];
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
+    if (_items == null) {
+      final theme = Theme.of(context);
+      final localizations = AppLocalizations.of(context);
+      _items = [
+        BottomNaigationControllerItem(
+            MainScreenFactory().createWidget(),
+            BottomNavigationBarItem(
+                label: localizations.main,
+                icon: ImageIcon(AssetImage('assets/cherry.png'),
+                    key: ValueKey('cherry icon'), size: 24))),
+        BottomNaigationControllerItem(
+            Container(
+                color: appTheme.colorScheme.background,
+                child: Center(
+                    child: Text(localizations.map,
+                        style: theme.textTheme.bodyText2))),
+            BottomNavigationBarItem(
+                label: localizations.map, icon: Icon(Icons.location_pin))),
+        BottomNaigationControllerItem(
+            Container(
+                color: appTheme.colorScheme.background,
+                child: Center(
+                    child: Text(localizations.bookmarks,
+                        style: theme.textTheme.headline6))),
+            BottomNavigationBarItem(
+                label: localizations.bookmarks, icon: Icon(Icons.bookmark))),
+        BottomNaigationControllerItem(
+            Container(
+                color: appTheme.colorScheme.background,
+                child: Center(
+                    child: Text(localizations.profile,
+                        style: theme.textTheme.button))),
+            BottomNavigationBarItem(
+                label: localizations.profile, icon: Icon(Icons.account_circle)))
+      ];
+    }
+
     return Scaffold(
       body: _items.map((e) => e.page).toList()[_currentPage],
       bottomNavigationBar: BottomNavigationBar(

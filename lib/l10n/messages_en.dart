@@ -21,7 +21,27 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
+    "apiResponseParsingError" : MessageLookupByLibrary.simpleMessage("Response parsing error. Please contact support"),
+    "authorizationError" : MessageLookupByLibrary.simpleMessage("Authorization error"),
+    "badGateway" : MessageLookupByLibrary.simpleMessage("Bad Gateway"),
+    "badRequest" : MessageLookupByLibrary.simpleMessage("Bad request"),
+    "bookmarks" : MessageLookupByLibrary.simpleMessage("Bookmarks"),
+    "connectionError" : MessageLookupByLibrary.simpleMessage("Connection error"),
+    "connectionTimeout" : MessageLookupByLibrary.simpleMessage("Connection timeout"),
     "error" : MessageLookupByLibrary.simpleMessage("Error"),
-    "ok" : MessageLookupByLibrary.simpleMessage("OK")
+    "feed" : MessageLookupByLibrary.simpleMessage("Feed"),
+    "forbidder" : MessageLookupByLibrary.simpleMessage("Forbidden"),
+    "internalServerError" : MessageLookupByLibrary.simpleMessage("Internal server error"),
+    "main" : MessageLookupByLibrary.simpleMessage("Main"),
+    "map" : MessageLookupByLibrary.simpleMessage("Map"),
+    "methodNotAllowed" : MessageLookupByLibrary.simpleMessage("Method Not Allowed"),
+    "more" : MessageLookupByLibrary.simpleMessage("more"),
+    "ok" : MessageLookupByLibrary.simpleMessage("OK"),
+    "profile" : MessageLookupByLibrary.simpleMessage("Profile"),
+    "recipes" : MessageLookupByLibrary.simpleMessage("Recipes"),
+    "resourceNotFound" : MessageLookupByLibrary.simpleMessage("Resource not found"),
+    "serverIsNotAvailable" : MessageLookupByLibrary.simpleMessage("Server is not available"),
+    "showLess" : MessageLookupByLibrary.simpleMessage("show less"),
+    "somethingWentWrong" : MessageLookupByLibrary.simpleMessage("Something went wrong")
   };
 }

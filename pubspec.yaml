@@ -26,10 +26,22 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
+  # Business logic
+  flutter_bloc: ^6.0.6
+  equatable: ^1.2.5
+  package_info: ^0.4.3
+  # Networking
+  dio: ^3.0.10
+  cached_network_image: ^2.3.3
+  # UI
+  pinch_zoom: ^0.0.4
+  share: ^0.6.5+4
+
 dev_dependencies:
   # Test
   flutter_test:
     sdk: flutter
+  bloc_test: ^7.1.0
   # Linter
   effective_dart: ^1.2.4
   # Localization
@@ -44,3 +56,12 @@ flutter:
   uses-material-design: true
   assets:
     - assets/
+  fonts:
+    - family: Rubik
+      fonts:
+        - asset: fonts/Rubik-Light.ttf
+          weight: 300
+        - asset: fonts/Rubik-Regular.ttf
+          weight: 400
+        - asset: fonts/Rubik-Medium.ttf
+          weight: 500
