@@ -3,7 +3,7 @@ import 'package:dio/dio.dart';
 import '../responses/responses.dart';
 
 class PostsRepository {
-  Future<List<PostResponse>> getPosts({int limit = 25, int lastId}) {
+  Future<List<PostResponse>> getPosts({int limit = 24, int lastId}) {
     // TODO: get posts from server
     final postsStub = [
       PostResponse(
@@ -38,12 +38,15 @@ class PostsRepository {
 
     final result = <PostResponse>[];
     do {
-      result.addAll(postsStub
-          .asMap()
-          .map((key, value) => MapEntry(key, value.copy(id: key)))
-          .values);
-    } while (result.length < limit);
-    final limitedResult = result.getRange(0, limit - 1).toList();
+      result.addAll(postsStub);
+    } while (result.length <= limit);
+    final limitedResult = result
+        .getRange(0, limit)
+        .toList()
+        .asMap()
+        .map((key, value) => MapEntry(key, value.copy(id: key)))
+        .values
+        .toList();
 
     return Future.delayed(Duration(seconds: 2))
         .then((_) => Future.value(limitedResult));
