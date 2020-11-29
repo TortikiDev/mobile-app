@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 
-import '../responses/responses.dart';
+import '../http_client/responses/responses.dart';
 
 // TODO: inject api client and make real requests
 class PostsRepository {

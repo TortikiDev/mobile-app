@@ -5,7 +5,7 @@ import 'package:tortiki/bloc/error_handling/index.dart';
 import 'package:mockito/mockito.dart';
 import 'package:tortiki/bloc/feed/index.dart';
 import 'package:tortiki/data/repositories/repositories.dart';
-import 'package:tortiki/data/responses/responses.dart';
+import 'package:tortiki/data/http_client/responses/responses.dart';
 import 'package:tortiki/ui/screens/main/feed/list_items/feed_list_item.dart';
 import 'package:tortiki/ui/screens/main/feed/list_items/post/post_view_model.dart';
 import 'package:tortiki/ui/screens/main/feed/list_items/progress_indicator_item.dart';

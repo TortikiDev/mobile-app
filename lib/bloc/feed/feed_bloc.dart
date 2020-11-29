@@ -3,8 +3,8 @@ import 'dart:math';
 
 import 'package:flutter/foundation.dart';
 
+import '../../data/http_client/responses/responses.dart';
 import '../../data/repositories/repositories.dart';
-import '../../data/responses/responses.dart';
 import '../../ui/screens/main/feed/list_items/post/post_view_model.dart';
 import '../../ui/screens/main/feed/list_items/progress_indicator_item.dart';
 import '../base_bloc.dart';
@@ -15,6 +15,8 @@ class FeedBloc extends BaseBloc<FeedEvent, FeedState> {
   // region Properties
 
   final PostsRepository postsRepository;
+  final JwtRepository jwtRepository;
+  final AccountRepository accountRepository;
 
   // endregion
 
@@ -22,6 +24,8 @@ class FeedBloc extends BaseBloc<FeedEvent, FeedState> {
 
   FeedBloc(
       {@required this.postsRepository,
+      @required this.jwtRepository,
+      @required this.accountRepository,
       @required ErrorHandlingBloc errorHandlingBloc})
       : super(
             initialState: FeedState.initial(),
@@ -30,7 +34,9 @@ class FeedBloc extends BaseBloc<FeedEvent, FeedState> {
   @override
   Stream<FeedState> mapEventToState(FeedEvent event) async* {
     if (event is BlocInit) {
-      yield state.copy(loadingFirstPage: true);
+      final isAuthenticated = (await jwtRepository.getJwt()) != null;
+      yield state.copy(
+          showCreatePostButton: isAuthenticated, loadingFirstPage: true);
       final posts = await _getPostsFirstPage();
       yield state.copy(feedItems: posts, loadingFirstPage: false);
     } else if (event is PullToRefresh) {
