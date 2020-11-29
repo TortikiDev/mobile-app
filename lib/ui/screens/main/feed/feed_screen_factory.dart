@@ -11,9 +11,13 @@ class FeedScreenFactory implements WidgetFactory {
   @override
   Widget createWidget({dynamic data}) {
     final postsRepository = PostsRepository();
+    final accountRepository = AccountRepository();
+    final jwtRepository = JwtRepository();
     return BlocProvider(
         create: (context) => FeedBloc(
             postsRepository: postsRepository,
+            accountRepository: accountRepository,
+            jwtRepository: jwtRepository,
             errorHandlingBloc: BlocProvider.of<ErrorHandlingBloc>(context))
           ..add(BlocInit()),
         child: FeedScreen());
