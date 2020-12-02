@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tortiki/bloc/main/index.dart';
 
 import '../../../app_localizations.dart';
 import '../../reusable/widget_factory.dart';
@@ -30,12 +32,15 @@ class MainScreen extends StatelessWidget {
             feedScreenFactory.createWidget(),
             recipesScreenFactory.createWidget()
           ]),
-          floatingActionButton: FloatingActionButton(
-            child: Icon(Icons.edit),
-            onPressed: () {
-
-            },
-          )),
+          floatingActionButton:
+              BlocBuilder<MainBloc, MainState>(builder: (context, state) {
+            if (state.showCreatePostButton) {
+              return FloatingActionButton(
+                  child: Icon(Icons.edit), onPressed: () {});
+            } else {
+              return null;
+            }
+          })),
     );
   }
 }
