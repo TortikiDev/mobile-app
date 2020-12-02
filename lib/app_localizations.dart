@@ -100,7 +100,7 @@ class AppLocalizations {
   String get feed => Intl.message('Feed', name: 'feed', locale: localeName);
 
   String get more => Intl.message('more', name: 'more', locale: localeName);
-  
+
   String get showLess =>
       Intl.message('show less', name: 'showLess', locale: localeName);
 
@@ -110,6 +110,13 @@ class AppLocalizations {
 
   String get recipes =>
       Intl.message('Recipes', name: 'recipes', locale: localeName);
+
+  // endregion
+
+  // region Create post
+
+  String get newPost =>
+      Intl.message('New post', name: 'newPost', locale: localeName);
 
   // endregion
 

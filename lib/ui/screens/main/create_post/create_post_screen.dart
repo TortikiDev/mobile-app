@@ -14,12 +14,12 @@ class CreatePostScreen extends StatelessWidget {
     return BlocBuilder<CreatePostBloc, CreatePostState>(
         builder: (context, state) => Scaffold(
               appBar: AppBar(
-                  title: Text(localizations.badGateway,
+                  title: Text(localizations.newPost,
                       style: theme.textTheme.headline6),
                   actions: [
                     IconButton(
                       icon: Icon(Icons.send),
-                      tooltip: localizations.badGateway,
+                      tooltip: localizations.newPost,
                       onPressed: () {},
                     ),
                   ]),

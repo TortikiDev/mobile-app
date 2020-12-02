@@ -36,6 +36,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "map" : MessageLookupByLibrary.simpleMessage("Карта"),
     "methodNotAllowed" : MessageLookupByLibrary.simpleMessage("Метод не доступен"),
     "more" : MessageLookupByLibrary.simpleMessage("ещё"),
+    "newPost" : MessageLookupByLibrary.simpleMessage("Новый пост"),
     "ok" : MessageLookupByLibrary.simpleMessage("OK"),
     "profile" : MessageLookupByLibrary.simpleMessage("Профиль"),
     "recipes" : MessageLookupByLibrary.simpleMessage("Рецепты"),

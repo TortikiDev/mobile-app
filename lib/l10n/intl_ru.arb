@@ -80,6 +80,11 @@
     "type": "text",
     "placeholders": {}
   },
+  "newPost": "Новый пост",
+  "@newPost": {
+    "type": "text",
+    "placeholders": {}
+  },
   "more": "ещё",
   "@more": {
     "type": "text",

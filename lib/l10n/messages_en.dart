@@ -36,6 +36,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "map" : MessageLookupByLibrary.simpleMessage("Map"),
     "methodNotAllowed" : MessageLookupByLibrary.simpleMessage("Method Not Allowed"),
     "more" : MessageLookupByLibrary.simpleMessage("more"),
+    "newPost" : MessageLookupByLibrary.simpleMessage("New post"),
     "ok" : MessageLookupByLibrary.simpleMessage("OK"),
     "profile" : MessageLookupByLibrary.simpleMessage("Profile"),
     "recipes" : MessageLookupByLibrary.simpleMessage("Recipes"),
