@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tortiki/bloc/create_post/index.dart';
 
 import '../../../app_localizations.dart';
 import '../../../bloc/main/index.dart';
@@ -37,7 +38,7 @@ class MainScreen extends StatelessWidget {
               ]),
               floatingActionButton: state.showCreatePostButton
                   ? FloatingActionButton(
-                      child: Icon(Icons.edit),
+                      child: Icon(Icons.create),
                       onPressed: () => _onCreateEntityTap(context))
                   : null)),
     );
@@ -49,10 +50,11 @@ class MainScreen extends StatelessWidget {
     WidgetFactory createEntityScreenFactory;
     switch (tabIndex) {
       case 0:
-        createEntityScreenFactory = InDevelopWidgetFactory();
+        createEntityScreenFactory = CreatePostScreenFactory();
         break;
       case 1:
-        createEntityScreenFactory = InDevelopWidgetFactory();
+      // TODO: use actual create recipe factory
+        createEntityScreenFactory = CreatePostScreenFactory();
         break;
       default:
         throw IndexError(tabIndex, tabController);

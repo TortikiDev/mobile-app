@@ -11,8 +11,10 @@ final appTheme = ThemeData(
     highlightColor: Colors.transparent,
     splashColor: Colors.white30,
     scaffoldBackgroundColor: Colors.white,
-    appBarTheme:
-        AppBarTheme(color: _colorScheme.primary, brightness: Brightness.light),
+    appBarTheme: AppBarTheme(
+        color: _colorScheme.primary,
+        brightness: Brightness.light,
+        iconTheme: IconThemeData(color: _colorScheme.onPrimary)),
     tabBarTheme: TabBarTheme(
         indicator: UnderlineTabIndicator(
             borderSide: BorderSide(width: 2.0, color: _colorScheme.onPrimary)),
