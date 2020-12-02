@@ -29,7 +29,13 @@ class MainScreen extends StatelessWidget {
           body: TabBarView(children: [
             feedScreenFactory.createWidget(),
             recipesScreenFactory.createWidget()
-          ])),
+          ]),
+          floatingActionButton: FloatingActionButton(
+            child: Icon(Icons.edit),
+            onPressed: () {
+
+            },
+          )),
     );
   }
 }

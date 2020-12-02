@@ -4,7 +4,6 @@ import 'dart:math';
 import 'package:flutter/foundation.dart';
 
 import '../../data/http_client/responses/responses.dart';
-import '../../data/preferences/account.dart';
 import '../../data/repositories/repositories.dart';
 import '../../ui/screens/main/feed/list_items/post/post_view_model.dart';
 import '../../ui/screens/main/feed/list_items/progress_indicator_item.dart';
@@ -16,7 +15,6 @@ class FeedBloc extends BaseBloc<FeedEvent, FeedState> {
   // region Properties
 
   final PostsRepository postsRepository;
-  final JwtRepository jwtRepository;
   final AccountRepository accountRepository;
 
   // endregion
@@ -25,7 +23,6 @@ class FeedBloc extends BaseBloc<FeedEvent, FeedState> {
 
   FeedBloc(
       {@required this.postsRepository,
-      @required this.jwtRepository,
       @required this.accountRepository,
       @required ErrorHandlingBloc errorHandlingBloc})
       : super(
@@ -35,9 +32,7 @@ class FeedBloc extends BaseBloc<FeedEvent, FeedState> {
   @override
   Stream<FeedState> mapEventToState(FeedEvent event) async* {
     if (event is BlocInit) {
-      final showCreatePostButton = await _showCreatePostButton();
-      yield state.copy(
-          showCreatePostButton: showCreatePostButton, loadingFirstPage: true);
+      yield state.copy(loadingFirstPage: true);
       final posts = await _getPostsFirstPage();
       yield state.copy(feedItems: posts, loadingFirstPage: false);
     } else if (event is PullToRefresh) {
@@ -59,20 +54,6 @@ class FeedBloc extends BaseBloc<FeedEvent, FeedState> {
   // endregion
 
   // Private methods
-
-  Future<bool> _showCreatePostButton() async {
-    final isAuthenticated = (await jwtRepository.getJwt()) != null;
-    var isConfectioner = false;
-    if (isAuthenticated) {
-      try {
-        final myAccount = await accountRepository.getMyAccount();
-        isConfectioner = myAccount.type == AccountType.confectioner;
-      } on Exception catch (e) {
-        errorHandlingBloc.add(ExceptionRaised(e));
-      }
-    }
-    return isAuthenticated && isConfectioner;
-  }
 
   Future<List<PostViewModel>> _getPostsFirstPage() async {
     List<PostResponse> firstPageResponse;
