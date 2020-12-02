@@ -1,10 +1,10 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tortiki/bloc/error_handling/index.dart';
-import 'package:tortiki/bloc/main/main_bloc.dart';
-import 'package:tortiki/data/repositories/account_repository.dart';
-import 'package:tortiki/data/repositories/jwt_repository.dart';
 
+import '../../../bloc/error_handling/index.dart';
+import '../../../bloc/main/index.dart';
+import '../../../data/repositories/account_repository.dart';
+import '../../../data/repositories/jwt_repository.dart';
 import '../../reusable/in_develop_screen_factory.dart';
 import '../../reusable/widget_factory.dart';
 import 'feed/feed_screen_factory.dart';
@@ -20,12 +20,13 @@ class MainScreenFactory implements WidgetFactory {
       final mainBloc = MainBloc(
           jwtRepository: jwtRepository,
           accountRepository: accountRepository,
-          errorHandlingBloc: errorHandlingBloc);
+          errorHandlingBloc: errorHandlingBloc)
+        ..add(BlocInit());
 
       final feedScreenFactory = FeedScreenFactory();
       // TODO: use actual recipes screen factory instead
       final recipesScreenFactory = InDevelopWidgetFactory();
-      
+
       return MultiRepositoryProvider(
           providers: [
             RepositoryProvider(create: (context) => jwtRepository),

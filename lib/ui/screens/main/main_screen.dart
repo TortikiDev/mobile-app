@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tortiki/bloc/main/index.dart';
 
 import '../../../app_localizations.dart';
+import '../../../bloc/main/index.dart';
 import '../../reusable/widget_factory.dart';
 
 class MainScreen extends StatelessWidget {
@@ -21,26 +21,23 @@ class MainScreen extends StatelessWidget {
 
     return DefaultTabController(
       length: 2,
-      child: Scaffold(
-          appBar: AppBar(
-              title: Image.asset('assets/main_app_bar_title.png', height: 40),
-              bottom: TabBar(tabs: [
-                Tab(text: localizations.feed.toUpperCase()),
-                Tab(text: localizations.recipes.toUpperCase()),
-              ])),
-          body: TabBarView(children: [
-            feedScreenFactory.createWidget(),
-            recipesScreenFactory.createWidget()
-          ]),
-          floatingActionButton:
-              BlocBuilder<MainBloc, MainState>(builder: (context, state) {
-            if (state.showCreatePostButton) {
-              return FloatingActionButton(
-                  child: Icon(Icons.edit), onPressed: () {});
-            } else {
-              return null;
-            }
-          })),
+      child: BlocBuilder<MainBloc, MainState>(
+          builder: (context, state) => Scaffold(
+              appBar: AppBar(
+                  title:
+                      Image.asset('assets/main_app_bar_title.png', height: 40),
+                  bottom: TabBar(tabs: [
+                    Tab(text: localizations.feed.toUpperCase()),
+                    Tab(text: localizations.recipes.toUpperCase()),
+                  ])),
+              body: TabBarView(children: [
+                feedScreenFactory.createWidget(),
+                recipesScreenFactory.createWidget()
+              ]),
+              floatingActionButton: state.showCreatePostButton
+                  ? FloatingActionButton(
+                      child: Icon(Icons.edit), onPressed: () {})
+                  : null)),
     );
   }
 }
