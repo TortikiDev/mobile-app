@@ -32,12 +32,20 @@ class CreatePostScreen extends StatelessWidget {
                     children: [
                       Text(localizations.photo,
                           style: theme.textTheme.subtitle1),
+                      SizedBox(height: 16),
                       AspectRatio(
                           aspectRatio: 1,
                           child: _getPhotoWidget(context, photo: state.photo)),
+                      SizedBox(height: 24),
                       Text(localizations.description,
                           style: theme.textTheme.subtitle1),
-                      TextField(maxLength: 500, maxLines: null, expands: true),
+                      SizedBox(height: 16),
+                      Container(
+                          child: ConstrainedBox(
+                              constraints: BoxConstraints(
+                                maxHeight: 300.0,
+                              ),
+                              child: TextField(maxLength: 500, maxLines: null)))
                     ]),
               ),
             ));
