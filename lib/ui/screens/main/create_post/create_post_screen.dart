@@ -51,7 +51,7 @@ class CreatePostScreen extends StatelessWidget {
               border: Border.all(width: 0.5, color: Colors.grey[300])),
           child: Image.file(photo, fit: BoxFit.cover));
     } else {
-      photoWidget = Image.asset('assets/add_photo.pnng', fit: BoxFit.cover);
+      photoWidget = Image.asset('assets/add_photo.png', fit: BoxFit.cover);
     }
     return GestureDetector(
       child: photoWidget,

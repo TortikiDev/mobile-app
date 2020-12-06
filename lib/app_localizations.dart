@@ -118,6 +118,11 @@ class AppLocalizations {
   String get newPost =>
       Intl.message('New post', name: 'newPost', locale: localeName);
 
+  String get photo => Intl.message('Photo', name: 'photo', locale: localeName);
+
+  String get description =>
+      Intl.message('Description', name: 'description', locale: localeName);
+
   // endregion
 
   // region Map

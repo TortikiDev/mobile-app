@@ -85,6 +85,16 @@
     "type": "text",
     "placeholders": {}
   },
+  "photo": "Фото",
+  "@photo": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "description": "Содержание",
+  "@description": {
+    "type": "text",
+    "placeholders": {}
+  },
   "more": "ещё",
   "@more": {
     "type": "text",

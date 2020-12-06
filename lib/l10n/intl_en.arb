@@ -85,6 +85,16 @@
     "type": "text",
     "placeholders": {}
   },
+  "photo": "Photo",
+  "@photo": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "description": " Description",
+  "@description": {
+    "type": "text",
+    "placeholders": {}
+  },
   "more": "more",
   "@more": {
     "type": "text",
