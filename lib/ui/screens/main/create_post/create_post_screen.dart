@@ -44,7 +44,8 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                 onTap: () => FocusScope.of(context).unfocus(),
                 child: SingleChildScrollView(
                   child: Padding(
-                    padding: EdgeInsets.all(16.0),
+                    padding: EdgeInsets.only(
+                        top: 16.0, right: 16.0, left: 16.0, bottom: 32.0),
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [

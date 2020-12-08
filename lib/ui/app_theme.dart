@@ -26,7 +26,18 @@ final appTheme = ThemeData(
         showUnselectedLabels: false,
         selectedItemColor: _colorScheme.onPrimary,
         unselectedItemColor: _colorScheme.primaryVariant,
-        backgroundColor: _colorScheme.primary));
+        backgroundColor: _colorScheme.primary),
+    inputDecorationTheme: InputDecorationTheme(
+      filled: true,
+      fillColor: _colorScheme.secondary,
+      focusedBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: _colorScheme.onPrimary)),
+    ),
+    useTextSelectionTheme: true,
+    textSelectionTheme: TextSelectionThemeData(
+        cursorColor: _colorScheme.onPrimary,
+        selectionColor: _colorScheme.primaryVariant,
+        selectionHandleColor: _colorScheme.onPrimary));
 
 final _colorScheme = ColorScheme(
     primary: Color(0xFFFEDBD0),
