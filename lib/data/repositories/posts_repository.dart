@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 
 import '../http_client/responses/responses.dart';
 
@@ -56,4 +59,10 @@ class PostsRepository {
 
   Future<void> unlikePost({int postId}) => Future.delayed(Duration(seconds: 1))
       .then((_) => Future.error(DioError(type: DioErrorType.SEND_TIMEOUT)));
+
+  Future<void> createPost({
+    @required File photo,
+    String description,
+  }) =>
+      Future.delayed(Duration(seconds: 2));
 }

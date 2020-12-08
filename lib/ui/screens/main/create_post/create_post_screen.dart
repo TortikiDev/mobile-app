@@ -24,7 +24,8 @@ class CreatePostScreen extends StatelessWidget {
                   IconButton(
                     icon: Icon(Icons.send),
                     tooltip: localizations.newPost,
-                    onPressed: () {},
+                    onPressed: () =>
+                        state.canCreatePost ? _createPost(context) : null,
                   ),
                 ]),
             body: GestureDetector(
@@ -55,6 +56,11 @@ class CreatePostScreen extends StatelessWidget {
                         ]),
                   ),
                 ))));
+  }
+
+  void _createPost(BuildContext context) {
+    final event = CreatePost();
+    BlocProvider.of<CreatePostBloc>(context).add(event);
   }
 
   void _descriptionChanged(BuildContext context, String text) {

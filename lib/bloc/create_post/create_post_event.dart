@@ -26,3 +26,8 @@ class DescriptionChanged extends CreatePostEvent {
   @override
   List<Object> get props => [text];
 }
+
+class CreatePost extends CreatePostEvent {
+  @override
+  List<Object> get props => [];
+}
