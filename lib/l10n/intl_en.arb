@@ -10,6 +10,21 @@
     "type": "text",
     "placeholders": {}
   },
+  "camera": "Camera",
+  "@camera": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "photoLibrary": "Photo library",
+  "@photoLibrary": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "error": "Error",
+  "@error": {
+    "type": "text",
+    "placeholders": {}
+  },
   "somethingWentWrong": "Something went wrong",
   "@somethingWentWrong": {
     "type": "text",

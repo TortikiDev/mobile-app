@@ -80,6 +80,8 @@ class CreatePostScreen extends StatelessWidget {
 
   void _showImagePicker(BuildContext context) {
     final theme = Theme.of(context);
+    final localizations = AppLocalizations.of(context);
+
     showModalBottomSheet(
         context: context,
         builder: (context) {
@@ -90,7 +92,7 @@ class CreatePostScreen extends StatelessWidget {
                   ListTile(
                       leading:
                           Icon(Icons.photo_library, color: theme.accentColor),
-                      title: Text('Photo Library',
+                      title: Text(localizations.photoLibrary,
                           style: theme.textTheme.bodyText1),
                       onTap: () {
                         _pickImageFromGallery(context);
@@ -98,7 +100,8 @@ class CreatePostScreen extends StatelessWidget {
                       }),
                   ListTile(
                     leading: Icon(Icons.photo_camera, color: theme.accentColor),
-                    title: Text('Camera', style: theme.textTheme.bodyText1),
+                    title: Text(localizations.camera,
+                        style: theme.textTheme.bodyText1),
                     onTap: () {
                       _pickImageFromCamera(context);
                       Navigator.of(context).pop();

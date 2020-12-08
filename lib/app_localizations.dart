@@ -50,6 +50,12 @@ class AppLocalizations {
 
   String get error => Intl.message('Error', name: 'error', locale: localeName);
 
+  String get camera =>
+      Intl.message('Camera', name: 'camera', locale: localeName);
+
+  String get photoLibrary =>
+      Intl.message('Photo library', name: 'photoLibrary', locale: localeName);
+
   // endregion
 
   // region Errors
