@@ -37,7 +37,10 @@ final appTheme = ThemeData(
     textSelectionTheme: TextSelectionThemeData(
         cursorColor: _colorScheme.onPrimary,
         selectionColor: _colorScheme.primaryVariant,
-        selectionHandleColor: _colorScheme.onPrimary));
+        selectionHandleColor: _colorScheme.onPrimary),
+    dialogBackgroundColor: _colorScheme.surface,
+    bottomSheetTheme:
+        BottomSheetThemeData(backgroundColor: _colorScheme.surface));
 
 final _colorScheme = ColorScheme(
     primary: Color(0xFFFEDBD0),

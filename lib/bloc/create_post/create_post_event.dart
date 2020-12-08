@@ -9,11 +9,20 @@ class BlocInit extends CreatePostEvent {
   List<Object> get props => [];
 }
 
-class ImagePicked extends CreatePostEvent {
-  final File image;
+class PhotoPicked extends CreatePostEvent {
+  final File photo;
 
-  ImagePicked(this.image);
+  PhotoPicked(this.photo);
 
   @override
-  List<Object> get props => [image];
+  List<Object> get props => [photo];
+}
+
+class DescriptionChanged extends CreatePostEvent {
+  final String text;
+
+  DescriptionChanged(this.text);
+
+  @override
+  List<Object> get props => [text];
 }

@@ -7,21 +7,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../app_localizations.dart';
 import '../../../../bloc/create_post/index.dart';
 
-class CreatePostScreen extends StatefulWidget {
+class CreatePostScreen extends StatelessWidget {
   const CreatePostScreen({Key key}) : super(key: key);
-
-  @override
-  State<StatefulWidget> createState() => _CreatePostScreenState();
-}
-
-class _CreatePostScreenState extends State<CreatePostScreen> {
-  final descriptionTextController = TextEditingController();
-
-  @override
-  void dispose() {
-    descriptionTextController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,12 +48,18 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                               style: theme.textTheme.subtitle1),
                           SizedBox(height: 16),
                           TextField(
-                              controller: descriptionTextController,
                               maxLength: 500,
-                              maxLines: null)
+                              maxLines: null,
+                              onChanged: (value) =>
+                                  _descriptionChanged(context, value))
                         ]),
                   ),
                 ))));
+  }
+
+  void _descriptionChanged(BuildContext context, String text) {
+    final event = DescriptionChanged(text);
+    BlocProvider.of<CreatePostBloc>(context).add(event);
   }
 
   Widget _getPhotoWidget(BuildContext context, {File photo}) {
@@ -86,6 +79,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
   }
 
   void _showImagePicker(BuildContext context) {
+    final theme = Theme.of(context);
     showModalBottomSheet(
         context: context,
         builder: (context) {
@@ -94,15 +88,17 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
               child: Wrap(
                 children: <Widget>[
                   ListTile(
-                      leading: Icon(Icons.photo_library),
-                      title: Text('Photo Library'),
+                      leading:
+                          Icon(Icons.photo_library, color: theme.accentColor),
+                      title: Text('Photo Library',
+                          style: theme.textTheme.bodyText1),
                       onTap: () {
                         _pickImageFromGallery(context);
                         Navigator.of(context).pop();
                       }),
                   ListTile(
-                    leading: Icon(Icons.photo_camera),
-                    title: Text('Camera'),
+                    leading: Icon(Icons.photo_camera, color: theme.accentColor),
+                    title: Text('Camera', style: theme.textTheme.bodyText1),
                     onTap: () {
                       _pickImageFromCamera(context);
                       Navigator.of(context).pop();
@@ -119,13 +115,13 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
     final image = await ImagePicker()
         .getImage(source: ImageSource.camera, imageQuality: 50);
     final imageFile = File(image.path);
-    BlocProvider.of<CreatePostBloc>(context).add(ImagePicked(imageFile));
+    BlocProvider.of<CreatePostBloc>(context).add(PhotoPicked(imageFile));
   }
 
   Future<void> _pickImageFromGallery(BuildContext context) async {
     final image = await ImagePicker()
         .getImage(source: ImageSource.gallery, imageQuality: 50);
     final imageFile = File(image.path);
-    BlocProvider.of<CreatePostBloc>(context).add(ImagePicked(imageFile));
+    BlocProvider.of<CreatePostBloc>(context).add(PhotoPicked(imageFile));
   }
 }

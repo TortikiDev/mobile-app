@@ -10,6 +10,9 @@ class CreatePostState extends Equatable {
 
   factory CreatePostState.initial() => CreatePostState();
 
+  CreatePostState copy({File photo, String description}) =>
+      CreatePostState(photo: photo, description: description);
+
   @override
   List<Object> get props => [photo, description];
 }

@@ -20,7 +20,12 @@ class CreatePostBloc extends BaseBloc<CreatePostEvent, CreatePostState> {
 
   @override
   Stream<CreatePostState> mapEventToState(CreatePostEvent event) async* {
-    if (event is BlocInit) {}
+    if (event is BlocInit) {
+    } else if (event is PhotoPicked) {
+      yield state.copy(photo: event.photo);
+    } else if (event is DescriptionChanged) {
+      yield state.copy(description: event.text);
+    }
   }
 
   // endregion
