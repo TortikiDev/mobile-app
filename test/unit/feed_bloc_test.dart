@@ -14,19 +14,25 @@ class _MockErrorHandlingBloc extends Mock implements ErrorHandlingBloc {}
 
 class _MockPostsRepository extends Mock implements PostsRepository {}
 
+class _MockAccountRepository extends Mock implements AccountRepository {}
+
 void main() {
   FeedBloc sut;
   _MockErrorHandlingBloc errorHandlingBloc;
   _MockPostsRepository postsRepository;
+  _MockAccountRepository accountRepository;
 
   final initialState = FeedState.initial();
 
   setUp(() {
     errorHandlingBloc = _MockErrorHandlingBloc();
     postsRepository = _MockPostsRepository();
+    accountRepository = _MockAccountRepository();
 
     sut = FeedBloc(
-        postsRepository: postsRepository, errorHandlingBloc: errorHandlingBloc);
+        postsRepository: postsRepository,
+        accountRepository: accountRepository,
+        errorHandlingBloc: errorHandlingBloc);
   });
 
   tearDown(() {

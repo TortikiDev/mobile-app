@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tortiki/bloc/create_post/index.dart';
 
 import '../../../app_localizations.dart';
+import '../../../bloc/create_post/index.dart';
 import '../../../bloc/main/index.dart';
-import '../../reusable/in_develop_screen_factory.dart';
 import '../../reusable/widget_factory.dart';
 
 class MainScreen extends StatelessWidget {

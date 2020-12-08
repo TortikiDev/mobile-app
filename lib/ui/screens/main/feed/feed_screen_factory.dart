@@ -11,7 +11,7 @@ class FeedScreenFactory implements WidgetFactory {
   @override
   Widget createWidget({dynamic data}) {
     return Builder(builder: (context) {
-      final postsRepository = PostsRepository();
+      final postsRepository = RepositoryProvider.of<PostsRepository>(context);
       final accountRepository =
           RepositoryProvider.of<AccountRepository>(context);
       return BlocProvider(
