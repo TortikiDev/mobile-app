@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tortiki/data/repositories/posts_repository.dart';
 
 import '../../../app_localizations.dart';
 import '../../../bloc/create_post/index.dart';
@@ -47,12 +48,17 @@ class MainScreen extends StatelessWidget {
     final tabController = DefaultTabController.of(context);
     final tabIndex = tabController.index;
     WidgetFactory createEntityScreenFactory;
+    dynamic factoryData;
+
     switch (tabIndex) {
       case 0:
+        final postsRepository = RepositoryProvider.of<PostsRepository>(context);
+        factoryData =
+            CreatePostScreenFactoryData(postsRepository: postsRepository);
         createEntityScreenFactory = CreatePostScreenFactory();
         break;
       case 1:
-      // TODO: use actual create recipe factory
+        // TODO: use actual create recipe factory
         createEntityScreenFactory = CreatePostScreenFactory();
         break;
       default:
@@ -60,7 +66,8 @@ class MainScreen extends StatelessWidget {
     }
 
     final pageRoute = MaterialPageRoute(
-        builder: (context) => createEntityScreenFactory.createWidget(),
+        builder: (context) =>
+            createEntityScreenFactory.createWidget(data: factoryData),
         fullscreenDialog: true);
     Navigator.of(context).push(pageRoute);
   }

@@ -7,14 +7,20 @@ import '../../../../data/repositories/repositories.dart';
 import '../../../reusable/widget_factory.dart';
 import 'create_post_screen.dart';
 
-class CreatePostScreenFactory implements WidgetFactory {
+class CreatePostScreenFactoryData {
+  final PostsRepository postsRepository;
+
+  const CreatePostScreenFactoryData({@required this.postsRepository});
+}
+
+class CreatePostScreenFactory
+    implements WidgetFactory<CreatePostScreenFactoryData> {
   @override
-  Widget createWidget({dynamic data}) {
+  Widget createWidget({CreatePostScreenFactoryData data}) {
     return Builder(builder: (context) {
-      final postsRepository = RepositoryProvider.of<PostsRepository>(context);
       final errorHandlingBloc = BlocProvider.of<ErrorHandlingBloc>(context);
       final createPostBloc = CreatePostBloc(
-          postsRepository: postsRepository,
+          postsRepository: data.postsRepository,
           errorHandlingBloc: errorHandlingBloc)
         ..add(BlocInit());
       return BlocProvider(
