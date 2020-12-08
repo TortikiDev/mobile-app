@@ -7,7 +7,22 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../app_localizations.dart';
 import '../../../../bloc/create_post/index.dart';
 
-class CreatePostScreen extends StatelessWidget {
+class CreatePostScreen extends StatefulWidget {
+  const CreatePostScreen({Key key}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => _CreatePostScreenState();
+}
+
+class _CreatePostScreenState extends State<CreatePostScreen> {
+  final descriptionTextController = TextEditingController();
+
+  @override
+  void dispose() {
+    descriptionTextController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final localizations = AppLocalizations.of(context);
@@ -15,40 +30,42 @@ class CreatePostScreen extends StatelessWidget {
 
     return BlocBuilder<CreatePostBloc, CreatePostState>(
         builder: (context, state) => Scaffold(
-              appBar: AppBar(
-                  title: Text(localizations.newPost,
-                      style: theme.textTheme.headline6),
-                  actions: [
-                    IconButton(
-                      icon: Icon(Icons.send),
-                      tooltip: localizations.newPost,
-                      onPressed: () {},
-                    ),
-                  ]),
-              body: Padding(
-                padding: EdgeInsets.all(16.0),
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Text(localizations.photo,
-                          style: theme.textTheme.subtitle1),
-                      SizedBox(height: 16),
-                      AspectRatio(
-                          aspectRatio: 1,
-                          child: _getPhotoWidget(context, photo: state.photo)),
-                      SizedBox(height: 24),
-                      Text(localizations.description,
-                          style: theme.textTheme.subtitle1),
-                      SizedBox(height: 16),
-                      Container(
-                          child: ConstrainedBox(
-                              constraints: BoxConstraints(
-                                maxHeight: 300.0,
-                              ),
-                              child: TextField(maxLength: 500, maxLines: null)))
-                    ]),
-              ),
-            ));
+            appBar: AppBar(
+                title: Text(localizations.newPost,
+                    style: theme.textTheme.headline6),
+                actions: [
+                  IconButton(
+                    icon: Icon(Icons.send),
+                    tooltip: localizations.newPost,
+                    onPressed: () {},
+                  ),
+                ]),
+            body: GestureDetector(
+                onTap: () => FocusScope.of(context).unfocus(),
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: EdgeInsets.all(16.0),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Text(localizations.photo,
+                              style: theme.textTheme.subtitle1),
+                          SizedBox(height: 16),
+                          AspectRatio(
+                              aspectRatio: 1,
+                              child:
+                                  _getPhotoWidget(context, photo: state.photo)),
+                          SizedBox(height: 24),
+                          Text(localizations.description,
+                              style: theme.textTheme.subtitle1),
+                          SizedBox(height: 16),
+                          TextField(
+                              controller: descriptionTextController,
+                              maxLength: 500,
+                              maxLines: null)
+                        ]),
+                  ),
+                ))));
   }
 
   Widget _getPhotoWidget(BuildContext context, {File photo}) {
