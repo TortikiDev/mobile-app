@@ -31,7 +31,7 @@ class CreatePostBloc extends BaseBloc<CreatePostEvent, CreatePostState> {
       yield state.copy(canCreatePost: state.photo != null);
     } else if (event is DescriptionChanged) {
       yield state.copy(description: event.text);
-    } else if (event is CreatePost) {
+    } else if (event is CreatePost && state.photo != null) {
       yield state.copy(creatingPost: true);
       bool success;
       try {
