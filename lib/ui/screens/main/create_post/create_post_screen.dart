@@ -8,26 +8,45 @@ import '../../../../app_localizations.dart';
 import '../../../../bloc/create_post/index.dart';
 
 class CreatePostScreen extends StatelessWidget {
-  const CreatePostScreen({Key key}) : super(key: key);
+  final ImagePicker imagePicker;
+
+  const CreatePostScreen({Key key, @required this.imagePicker})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final localizations = AppLocalizations.of(context);
     final theme = Theme.of(context);
 
-    return BlocBuilder<CreatePostBloc, CreatePostState>(
+    return BlocConsumer<CreatePostBloc, CreatePostState>(
+        listenWhen: (previous, current) => current.postSuccessfulyCreated,
+        listener: (context, state) => Navigator.of(context).pop(),
         builder: (context, state) => Scaffold(
             appBar: AppBar(
                 title: Text(localizations.newPost,
                     style: theme.textTheme.headline6),
-                actions: [
-                  IconButton(
-                    icon: Icon(Icons.send),
-                    tooltip: localizations.newPost,
-                    onPressed: () =>
-                        state.canCreatePost ? _createPost(context) : null,
-                  ),
-                ]),
+                actions: state.creatingPost
+                    ? [
+                        Padding(
+                          padding: EdgeInsets.only(right: 16),
+                          child: Center(
+                            child: SizedBox(
+                              width: 16,
+                              height: 16,
+                              child: CircularProgressIndicator(strokeWidth: 3),
+                            ),
+                          ),
+                        )
+                      ]
+                    : [
+                        IconButton(
+                          icon: Icon(Icons.send),
+                          tooltip: localizations.newPost,
+                          onPressed: state.canCreatePost
+                              ? () => _createPost(context)
+                              : null,
+                        ),
+                      ]),
             body: GestureDetector(
                 onTap: () => FocusScope.of(context).unfocus(),
                 child: SingleChildScrollView(
@@ -72,9 +91,16 @@ class CreatePostScreen extends StatelessWidget {
     Widget photoWidget;
     if (photo != null) {
       photoWidget = Container(
-          decoration: BoxDecoration(
-              border: Border.all(width: 0.5, color: Colors.grey[300])),
-          child: Image.file(photo, fit: BoxFit.cover));
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(width: 0.5, color: Colors.grey[400]),
+        ),
+        clipBehavior: Clip.hardEdge,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(8),
+          child: Image.file(photo, fit: BoxFit.cover),
+        ),
+      );
     } else {
       photoWidget = Image.asset('assets/add_photo.png', fit: BoxFit.cover);
     }
@@ -90,7 +116,7 @@ class CreatePostScreen extends StatelessWidget {
 
     showModalBottomSheet(
         context: context,
-        builder: (context) {
+        builder: (dialogContext) {
           return SafeArea(
             child: Container(
               child: Wrap(
@@ -121,16 +147,20 @@ class CreatePostScreen extends StatelessWidget {
   }
 
   Future<void> _pickImageFromCamera(BuildContext context) async {
-    final image = await ImagePicker()
-        .getImage(source: ImageSource.camera, imageQuality: 50);
-    final imageFile = File(image.path);
-    BlocProvider.of<CreatePostBloc>(context).add(PhotoPicked(imageFile));
+    final image = await imagePicker.getImage(
+        source: ImageSource.camera, imageQuality: 50);
+    if (image != null) {
+      final imageFile = File(image.path);
+      BlocProvider.of<CreatePostBloc>(context).add(PhotoPicked(imageFile));
+    }
   }
 
   Future<void> _pickImageFromGallery(BuildContext context) async {
-    final image = await ImagePicker()
-        .getImage(source: ImageSource.gallery, imageQuality: 50);
-    final imageFile = File(image.path);
-    BlocProvider.of<CreatePostBloc>(context).add(PhotoPicked(imageFile));
+    final image = await imagePicker.getImage(
+        source: ImageSource.gallery, imageQuality: 50);
+    if (image != null) {
+      final imageFile = File(image.path);
+      BlocProvider.of<CreatePostBloc>(context).add(PhotoPicked(imageFile));
+    }
   }
 }

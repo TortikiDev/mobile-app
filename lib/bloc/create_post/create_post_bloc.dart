@@ -33,8 +33,16 @@ class CreatePostBloc extends BaseBloc<CreatePostEvent, CreatePostState> {
       yield state.copy(description: event.text);
     } else if (event is CreatePost) {
       yield state.copy(creatingPost: true);
-      await postsRepository.createPost(
-          photo: state.photo, description: state.description);
+      bool success;
+      try {
+        await postsRepository.createPost(
+            photo: state.photo, description: state.description);
+        success = true;
+      } on Exception catch (error) {
+        errorHandlingBloc.add(ExceptionRaised(error));
+        success = false;
+      }
+      yield state.copy(creatingPost: false, postSuccessfulyCreated: success);
     }
   }
 

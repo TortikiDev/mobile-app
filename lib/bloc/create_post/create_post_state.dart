@@ -7,12 +7,14 @@ class CreatePostState extends Equatable {
   final String description;
   final bool canCreatePost;
   final bool creatingPost;
+  final bool postSuccessfulyCreated;
 
   const CreatePostState(
       {this.photo,
       this.description = '',
       this.canCreatePost = false,
-      this.creatingPost = false});
+      this.creatingPost = false,
+      this.postSuccessfulyCreated = false});
 
   factory CreatePostState.initial() => CreatePostState();
 
@@ -20,13 +22,17 @@ class CreatePostState extends Equatable {
           {File photo,
           String description,
           bool canCreatePost,
-          bool creatingPost}) =>
+          bool creatingPost,
+          bool postSuccessfulyCreated}) =>
       CreatePostState(
           photo: photo ?? this.photo,
           description: description ?? this.description,
           canCreatePost: canCreatePost ?? this.canCreatePost,
-          creatingPost: creatingPost ?? this.creatingPost);
+          creatingPost: creatingPost ?? this.creatingPost,
+          postSuccessfulyCreated:
+              postSuccessfulyCreated ?? this.postSuccessfulyCreated);
 
   @override
-  List<Object> get props => [photo, description, canCreatePost, creatingPost];
+  List<Object> get props =>
+      [photo, description, canCreatePost, creatingPost, postSuccessfulyCreated];
 }

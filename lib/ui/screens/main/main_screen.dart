@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tortiki/data/repositories/posts_repository.dart';
 
 import '../../../app_localizations.dart';
 import '../../../bloc/create_post/index.dart';
 import '../../../bloc/main/index.dart';
+import '../../../data/repositories/posts_repository.dart';
 import '../../reusable/widget_factory.dart';
 
 class MainScreen extends StatelessWidget {
@@ -26,6 +26,7 @@ class MainScreen extends StatelessWidget {
       child: BlocBuilder<MainBloc, MainState>(
           builder: (context, state) => Scaffold(
               appBar: AppBar(
+                  centerTitle: true,
                   title:
                       Image.asset('assets/main_app_bar_title.png', height: 40),
                   bottom: TabBar(tabs: [

@@ -36,7 +36,7 @@ dependencies:
   # UI
   pinch_zoom: ^0.0.4
   share: ^0.6.5+4
-  image_picker: ^0.6.7+14
+  image_picker: ^0.6.7+17
 
 dev_dependencies:
   # Test

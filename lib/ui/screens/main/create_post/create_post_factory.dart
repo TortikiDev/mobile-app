@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../../../bloc/create_post/index.dart';
 import '../../../../bloc/error_handling/index.dart';
@@ -23,8 +24,10 @@ class CreatePostScreenFactory
           postsRepository: data.postsRepository,
           errorHandlingBloc: errorHandlingBloc)
         ..add(BlocInit());
+      final imagePicker = ImagePicker();
       return BlocProvider(
-          create: (context) => createPostBloc, child: CreatePostScreen());
+          create: (context) => createPostBloc,
+          child: CreatePostScreen(imagePicker: imagePicker));
     });
   }
 }
