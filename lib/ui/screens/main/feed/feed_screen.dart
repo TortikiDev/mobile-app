@@ -9,13 +9,27 @@ import 'list_items/post/post_view.dart';
 import 'list_items/post/post_view_model.dart';
 import 'list_items/progress_indicator_item.dart';
 
-class FeedScreen extends StatelessWidget {
+class FeedScreen extends StatefulWidget {
+  const FeedScreen({Key key}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => _FeedScreenState();
+}
+
+class _FeedScreenState extends State<FeedScreen>
+    with AutomaticKeepAliveClientMixin<FeedScreen> {
+  @override
+  bool get wantKeepAlive => true;
+
   @override
   Widget build(BuildContext context) {
+    super.build(context);
+
     return BlocBuilder<FeedBloc, FeedState>(builder: (context, state) {
       return state.loadingFirstPage
           ? Center(
-              child: SizedBox(width: 32, child: CircularProgressIndicator()))
+              child: SizedBox(
+                  width: 32, height: 32, child: CircularProgressIndicator()))
           : _ScrollView(state: state);
     });
   }
