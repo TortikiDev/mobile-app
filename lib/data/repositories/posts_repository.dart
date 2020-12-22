@@ -1,10 +1,13 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 
-import '../responses/responses.dart';
+import '../http_client/responses/responses.dart';
 
+// TODO: inject api client and make real requests
 class PostsRepository {
   Future<List<PostResponse>> getPosts({int limit = 24, int lastId}) {
-    // TODO: get posts from server
     final postsStub = [
       PostResponse(
           id: 123,
@@ -52,10 +55,14 @@ class PostsRepository {
         .then((_) => Future.value(limitedResult));
   }
 
-  // TODO: send like request to server
   Future<void> likePost({int postId}) => Future.delayed(Duration(seconds: 1));
 
-  // TODO: send unlike request to server
   Future<void> unlikePost({int postId}) => Future.delayed(Duration(seconds: 1))
       .then((_) => Future.error(DioError(type: DioErrorType.SEND_TIMEOUT)));
+
+  Future<void> createPost({
+    @required File photo,
+    String description,
+  }) =>
+      Future.delayed(Duration(seconds: 2));
 }

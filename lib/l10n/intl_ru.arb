@@ -10,6 +10,16 @@
     "type": "text",
     "placeholders": {}
   },
+  "camera": "Камера",
+  "@camera": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "photoLibrary": "Галерея",
+  "@photoLibrary": {
+    "type": "text",
+    "placeholders": {}
+  },
   "somethingWentWrong": "Что-то пошло не так",
   "@somethingWentWrong": {
     "type": "text",
@@ -77,6 +87,21 @@
   },
   "recipes": "Рецепты",
   "@recipes": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "newPost": "Новый пост",
+  "@newPost": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "photo": "Фото",
+  "@photo": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "description": "Содержание",
+  "@description": {
     "type": "text",
     "placeholders": {}
   },

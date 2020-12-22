@@ -14,13 +14,10 @@ class BottomNaigationController extends StatefulWidget {
 }
 
 class _BottomNaigationControllerState extends State<BottomNaigationController> {
+  final pagesBucket = PageStorageBucket();
+  final pageController = PageController();
   List<BottomNaigationControllerItem> _items;
   int _currentPage = 0;
-
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,40 +26,62 @@ class _BottomNaigationControllerState extends State<BottomNaigationController> {
       final localizations = AppLocalizations.of(context);
       _items = [
         BottomNaigationControllerItem(
-            MainScreenFactory().createWidget(),
-            BottomNavigationBarItem(
-                label: localizations.main,
-                icon: ImageIcon(AssetImage('assets/cherry.png'),
-                    key: ValueKey('cherry icon'), size: 24))),
+          MainScreenFactory().createWidget(),
+          BottomNavigationBarItem(
+            label: localizations.main,
+            icon: ImageIcon(AssetImage('assets/cherry.png'),
+                key: ValueKey('cherry icon'), size: 24),
+          ),
+        ),
         BottomNaigationControllerItem(
-            Container(
-                color: appTheme.colorScheme.background,
-                child: Center(
-                    child: Text(localizations.map,
-                        style: theme.textTheme.bodyText2))),
-            BottomNavigationBarItem(
-                label: localizations.map, icon: Icon(Icons.location_pin))),
+          Container(
+            color: appTheme.colorScheme.background,
+            child: Center(
+              child: Text(localizations.map, style: theme.textTheme.bodyText2),
+            ),
+          ),
+          BottomNavigationBarItem(
+            label: localizations.map,
+            icon: Icon(Icons.location_pin),
+          ),
+        ),
         BottomNaigationControllerItem(
-            Container(
-                color: appTheme.colorScheme.background,
-                child: Center(
-                    child: Text(localizations.bookmarks,
-                        style: theme.textTheme.headline6))),
-            BottomNavigationBarItem(
-                label: localizations.bookmarks, icon: Icon(Icons.bookmark))),
+          Container(
+            color: appTheme.colorScheme.background,
+            child: Center(
+              child: Text(localizations.bookmarks,
+                  style: theme.textTheme.headline6),
+            ),
+          ),
+          BottomNavigationBarItem(
+            label: localizations.bookmarks,
+            icon: Icon(Icons.bookmark),
+          ),
+        ),
         BottomNaigationControllerItem(
-            Container(
-                color: appTheme.colorScheme.background,
-                child: Center(
-                    child: Text(localizations.profile,
-                        style: theme.textTheme.button))),
-            BottomNavigationBarItem(
-                label: localizations.profile, icon: Icon(Icons.account_circle)))
+          Container(
+            color: appTheme.colorScheme.background,
+            child: Center(
+              child: Text(localizations.profile, style: theme.textTheme.button),
+            ),
+          ),
+          BottomNavigationBarItem(
+            label: localizations.profile,
+            icon: Icon(Icons.account_circle),
+          ),
+        )
       ];
     }
 
     return Scaffold(
-      body: _items.map((e) => e.page).toList()[_currentPage],
+      body: PageStorage(
+        bucket: pagesBucket,
+        child: PageView(
+            physics: NeverScrollableScrollPhysics(),
+            children: _items.map((e) => e.page).toList(),
+            controller: pageController,
+            onPageChanged: (index) => _currentPage = index),
+      ),
       bottomNavigationBar: BottomNavigationBar(
         showSelectedLabels: false,
         showUnselectedLabels: false,
@@ -75,7 +94,7 @@ class _BottomNaigationControllerState extends State<BottomNaigationController> {
 
   void _onItemTapped(int index) {
     setState(() {
-      _currentPage = index;
+      pageController.jumpToPage(index);
     });
   }
 }

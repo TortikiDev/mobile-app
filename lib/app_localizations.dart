@@ -50,6 +50,12 @@ class AppLocalizations {
 
   String get error => Intl.message('Error', name: 'error', locale: localeName);
 
+  String get camera =>
+      Intl.message('Camera', name: 'camera', locale: localeName);
+
+  String get photoLibrary =>
+      Intl.message('Photo library', name: 'photoLibrary', locale: localeName);
+
   // endregion
 
   // region Errors
@@ -100,7 +106,7 @@ class AppLocalizations {
   String get feed => Intl.message('Feed', name: 'feed', locale: localeName);
 
   String get more => Intl.message('more', name: 'more', locale: localeName);
-  
+
   String get showLess =>
       Intl.message('show less', name: 'showLess', locale: localeName);
 
@@ -110,6 +116,18 @@ class AppLocalizations {
 
   String get recipes =>
       Intl.message('Recipes', name: 'recipes', locale: localeName);
+
+  // endregion
+
+  // region Create post
+
+  String get newPost =>
+      Intl.message('New post', name: 'newPost', locale: localeName);
+
+  String get photo => Intl.message('Photo', name: 'photo', locale: localeName);
+
+  String get description =>
+      Intl.message('Description', name: 'description', locale: localeName);
 
   // endregion
 

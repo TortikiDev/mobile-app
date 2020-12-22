@@ -11,8 +11,10 @@ final appTheme = ThemeData(
     highlightColor: Colors.transparent,
     splashColor: Colors.white30,
     scaffoldBackgroundColor: Colors.white,
-    appBarTheme:
-        AppBarTheme(color: _colorScheme.primary, brightness: Brightness.light),
+    appBarTheme: AppBarTheme(
+        color: _colorScheme.primary,
+        brightness: Brightness.light,
+        iconTheme: IconThemeData(color: _colorScheme.onPrimary)),
     tabBarTheme: TabBarTheme(
         indicator: UnderlineTabIndicator(
             borderSide: BorderSide(width: 2.0, color: _colorScheme.onPrimary)),
@@ -24,7 +26,21 @@ final appTheme = ThemeData(
         showUnselectedLabels: false,
         selectedItemColor: _colorScheme.onPrimary,
         unselectedItemColor: _colorScheme.primaryVariant,
-        backgroundColor: _colorScheme.primary));
+        backgroundColor: _colorScheme.primary),
+    inputDecorationTheme: InputDecorationTheme(
+      filled: true,
+      fillColor: _colorScheme.secondary,
+      focusedBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: _colorScheme.onPrimary)),
+    ),
+    useTextSelectionTheme: true,
+    textSelectionTheme: TextSelectionThemeData(
+        cursorColor: _colorScheme.onPrimary,
+        selectionColor: _colorScheme.primaryVariant,
+        selectionHandleColor: _colorScheme.onPrimary),
+    dialogBackgroundColor: _colorScheme.surface,
+    bottomSheetTheme:
+        BottomSheetThemeData(backgroundColor: _colorScheme.surface));
 
 final _colorScheme = ColorScheme(
     primary: Color(0xFFFEDBD0),
