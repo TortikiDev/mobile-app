@@ -17,6 +17,8 @@ class TestFeedScreenFactory implements WidgetFactory {
     whenListen(feedBloc, Stream<FeedState>.value(feedInitialState));
 
     return BlocProvider<FeedBloc>(
-        create: (context) => feedBloc, child: FeedScreen());
+      create: (context) => feedBloc,
+      child: FeedScreen(),
+    );
   }
 }
