@@ -6,8 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../app_localizations.dart';
 import '../../../../bloc/recipes/index.dart';
 import '../../../reusable/list_items/progress_indicator_item.dart';
-import '../feed/post/post_view.dart';
-import '../feed/post/post_view_model.dart';
+import 'recipe/recipe_view.dart';
+import 'recipe/recipe_view_model.dart';
 
 class RecipesScreen extends StatefulWidget {
   const RecipesScreen({Key key}) : super(key: key);
@@ -43,40 +43,44 @@ class _ScrollView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final localizations = AppLocalizations.of(context);
 
     return Scrollbar(
-        child: RefreshIndicator(
-            child: ListView.builder(
-                padding: EdgeInsets.only(bottom: 8),
-                itemCount: state.feedItems.length,
-                itemBuilder: (context, index) {
-                  final model = state.feedItems[index];
-                  if (model is PostViewModel) {
-                    if ((index == state.feedItems.length - 1) &&
-                        !state.loadingNextPage) {
-                      BlocProvider.of<RecipesBloc>(context).add(LoadNextPage());
-                    }
-                    return PostView(
-                        key: ObjectKey(model),
-                        model: model,
-                        theme: theme,
-                        localizations: localizations);
-                  } else if (model is ProgressIndicatorItem) {
-                    return SizedBox(
-                        height: 40,
-                        child: Center(
-                            child: SizedBox(
-                                width: 24,
-                                height: 24,
-                                child: CircularProgressIndicator())));
-                  } else {
-                    throw UnimplementedError(
-                        'Type [${model.runtimeType}] is not'
-                        ' implemented for list view builder');
-                  }
-                }),
-            onRefresh: () => _pullToRefreshList(context)));
+      child: RefreshIndicator(
+        child: ListView.builder(
+            padding: EdgeInsets.only(bottom: 8),
+            itemExtent: 258,
+            itemCount: state.listItems.length,
+            itemBuilder: (context, index) {
+              final model = state.listItems[index];
+              if (model is RecipeViewModel) {
+                if ((index == state.listItems.length - 1) &&
+                    !state.loadingNextPage) {
+                  BlocProvider.of<RecipesBloc>(context).add(LoadNextPage());
+                }
+                return RecipeView(
+                  key: ObjectKey(model),
+                  model: model,
+                  theme: theme,
+                );
+              } else if (model is ProgressIndicatorItem) {
+                return SizedBox(
+                  height: 40,
+                  child: Center(
+                    child: SizedBox(
+                      width: 24,
+                      height: 24,
+                      child: CircularProgressIndicator(),
+                    ),
+                  ),
+                );
+              } else {
+                throw UnimplementedError('Type [${model.runtimeType}] is not'
+                    ' implemented for list view builder');
+              }
+            }),
+        onRefresh: () => _pullToRefreshList(context),
+      ),
+    );
   }
 
   Future<void> _pullToRefreshList(BuildContext context) async {

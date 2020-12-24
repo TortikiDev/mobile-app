@@ -6,10 +6,10 @@ import '../../../bloc/main/index.dart';
 import '../../../data/repositories/account_repository.dart';
 import '../../../data/repositories/jwt_repository.dart';
 import '../../../data/repositories/posts_repository.dart';
-import '../../reusable/in_develop_screen_factory.dart';
 import '../../reusable/widget_factory.dart';
 import 'feed/feed_screen_factory.dart';
 import 'main_screen.dart';
+import 'recipes/recipes_screen_factory.dart';
 
 class MainScreenFactory implements WidgetFactory {
   @override
@@ -26,8 +26,7 @@ class MainScreenFactory implements WidgetFactory {
         ..add(BlocInit());
 
       final feedScreenFactory = FeedScreenFactory();
-      // TODO: use actual recipes screen factory instead
-      final recipesScreenFactory = InDevelopWidgetFactory();
+      final recipesScreenFactory = RecipesScreenFactory();
 
       return MultiRepositoryProvider(
           providers: [

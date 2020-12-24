@@ -9,7 +9,7 @@ class RecipesState extends Equatable {
   final bool loadingFirstPage;
   final bool loadingNextPage;
 
-  List<ListItem> get feedItems => _listItems;
+  List<ListItem> get listItems => _listItems;
 
   RecipesState(
       {@required List<ListItem> feedItems,
@@ -20,11 +20,11 @@ class RecipesState extends Equatable {
   factory RecipesState.initial() => RecipesState(feedItems: []);
 
   RecipesState copy(
-          {List<ListItem> feedItems,
+          {List<ListItem> listItems,
           bool loadingFirstPage,
           bool loadingNextPage}) =>
       RecipesState(
-          feedItems: feedItems ?? _listItems,
+          feedItems: listItems ?? _listItems,
           loadingFirstPage: loadingFirstPage ?? this.loadingFirstPage,
           loadingNextPage: loadingNextPage ?? this.loadingNextPage);
 

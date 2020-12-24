@@ -7,17 +7,13 @@ class BlocInit extends RecipesEvent {
   List<Object> get props => [];
 }
 
-abstract class SingleRecipeEvent extends RecipesEvent {
+class AddToBookmarks extends RecipesEvent {
   final int recipeId;
 
-  SingleRecipeEvent(this.recipeId);
+  AddToBookmarks(this.recipeId);
 
   @override
   List<Object> get props => [recipeId];
-}
-
-class AddToBookmarks extends SingleRecipeEvent {
-  AddToBookmarks(int recipeId) : super(recipeId);
 }
 
 class PullToRefresh extends RecipesEvent {

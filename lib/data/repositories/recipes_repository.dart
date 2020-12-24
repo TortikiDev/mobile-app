@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:tortiki/data/http_client/responses/responses.dart';
+import '../http_client/responses/responses.dart';
 
 class RecipesRepository {
   Future<List<RecipeShortResponse>> getRecipes({int limit = 24, int lastId}) {
