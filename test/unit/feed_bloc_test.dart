@@ -6,32 +6,27 @@ import 'package:mockito/mockito.dart';
 import 'package:tortiki/bloc/feed/index.dart';
 import 'package:tortiki/data/repositories/repositories.dart';
 import 'package:tortiki/data/http_client/responses/responses.dart';
-import 'package:tortiki/ui/screens/main/feed/list_items/feed_list_item.dart';
-import 'package:tortiki/ui/screens/main/feed/list_items/post/post_view_model.dart';
-import 'package:tortiki/ui/screens/main/feed/list_items/progress_indicator_item.dart';
+import 'package:tortiki/ui/reusable/list_items/list_item.dart';
+import 'package:tortiki/ui/reusable/list_items/progress_indicator_item.dart';
+import 'package:tortiki/ui/screens/main/feed/post/post_view_model.dart';
 
 class _MockErrorHandlingBloc extends Mock implements ErrorHandlingBloc {}
 
 class _MockPostsRepository extends Mock implements PostsRepository {}
 
-class _MockAccountRepository extends Mock implements AccountRepository {}
-
 void main() {
   FeedBloc sut;
   _MockErrorHandlingBloc errorHandlingBloc;
   _MockPostsRepository postsRepository;
-  _MockAccountRepository accountRepository;
 
   final initialState = FeedState.initial();
 
   setUp(() {
     errorHandlingBloc = _MockErrorHandlingBloc();
     postsRepository = _MockPostsRepository();
-    accountRepository = _MockAccountRepository();
 
     sut = FeedBloc(
         postsRepository: postsRepository,
-        accountRepository: accountRepository,
         errorHandlingBloc: errorHandlingBloc);
   });
 
@@ -194,7 +189,7 @@ void main() {
 
   test('LoadNextPage event loads next posts page', () {
     // given
-    final currentPosts = <FeedListItem>[
+    final currentPosts = <ListItem>[
       PostViewModel(
           id: 100,
           userAvaratUrl: 'https://images.unsplash.com/photo',

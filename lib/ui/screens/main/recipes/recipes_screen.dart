@@ -4,20 +4,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../app_localizations.dart';
-import '../../../../bloc/feed/index.dart';
+import '../../../../bloc/recipes/index.dart';
 import '../../../reusable/list_items/progress_indicator_item.dart';
-import 'post/post_view.dart';
-import 'post/post_view_model.dart';
+import '../feed/post/post_view.dart';
+import '../feed/post/post_view_model.dart';
 
-class FeedScreen extends StatefulWidget {
-  const FeedScreen({Key key}) : super(key: key);
+class RecipesScreen extends StatefulWidget {
+  const RecipesScreen({Key key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _FeedScreenState();
+  State<StatefulWidget> createState() => _RecipesScreenState();
 }
 
-class _FeedScreenState extends State<FeedScreen>
-    with AutomaticKeepAliveClientMixin<FeedScreen> {
+class _RecipesScreenState extends State<RecipesScreen>
+    with AutomaticKeepAliveClientMixin<RecipesScreen> {
   @override
   bool get wantKeepAlive => true;
 
@@ -25,7 +25,7 @@ class _FeedScreenState extends State<FeedScreen>
   Widget build(BuildContext context) {
     super.build(context);
 
-    return BlocBuilder<FeedBloc, FeedState>(builder: (context, state) {
+    return BlocBuilder<RecipesBloc, RecipesState>(builder: (context, state) {
       return state.loadingFirstPage
           ? Center(
               child: SizedBox(
@@ -36,7 +36,7 @@ class _FeedScreenState extends State<FeedScreen>
 }
 
 class _ScrollView extends StatelessWidget {
-  final FeedState state;
+  final RecipesState state;
 
   const _ScrollView({Key key, @required this.state}) : super(key: key);
 
@@ -55,7 +55,7 @@ class _ScrollView extends StatelessWidget {
                   if (model is PostViewModel) {
                     if ((index == state.feedItems.length - 1) &&
                         !state.loadingNextPage) {
-                      BlocProvider.of<FeedBloc>(context).add(LoadNextPage());
+                      BlocProvider.of<RecipesBloc>(context).add(LoadNextPage());
                     }
                     return PostView(
                         key: ObjectKey(model),
@@ -81,7 +81,7 @@ class _ScrollView extends StatelessWidget {
 
   Future<void> _pullToRefreshList(BuildContext context) async {
     final completer = Completer();
-    final feedBloc = BlocProvider.of<FeedBloc>(context);
+    final feedBloc = BlocProvider.of<RecipesBloc>(context);
     feedBloc.add(PullToRefresh(completer.complete));
     return completer.future;
   }

@@ -4,32 +4,32 @@ import 'package:flutter/foundation.dart';
 import '../../ui/reusable/list_items/list_item.dart';
 
 
-class FeedState extends Equatable {
-  final List<ListItem> _feedItems;
+class RecipesState extends Equatable {
+  final List<ListItem> _listItems;
   final bool loadingFirstPage;
   final bool loadingNextPage;
 
-  List<ListItem> get feedItems => _feedItems;
+  List<ListItem> get feedItems => _listItems;
 
-  FeedState(
+  RecipesState(
       {@required List<ListItem> feedItems,
       this.loadingFirstPage = false,
       this.loadingNextPage = false})
-      : _feedItems = feedItems;
+      : _listItems = feedItems;
 
-  factory FeedState.initial() => FeedState(feedItems: []);
+  factory RecipesState.initial() => RecipesState(feedItems: []);
 
-  FeedState copy(
+  RecipesState copy(
           {List<ListItem> feedItems,
           bool loadingFirstPage,
           bool loadingNextPage}) =>
-      FeedState(
-          feedItems: feedItems ?? _feedItems,
+      RecipesState(
+          feedItems: feedItems ?? _listItems,
           loadingFirstPage: loadingFirstPage ?? this.loadingFirstPage,
           loadingNextPage: loadingNextPage ?? this.loadingNextPage);
 
   @override
-  List<Object> get props => [_feedItems, loadingFirstPage, loadingNextPage];
+  List<Object> get props => [_listItems, loadingFirstPage, loadingNextPage];
 
   @override
   bool get stringify => true;

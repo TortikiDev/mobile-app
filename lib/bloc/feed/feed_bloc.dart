@@ -5,8 +5,8 @@ import 'package:flutter/foundation.dart';
 
 import '../../data/http_client/responses/responses.dart';
 import '../../data/repositories/repositories.dart';
-import '../../ui/screens/main/feed/list_items/post/post_view_model.dart';
-import '../../ui/screens/main/feed/list_items/progress_indicator_item.dart';
+import '../../ui/reusable/list_items/progress_indicator_item.dart';
+import '../../ui/screens/main/feed/post/post_view_model.dart';
 import '../base_bloc.dart';
 import '../error_handling/index.dart';
 import 'index.dart';
@@ -15,7 +15,6 @@ class FeedBloc extends BaseBloc<FeedEvent, FeedState> {
   // region Properties
 
   final PostsRepository postsRepository;
-  final AccountRepository accountRepository;
 
   // endregion
 
@@ -23,7 +22,6 @@ class FeedBloc extends BaseBloc<FeedEvent, FeedState> {
 
   FeedBloc(
       {@required this.postsRepository,
-      @required this.accountRepository,
       @required ErrorHandlingBloc errorHandlingBloc})
       : super(
             initialState: FeedState.initial(),
