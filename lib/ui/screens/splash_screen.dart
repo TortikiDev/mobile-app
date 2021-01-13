@@ -7,7 +7,7 @@ class SplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Container(
-      color: theme.colorScheme.primary,
+      color: theme.colorScheme.secondary,
       child: Center(
         child: ImageIcon(AssetImage('assets/tortiki_logo_big.png')),
       ),

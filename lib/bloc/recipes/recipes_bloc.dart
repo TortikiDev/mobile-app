@@ -33,8 +33,13 @@ class RecipesBloc extends BaseBloc<RecipesEvent, RecipesState> {
   Stream<RecipesState> mapEventToState(RecipesEvent event) async* {
     if (event is BlocInit) {
       yield state.copy(loadingFirstPage: true);
+      final bookmarkedRecipesIds = await _getBookmarkedRecipesIds();
+      yield state.copy(bookmarkedRecipesIds: bookmarkedRecipesIds);
       final recipes = await _getRecipesFirstPage();
-      yield state.copy(listItems: recipes, loadingFirstPage: false);
+      yield state.copy(
+        listItems: recipes,
+        loadingFirstPage: false,
+      );
     } else if (event is PullToRefresh) {
       final recipes = await _getRecipesFirstPage();
       yield state.copy(listItems: recipes);
@@ -96,15 +101,29 @@ class RecipesBloc extends BaseBloc<RecipesEvent, RecipesState> {
         title: response.title,
         complexity: response.complexity,
         imageUrl: response.imageUrl,
+        isInBookmarks: state.bookmarkedRecipesIds.contains(response.id),
       );
+
+  Future<List<int>> _getBookmarkedRecipesIds() async {
+    final recipes = await bookmarkedRecipesRepository.getRecipes();
+    return recipes.map((e) => e.id).toList();
+  }
 
   Future<void> _updateBookmarkedRecipeInDb(
       RecipeViewModel updatedRecipe) async {
     if (updatedRecipe.isInBookmarks) {
       final recipeDbModel = _mapRecipeViewModelToDbModel(updatedRecipe);
-      await bookmarkedRecipesRepository.addRecipe(recipeDbModel);
+      try {
+        await bookmarkedRecipesRepository.addRecipe(recipeDbModel);
+      } on Exception catch (e) {
+        errorHandlingBloc.add(ExceptionRaised(e));
+      }
     } else {
-      await bookmarkedRecipesRepository.deleteRecipe(updatedRecipe.id);
+      try {
+        await bookmarkedRecipesRepository.deleteRecipe(updatedRecipe.id);
+      } on Exception catch (e) {
+        errorHandlingBloc.add(ExceptionRaised(e));
+      }
     }
   }
 
