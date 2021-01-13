@@ -37,7 +37,7 @@ class RecipeView extends StatelessWidget {
         Positioned(
             right: 16,
             left: 16,
-            bottom: 16,
+            bottom: 12,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -46,10 +46,40 @@ class RecipeView extends StatelessWidget {
                   style: theme.textTheme.headline4,
                 ),
                 SizedBox(height: 16),
-                ComplexityCherriesWidget(complexity: model.complexity),
+                Row(
+                  children: [
+                    ComplexityCherriesWidget(complexity: model.complexity),
+                    Spacer(),
+                    IconButton(
+                      onPressed: _share,
+                      icon: Icon(
+                        Icons.share,
+                        color: theme.colorScheme.background,
+                      ),
+                    ),
+                    SizedBox(width: 8),
+                    IconButton(
+                      onPressed: _addToBookmarks,
+                      icon: Icon(
+                        model.isInBookmarks
+                            ? Icons.bookmark
+                            : Icons.bookmark_border,
+                        color: theme.colorScheme.primary,
+                      ),
+                    ),
+                  ],
+                )
               ],
             ))
       ],
     );
+  }
+
+  void _share() {
+    print('share');
+  }
+
+  void _addToBookmarks() {
+    print('add to bookmarks');
   }
 }
