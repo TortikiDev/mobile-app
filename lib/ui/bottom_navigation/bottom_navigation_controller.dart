@@ -29,7 +29,7 @@ class _BottomNaigationControllerState extends State<BottomNaigationController> {
           MainScreenFactory().createWidget(),
           BottomNavigationBarItem(
             label: localizations.main,
-            icon: ImageIcon(AssetImage('assets/cherry.png'),
+            icon: ImageIcon(AssetImage('assets/cherry/cherry.png'),
                 key: ValueKey('cherry icon'), size: 24),
           ),
         ),

@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../reusable/complexity_cherries_widget.dart';
 import 'recipe_view_model.dart';
 
 class RecipeView extends StatelessWidget {
@@ -34,14 +35,20 @@ class RecipeView extends StatelessWidget {
           ),
         ),
         Positioned(
-          right: 16,
-          left: 16,
-          bottom: 16,
-          child: Text(
-            model.title,
-            style: theme.textTheme.headline4,
-          ),
-        )
+            right: 16,
+            left: 16,
+            bottom: 16,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  model.title,
+                  style: theme.textTheme.headline4,
+                ),
+                SizedBox(height: 16),
+                ComplexityCherriesWidget(complexity: model.complexity),
+              ],
+            ))
       ],
     );
   }

@@ -8,15 +8,15 @@ class RecipesRepository {
       RecipeShortResponse(
         id: 155,
         title: 'Бисквитный торт',
-        complexity: 3.5,
+        complexity: 0.7,
         imageUrl: 'https://images.unsplash.com/photo-1457666134378-6b77915bd5f'
         '2?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Nnx8c3BvbmdlJTIwY2FrZXxlbnwwfHwwfA%3D%'
         '3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=60',
       ),
       RecipeShortResponse(
         id: 156,
-        title: 'Малиновый пирог',
-        complexity: 2.0,
+        title: 'Малиновый пирог с глазурью',
+        complexity: 0.3,
         imageUrl: 'https://images.unsplash.com/photo-1570205931109-7ab14fdbd'
         '70b?ixid=MXwxMjA3fDB8MHxzZWFyY2h8NHx8cmFzcGJlcnJ5JTIwcGllfGVufDB8f'
         'DB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=60',
