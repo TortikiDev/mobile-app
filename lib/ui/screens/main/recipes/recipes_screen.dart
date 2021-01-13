@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../app_localizations.dart';
 import '../../../../bloc/recipes/index.dart';
 import '../../../reusable/list_items/progress_indicator_item.dart';
 import 'recipe/recipe_view.dart';
