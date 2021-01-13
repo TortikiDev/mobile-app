@@ -17,6 +17,8 @@ class RecipesScreenFactory implements WidgetFactory {
           return RecipesBloc(
               recipesRepository:
                   RepositoryProvider.of<RecipesRepository>(context),
+              bookmarkedRecipesRepository:
+                  RepositoryProvider.of<BookmarkedRecipesRepository>(context),
               errorHandlingBloc: BlocProvider.of<ErrorHandlingBloc>(context))
             ..add(BlocInit());
         },

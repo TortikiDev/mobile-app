@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 
+import '../../data/database/models/recipe_db_model.dart';
 import '../../data/http_client/responses/responses.dart';
 import '../../data/repositories/repositories.dart';
 import '../../ui/reusable/list_items/progress_indicator_item.dart';
@@ -14,6 +15,7 @@ class RecipesBloc extends BaseBloc<RecipesEvent, RecipesState> {
   // region Properties
 
   final RecipesRepository recipesRepository;
+  final BookmarkedRecipesRepository bookmarkedRecipesRepository;
 
   // endregion
 
@@ -21,6 +23,7 @@ class RecipesBloc extends BaseBloc<RecipesEvent, RecipesState> {
 
   RecipesBloc(
       {@required this.recipesRepository,
+      @required this.bookmarkedRecipesRepository,
       @required ErrorHandlingBloc errorHandlingBloc})
       : super(
             initialState: RecipesState.initial(),
@@ -43,8 +46,15 @@ class RecipesBloc extends BaseBloc<RecipesEvent, RecipesState> {
       final recipesNextPage = await _getRecipesNextPage();
       final updatedListItems = initialListItems + recipesNextPage;
       yield state.copy(loadingNextPage: false, listItems: updatedListItems);
-    } else if (event is AddToBookmarks) {
-      // TODO: handle add to bookmarks
+    } else if (event is Bookmarks) {
+      final updatedRecipe =
+          event.recipe.copy(isInBookmarks: !event.recipe.isInBookmarks);
+      _updateBookmarkedRecipeInDb(updatedRecipe);
+      final updatedListItems = List.of(state.listItems);
+      final recipeIndex = updatedListItems.indexOf(event.recipe);
+      updatedListItems
+          .replaceRange(recipeIndex, recipeIndex + 1, [updatedRecipe]);
+      yield state.copy(listItems: updatedListItems);
     }
   }
 
@@ -86,6 +96,24 @@ class RecipesBloc extends BaseBloc<RecipesEvent, RecipesState> {
         title: response.title,
         complexity: response.complexity,
         imageUrl: response.imageUrl,
+      );
+
+  Future<void> _updateBookmarkedRecipeInDb(
+      RecipeViewModel updatedRecipe) async {
+    if (updatedRecipe.isInBookmarks) {
+      final recipeDbModel = _mapRecipeViewModelToDbModel(updatedRecipe);
+      await bookmarkedRecipesRepository.addRecipe(recipeDbModel);
+    } else {
+      await bookmarkedRecipesRepository.deleteRecipe(updatedRecipe.id);
+    }
+  }
+
+  RecipeDbModel _mapRecipeViewModelToDbModel(RecipeViewModel model) =>
+      RecipeDbModel(
+        id: model.id,
+        title: model.title,
+        complexity: model.complexity,
+        imageUrl: model.imageUrl,
       );
 
   // endregion

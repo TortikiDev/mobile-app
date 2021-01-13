@@ -47,7 +47,6 @@ class _ScrollView extends StatelessWidget {
       child: RefreshIndicator(
         child: ListView.builder(
             padding: EdgeInsets.only(bottom: 8),
-            itemExtent: 258,
             itemCount: state.listItems.length,
             itemBuilder: (context, index) {
               final model = state.listItems[index];
@@ -63,7 +62,7 @@ class _ScrollView extends StatelessWidget {
                 );
               } else if (model is ProgressIndicatorItem) {
                 return SizedBox(
-                  height: 40,
+                  height: 64,
                   child: Center(
                     child: SizedBox(
                       width: 24,

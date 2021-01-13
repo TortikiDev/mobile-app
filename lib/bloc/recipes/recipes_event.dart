@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
 
+import '../../ui/screens/main/recipes/recipe/recipe_view_model.dart';
+
 abstract class RecipesEvent extends Equatable {}
 
 class BlocInit extends RecipesEvent {
@@ -7,13 +9,13 @@ class BlocInit extends RecipesEvent {
   List<Object> get props => [];
 }
 
-class AddToBookmarks extends RecipesEvent {
-  final int recipeId;
+class Bookmarks extends RecipesEvent {
+  final RecipeViewModel recipe;
 
-  AddToBookmarks(this.recipeId);
+  Bookmarks(this.recipe);
 
   @override
-  List<Object> get props => [recipeId];
+  List<Object> get props => [recipe];
 }
 
 class PullToRefresh extends RecipesEvent {
