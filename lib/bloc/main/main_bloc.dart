@@ -29,7 +29,7 @@ class MainBloc extends BaseBloc<MainEvent, MainState> {
   @override
   Stream<MainState> mapEventToState(MainEvent event) async* {
     if (event is BlocInit) {
-      final showCreatePostButton = await _showCreatePostButton();
+      final showCreatePostButton = await _needToShowCreatePostButton();
       yield state.copy(showCreatePostButton: showCreatePostButton);
     }
   }
@@ -38,7 +38,7 @@ class MainBloc extends BaseBloc<MainEvent, MainState> {
 
   // Private methods
 
-  Future<bool> _showCreatePostButton() async {
+  Future<bool> _needToShowCreatePostButton() async {
     final isAuthenticated = (await jwtRepository.getJwt()) != null;
     var isConfectioner = false;
     if (isAuthenticated) {

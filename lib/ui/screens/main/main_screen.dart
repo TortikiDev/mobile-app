@@ -7,7 +7,7 @@ import '../../../bloc/main/index.dart';
 import '../../../data/repositories/posts_repository.dart';
 import '../../reusable/widget_factory.dart';
 
-class MainScreen extends StatelessWidget {
+class MainScreen extends StatefulWidget {
   final WidgetFactory feedScreenFactory;
   final WidgetFactory recipesScreenFactory;
 
@@ -18,30 +18,54 @@ class MainScreen extends StatelessWidget {
       : super(key: key);
 
   @override
+  State<StatefulWidget> createState() => _MainScreenState();
+}
+
+class _MainScreenState extends State<MainScreen> {
+  bool _showSearchRecipesButton = false;
+
+  @override
   Widget build(BuildContext context) {
     final localizations = AppLocalizations.of(context);
 
     return DefaultTabController(
       length: 2,
       child: BlocBuilder<MainBloc, MainState>(
-          builder: (context, state) => Scaffold(
-              appBar: AppBar(
-                  centerTitle: true,
-                  title:
-                      Image.asset('assets/main_app_bar_title.png', height: 40),
-                  bottom: TabBar(tabs: [
-                    Tab(text: localizations.feed.toUpperCase()),
-                    Tab(text: localizations.recipes.toUpperCase()),
-                  ])),
-              body: TabBarView(children: [
-                feedScreenFactory.createWidget(),
-                recipesScreenFactory.createWidget()
-              ]),
-              floatingActionButton: state.showCreatePostButton
-                  ? FloatingActionButton(
-                      child: Icon(Icons.create),
-                      onPressed: () => _onCreateEntityTap(context))
-                  : null)),
+        builder: (context, state) => Scaffold(
+            appBar: AppBar(
+              centerTitle: true,
+              title: Image.asset('assets/main_app_bar_title.png', height: 40),
+              actions: _showSearchRecipesButton
+                  ? [
+                      IconButton(
+                        icon: Icon(Icons.search),
+                        onPressed: _searchRecipes,
+                      ),
+                    ]
+                  : null,
+              bottom: TabBar(
+                tabs: [
+                  Tab(text: localizations.feed.toUpperCase()),
+                  Tab(text: localizations.recipes.toUpperCase()),
+                ],
+                onTap: (index) {
+                  setState(() {
+                    _showSearchRecipesButton = index == 1;
+                  });
+                },
+              ),
+            ),
+            body: TabBarView(children: [
+              widget.feedScreenFactory.createWidget(),
+              widget.recipesScreenFactory.createWidget()
+            ]),
+            floatingActionButton: state.showCreatePostButton
+                ? FloatingActionButton(
+                    child: Icon(Icons.create),
+                    onPressed: () => _onCreateEntityTap(context),
+                  )
+                : null),
+      ),
     );
   }
 
@@ -72,4 +96,6 @@ class MainScreen extends StatelessWidget {
         fullscreenDialog: true);
     Navigator.of(context).push(pageRoute);
   }
+
+  void _searchRecipes() {}
 }
