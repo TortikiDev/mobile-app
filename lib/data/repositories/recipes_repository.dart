@@ -3,23 +3,27 @@ import 'dart:async';
 import '../http_client/responses/responses.dart';
 
 class RecipesRepository {
-  Future<List<RecipeShortResponse>> getRecipes({int limit = 24, int lastId}) {
+  Future<List<RecipeShortResponse>> getRecipes({
+    String searchQuery,
+    int limit = 24,
+    int lastId,
+  }) {
     final recipesStub = [
       RecipeShortResponse(
         id: 155,
         title: 'Бисквитный торт',
         complexity: 0.7,
         imageUrl: 'https://images.unsplash.com/photo-1457666134378-6b77915bd5f'
-        '2?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Nnx8c3BvbmdlJTIwY2FrZXxlbnwwfHwwfA%3D%'
-        '3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=60',
+            '2?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Nnx8c3BvbmdlJTIwY2FrZXxlbnwwf'
+            'HwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=60',
       ),
       RecipeShortResponse(
         id: 156,
         title: 'Малиновый пирог с глазурью',
         complexity: 0.3,
         imageUrl: 'https://images.unsplash.com/photo-1570205931109-7ab14fdbd'
-        '70b?ixid=MXwxMjA3fDB8MHxzZWFyY2h8NHx8cmFzcGJlcnJ5JTIwcGllfGVufDB8f'
-        'DB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=60',
+            '70b?ixid=MXwxMjA3fDB8MHxzZWFyY2h8NHx8cmFzcGJlcnJ5JTIwcGllfGVufDB8f'
+            'DB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=60',
       ),
     ];
 
@@ -27,7 +31,10 @@ class RecipesRepository {
     do {
       result.addAll(recipesStub);
     } while (result.length <= limit);
-    final limitedResult = result
+    final fillteredResult = ((searchQuery != null) && (searchQuery.length > 2))
+        ? result.where((e) => e.title.contains(searchQuery)).toList()
+        : result;
+    final limitedResult = fillteredResult
         .getRange(0, limit)
         .toList()
         .asMap()

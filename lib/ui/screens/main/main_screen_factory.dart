@@ -10,6 +10,7 @@ import '../../reusable/widget_factory.dart';
 import 'feed/feed_screen_factory.dart';
 import 'main_screen.dart';
 import 'recipes/recipes_screen_factory.dart';
+import 'search_recipes/search_recipes_screen_factory.dart';
 
 class MainScreenFactory implements WidgetFactory {
   @override
@@ -27,18 +28,23 @@ class MainScreenFactory implements WidgetFactory {
 
       final feedScreenFactory = FeedScreenFactory();
       final recipesScreenFactory = RecipesScreenFactory();
+      final searchRecipesScreenFactory = SearchRecipesScreenFactory();
 
       return MultiRepositoryProvider(
-          providers: [
-            RepositoryProvider(create: (context) => jwtRepository),
-            RepositoryProvider(create: (context) => accountRepository),
-            RepositoryProvider(create: (context) => postsRepository),
-          ],
-          child: BlocProvider(
-              create: (context) => mainBloc,
-              child: MainScreen(
-                  feedScreenFactory: feedScreenFactory,
-                  recipesScreenFactory: recipesScreenFactory)));
+        providers: [
+          RepositoryProvider(create: (context) => jwtRepository),
+          RepositoryProvider(create: (context) => accountRepository),
+          RepositoryProvider(create: (context) => postsRepository),
+        ],
+        child: BlocProvider(
+          create: (context) => mainBloc,
+          child: MainScreen(
+            feedScreenFactory: feedScreenFactory,
+            recipesScreenFactory: recipesScreenFactory,
+            searchRecipesScreenFactory: searchRecipesScreenFactory,
+          ),
+        ),
+      );
     });
   }
 }

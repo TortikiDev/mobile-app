@@ -10,12 +10,14 @@ import '../../reusable/widget_factory.dart';
 class MainScreen extends StatefulWidget {
   final WidgetFactory feedScreenFactory;
   final WidgetFactory recipesScreenFactory;
+  final WidgetFactory searchRecipesScreenFactory;
 
-  const MainScreen(
-      {Key key,
-      @required this.feedScreenFactory,
-      @required this.recipesScreenFactory})
-      : super(key: key);
+  const MainScreen({
+    Key key,
+    @required this.feedScreenFactory,
+    @required this.recipesScreenFactory,
+    @required this.searchRecipesScreenFactory,
+  }) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _MainScreenState();
@@ -97,5 +99,14 @@ class _MainScreenState extends State<MainScreen> {
     Navigator.of(context).push(pageRoute);
   }
 
-  void _searchRecipes() {}
+  void _searchRecipes() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) {
+          return widget.searchRecipesScreenFactory.createWidget();
+        },
+        fullscreenDialog: true,
+      ),
+    );
+  }
 }
