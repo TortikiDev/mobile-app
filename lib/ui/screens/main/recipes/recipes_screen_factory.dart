@@ -10,20 +10,17 @@ import 'recipes_screen.dart';
 class RecipesScreenFactory implements WidgetFactory {
   @override
   Widget createWidget({dynamic data}) {
-    return RepositoryProvider(
-      create: (context) => RecipesRepository(),
-      child: BlocProvider(
-        create: (context) {
-          return RecipesBloc(
-              recipesRepository:
-                  RepositoryProvider.of<RecipesRepository>(context),
-              bookmarkedRecipesRepository:
-                  RepositoryProvider.of<BookmarkedRecipesRepository>(context),
-              errorHandlingBloc: BlocProvider.of<ErrorHandlingBloc>(context))
-            ..add(BlocInit());
-        },
-        child: RecipesScreen(),
-      ),
+    return BlocProvider(
+      create: (context) {
+        return RecipesBloc(
+            recipesRepository:
+                RepositoryProvider.of<RecipesRepository>(context),
+            bookmarkedRecipesRepository:
+                RepositoryProvider.of<BookmarkedRecipesRepository>(context),
+            errorHandlingBloc: BlocProvider.of<ErrorHandlingBloc>(context))
+          ..add(BlocInit());
+      },
+      child: RecipesScreen(),
     );
   }
 }

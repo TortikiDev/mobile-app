@@ -41,7 +41,7 @@ class _MainScreenState extends State<MainScreen> {
                   ? [
                       IconButton(
                         icon: Icon(Icons.search),
-                        onPressed: _searchRecipes,
+                        onPressed: () => _searchRecipes(context),
                       ),
                     ]
                   : null,
@@ -99,14 +99,10 @@ class _MainScreenState extends State<MainScreen> {
     Navigator.of(context).push(pageRoute);
   }
 
-  void _searchRecipes() {
+  void _searchRecipes(BuildContext context) {
+    final recipesScreen = widget.searchRecipesScreenFactory.createWidget();
     Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) {
-          return widget.searchRecipesScreenFactory.createWidget();
-        },
-        fullscreenDialog: true,
-      ),
+      MaterialPageRoute(builder: (context) => recipesScreen),
     );
   }
 }

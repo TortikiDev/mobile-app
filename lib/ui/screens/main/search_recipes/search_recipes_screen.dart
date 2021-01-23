@@ -11,14 +11,15 @@ class SearchRecipesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SearchRecipesBloc, SearchRecipesState>(
-        builder: (context, state) => Scaffold(
-              body: Column(
-                children: [
-                  SearchBar(),
-                  _ScrollView(state: state),
-                ],
-              ),
-            ));
+      builder: (context, state) => Scaffold(
+        body: Column(
+          children: [
+            SearchBar(),
+            _ScrollView(state: state),
+          ],
+        ),
+      ),
+    );
   }
 }
 
