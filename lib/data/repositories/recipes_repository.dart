@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import '../http_client/responses/responses.dart';
 
@@ -31,11 +32,15 @@ class RecipesRepository {
     do {
       result.addAll(recipesStub);
     } while (result.length <= limit);
-    final fillteredResult = ((searchQuery != null) && (searchQuery.length > 2))
-        ? result.where((e) => e.title.contains(searchQuery)).toList()
+    final fillteredResult = searchQuery != null
+        ? result
+            .where(
+              (e) => e.title.toLowerCase().contains(searchQuery.toLowerCase()),
+            )
+            .toList()
         : result;
     final limitedResult = fillteredResult
-        .getRange(0, limit)
+        .getRange(0, min(limit, fillteredResult.length))
         .toList()
         .asMap()
         .map((key, value) => MapEntry(key, value.copy(id: key)))

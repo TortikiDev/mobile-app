@@ -13,6 +13,7 @@ class SearchRecipesScreen extends StatelessWidget {
     final theme = Theme.of(context);
     return BlocBuilder<SearchRecipesBloc, SearchRecipesState>(
       builder: (context, state) => Scaffold(
+        resizeToAvoidBottomInset: false,
         body: Stack(
           children: [
             Positioned(
@@ -24,16 +25,36 @@ class SearchRecipesScreen extends StatelessWidget {
                 height: 52,
               ),
             ),
+            Positioned(
+              top: 144,
+              left: 0,
+              right: 0,
+              child: Visibility(
+                visible: state.loadingFirstPage,
+                child: Center(
+                  child: SizedBox(
+                    height: 32,
+                    width: 32,
+                    child: CircularProgressIndicator(),
+                  ),
+                ),
+              ),
+            ),
+            Center(
+              child: Image.asset('assets/logo_transparent.png'),
+            ),
             SafeArea(
               bottom: false,
-              child: Container(
-                color: theme.colorScheme.background,
-                child: Column(
-                  children: [
-                    SearchBar(),
-                    _ScrollView(state: state),
-                  ],
-                ),
+              child: Column(
+                children: [
+                  SearchBar(
+                    onTextChanged: (text) =>
+                        _onSearchTextChanged(context, text),
+                  ),
+                  Expanded(
+                    child: _ScrollView(state: state),
+                  ),
+                ],
               ),
             ),
           ],
@@ -41,12 +62,39 @@ class SearchRecipesScreen extends StatelessWidget {
       ),
     );
   }
+
+  void _onSearchTextChanged(BuildContext context, String text) {
+    final bloc = BlocProvider.of<SearchRecipesBloc>(context);
+    final event = SearchQueryChanged(text);
+    bloc.add(event);
+  }
 }
 
-class _ScrollView extends StatelessWidget {
+class _ScrollView extends StatefulWidget {
   final SearchRecipesState state;
 
-  const _ScrollView({Key key, @required this.state}) : super(key: key);
+  _ScrollView({Key key, @required this.state}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => _ScrollViewState();
+}
+
+class _ScrollViewState extends State<_ScrollView> {
+  final _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(() {
+      FocusScope.of(context).unfocus();
+    });
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,20 +102,22 @@ class _ScrollView extends StatelessWidget {
 
     return Scrollbar(
       child: ListView.builder(
+        controller: _scrollController,
         shrinkWrap: true,
         padding: EdgeInsets.only(bottom: 8),
-        itemCount: state.listItems.length,
+        itemCount: widget.state.listItems.length,
         itemBuilder: (context, index) {
-          final model = state.listItems[index];
+          final model = widget.state.listItems[index];
           if (model is RecipeViewModel) {
-            if ((index == state.listItems.length - 1) &&
-                !state.loadingNextPage) {
+            if ((index == widget.state.listItems.length - 1) &&
+                !widget.state.loadingNextPage) {
               BlocProvider.of<SearchRecipesBloc>(context).add(LoadNextPage());
             }
             return RecipeView(
               key: ObjectKey(model),
               model: model,
               theme: theme,
+              addToBookmarks: (model) => _addRecipeToBookmarks(model, context),
             );
           } else if (model is ProgressIndicatorItem) {
             return SizedBox(
@@ -87,5 +137,11 @@ class _ScrollView extends StatelessWidget {
         },
       ),
     );
+  }
+
+  void _addRecipeToBookmarks(RecipeViewModel model, BuildContext context) {
+    final event = Bookmarks(model);
+    final bloc = BlocProvider.of<SearchRecipesBloc>(context);
+    bloc.add(event);
   }
 }

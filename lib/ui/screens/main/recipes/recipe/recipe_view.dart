@@ -1,17 +1,21 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:share/share.dart';
 
-import '../../../../../bloc/recipes/index.dart';
 import '../../../../reusable/complexity_cherries_widget.dart';
 import 'recipe_view_model.dart';
 
 class RecipeView extends StatelessWidget {
   final RecipeViewModel model;
   final ThemeData theme;
-  const RecipeView({Key key, @required this.model, @required this.theme})
-      : super(key: key);
+  final Function(RecipeViewModel) addToBookmarks;
+
+  const RecipeView({
+    Key key,
+    @required this.model,
+    @required this.theme,
+    this.addToBookmarks,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +68,7 @@ class RecipeView extends StatelessWidget {
                     ),
                     SizedBox(width: 8),
                     IconButton(
-                      onPressed: () => _addToBookmarks(context),
+                      onPressed: () => addToBookmarks(model),
                       icon: Icon(
                         model.isInBookmarks
                             ? Icons.bookmark
@@ -87,11 +91,5 @@ class RecipeView extends StatelessWidget {
     final baseUrl = 'https://tortiki.ru';
     final postUrl = '$baseUrl/recipe/${model.id}';
     Share.share(postUrl);
-  }
-
-  void _addToBookmarks(BuildContext context) {
-    final event = Bookmarks(model);
-    final bloc = BlocProvider.of<RecipesBloc>(context);
-    bloc.add(event);
   }
 }

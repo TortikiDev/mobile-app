@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class SearchBar extends StatefulWidget {
-  SearchBar({Key key}) : super(key: key);
+  final Function(String) onTextChanged;
+
+  SearchBar({Key key, this.onTextChanged}) : super(key: key);
 
   @override
   _SearchBarState createState() => _SearchBarState();
@@ -24,6 +26,7 @@ class _SearchBarState extends State<SearchBar> {
       padding: EdgeInsets.all(8),
       child: TextField(
         controller: textController,
+        onChanged: widget.onTextChanged,
         decoration: InputDecoration(
           prefixIcon: IconButton(
             color: theme.colorScheme.onPrimary,
@@ -38,6 +41,7 @@ class _SearchBarState extends State<SearchBar> {
             icon: Icon(Icons.clear),
             onPressed: () {
               textController.clear();
+              widget.onTextChanged('');
             },
           ),
         ),

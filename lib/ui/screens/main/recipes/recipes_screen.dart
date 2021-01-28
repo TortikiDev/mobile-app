@@ -59,6 +59,8 @@ class _ScrollView extends StatelessWidget {
                   key: ObjectKey(model),
                   model: model,
                   theme: theme,
+                  addToBookmarks: (model) =>
+                      _addRecipeToBookmarks(model, context),
                 );
               } else if (model is ProgressIndicatorItem) {
                 return SizedBox(
@@ -86,5 +88,11 @@ class _ScrollView extends StatelessWidget {
     final feedBloc = BlocProvider.of<RecipesBloc>(context);
     feedBloc.add(PullToRefresh(completer.complete));
     return completer.future;
+  }
+
+  void _addRecipeToBookmarks(RecipeViewModel model, BuildContext context) {
+    final event = Bookmarks(model);
+    final bloc = BlocProvider.of<RecipesBloc>(context);
+    bloc.add(event);
   }
 }
