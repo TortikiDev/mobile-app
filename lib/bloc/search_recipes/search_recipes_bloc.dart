@@ -32,15 +32,20 @@ class SearchRecipesBloc
 
   @override
   Stream<SearchRecipesState> mapEventToState(SearchRecipesEvent event) async* {
-    if (event is Search) {
-      yield state.copy(loadingFirstPage: true, searchQuery: event.query);
+    if (event is BlocInit) {
       final bookmarkedRecipesIds = await _getBookmarkedRecipesIds();
       yield state.copy(bookmarkedRecipesIds: bookmarkedRecipesIds);
-      final recipes = await _getRecipesFirstPage(searchQuery: event.query);
-      yield state.copy(
-        listItems: recipes,
-        loadingFirstPage: false,
-      );
+    } else if (event is SearchQueryChanged) {
+      if (event.query.length > 2) {
+        yield state.copy(loadingFirstPage: true, searchQuery: event.query);
+        final recipes = await _getRecipesFirstPage(searchQuery: event.query);
+        yield state.copy(
+          listItems: recipes,
+          loadingFirstPage: false,
+        );
+      } else {
+        yield state.copy(listItems: []);
+      }
     } else if (event is LoadNextPage) {
       final initialListItems = List.of(state.listItems);
       final liatItemsOnLoad = initialListItems + [ProgressIndicatorItem()];
@@ -50,14 +55,23 @@ class SearchRecipesBloc
       final updatedListItems = initialListItems + recipesNextPage;
       yield state.copy(loadingNextPage: false, listItems: updatedListItems);
     } else if (event is Bookmarks) {
-      final updatedRecipe =
-          event.recipe.copy(isInBookmarks: !event.recipe.isInBookmarks);
+      final isInBookmarks = !event.recipe.isInBookmarks;
+      final updatedRecipe = event.recipe.copy(isInBookmarks: isInBookmarks);
       _updateBookmarkedRecipeInDb(updatedRecipe);
       final updatedListItems = List.of(state.listItems);
       final recipeIndex = updatedListItems.indexOf(event.recipe);
       updatedListItems
           .replaceRange(recipeIndex, recipeIndex + 1, [updatedRecipe]);
-      yield state.copy(listItems: updatedListItems);
+      final updatedBookmarkedRecipesIds = state.bookmarkedRecipesIds;
+      if (isInBookmarks) {
+        updatedBookmarkedRecipesIds.add(event.recipe.id);
+      } else {
+        updatedBookmarkedRecipesIds.remove(event.recipe.id);
+      }
+      yield state.copy(
+        listItems: updatedListItems,
+        bookmarkedRecipesIds: updatedBookmarkedRecipesIds,
+      );
     }
   }
 
@@ -108,9 +122,9 @@ class SearchRecipesBloc
         isInBookmarks: state.bookmarkedRecipesIds.contains(response.id),
       );
 
-  Future<List<int>> _getBookmarkedRecipesIds() async {
+  Future<Set<int>> _getBookmarkedRecipesIds() async {
     final recipes = await bookmarkedRecipesRepository.getRecipes();
-    return recipes.map((e) => e.id).toList();
+    return recipes.map((e) => e.id).toSet();
   }
 
   Future<void> _updateBookmarkedRecipeInDb(

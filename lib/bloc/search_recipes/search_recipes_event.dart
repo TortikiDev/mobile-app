@@ -18,10 +18,10 @@ class Bookmarks extends SearchRecipesEvent {
   List<Object> get props => [recipe];
 }
 
-class Search extends SearchRecipesEvent {
+class SearchQueryChanged extends SearchRecipesEvent {
   final String query;
 
-  Search(this.query);
+  SearchQueryChanged(this.query);
 
   @override
   List<Object> get props => [query];

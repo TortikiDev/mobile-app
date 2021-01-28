@@ -24,6 +24,23 @@ class _SearchBarState extends State<SearchBar> {
       padding: EdgeInsets.all(8),
       child: TextField(
         controller: textController,
+        decoration: InputDecoration(
+          prefixIcon: IconButton(
+            color: theme.colorScheme.onPrimary,
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              FocusScope.of(context).unfocus();
+              Navigator.of(context).pop();
+            },
+          ),
+          suffixIcon: IconButton(
+            color: theme.colorScheme.onPrimary,
+            icon: Icon(Icons.clear),
+            onPressed: () {
+              textController.clear();
+            },
+          ),
+        ),
       ),
     );
   }

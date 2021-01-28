@@ -8,17 +8,19 @@ import '../../../reusable/widget_factory.dart';
 import 'search_recipes_screen.dart';
 
 class SearchRecipesScreenFactory implements WidgetFactory {
+  final RecipesRepository recipesRepository;
+  final BookmarkedRecipesRepository bookmarkedRecipesRepository;
+
+  SearchRecipesScreenFactory({
+    @required this.recipesRepository,
+    @required this.bookmarkedRecipesRepository,
+  });
+
   @override
   Widget createWidget({dynamic data}) {
     return BlocProvider(
       create: (context) {
-        // TODO: resolve context error
-        final recipesRepository =
-            RepositoryProvider.of<RecipesRepository>(context);
-        final bookmarkedRecipesRepository =
-            RepositoryProvider.of<BookmarkedRecipesRepository>(context);
         final errorHandlingBloc = BlocProvider.of<ErrorHandlingBloc>(context);
-
         return SearchRecipesBloc(
           recipesRepository: recipesRepository,
           bookmarkedRecipesRepository: bookmarkedRecipesRepository,

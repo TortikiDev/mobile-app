@@ -10,12 +10,32 @@ import '../recipes/recipe/recipe_view_model.dart';
 class SearchRecipesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return BlocBuilder<SearchRecipesBloc, SearchRecipesState>(
       builder: (context, state) => Scaffold(
-        body: Column(
+        body: Stack(
           children: [
-            SearchBar(),
-            _ScrollView(state: state),
+            Positioned(
+              top: 0,
+              left: 0,
+              right: 0,
+              child: Container(
+                color: theme.colorScheme.primary,
+                height: 52,
+              ),
+            ),
+            SafeArea(
+              bottom: false,
+              child: Container(
+                color: theme.colorScheme.background,
+                child: Column(
+                  children: [
+                    SearchBar(),
+                    _ScrollView(state: state),
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
       ),
@@ -34,6 +54,7 @@ class _ScrollView extends StatelessWidget {
 
     return Scrollbar(
       child: ListView.builder(
+        shrinkWrap: true,
         padding: EdgeInsets.only(bottom: 8),
         itemCount: state.listItems.length,
         itemBuilder: (context, index) {

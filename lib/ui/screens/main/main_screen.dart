@@ -102,7 +102,10 @@ class _MainScreenState extends State<MainScreen> {
   void _searchRecipes(BuildContext context) {
     final recipesScreen = widget.searchRecipesScreenFactory.createWidget();
     Navigator.of(context).push(
-      MaterialPageRoute(builder: (context) => recipesScreen),
+      MaterialPageRoute(
+        builder: (context) => recipesScreen,
+        fullscreenDialog: true,
+      ),
     );
   }
 }

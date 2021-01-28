@@ -22,9 +22,12 @@ class TestMainScreenFactory implements WidgetFactory {
     return BlocProvider<MainBloc>(
       create: (context) => mainBloc,
       // TODO: use actual factory for recipesScreenFactory
+      // and searchRecipesScreenFactory
       child: MainScreen(
-          feedScreenFactory: TestFeedScreenFactory(),
-          recipesScreenFactory: InDevelopWidgetFactory()),
+        feedScreenFactory: TestFeedScreenFactory(),
+        recipesScreenFactory: InDevelopWidgetFactory(),
+        searchRecipesScreenFactory: InDevelopWidgetFactory(),
+      ),
     );
   }
 }
