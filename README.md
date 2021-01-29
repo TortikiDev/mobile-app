@@ -1,3 +1,4 @@
+[![codecov](https://codecov.io/gh/TortikiDev/mobile-app/branch/master/graph/badge.svg?token=EIMU6414GR)](https://codecov.io/gh/TortikiDev/mobile-app)
 # tortiki
 
 A new Flutter project.
