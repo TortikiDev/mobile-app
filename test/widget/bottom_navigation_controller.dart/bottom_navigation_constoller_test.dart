@@ -13,6 +13,6 @@ void main() {
     await tester.tap(find.byIcon(Icons.location_pin));
     await tester.tap(find.byIcon(Icons.bookmark));
     await tester.tap(find.byIcon(Icons.account_circle));
-    await tester.tap(find.byKey(ValueKey('cherry icon')));
+    await tester.tap(find.byKey(Key('cherry icon')));
   });
 }

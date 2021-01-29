@@ -29,6 +29,7 @@ class _SearchBarState extends State<SearchBar> {
         onChanged: widget.onTextChanged,
         decoration: InputDecoration(
           prefixIcon: IconButton(
+            key: Key('Back button'),
             color: theme.colorScheme.onPrimary,
             icon: Icon(Icons.arrow_back),
             onPressed: () {
@@ -37,6 +38,7 @@ class _SearchBarState extends State<SearchBar> {
             },
           ),
           suffixIcon: IconButton(
+            key: Key('Clear text button'),
             color: theme.colorScheme.onPrimary,
             icon: Icon(Icons.clear),
             onPressed: () {

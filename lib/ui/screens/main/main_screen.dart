@@ -40,6 +40,7 @@ class _MainScreenState extends State<MainScreen> {
               actions: _showSearchRecipesButton
                   ? [
                       IconButton(
+                        key: Key('Search recipes'),
                         icon: Icon(Icons.search),
                         onPressed: () => _searchRecipes(context),
                       ),

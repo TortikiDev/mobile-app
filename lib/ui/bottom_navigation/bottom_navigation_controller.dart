@@ -30,7 +30,7 @@ class _BottomNaigationControllerState extends State<BottomNaigationController> {
           BottomNavigationBarItem(
             label: localizations.main,
             icon: ImageIcon(AssetImage('assets/cherry/cherry.png'),
-                key: ValueKey('cherry icon'), size: 24),
+                key: Key('cherry icon'), size: 24),
           ),
         ),
         BottomNaigationControllerItem(
