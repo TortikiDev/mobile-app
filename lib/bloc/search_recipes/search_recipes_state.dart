@@ -30,13 +30,15 @@ class SearchRecipesState extends Equatable {
     bool loadingFirstPage,
     bool loadingNextPage,
     String searchQuery,
+    bool setSearchQueryToNull = false,
   }) =>
       SearchRecipesState(
         listItems: listItems ?? _listItems,
         bookmarkedRecipesIds: bookmarkedRecipesIds ?? _bookmarkedRecipesIds,
         loadingFirstPage: loadingFirstPage ?? this.loadingFirstPage,
         loadingNextPage: loadingNextPage ?? this.loadingNextPage,
-        searchQuery: searchQuery ?? this.searchQuery,
+        searchQuery:
+            setSearchQueryToNull ? null : (searchQuery ?? this.searchQuery),
       );
 
   @override

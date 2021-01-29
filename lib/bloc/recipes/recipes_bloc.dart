@@ -52,22 +52,22 @@ class RecipesBloc extends BaseBloc<RecipesEvent, RecipesState> {
       final updatedListItems = initialListItems + recipesNextPage;
       yield state.copy(loadingNextPage: false, listItems: updatedListItems);
     } else if (event is Bookmarks) {
-      final updatedRecipe =
-          event.recipe.copy(isInBookmarks: !event.recipe.isInBookmarks);
+      final isInBookmarks = !event.recipe.isInBookmarks;
+      final updatedRecipe = event.recipe.copy(isInBookmarks: isInBookmarks);
       _updateBookmarkedRecipeInDb(updatedRecipe);
       final updatedListItems = List.of(state.listItems);
       final recipeIndex = updatedListItems.indexOf(event.recipe);
       updatedListItems
           .replaceRange(recipeIndex, recipeIndex + 1, [updatedRecipe]);
-      final updatedBookmarkedIds = state.bookmarkedRecipesIds;
-      if (updatedRecipe.isInBookmarks) {
-        updatedBookmarkedIds.add(updatedRecipe.id);
+      final updatedBookmarkedRecipesIds = state.bookmarkedRecipesIds;
+      if (isInBookmarks) {
+        updatedBookmarkedRecipesIds.add(event.recipe.id);
       } else {
-        updatedBookmarkedIds.remove(updatedRecipe.id);
+        updatedBookmarkedRecipesIds.remove(event.recipe.id);
       }
       yield state.copy(
         listItems: updatedListItems,
-        bookmarkedRecipesIds: updatedBookmarkedIds,
+        bookmarkedRecipesIds: updatedBookmarkedRecipesIds,
       );
     }
   }

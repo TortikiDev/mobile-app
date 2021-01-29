@@ -44,7 +44,7 @@ class SearchRecipesBloc
           loadingFirstPage: false,
         );
       } else {
-        yield state.copy(listItems: []);
+        yield state.copy(listItems: [], setSearchQueryToNull: true);
       }
     } else if (event is LoadNextPage) {
       final initialListItems = List.of(state.listItems);
