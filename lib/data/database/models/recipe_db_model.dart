@@ -1,6 +1,7 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 
-class RecipeDbModel {
+class RecipeDbModel extends Equatable {
   final int id;
   final String title;
   final double complexity;
@@ -26,4 +27,10 @@ class RecipeDbModel {
         'complexity': complexity,
         'imageUrl': imageUrl,
       };
+
+  @override
+  List<Object> get props => [id, title, complexity, imageUrl];
+
+  @override
+  bool get stringify => true;
 }

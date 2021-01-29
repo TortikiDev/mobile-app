@@ -74,7 +74,7 @@ void main() {
     ];
 
     final expectedState1 = initialState.copy(loadingFirstPage: true);
-    final expectedState2 = expectedState1.copy(bookmarkedRecipesIds: [21, 22]);
+    final expectedState2 = expectedState1.copy(bookmarkedRecipesIds: {21, 22});
     final expectedState3 = expectedState2.copy(
       listItems: [
         RecipeViewModel(id: 20, title: '122', complexity: 3.9, imageUrl: null),
@@ -126,7 +126,7 @@ void main() {
           id: 23, title: '125', complexity: 3.2, imageUrl: null),
     ];
 
-    final baseState = initialState.copy(bookmarkedRecipesIds: [21, 22]);
+    final baseState = initialState.copy(bookmarkedRecipesIds: {21, 22});
     final expectedState = baseState.copy(listItems: [
       RecipeViewModel(id: 20, title: '122', complexity: 3.9, imageUrl: null),
       RecipeViewModel(
@@ -188,9 +188,9 @@ void main() {
 
     final baseState = initialState.copy(
       listItems: initialItems,
-      bookmarkedRecipesIds: [21, 23],
+      bookmarkedRecipesIds: {21, 23},
     );
-    final expectedState1 = initialState.copy(
+    final expectedState1 = baseState.copy(
       listItems: initialItems + [ProgressIndicatorItem()],
       loadingNextPage: true,
     );
@@ -229,5 +229,126 @@ void main() {
         expectedState2,
       ]),
     );
+  });
+
+  test(
+      'Bookmarks emits updated items with bokmarked item '
+      'and updated bookmarked ids', () {
+    // given
+    final initialItems = <ListItem>[
+      RecipeViewModel(id: 20, title: '122', complexity: 3.9, imageUrl: null),
+      RecipeViewModel(
+        id: 21,
+        title: '123',
+        complexity: 3.0,
+        imageUrl: null,
+        isInBookmarks: true,
+      ),
+      RecipeViewModel(id: 22, title: '124', complexity: 3.1, imageUrl: null),
+      RecipeViewModel(
+        id: 23,
+        title: '125',
+        complexity: 3.2,
+        imageUrl: null,
+        isInBookmarks: true,
+      ),
+    ];
+
+    final baseState = initialState.copy(
+      listItems: initialItems,
+      bookmarkedRecipesIds: {21, 23},
+    );
+    final expectedState1 = baseState.copy(
+      listItems: [
+        RecipeViewModel(
+          id: 20,
+          title: '122',
+          complexity: 3.9,
+          imageUrl: null,
+          isInBookmarks: true,
+        ),
+        RecipeViewModel(
+          id: 21,
+          title: '123',
+          complexity: 3.0,
+          imageUrl: null,
+          isInBookmarks: true,
+        ),
+        RecipeViewModel(id: 22, title: '124', complexity: 3.1, imageUrl: null),
+        RecipeViewModel(
+          id: 23,
+          title: '125',
+          complexity: 3.2,
+          imageUrl: null,
+          isInBookmarks: true,
+        ),
+      ],
+      bookmarkedRecipesIds: {20, 21, 23},
+    );
+    final expectedState2 = expectedState1.copy(
+      listItems: [
+        RecipeViewModel(
+          id: 20,
+          title: '122',
+          complexity: 3.9,
+          imageUrl: null,
+          isInBookmarks: true,
+        ),
+        RecipeViewModel(id: 21, title: '123', complexity: 3.0, imageUrl: null),
+        RecipeViewModel(id: 22, title: '124', complexity: 3.1, imageUrl: null),
+        RecipeViewModel(
+          id: 23,
+          title: '125',
+          complexity: 3.2,
+          imageUrl: null,
+          isInBookmarks: true,
+        ),
+      ],
+      bookmarkedRecipesIds: {20, 23},
+    );
+    // when
+    sut.emit(baseState);
+    sut.add(Bookmarks(initialItems[0]));
+    sut.add(Bookmarks(initialItems[1]));
+    // then
+    expect(
+      sut,
+      emitsInOrder([
+        expectedState1,
+        expectedState2,
+      ]),
+    );
+  });
+
+  test('Bookmarks set new bookmarked ids to repository', () async {
+    // given
+    final initialItems = <ListItem>[
+      RecipeViewModel(
+        id: 21,
+        title: '123',
+        complexity: 3.0,
+        imageUrl: null,
+        isInBookmarks: true,
+      ),
+      RecipeViewModel(id: 22, title: '124', complexity: 3.1, imageUrl: null),
+    ];
+
+    final baseState = initialState.copy(
+      listItems: initialItems,
+      bookmarkedRecipesIds: {21},
+    );
+    // when
+    sut.emit(baseState);
+    sut.add(Bookmarks(initialItems[0]));
+    sut.add(Bookmarks(initialItems[1]));
+    // then
+    await untilCalled(bookmarkedRecipesRepository.deleteRecipe(21));
+    await untilCalled(bookmarkedRecipesRepository.addRecipe(
+      RecipeDbModel(id: 22, title: '124', complexity: 3.1, imageUrl: null),
+    ));
+    verify(bookmarkedRecipesRepository.deleteRecipe(21)).called(1);
+    verify(bookmarkedRecipesRepository.addRecipe(
+      RecipeDbModel(id: 22, title: '124', complexity: 3.1, imageUrl: null),
+    )).called(1);
   });
 }

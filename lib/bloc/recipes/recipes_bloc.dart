@@ -59,7 +59,16 @@ class RecipesBloc extends BaseBloc<RecipesEvent, RecipesState> {
       final recipeIndex = updatedListItems.indexOf(event.recipe);
       updatedListItems
           .replaceRange(recipeIndex, recipeIndex + 1, [updatedRecipe]);
-      yield state.copy(listItems: updatedListItems);
+      final updatedBookmarkedIds = state.bookmarkedRecipesIds;
+      if (updatedRecipe.isInBookmarks) {
+        updatedBookmarkedIds.add(updatedRecipe.id);
+      } else {
+        updatedBookmarkedIds.remove(updatedRecipe.id);
+      }
+      yield state.copy(
+        listItems: updatedListItems,
+        bookmarkedRecipesIds: updatedBookmarkedIds,
+      );
     }
   }
 
@@ -104,9 +113,9 @@ class RecipesBloc extends BaseBloc<RecipesEvent, RecipesState> {
         isInBookmarks: state.bookmarkedRecipesIds.contains(response.id),
       );
 
-  Future<List<int>> _getBookmarkedRecipesIds() async {
+  Future<Set<int>> _getBookmarkedRecipesIds() async {
     final recipes = await bookmarkedRecipesRepository.getRecipes();
-    return recipes.map((e) => e.id).toList();
+    return recipes.map((e) => e.id).toSet();
   }
 
   Future<void> _updateBookmarkedRecipeInDb(

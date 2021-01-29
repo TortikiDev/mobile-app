@@ -5,16 +5,16 @@ import '../../ui/reusable/list_items/list_item.dart';
 
 class RecipesState extends Equatable {
   final List<ListItem> _listItems;
-  final List<int> _bookmarkedRecipesIds;
+  final Set<int> _bookmarkedRecipesIds;
   final bool loadingFirstPage;
   final bool loadingNextPage;
 
   List<ListItem> get listItems => _listItems;
-  List<int> get bookmarkedRecipesIds => _bookmarkedRecipesIds;
+  Set<int> get bookmarkedRecipesIds => _bookmarkedRecipesIds;
 
   RecipesState(
       {@required List<ListItem> listItems,
-      List<int> bookmarkedRecipesIds = const [],
+      Set<int> bookmarkedRecipesIds = const {},
       this.loadingFirstPage = false,
       this.loadingNextPage = false})
       : _listItems = listItems,
@@ -24,7 +24,7 @@ class RecipesState extends Equatable {
 
   RecipesState copy(
           {List<ListItem> listItems,
-          List<int> bookmarkedRecipesIds,
+          Set<int> bookmarkedRecipesIds,
           bool loadingFirstPage,
           bool loadingNextPage}) =>
       RecipesState(
