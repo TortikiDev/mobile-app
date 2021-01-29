@@ -46,8 +46,8 @@ class RecipesBloc extends BaseBloc<RecipesEvent, RecipesState> {
       event.onComplete();
     } else if (event is LoadNextPage) {
       final initialListItems = List.of(state.listItems);
-      final liatItemsOnLoad = initialListItems + [ProgressIndicatorItem()];
-      yield state.copy(loadingNextPage: true, listItems: liatItemsOnLoad);
+      final listItemsOnLoad = initialListItems + [ProgressIndicatorItem()];
+      yield state.copy(loadingNextPage: true, listItems: listItemsOnLoad);
       final recipesNextPage = await _getRecipesNextPage();
       final updatedListItems = initialListItems + recipesNextPage;
       yield state.copy(loadingNextPage: false, listItems: updatedListItems);

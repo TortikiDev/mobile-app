@@ -14,7 +14,7 @@ class RecipesState extends Equatable {
 
   RecipesState(
       {@required List<ListItem> listItems,
-      List<int> bookmarkedRecipesIds,
+      List<int> bookmarkedRecipesIds = const [],
       this.loadingFirstPage = false,
       this.loadingNextPage = false})
       : _listItems = listItems,
