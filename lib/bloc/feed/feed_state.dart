@@ -1,17 +1,18 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 
-import '../../ui/screens/main/feed/list_items/feed_list_item.dart';
+import '../../ui/reusable/list_items/list_item.dart';
+
 
 class FeedState extends Equatable {
-  final List<FeedListItem> _feedItems;
+  final List<ListItem> _feedItems;
   final bool loadingFirstPage;
   final bool loadingNextPage;
 
-  List<FeedListItem> get feedItems => _feedItems;
+  List<ListItem> get feedItems => _feedItems;
 
   FeedState(
-      {@required List<FeedListItem> feedItems,
+      {@required List<ListItem> feedItems,
       this.loadingFirstPage = false,
       this.loadingNextPage = false})
       : _feedItems = feedItems;
@@ -19,7 +20,7 @@ class FeedState extends Equatable {
   factory FeedState.initial() => FeedState(feedItems: []);
 
   FeedState copy(
-          {List<FeedListItem> feedItems,
+          {List<ListItem> feedItems,
           bool loadingFirstPage,
           bool loadingNextPage}) =>
       FeedState(

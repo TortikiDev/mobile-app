@@ -6,10 +6,12 @@ import '../../../bloc/main/index.dart';
 import '../../../data/repositories/account_repository.dart';
 import '../../../data/repositories/jwt_repository.dart';
 import '../../../data/repositories/posts_repository.dart';
-import '../../reusable/in_develop_screen_factory.dart';
+import '../../../data/repositories/repositories.dart';
 import '../../reusable/widget_factory.dart';
 import 'feed/feed_screen_factory.dart';
 import 'main_screen.dart';
+import 'recipes/recipes_screen_factory.dart';
+import 'search_recipes/search_recipes_screen_factory.dart';
 
 class MainScreenFactory implements WidgetFactory {
   @override
@@ -18,6 +20,9 @@ class MainScreenFactory implements WidgetFactory {
       final jwtRepository = JwtRepository();
       final accountRepository = AccountRepository();
       final postsRepository = PostsRepository();
+      final recipesRepository = RecipesRepository();
+      final bookmarkedRecipesRepository =
+          RepositoryProvider.of<BookmarkedRecipesRepository>(context);
       final errorHandlingBloc = BlocProvider.of<ErrorHandlingBloc>(context);
       final mainBloc = MainBloc(
           jwtRepository: jwtRepository,
@@ -26,20 +31,28 @@ class MainScreenFactory implements WidgetFactory {
         ..add(BlocInit());
 
       final feedScreenFactory = FeedScreenFactory();
-      // TODO: use actual recipes screen factory instead
-      final recipesScreenFactory = InDevelopWidgetFactory();
+      final recipesScreenFactory = RecipesScreenFactory();
+      final searchRecipesScreenFactory = SearchRecipesScreenFactory(
+        recipesRepository: recipesRepository,
+        bookmarkedRecipesRepository: bookmarkedRecipesRepository,
+      );
 
       return MultiRepositoryProvider(
-          providers: [
-            RepositoryProvider(create: (context) => jwtRepository),
-            RepositoryProvider(create: (context) => accountRepository),
-            RepositoryProvider(create: (context) => postsRepository),
-          ],
-          child: BlocProvider(
-              create: (context) => mainBloc,
-              child: MainScreen(
-                  feedScreenFactory: feedScreenFactory,
-                  recipesScreenFactory: recipesScreenFactory)));
+        providers: [
+          RepositoryProvider(create: (context) => jwtRepository),
+          RepositoryProvider(create: (context) => accountRepository),
+          RepositoryProvider(create: (context) => postsRepository),
+          RepositoryProvider(create: (context) => recipesRepository)
+        ],
+        child: BlocProvider(
+          create: (context) => mainBloc,
+          child: MainScreen(
+            feedScreenFactory: feedScreenFactory,
+            recipesScreenFactory: recipesScreenFactory,
+            searchRecipesScreenFactory: searchRecipesScreenFactory,
+          ),
+        ),
+      );
     });
   }
 }

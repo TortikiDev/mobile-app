@@ -1,6 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter/material.dart';
 import 'package:tortiki/app_localizations.dart';
+import 'package:tortiki/ui/reusable/search_bar.dart';
+import 'package:tortiki/ui/screens/main/feed/feed_screen.dart';
+import 'package:tortiki/ui/screens/main/recipes/recipes_screen.dart';
+import 'package:tortiki/ui/screens/main/search_recipes/search_recipes_screen.dart';
 import '../make_testable_widget.dart';
 import 'test_main_screen_factory.dart';
 
@@ -12,8 +16,26 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.byType(AppBar), findsOneWidget);
     expect(find.byType(TabBar), findsOneWidget);
-    await tester.tap(find.text(localizations.recipes.toUpperCase()));
-    await tester.tap(find.text(localizations.feed.toUpperCase()));
+
+    expect(find.byType(FeedScreen), findsOneWidget);
     expect(find.byType(ListView), findsOneWidget);
+    await tester.tap(find.text(localizations.recipes.toUpperCase()));
+    await tester.pumpAndSettle();
+    expect(find.byType(RecipesScreen), findsOneWidget);
+    expect(find.byType(ListView), findsOneWidget);
+    await tester.tap(find.text(localizations.feed.toUpperCase()));
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text(localizations.recipes.toUpperCase()));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(Key('Search recipes')));
+    await tester.pumpAndSettle();
+    expect(find.byType(SearchRecipesScreen), findsOneWidget);
+    expect(find.byType(SearchBar), findsOneWidget);
+    expect(find.byType(ListView), findsOneWidget);
+    
+    await tester.tap(find.byKey(Key('Back button')));
+    await tester.pumpAndSettle();
+    expect(find.byType(RecipesScreen), findsOneWidget);
   });
 }

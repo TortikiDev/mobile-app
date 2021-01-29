@@ -5,10 +5,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pinch_zoom/pinch_zoom.dart';
 import 'package:share/share.dart';
 
-import '../../../../../../app_localizations.dart';
-import '../../../../../../bloc/feed/index.dart';
-import '../../../../../../utils/string_is_valid_url.dart';
-import '../../../../../reusable/text/expandable_text.dart';
+import '../../../../../app_localizations.dart';
+import '../../../../../bloc/feed/index.dart';
+import '../../../../../utils/string_is_valid_url.dart';
+import '../../../../reusable/text/expandable_text.dart';
 import 'post_view_model.dart';
 
 class PostView extends StatefulWidget {

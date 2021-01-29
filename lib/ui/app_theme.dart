@@ -65,7 +65,9 @@ final _textTheme = TextTheme(
   headline3: TextStyle(
       fontWeight: FontWeight.w400, fontSize: 48, color: _colorScheme.onPrimary),
   headline4: TextStyle(
-      fontWeight: FontWeight.w300, fontSize: 30, color: _colorScheme.onPrimary),
+      fontWeight: FontWeight.w300,
+      fontSize: 30,
+      color: _colorScheme.background),
   headline5: TextStyle(
       fontWeight: FontWeight.w400, fontSize: 24, color: _colorScheme.onPrimary),
   headline6: TextStyle(

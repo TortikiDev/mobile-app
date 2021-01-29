@@ -5,9 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../app_localizations.dart';
 import '../../../../bloc/feed/index.dart';
-import 'list_items/post/post_view.dart';
-import 'list_items/post/post_view_model.dart';
-import 'list_items/progress_indicator_item.dart';
+import '../../../reusable/list_items/progress_indicator_item.dart';
+import 'post/post_view.dart';
+import 'post/post_view_model.dart';
 
 class FeedScreen extends StatefulWidget {
   const FeedScreen({Key key}) : super(key: key);

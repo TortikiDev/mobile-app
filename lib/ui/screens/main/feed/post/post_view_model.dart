@@ -1,9 +1,9 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 
-import '../../list_items/feed_list_item.dart';
+import '../../../../reusable/list_items/list_item.dart';
 
-class PostViewModel extends Equatable implements FeedListItem {
+class PostViewModel extends Equatable implements ListItem {
   final int id;
   final String userAvaratUrl;
   final String userName;
