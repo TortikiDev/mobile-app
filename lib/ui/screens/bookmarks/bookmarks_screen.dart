@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tortiki/app_localizations.dart';
 
+import '../../../app_localizations.dart';
 import '../../../bloc/bookmarks/index.dart';
 import '../main/recipes/recipe/recipe_view.dart';
 import '../main/recipes/recipe/recipe_view_model.dart';

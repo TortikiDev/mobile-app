@@ -1,10 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
-import 'package:tortiki/data/database/models/recipe_db_model.dart';
-import 'package:tortiki/ui/screens/main/recipes/recipe/recipe_view_model.dart';
 
+import '../../data/database/models/recipe_db_model.dart';
 import '../../data/repositories/repositories.dart';
+import '../../ui/screens/main/recipes/recipe/recipe_view_model.dart';
 import '../base_bloc.dart';
 import '../error_handling/index.dart';
 import 'index.dart';
