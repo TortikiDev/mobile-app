@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../app_localizations.dart';
 import '../app_theme.dart';
+import '../screens/bookmarks/bookmarks_screen_factory.dart';
 import '../screens/main/main_screen_factory.dart';
 import 'bottom_navigation_item.dart';
 
@@ -46,13 +47,7 @@ class _BottomNaigationControllerState extends State<BottomNaigationController> {
           ),
         ),
         BottomNaigationControllerItem(
-          Container(
-            color: appTheme.colorScheme.background,
-            child: Center(
-              child: Text(localizations.bookmarks,
-                  style: theme.textTheme.headline6),
-            ),
-          ),
+          BookmarksScreenFactory().createWidget(),
           BottomNavigationBarItem(
             label: localizations.bookmarks,
             icon: Icon(Icons.bookmark),

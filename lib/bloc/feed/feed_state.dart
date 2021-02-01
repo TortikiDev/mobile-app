@@ -9,7 +9,7 @@ class FeedState extends Equatable {
   final bool loadingFirstPage;
   final bool loadingNextPage;
 
-  List<ListItem> get feedItems => _feedItems;
+  List<ListItem> get feedItems => List.of(_feedItems);
 
   FeedState(
       {@required List<ListItem> feedItems,

@@ -38,7 +38,7 @@ class FeedBloc extends BaseBloc<FeedEvent, FeedState> {
       yield state.copy(feedItems: posts);
       event.onComplete();
     } else if (event is LoadNextPage) {
-      final initialFeedItems = List.of(state.feedItems);
+      final initialFeedItems = state.feedItems;
       final feedItemsOnLoad = initialFeedItems + [ProgressIndicatorItem()];
       yield state.copy(loadingNextPage: true, feedItems: feedItemsOnLoad);
       final postNextPage = await _getPostsNextPage();
@@ -118,7 +118,7 @@ class FeedBloc extends BaseBloc<FeedEvent, FeedState> {
         postToUpdate = post.copy(descriptionExpanded: false);
       }
 
-      final updatedPostsViewModels = List.of(state.feedItems);
+      final updatedPostsViewModels = state.feedItems;
       final postIndex = updatedPostsViewModels.indexOf(post);
       updatedPostsViewModels
           .replaceRange(postIndex, postIndex + 1, [postToUpdate]);

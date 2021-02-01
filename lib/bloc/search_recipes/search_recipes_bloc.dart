@@ -47,7 +47,7 @@ class SearchRecipesBloc
         yield state.copy(listItems: [], setSearchQueryToNull: true);
       }
     } else if (event is LoadNextPage) {
-      final initialListItems = List.of(state.listItems);
+      final initialListItems = state.listItems;
       final liatItemsOnLoad = initialListItems + [ProgressIndicatorItem()];
       yield state.copy(loadingNextPage: true, listItems: liatItemsOnLoad);
       final recipesNextPage =
@@ -58,7 +58,7 @@ class SearchRecipesBloc
       final isInBookmarks = !event.recipe.isInBookmarks;
       final updatedRecipe = event.recipe.copy(isInBookmarks: isInBookmarks);
       _updateBookmarkedRecipeInDb(updatedRecipe);
-      final updatedListItems = List.of(state.listItems);
+      final updatedListItems = state.listItems;
       final recipeIndex = updatedListItems.indexOf(event.recipe);
       updatedListItems
           .replaceRange(recipeIndex, recipeIndex + 1, [updatedRecipe]);
