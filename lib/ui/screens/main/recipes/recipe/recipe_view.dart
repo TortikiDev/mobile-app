@@ -24,10 +24,12 @@ class RecipeView extends StatelessWidget {
       child: Stack(
         children: [
           Positioned.fill(
-            child: CachedNetworkImage(
-              imageUrl: model.imageUrl,
-              fit: BoxFit.cover,
-            ),
+            child: model.imageUrl != null
+                ? CachedNetworkImage(
+                    imageUrl: model.imageUrl,
+                    fit: BoxFit.cover,
+                  )
+                : Container(),
           ),
           Positioned.fill(
             child: Container(
