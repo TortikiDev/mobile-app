@@ -30,14 +30,14 @@ class BookmarksBloc extends BaseBloc<BookmarksEvent, BookmarksState> {
     if (event is BlocInit) {
       yield state.copy(loading: true);
       final dbRecipes = await bookmarksRepository.getRecipes();
-      final recipes = dbRecipes.map(_mapRecipeResponseToViewModel);
+      final recipes = dbRecipes.map(_mapRecipeResponseToViewModel).toList();
       yield state.copy(listItems: recipes, loading: false);
     } else if (event is RemoveFromBookmarks) {
       bookmarksRepository.deleteRecipe(event.recipe.id);
       final currentRecipes = state.listItems;
       currentRecipes.remove(event.recipe);
       yield state.copy(listItems: currentRecipes);
-    }
+    } 
   }
 
   // endregion

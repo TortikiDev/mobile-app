@@ -13,6 +13,7 @@ final appTheme = ThemeData(
     scaffoldBackgroundColor: Colors.white,
     appBarTheme: AppBarTheme(
         color: _colorScheme.primary,
+        textTheme: _textTheme,
         brightness: Brightness.light,
         iconTheme: IconThemeData(color: _colorScheme.onPrimary)),
     tabBarTheme: TabBarTheme(
