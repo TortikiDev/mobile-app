@@ -16,7 +16,7 @@ class BookmarksState extends Equatable {
   factory BookmarksState.initial() => BookmarksState();
 
   BookmarksState copy({
-    List<RecipeViewModel> listModels,
+    List<RecipeViewModel> listItems,
     bool loading,
   }) =>
       BookmarksState(

@@ -45,7 +45,7 @@ class RecipesBloc extends BaseBloc<RecipesEvent, RecipesState> {
       yield state.copy(listItems: recipes);
       event.onComplete();
     } else if (event is LoadNextPage) {
-      final initialListItems = List.of(state.listItems);
+      final initialListItems = state.listItems;
       final listItemsOnLoad = initialListItems + [ProgressIndicatorItem()];
       yield state.copy(loadingNextPage: true, listItems: listItemsOnLoad);
       final recipesNextPage = await _getRecipesNextPage();
@@ -55,7 +55,7 @@ class RecipesBloc extends BaseBloc<RecipesEvent, RecipesState> {
       final isInBookmarks = !event.recipe.isInBookmarks;
       final updatedRecipe = event.recipe.copy(isInBookmarks: isInBookmarks);
       _updateBookmarkedRecipeInDb(updatedRecipe);
-      final updatedListItems = List.of(state.listItems);
+      final updatedListItems = state.listItems;
       final recipeIndex = updatedListItems.indexOf(event.recipe);
       updatedListItems
           .replaceRange(recipeIndex, recipeIndex + 1, [updatedRecipe]);

@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
+import 'package:tortiki/data/database/models/recipe_db_model.dart';
+import 'package:tortiki/ui/screens/main/recipes/recipe/recipe_view_model.dart';
 
 import '../../data/repositories/repositories.dart';
 import '../base_bloc.dart';
@@ -25,9 +27,31 @@ class BookmarksBloc extends BaseBloc<BookmarksEvent, BookmarksState> {
 
   @override
   Stream<BookmarksState> mapEventToState(BookmarksEvent event) async* {
-    // TODO: implement event to state mapping
-    throw UnimplementedError();
+    if (event is BlocInit) {
+      yield state.copy(loading: true);
+      final dbRecipes = await bookmarksRepository.getRecipes();
+      final recipes = dbRecipes.map(_mapRecipeResponseToViewModel);
+      yield state.copy(listItems: recipes, loading: false);
+    } else if (event is RemoveFromBookmarks) {
+      bookmarksRepository.deleteRecipe(event.recipe.id);
+      final currentRecipes = state.listItems;
+      currentRecipes.remove(event.recipe);
+      yield state.copy(listItems: currentRecipes);
+    }
   }
+
+  // endregion
+
+  // region Private methods
+
+  RecipeViewModel _mapRecipeResponseToViewModel(RecipeDbModel response) =>
+      RecipeViewModel(
+        id: response.id,
+        title: response.title,
+        complexity: response.complexity,
+        imageUrl: response.imageUrl,
+        isInBookmarks: true,
+      );
 
   // endregion
 }
