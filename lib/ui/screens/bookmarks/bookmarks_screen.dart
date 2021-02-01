@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tortiki/app_localizations.dart';
 
 import '../../../bloc/bookmarks/index.dart';
 import '../main/recipes/recipe/recipe_view.dart';
@@ -8,18 +9,37 @@ import '../main/recipes/recipe/recipe_view_model.dart';
 class BookmarksScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<BookmarksBloc, BookmarksState>(
-      builder: (context, state) {
-        return state.loading
-            ? Center(
-                child: SizedBox(
-                  width: 32,
-                  height: 32,
-                  child: CircularProgressIndicator(),
+    final localizations = AppLocalizations.of(context);
+
+    return Scaffold(
+      appBar: AppBar(title: Text(localizations.bookmarks)),
+      body: BlocBuilder<BookmarksBloc, BookmarksState>(
+        builder: (context, state) {
+          return Stack(
+            children: [
+              Positioned(
+                top: 80,
+                left: 0,
+                right: 0,
+                child: Visibility(
+                  visible: state.loading,
+                  child: Center(
+                    child: SizedBox(
+                      height: 32,
+                      width: 32,
+                      child: CircularProgressIndicator(),
+                    ),
+                  ),
                 ),
-              )
-            : _ScrollView(state: state);
-      },
+              ),
+              Center(
+                child: Image.asset('assets/logo_transparent.png'),
+              ),
+              _ScrollView(state: state),
+            ],
+          );
+        },
+      ),
     );
   }
 }
