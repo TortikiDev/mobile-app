@@ -9,8 +9,8 @@ class RecipesState extends Equatable {
   final bool loadingFirstPage;
   final bool loadingNextPage;
 
-  List<ListItem> get listItems => _listItems;
-  Set<int> get bookmarkedRecipesIds => _bookmarkedRecipesIds;
+  List<ListItem> get listItems => List.of(_listItems);
+  Set<int> get bookmarkedRecipesIds => Set.of(_bookmarkedRecipesIds);
 
   RecipesState(
       {@required List<ListItem> listItems,

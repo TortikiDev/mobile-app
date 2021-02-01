@@ -10,8 +10,8 @@ class SearchRecipesState extends Equatable {
   final bool loadingNextPage;
   final String searchQuery;
 
-  List<ListItem> get listItems => _listItems;
-  Set<int> get bookmarkedRecipesIds => _bookmarkedRecipesIds;
+  List<ListItem> get listItems => List.of(_listItems);
+  Set<int> get bookmarkedRecipesIds => Set.of(_bookmarkedRecipesIds);
 
   SearchRecipesState({
     @required List<ListItem> listItems,

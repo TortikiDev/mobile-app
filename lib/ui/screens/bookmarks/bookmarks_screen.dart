@@ -9,13 +9,18 @@ class BookmarksScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<BookmarksBloc, BookmarksState>(
-        builder: (context, state) {
-      return state.loading
-          ? Center(
-              child: SizedBox(
-                  width: 32, height: 32, child: CircularProgressIndicator()))
-          : _ScrollView(state: state);
-    });
+      builder: (context, state) {
+        return state.loading
+            ? Center(
+                child: SizedBox(
+                  width: 32,
+                  height: 32,
+                  child: CircularProgressIndicator(),
+                ),
+              )
+            : _ScrollView(state: state);
+      },
+    );
   }
 }
 
@@ -47,7 +52,7 @@ class _ScrollView extends StatelessWidget {
   }
 
   void _removeRecipeFromBookmarks(RecipeViewModel model, BuildContext context) {
-    final event = Bookmarks(model);
+    final event = RemoveFromBookmarks(model);
     final bloc = BlocProvider.of<BookmarksBloc>(context);
     bloc.add(event);
   }
