@@ -15,13 +15,15 @@ class CreateRecipeBloc extends BaseBloc<CreateRecipeEvent, CreateRecipeState> {
 
   CreateRecipeBloc({@required ErrorHandlingBloc errorHandlingBloc})
       : super(
-            initialState: CreateRecipeState.initial(), 
+            initialState: CreateRecipeState.initial(),
             errorHandlingBloc: errorHandlingBloc);
 
   @override
   Stream<CreateRecipeState> mapEventToState(CreateRecipeEvent event) async* {
-    // TODO: implement event to state mapping
-    throw UnimplementedError();
+    // TODO: handle bloc events
+    if (event is BlocInit) {
+    } else if (event is TitleChanged) {
+    } else if (event is CreateRecipe) {}
   }
 
   // endregion
