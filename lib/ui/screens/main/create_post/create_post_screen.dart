@@ -20,7 +20,7 @@ class CreatePostScreen extends StatelessWidget {
 
     return BlocConsumer<CreatePostBloc, CreatePostState>(
       listenWhen: (previous, current) => current.postSuccessfulyCreated,
-      listener: (context, state) => Navigator.of(context).pop(),
+      listener: (context, state) => Navigator.of(context).maybePop(),
       builder: (context, state) => Scaffold(
         appBar: AppBar(
             title:

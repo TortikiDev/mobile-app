@@ -12,7 +12,7 @@ class CreateRecipeScreen extends StatelessWidget {
 
     return BlocConsumer<CreateRecipeBloc, CreateRecipeState>(
         listenWhen: (previous, current) => current.recipeSuccessfulyCreated,
-        listener: (context, state) => Navigator.of(context).pop(),
+        listener: (context, state) => Navigator.of(context).maybePop(),
         builder: (context, state) => Scaffold(
             appBar: AppBar(
                 title: Text(localizations.newPost,
@@ -51,8 +51,7 @@ class CreateRecipeScreen extends StatelessWidget {
                           TextField(
                             maxLength: 50,
                             maxLines: 1,
-                            onChanged: (value) =>
-                                _titleChanged(context, value),
+                            onChanged: (value) => _titleChanged(context, value),
                           ),
                           Text(localizations.photo,
                               style: theme.textTheme.subtitle1),

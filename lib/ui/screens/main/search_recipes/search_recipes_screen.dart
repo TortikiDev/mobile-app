@@ -52,7 +52,7 @@ class SearchRecipesScreen extends StatelessWidget {
                         _onSearchTextChanged(context, text),
                     onBackArrowPressed: () {
                       FocusScope.of(context).unfocus();
-                      Navigator.of(context).pop();
+                      Navigator.of(context).maybePop();
                     },
                   ),
                   Expanded(
