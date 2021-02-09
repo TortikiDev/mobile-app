@@ -5,6 +5,7 @@ import '../../../app_localizations.dart';
 import '../../../bloc/create_post/index.dart';
 import '../../../bloc/main/index.dart';
 import '../../reusable/widget_factory.dart';
+import 'create_recipe/create_recipe_screen_factory.dart';
 
 class MainScreen extends StatefulWidget {
   final WidgetFactory feedScreenFactory;
@@ -89,8 +90,7 @@ class _MainScreenState extends State<MainScreen> {
         createEntityScreenFactory = CreatePostScreenFactory();
         break;
       case 1:
-        // TODO: use actual create recipe factory
-        createEntityScreenFactory = CreatePostScreenFactory();
+        createEntityScreenFactory = CreateRecipeScreenFactory();
         break;
       default:
         throw IndexError(tabIndex, tabController);
