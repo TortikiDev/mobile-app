@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../app_localizations.dart';
 import '../../../bloc/create_post/index.dart';
 import '../../../bloc/main/index.dart';
-import '../../../data/repositories/posts_repository.dart';
 import '../../reusable/widget_factory.dart';
 
 class MainScreen extends StatefulWidget {
@@ -30,45 +29,54 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     final localizations = AppLocalizations.of(context);
 
-    return DefaultTabController(
-      length: 2,
-      child: BlocBuilder<MainBloc, MainState>(
-        builder: (context, state) => Scaffold(
-            appBar: AppBar(
-              centerTitle: true,
-              title: Image.asset('assets/main_app_bar_title.png', height: 40),
-              actions: _showSearchRecipesButton
-                  ? [
-                      IconButton(
-                        key: Key('Search recipes'),
-                        icon: Icon(Icons.search),
-                        onPressed: () => _searchRecipes(context),
+    return Navigator(
+      onGenerateRoute: (settings) {
+        return MaterialPageRoute(
+          builder: (context) {
+            return DefaultTabController(
+              length: 2,
+              child: BlocBuilder<MainBloc, MainState>(
+                builder: (context, state) => Scaffold(
+                    appBar: AppBar(
+                      centerTitle: true,
+                      title: Image.asset('assets/main_app_bar_title.png',
+                          height: 40),
+                      actions: _showSearchRecipesButton
+                          ? [
+                              IconButton(
+                                key: Key('Search recipes'),
+                                icon: Icon(Icons.search),
+                                onPressed: () => _searchRecipes(context),
+                              ),
+                            ]
+                          : null,
+                      bottom: TabBar(
+                        tabs: [
+                          Tab(text: localizations.feed.toUpperCase()),
+                          Tab(text: localizations.recipes.toUpperCase()),
+                        ],
+                        onTap: (index) {
+                          setState(() {
+                            _showSearchRecipesButton = index == 1;
+                          });
+                        },
                       ),
-                    ]
-                  : null,
-              bottom: TabBar(
-                tabs: [
-                  Tab(text: localizations.feed.toUpperCase()),
-                  Tab(text: localizations.recipes.toUpperCase()),
-                ],
-                onTap: (index) {
-                  setState(() {
-                    _showSearchRecipesButton = index == 1;
-                  });
-                },
+                    ),
+                    body: TabBarView(children: [
+                      widget.feedScreenFactory.createWidget(),
+                      widget.recipesScreenFactory.createWidget()
+                    ]),
+                    floatingActionButton: state.showCreatePostButton
+                        ? FloatingActionButton(
+                            child: Icon(Icons.create),
+                            onPressed: () => _onCreateEntityTap(context),
+                          )
+                        : null),
               ),
-            ),
-            body: TabBarView(children: [
-              widget.feedScreenFactory.createWidget(),
-              widget.recipesScreenFactory.createWidget()
-            ]),
-            floatingActionButton: state.showCreatePostButton
-                ? FloatingActionButton(
-                    child: Icon(Icons.create),
-                    onPressed: () => _onCreateEntityTap(context),
-                  )
-                : null),
-      ),
+            );
+          },
+        );
+      },
     );
   }
 
@@ -76,13 +84,8 @@ class _MainScreenState extends State<MainScreen> {
     final tabController = DefaultTabController.of(context);
     final tabIndex = tabController.index;
     WidgetFactory createEntityScreenFactory;
-    dynamic factoryData;
-
     switch (tabIndex) {
       case 0:
-        final postsRepository = RepositoryProvider.of<PostsRepository>(context);
-        factoryData =
-            CreatePostScreenFactoryData(postsRepository: postsRepository);
         createEntityScreenFactory = CreatePostScreenFactory();
         break;
       case 1:
@@ -94,9 +97,9 @@ class _MainScreenState extends State<MainScreen> {
     }
 
     final pageRoute = MaterialPageRoute(
-        builder: (context) =>
-            createEntityScreenFactory.createWidget(data: factoryData),
-        fullscreenDialog: true);
+      builder: (context) => createEntityScreenFactory.createWidget(),
+      fullscreenDialog: true,
+    );
     Navigator.of(context).push(pageRoute);
   }
 
