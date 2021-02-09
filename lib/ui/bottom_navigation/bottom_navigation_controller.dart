@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../app_localizations.dart';
+import '../../bloc/bottom_navigation_bloc/index.dart';
 import '../app_theme.dart';
 import '../screens/bookmarks/bookmarks_screen_factory.dart';
 import '../screens/main/main_screen_factory.dart';
-import 'bottom_navigation_item.dart';
+import 'bottom_navigation_controller_item.dart';
 
-class BottomNaigationController extends StatefulWidget {
-  BottomNaigationController({Key key}) : super(key: key);
+class BottomNavigationController extends StatefulWidget {
+  BottomNavigationController({Key key}) : super(key: key);
 
   @override
-  _BottomNaigationControllerState createState() =>
-      _BottomNaigationControllerState();
+  _BottomNavigationControllerState createState() =>
+      _BottomNavigationControllerState();
 }
 
-class _BottomNaigationControllerState extends State<BottomNaigationController> {
+class _BottomNavigationControllerState
+    extends State<BottomNavigationController> {
   final pagesBucket = PageStorageBucket();
   final pageController = PageController();
   List<BottomNaigationControllerItem> _items;
@@ -68,21 +71,25 @@ class _BottomNaigationControllerState extends State<BottomNaigationController> {
       ];
     }
 
-    return Scaffold(
-      body: PageStorage(
-        bucket: pagesBucket,
-        child: PageView(
-            physics: NeverScrollableScrollPhysics(),
-            children: _items.map((e) => e.page).toList(),
-            controller: pageController,
-            onPageChanged: (index) => _currentPage = index),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        items: _items.map((e) => e.barItem).toList(),
-        currentIndex: _currentPage,
-        onTap: _onItemTapped,
+    return BlocBuilder<BottomNavigationBloc, BottomNavigationState>(
+      builder: (context, state) => Scaffold(
+        body: PageStorage(
+          bucket: pagesBucket,
+          child: PageView(
+              physics: NeverScrollableScrollPhysics(),
+              children: _items.map((e) => e.page).toList(),
+              controller: pageController,
+              onPageChanged: (index) => _currentPage = index),
+        ),
+        bottomNavigationBar: state.isHidden
+            ? null
+            : BottomNavigationBar(
+                showSelectedLabels: false,
+                showUnselectedLabels: false,
+                items: _items.map((e) => e.barItem).toList(),
+                currentIndex: _currentPage,
+                onTap: _onItemTapped,
+              ),
       ),
     );
   }

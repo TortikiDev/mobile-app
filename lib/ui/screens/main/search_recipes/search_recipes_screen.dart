@@ -50,6 +50,10 @@ class SearchRecipesScreen extends StatelessWidget {
                   SearchBar(
                     onTextChanged: (text) =>
                         _onSearchTextChanged(context, text),
+                    onBackArrowPressed: () {
+                      FocusScope.of(context).unfocus();
+                      Navigator.of(context).pop();
+                    },
                   ),
                   Expanded(
                     child: _ScrollView(state: state),

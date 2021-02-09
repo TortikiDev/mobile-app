@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../app_localizations.dart';
-import '../../../bloc/create_post/index.dart';
+import '../../../bloc/bottom_navigation_bloc/index.dart';
 import '../../../bloc/main/index.dart';
 import '../../reusable/widget_factory.dart';
+import 'create_post/create_post_screen_factory.dart';
 import 'create_recipe/create_recipe_screen_factory.dart';
 
 class MainScreen extends StatefulWidget {
@@ -96,20 +97,26 @@ class _MainScreenState extends State<MainScreen> {
         throw IndexError(tabIndex, tabController);
     }
 
+    _pushFullScreenRoute(context, screenFactory: createEntityScreenFactory);
+  }
+
+  void _searchRecipes(BuildContext context) => _pushFullScreenRoute(context,
+      screenFactory: widget.searchRecipesScreenFactory);
+
+  void _pushFullScreenRoute(BuildContext context,
+      {@required WidgetFactory screenFactory}) {
+    final bottomNavigationBloc = BlocProvider.of<BottomNavigationBloc>(context);
     final pageRoute = MaterialPageRoute(
-      builder: (context) => createEntityScreenFactory.createWidget(),
+      builder: (context) => WillPopScope(
+        child: screenFactory.createWidget(),
+        onWillPop: () async {
+          bottomNavigationBloc.add(ShowNavigationBar());
+          return true;
+        },
+      ),
       fullscreenDialog: true,
     );
     Navigator.of(context).push(pageRoute);
-  }
-
-  void _searchRecipes(BuildContext context) {
-    final recipesScreen = widget.searchRecipesScreenFactory.createWidget();
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => recipesScreen,
-        fullscreenDialog: true,
-      ),
-    );
+    bottomNavigationBloc.add(HideNavigationBar());
   }
 }

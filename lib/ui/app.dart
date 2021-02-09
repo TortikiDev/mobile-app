@@ -11,18 +11,20 @@ import '../data/database/db_factory.dart';
 import '../data/http_client/http_client_factory.dart';
 import '../data/repositories/repositories.dart';
 import 'app_theme.dart';
-import 'bottom_navigation/bottom_navigation_controller.dart';
 import 'reusable/show_dialog_mixin.dart';
+import 'reusable/widget_factory.dart';
 import 'screens/splash_screen.dart';
 
 class App extends StatelessWidget {
   final HttpClientFactory httpClientFactory;
   final DbFactory dbFactory;
+  final WidgetFactory bottomNavigationControllerFactory;
 
   const App({
     Key key,
     @required this.httpClientFactory,
     @required this.dbFactory,
+    @required this.bottomNavigationControllerFactory,
   }) : super(key: key);
 
   @override
@@ -48,15 +50,15 @@ class App extends StatelessWidget {
               return MultiProvider(
                 providers: [
                   Provider(
-                      create: (context) =>
-                          httpClientFactory.createHttpClient()),
+                    create: (context) => httpClientFactory.createHttpClient(),
+                  ),
                   Provider<Database>(create: (context) => snapshot.data),
                 ],
                 child: RepositoryProvider(
                   create: (context) => BookmarkedRecipesRepository(
                     db: Provider.of<Database>(context, listen: false),
                   ),
-                  child: BottomNaigationController(),
+                  child: bottomNavigationControllerFactory.createWidget(),
                 ),
               );
             } else {

@@ -22,7 +22,7 @@ class TestBottomNaigationControllerFactory implements WidgetFactory {
       create: (context) => errorHandlingBloc,
       child: RepositoryProvider<BookmarkedRecipesRepository>(
           create: (context) => _MockBookmarkedRecipesRepository(),
-          child: BottomNaigationController()),
+          child: BottomNavigationController()),
     );
   }
 }
