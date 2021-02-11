@@ -15,6 +15,11 @@
     "type": "text",
     "placeholders": {}
   },
+  "add": "Добавить",
+  "@add": {
+    "type": "text",
+    "placeholders": {}
+  },
   "camera": "Камера",
   "@camera": {
     "type": "text",
@@ -152,6 +157,11 @@
   },
   "cookingSteps": "Пошаговая инструкция",
   "@cookingSteps": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "complexityPrompt": "Сложность рецепта определяется по совокупности следующих параметров: время приготовления, способ приготовления, количество и стоимость ингредиентов.",
+  "@complexityPrompt": {
     "type": "text",
     "placeholders": {}
   },

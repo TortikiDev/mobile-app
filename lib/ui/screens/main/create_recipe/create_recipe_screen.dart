@@ -15,7 +15,7 @@ class CreateRecipeScreen extends StatelessWidget {
         listener: (context, state) => Navigator.of(context).maybePop(),
         builder: (context, state) => Scaffold(
             appBar: AppBar(
-                title: Text(localizations.newPost,
+                title: Text(localizations.newRecipe,
                     style: theme.textTheme.headline6),
                 actions: state.creatingRecipe
                     ? [

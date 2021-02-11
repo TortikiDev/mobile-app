@@ -21,6 +21,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
+    "add" : MessageLookupByLibrary.simpleMessage("Добавить"),
     "apiResponseParsingError" : MessageLookupByLibrary.simpleMessage("Ошибка обработки ответа"),
     "authorizationError" : MessageLookupByLibrary.simpleMessage("Ошибка авторизации"),
     "badGateway" : MessageLookupByLibrary.simpleMessage("Ошибочный шлюз"),
@@ -29,6 +30,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "camera" : MessageLookupByLibrary.simpleMessage("Камера"),
     "clear" : MessageLookupByLibrary.simpleMessage("Очистить"),
     "complexityAndDescription" : MessageLookupByLibrary.simpleMessage("Сложность и описание"),
+    "complexityPrompt" : MessageLookupByLibrary.simpleMessage("Сложность рецепта определяется по совокупности следующих параметров: время приготовления, способ приготовления, количество и стоимость ингредиентов."),
     "connectionError" : MessageLookupByLibrary.simpleMessage("Ошибка соединения"),
     "connectionTimeout" : MessageLookupByLibrary.simpleMessage("Таймаут соединения"),
     "cooking" : MessageLookupByLibrary.simpleMessage("Приготовление"),

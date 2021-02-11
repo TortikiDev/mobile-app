@@ -21,6 +21,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
+    "add" : MessageLookupByLibrary.simpleMessage("Add"),
     "apiResponseParsingError" : MessageLookupByLibrary.simpleMessage("Response parsing error. Please contact support"),
     "authorizationError" : MessageLookupByLibrary.simpleMessage("Authorization error"),
     "badGateway" : MessageLookupByLibrary.simpleMessage("Bad Gateway"),
@@ -29,6 +30,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "camera" : MessageLookupByLibrary.simpleMessage("Camera"),
     "clear" : MessageLookupByLibrary.simpleMessage("Clear"),
     "complexityAndDescription" : MessageLookupByLibrary.simpleMessage("Complexity and description"),
+    "complexityPrompt" : MessageLookupByLibrary.simpleMessage("The complexity of a recipe is determined by the combination of the following parameters: cooking time, cooking method, quantity and cost of ingredients."),
     "connectionError" : MessageLookupByLibrary.simpleMessage("Connection error"),
     "connectionTimeout" : MessageLookupByLibrary.simpleMessage("Connection timeout"),
     "cooking" : MessageLookupByLibrary.simpleMessage("Cooking"),

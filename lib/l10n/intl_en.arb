@@ -15,6 +15,11 @@
     "type": "text",
     "placeholders": {}
   },
+  "add": "Add",
+  "@add": {
+    "type": "text",
+    "placeholders": {}
+  },
   "camera": "Camera",
   "@camera": {
     "type": "text",
@@ -157,6 +162,11 @@
   },
   "cookingSteps": "Cooking steps",
   "@cookingSteps": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "complexityPrompt": "The complexity of a recipe is determined by the combination of the following parameters: cooking time, cooking method, quantity and cost of ingredients.",
+  "@complexityPrompt": {
     "type": "text",
     "placeholders": {}
   },

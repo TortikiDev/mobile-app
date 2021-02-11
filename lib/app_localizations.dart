@@ -52,6 +52,8 @@ class AppLocalizations {
 
   String get clear => Intl.message('Clear', name: 'clear', locale: localeName);
 
+  String get add => Intl.message('Add', name: 'add', locale: localeName);
+
   String get camera =>
       Intl.message('Camera', name: 'camera', locale: localeName);
 
@@ -155,6 +157,14 @@ class AppLocalizations {
 
   String get cookingSteps =>
       Intl.message('Cooking steps', name: 'cookingSteps', locale: localeName);
+
+  String get complexityPrompt => Intl.message(
+        'The complexity of a recipe is determined by the combination'
+        ' of the following parameters: cooking time, cooking method, quantity'
+        ' and cost of ingredients.',
+        name: 'complexityPrompt',
+        locale: localeName,
+      );
 
   // endregion
 
