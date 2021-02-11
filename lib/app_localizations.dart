@@ -50,6 +50,8 @@ class AppLocalizations {
 
   String get error => Intl.message('Error', name: 'error', locale: localeName);
 
+  String get clear => Intl.message('Clear', name: 'clear', locale: localeName);
+
   String get camera =>
       Intl.message('Camera', name: 'camera', locale: localeName);
 
@@ -128,6 +130,31 @@ class AppLocalizations {
 
   String get description =>
       Intl.message('Description', name: 'description', locale: localeName);
+
+  // endregion
+
+  // region Create recipe
+
+  String get newRecipe =>
+      Intl.message('New recipe', name: 'newRecipe', locale: localeName);
+
+  String get complexityAndDescription => Intl.message(
+        'Complexity and description',
+        name: 'complexityAndDescription',
+        locale: localeName,
+      );
+
+  String get ingredients =>
+      Intl.message('Ingredients', name: 'ingredients', locale: localeName);
+
+  String get ingredient =>
+      Intl.message('Ingredient', name: 'ingredient', locale: localeName);
+
+  String get cooking =>
+      Intl.message('Cooking', name: 'cooking', locale: localeName);
+
+  String get cookingSteps =>
+      Intl.message('Cooking steps', name: 'cookingSteps', locale: localeName);
 
   // endregion
 

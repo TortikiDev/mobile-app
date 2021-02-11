@@ -10,6 +10,11 @@
     "type": "text",
     "placeholders": {}
   },
+  "clear": "Clear",
+  "@clear": {
+    "type": "text",
+    "placeholders": {}
+  },
   "camera": "Camera",
   "@camera": {
     "type": "text",
@@ -122,6 +127,36 @@
   },
   "main": "Main",
   "@main": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "newRecipe": "New recipe",
+  "@newRecipe": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "complexityAndDescription": "Complexity and description",
+  "@complexityAndDescription": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "ingredients": "Ingredients",
+  "@ingredients": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "ingredient": "Ingredient",
+  "@ingredient": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "cooking": "Cooking",
+  "@cooking": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "cookingSteps": "Cooking steps",
+  "@cookingSteps": {
     "type": "text",
     "placeholders": {}
   },
