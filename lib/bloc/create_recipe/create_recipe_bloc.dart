@@ -29,7 +29,7 @@ class CreateRecipeBloc extends BaseBloc<CreateRecipeEvent, CreateRecipeState> {
       final complexity = min(state.complexity + 0.5, 5.0);
       yield state.copy(complexity: complexity);
     } else if (event is MinusComplexity) {
-      final complexity = max(state.complexity - 0.5, 0.0);
+      final complexity = max(state.complexity - 0.5, 0.5);
       yield state.copy(complexity: complexity);
     }
   }
