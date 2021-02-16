@@ -135,6 +135,11 @@
     "type": "text",
     "placeholders": {}
   },
+  "name": "Название",
+  "@name": {
+    "type": "text",
+    "placeholders": {}
+  },
   "complexityAndDescription": "Сложность и описание",
   "@complexityAndDescription": {
     "type": "text",
@@ -145,8 +150,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "ingredient": "Ингредиент",
-  "@ingredient": {
+  "addIngredients": "Добавьте ингредиенты",
+  "@addIngredient": {
     "type": "text",
     "placeholders": {}
   },

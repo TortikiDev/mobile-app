@@ -16,6 +16,25 @@ class TitleChanged extends CreateRecipeEvent {
   List<Object> get props => [text];
 }
 
+class PlusComplexity extends CreateRecipeEvent {
+  @override
+  List<Object> get props => [];
+}
+
+class MinusComplexity extends CreateRecipeEvent {
+  @override
+  List<Object> get props => [];
+}
+
+class DescritpionChanged extends CreateRecipeEvent {
+  final String text;
+
+  DescritpionChanged(this.text);
+
+  @override
+  List<Object> get props => [text];
+}
+
 class CreateRecipe extends CreateRecipeEvent {
   @override
   List<Object> get props => [];

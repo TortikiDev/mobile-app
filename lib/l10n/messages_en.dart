@@ -22,6 +22,7 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
     "add" : MessageLookupByLibrary.simpleMessage("Add"),
+    "addIngredients" : MessageLookupByLibrary.simpleMessage("Add ingredients"),
     "apiResponseParsingError" : MessageLookupByLibrary.simpleMessage("Response parsing error. Please contact support"),
     "authorizationError" : MessageLookupByLibrary.simpleMessage("Authorization error"),
     "badGateway" : MessageLookupByLibrary.simpleMessage("Bad Gateway"),
@@ -39,13 +40,13 @@ class MessageLookup extends MessageLookupByLibrary {
     "error" : MessageLookupByLibrary.simpleMessage("Error"),
     "feed" : MessageLookupByLibrary.simpleMessage("Feed"),
     "forbidder" : MessageLookupByLibrary.simpleMessage("Forbidden"),
-    "ingredient" : MessageLookupByLibrary.simpleMessage("Ingredient"),
     "ingredients" : MessageLookupByLibrary.simpleMessage("Ingredients"),
     "internalServerError" : MessageLookupByLibrary.simpleMessage("Internal server error"),
     "main" : MessageLookupByLibrary.simpleMessage("Main"),
     "map" : MessageLookupByLibrary.simpleMessage("Map"),
     "methodNotAllowed" : MessageLookupByLibrary.simpleMessage("Method Not Allowed"),
     "more" : MessageLookupByLibrary.simpleMessage("more"),
+    "name" : MessageLookupByLibrary.simpleMessage("Name"),
     "newPost" : MessageLookupByLibrary.simpleMessage("New post"),
     "newRecipe" : MessageLookupByLibrary.simpleMessage("New recipe"),
     "ok" : MessageLookupByLibrary.simpleMessage("OK"),

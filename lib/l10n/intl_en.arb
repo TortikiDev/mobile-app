@@ -140,6 +140,11 @@
     "type": "text",
     "placeholders": {}
   },
+  "name": "Name",
+  "@name": {
+    "type": "text",
+    "placeholders": {}
+  },
   "complexityAndDescription": "Complexity and description",
   "@complexityAndDescription": {
     "type": "text",
@@ -150,8 +155,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "ingredient": "Ingredient",
-  "@ingredient": {
+  "addIngredients": "Add ingredients",
+  "@addIngredients": {
     "type": "text",
     "placeholders": {}
   },

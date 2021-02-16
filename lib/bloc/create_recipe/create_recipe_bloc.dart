@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:flutter/foundation.dart';
 
@@ -23,7 +24,14 @@ class CreateRecipeBloc extends BaseBloc<CreateRecipeEvent, CreateRecipeState> {
     // TODO: handle bloc events
     if (event is BlocInit) {
     } else if (event is TitleChanged) {
-    } else if (event is CreateRecipe) {}
+    } else if (event is CreateRecipe) {
+    } else if (event is PlusComplexity) {
+      final complexity = min(state.complexity + 0.5, 5.0);
+      yield state.copy(complexity: complexity);
+    } else if (event is MinusComplexity) {
+      final complexity = max(state.complexity - 0.5, 0.0);
+      yield state.copy(complexity: complexity);
+    }
   }
 
   // endregion

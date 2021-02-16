@@ -22,6 +22,7 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
     "add" : MessageLookupByLibrary.simpleMessage("Добавить"),
+    "addIngredients" : MessageLookupByLibrary.simpleMessage("Добавьте ингредиенты"),
     "apiResponseParsingError" : MessageLookupByLibrary.simpleMessage("Ошибка обработки ответа"),
     "authorizationError" : MessageLookupByLibrary.simpleMessage("Ошибка авторизации"),
     "badGateway" : MessageLookupByLibrary.simpleMessage("Ошибочный шлюз"),
@@ -39,13 +40,13 @@ class MessageLookup extends MessageLookupByLibrary {
     "error" : MessageLookupByLibrary.simpleMessage("Ошибка"),
     "feed" : MessageLookupByLibrary.simpleMessage("Лента"),
     "forbidder" : MessageLookupByLibrary.simpleMessage("Отказано в доступе"),
-    "ingredient" : MessageLookupByLibrary.simpleMessage("Ингредиент"),
     "ingredients" : MessageLookupByLibrary.simpleMessage("Ингредиенты"),
     "internalServerError" : MessageLookupByLibrary.simpleMessage("Внутренняя ошибка сервера"),
     "main" : MessageLookupByLibrary.simpleMessage("Главная"),
     "map" : MessageLookupByLibrary.simpleMessage("Карта"),
     "methodNotAllowed" : MessageLookupByLibrary.simpleMessage("Метод не доступен"),
     "more" : MessageLookupByLibrary.simpleMessage("ещё"),
+    "name" : MessageLookupByLibrary.simpleMessage("Название"),
     "newPost" : MessageLookupByLibrary.simpleMessage("Новый пост"),
     "newRecipe" : MessageLookupByLibrary.simpleMessage("Новый рецепт"),
     "ok" : MessageLookupByLibrary.simpleMessage("OK"),

@@ -140,6 +140,8 @@ class AppLocalizations {
   String get newRecipe =>
       Intl.message('New recipe', name: 'newRecipe', locale: localeName);
 
+  String get name => Intl.message('"Name"', name: 'name', locale: localeName);
+
   String get complexityAndDescription => Intl.message(
         'Complexity and description',
         name: 'complexityAndDescription',
@@ -149,8 +151,8 @@ class AppLocalizations {
   String get ingredients =>
       Intl.message('Ingredients', name: 'ingredients', locale: localeName);
 
-  String get ingredient =>
-      Intl.message('Ingredient', name: 'ingredient', locale: localeName);
+  String get addIngredients => Intl.message('Add ingredioents',
+      name: 'addIngredients', locale: localeName);
 
   String get cooking =>
       Intl.message('Cooking', name: 'cooking', locale: localeName);
