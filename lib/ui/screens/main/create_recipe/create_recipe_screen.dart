@@ -78,9 +78,17 @@ class CreateRecipeScreen extends StatelessWidget {
                     ),
                     SizedBox(height: 16),
                     IngredientsChipsInput(
-                        theme: theme,
-                        itemsChanged: (ingredients) =>
-                            _inngredientsChanged(context, ingredients)),
+                      theme: theme,
+                      itemsChanged: (ingredients) =>
+                          _inngredientsChanged(context, ingredients),
+                      // TODO: localize this
+                      unitSuggestions: [
+                        'г',
+                        'кг',
+                        'мл',
+                        'шт',
+                      ],
+                    ),
                     SizedBox(height: 24),
                     Text(
                       localizations.cooking,
