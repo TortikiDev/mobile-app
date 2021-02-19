@@ -150,8 +150,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "addIngredients": "Добавьте ингредиенты",
-  "@addIngredient": {
+  "ingredientsPlaceholder": "сахар 10 г, яйца 2 шт...",
+  "@ingredientsPlaceholder": {
     "type": "text",
     "placeholders": {}
   },
@@ -167,6 +167,21 @@
   },
   "complexityPrompt": "Сложность рецепта определяется по совокупности следующих параметров: время приготовления, способ приготовления, количество и стоимость ингредиентов.",
   "@complexityPrompt": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "grams": "г",
+  "@grams": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "milliliters": "мл",
+  "@milliliters": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "pcs": "шт",
+  "@pcs": {
     "type": "text",
     "placeholders": {}
   },

@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_chips_input/flutter_chips_input.dart';
+import 'package:tortiki/app_localizations.dart';
 
 import '../../../../../utils/string_is_numeric.dart';
 
@@ -21,12 +22,14 @@ class IngredientsChipsInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context);
     return ChipsInput<String>(
       key: ObjectKey(initialItems),
       keyboardAppearance: theme.brightness,
       maxChips: 30,
       initialValue: initialItems,
-      decoration: InputDecoration(hintText: 'сахар 100 г, яйца 2 шт...'),
+      decoration:
+          InputDecoration(hintText: localizations.ingredientsPlaceholder),
       allowChipEditing: true,
       findSuggestions: (query) {
         final suggestions = <String>[];

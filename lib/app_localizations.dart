@@ -151,8 +151,8 @@ class AppLocalizations {
   String get ingredients =>
       Intl.message('Ingredients', name: 'ingredients', locale: localeName);
 
-  String get addIngredients => Intl.message('Add ingredioents',
-      name: 'addIngredients', locale: localeName);
+  String get ingredientsPlaceholder => Intl.message('sugar 10 g, eggs 2 pcs...',
+      name: 'ingredientsPlaceholder', locale: localeName);
 
   String get cooking =>
       Intl.message('Cooking', name: 'cooking', locale: localeName);
@@ -167,6 +167,15 @@ class AppLocalizations {
         name: 'complexityPrompt',
         locale: localeName,
       );
+
+  String get grams =>
+      Intl.message('g', name: 'grams', locale: localeName);
+
+  String get milliliters =>
+      Intl.message('ml', name: 'milliliters', locale: localeName);
+
+  String get pcs =>
+      Intl.message('pcs', name: 'pcs', locale: localeName);
 
   // endregion
 

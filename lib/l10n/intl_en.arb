@@ -155,8 +155,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "addIngredients": "Add ingredients",
-  "@addIngredients": {
+  "ingredientsPlaceholder": "sugar 10 g, eggs 2 pcs...",
+  "@ingredientsPlaceholder": {
     "type": "text",
     "placeholders": {}
   },
@@ -172,6 +172,21 @@
   },
   "complexityPrompt": "The complexity of a recipe is determined by the combination of the following parameters: cooking time, cooking method, quantity and cost of ingredients.",
   "@complexityPrompt": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "grams": "g",
+  "@grams": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "milliliters": "ml",
+  "@milliliters": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "pcs": "pcs",
+  "@pcs": {
     "type": "text",
     "placeholders": {}
   },
