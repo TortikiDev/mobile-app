@@ -38,5 +38,9 @@
     "cSpell.includeRegExpList": [
         "\"export '.*\"",
         "\"import '.*\""
-    ]
+    ],
+    "cSpell.enableFiletypes": [
+        "dart"
+    ],
+    "cSpell.enabled": true
 }

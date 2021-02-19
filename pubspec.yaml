@@ -41,6 +41,7 @@ dependencies:
   share: ^0.6.5+4
   image_picker: ^0.6.7+17
   flutter_rating_bar: ^3.2.0+1
+  flutter_chips_input: ^1.9.5
 
 dev_dependencies:
   # Test

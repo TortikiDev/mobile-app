@@ -21,7 +21,6 @@ class CreateRecipeBloc extends BaseBloc<CreateRecipeEvent, CreateRecipeState> {
 
   @override
   Stream<CreateRecipeState> mapEventToState(CreateRecipeEvent event) async* {
-    // TODO: handle bloc events
     if (event is BlocInit) {
     } else if (event is TitleChanged) {
     } else if (event is CreateRecipe) {
@@ -31,6 +30,8 @@ class CreateRecipeBloc extends BaseBloc<CreateRecipeEvent, CreateRecipeState> {
     } else if (event is MinusComplexity) {
       final complexity = max(state.complexity - 0.5, 0.5);
       yield state.copy(complexity: complexity);
+    } else if (event is IngredientsChanged) {
+      yield state.copy(ingredients: event.ingredients);
     }
   }
 

@@ -35,6 +35,15 @@ class DescritpionChanged extends CreateRecipeEvent {
   List<Object> get props => [text];
 }
 
+class IngredientsChanged extends CreateRecipeEvent {
+  final List<String> ingredients;
+
+  IngredientsChanged(this.ingredients);
+
+  @override
+  List<Object> get props => [ingredients];
+}
+
 class CreateRecipe extends CreateRecipeEvent {
   @override
   List<Object> get props => [];
