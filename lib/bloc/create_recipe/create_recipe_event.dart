@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:equatable/equatable.dart';
 
 abstract class CreateRecipeEvent extends Equatable {}
@@ -51,6 +53,24 @@ class CookingStepsChanged extends CreateRecipeEvent {
 
   @override
   List<Object> get props => [text];
+}
+
+class PhotoPicked extends CreateRecipeEvent {
+  final File photo;
+
+  PhotoPicked(this.photo);
+
+  @override
+  List<Object> get props => [photo];
+}
+
+class PhotoDeleted extends CreateRecipeEvent {
+  final File photo;
+
+  PhotoDeleted(this.photo);
+
+  @override
+  List<Object> get props => [photo];
 }
 
 class CreateRecipe extends CreateRecipeEvent {
