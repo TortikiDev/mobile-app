@@ -182,18 +182,28 @@ class _PhotosCollection extends StatelessWidget with PickImageMixin {
         .map<Widget>((photo) => AspectRatio(
             aspectRatio: 1,
             child: Stack(
+              clipBehavior: Clip.none,
               children: [
-                Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(width: 0.5, color: Colors.grey[400]),
+                Positioned.fill(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(width: 0.5, color: Colors.grey[400]),
+                    ),
+                    clipBehavior: Clip.hardEdge,
+                    child: Image.file(photo, fit: BoxFit.cover),
                   ),
-                  clipBehavior: Clip.hardEdge,
-                  child: Image.file(photo, fit: BoxFit.cover),
                 ),
                 Positioned(
                   top: -8,
                   right: -8,
-                  child: Icon(Icons.close_rounded),
+                  child: GestureDetector(
+                    child: Icon(
+                      Icons.close_rounded,
+                      color: Colors.red,
+                    ),
+                    onTap: () => BlocProvider.of<CreateRecipeBloc>(context)
+                        .add(PhotoDeleted(photo)),
+                  ),
                 ),
               ],
             )))
