@@ -6,8 +6,9 @@ import 'package:image_picker/image_picker.dart';
 
 import '../../../../app_localizations.dart';
 import '../../../../bloc/create_post/index.dart';
+import '../../../reusable/pick_image_mixin.dart';
 
-class CreatePostScreen extends StatelessWidget {
+class CreatePostScreen extends StatelessWidget with PickImageMixin {
   final ImagePicker imagePicker;
 
   const CreatePostScreen({Key key, @required this.imagePicker})
@@ -107,61 +108,12 @@ class CreatePostScreen extends StatelessWidget {
     }
     return GestureDetector(
       child: photoWidget,
-      onTap: () => _showImagePicker(context),
-    );
-  }
-
-  void _showImagePicker(BuildContext context) {
-    final theme = Theme.of(context);
-    final localizations = AppLocalizations.of(context);
-
-    showModalBottomSheet(
+      onTap: () => pickImage(
         context: context,
-        builder: (dialogContext) {
-          return SafeArea(
-            child: Container(
-              child: Wrap(
-                children: <Widget>[
-                  ListTile(
-                      leading:
-                          Icon(Icons.photo_library, color: theme.accentColor),
-                      title: Text(localizations.photoLibrary,
-                          style: theme.textTheme.bodyText1),
-                      onTap: () {
-                        _pickImageFromGallery(context);
-                        Navigator.of(context).pop();
-                      }),
-                  ListTile(
-                    leading: Icon(Icons.photo_camera, color: theme.accentColor),
-                    title: Text(localizations.camera,
-                        style: theme.textTheme.bodyText1),
-                    onTap: () {
-                      _pickImageFromCamera(context);
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                ],
-              ),
-            ),
-          );
-        });
-  }
-
-  Future<void> _pickImageFromCamera(BuildContext context) async {
-    final image = await imagePicker.getImage(
-        source: ImageSource.camera, imageQuality: 50);
-    if (image != null) {
-      final imageFile = File(image.path);
-      BlocProvider.of<CreatePostBloc>(context).add(PhotoPicked(imageFile));
-    }
-  }
-
-  Future<void> _pickImageFromGallery(BuildContext context) async {
-    final image = await imagePicker.getImage(
-        source: ImageSource.gallery, imageQuality: 50);
-    if (image != null) {
-      final imageFile = File(image.path);
-      BlocProvider.of<CreatePostBloc>(context).add(PhotoPicked(imageFile));
-    }
+        imagePicker: imagePicker,
+        completion: (image) =>
+            BlocProvider.of<CreatePostBloc>(context).add(PhotoPicked(image)),
+      ),
+    );
   }
 }
