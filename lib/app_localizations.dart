@@ -140,7 +140,10 @@ class AppLocalizations {
   String get newRecipe =>
       Intl.message('New recipe', name: 'newRecipe', locale: localeName);
 
-  String get name => Intl.message('"Name"', name: 'name', locale: localeName);
+  String get name => Intl.message('Name', name: 'name', locale: localeName);
+
+  String get shortDescription => Intl.message('Short description',
+      name: 'shortDescription', locale: localeName);
 
   String get complexityAndDescription => Intl.message(
         'Complexity and description',
@@ -168,14 +171,12 @@ class AppLocalizations {
         locale: localeName,
       );
 
-  String get grams =>
-      Intl.message('g', name: 'grams', locale: localeName);
+  String get grams => Intl.message('g', name: 'grams', locale: localeName);
 
   String get milliliters =>
       Intl.message('ml', name: 'milliliters', locale: localeName);
 
-  String get pcs =>
-      Intl.message('pcs', name: 'pcs', locale: localeName);
+  String get pcs => Intl.message('pcs', name: 'pcs', locale: localeName);
 
   // endregion
 

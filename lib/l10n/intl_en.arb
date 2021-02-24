@@ -204,5 +204,10 @@
   "@profile": {
     "type": "text",
     "placeholders": {}
+  },
+  "shortDescription": "Short description",
+  "@shortDescription": {
+    "type": "text",
+    "placeholders": {}
   }
 }

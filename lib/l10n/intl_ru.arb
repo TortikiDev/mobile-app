@@ -199,5 +199,10 @@
   "@profile": {
     "type": "text",
     "placeholders": {}
+  },
+  "shortDescription": "Краткое описание",
+  "@shortDescription": {
+    "type": "text",
+    "placeholders": {}
   }
 }

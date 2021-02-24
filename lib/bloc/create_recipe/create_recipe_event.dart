@@ -26,10 +26,10 @@ class MinusComplexity extends CreateRecipeEvent {
   List<Object> get props => [];
 }
 
-class DescritpionChanged extends CreateRecipeEvent {
+class DescriptionChanged extends CreateRecipeEvent {
   final String text;
 
-  DescritpionChanged(this.text);
+  DescriptionChanged(this.text);
 
   @override
   List<Object> get props => [text];
@@ -42,6 +42,15 @@ class IngredientsChanged extends CreateRecipeEvent {
 
   @override
   List<Object> get props => [ingredients];
+}
+
+class CookingStepsChanged extends CreateRecipeEvent {
+  final String text;
+
+  CookingStepsChanged(this.text);
+
+  @override
+  List<Object> get props => [text];
 }
 
 class CreateRecipe extends CreateRecipeEvent {

@@ -59,6 +59,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "recipes" : MessageLookupByLibrary.simpleMessage("Recipes"),
     "resourceNotFound" : MessageLookupByLibrary.simpleMessage("Resource not found"),
     "serverIsNotAvailable" : MessageLookupByLibrary.simpleMessage("Server is not available"),
+    "shortDescription" : MessageLookupByLibrary.simpleMessage("Short description"),
     "showLess" : MessageLookupByLibrary.simpleMessage("show less"),
     "somethingWentWrong" : MessageLookupByLibrary.simpleMessage("Something went wrong")
   };

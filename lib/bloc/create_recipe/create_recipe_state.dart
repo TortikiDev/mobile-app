@@ -5,6 +5,7 @@ import 'package:equatable/equatable.dart';
 class CreateRecipeState extends Equatable {
   final String title;
   final double complexity;
+  final String description;
   final List<String> _ingredients;
   final String cookingSteps;
   final List<File> _photos;
@@ -17,6 +18,7 @@ class CreateRecipeState extends Equatable {
 
   const CreateRecipeState({
     this.title = '',
+    this.description = '',
     this.complexity = 3.0,
     List<String> ingredients = const [],
     this.cookingSteps = '',
@@ -31,6 +33,7 @@ class CreateRecipeState extends Equatable {
 
   CreateRecipeState copy({
     String title,
+    String description,
     double complexity,
     List<String> ingredients,
     String cookingSteps,
@@ -41,6 +44,7 @@ class CreateRecipeState extends Equatable {
   }) =>
       CreateRecipeState(
         title: title ?? this.title,
+        description: description ?? this.description,
         complexity: complexity ?? this.complexity,
         ingredients: ingredients ?? _ingredients,
         cookingSteps: cookingSteps ?? this.cookingSteps,
@@ -54,6 +58,7 @@ class CreateRecipeState extends Equatable {
   @override
   List<Object> get props => [
         title,
+        description,
         complexity,
         ingredients,
         cookingSteps,

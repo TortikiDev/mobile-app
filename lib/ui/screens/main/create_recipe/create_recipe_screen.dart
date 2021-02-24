@@ -67,7 +67,7 @@ class CreateRecipeScreen extends StatelessWidget {
                     TextField(
                       maxLines: null,
                       decoration: InputDecoration(
-                        hintText: localizations.description,
+                        hintText: localizations.shortDescription,
                       ),
                       onChanged: (value) => _descriptionChanged(context, value),
                     ),
@@ -80,7 +80,7 @@ class CreateRecipeScreen extends StatelessWidget {
                     IngredientsChipsInput(
                       theme: theme,
                       itemsChanged: (ingredients) =>
-                          _inngredientsChanged(context, ingredients),
+                          _ingredientsChanged(context, ingredients),
                       unitSuggestions: [
                         localizations.grams,
                         localizations.milliliters,
@@ -98,7 +98,8 @@ class CreateRecipeScreen extends StatelessWidget {
                       decoration: InputDecoration(
                         hintText: localizations.cookingSteps,
                       ),
-                      onChanged: (value) => _descriptionChanged(context, value),
+                      onChanged: (value) =>
+                          _cookingStepsChanged(context, value),
                     ),
                     SizedBox(height: 24),
                     Text(
@@ -124,12 +125,17 @@ class CreateRecipeScreen extends StatelessWidget {
   }
 
   void _descriptionChanged(BuildContext context, String text) {
-    final event = DescritpionChanged(text);
+    final event = DescriptionChanged(text);
     BlocProvider.of<CreateRecipeBloc>(context).add(event);
   }
 
-  void _inngredientsChanged(BuildContext context, List<String> ingredients) {
+  void _ingredientsChanged(BuildContext context, List<String> ingredients) {
     final event = IngredientsChanged(ingredients);
+    BlocProvider.of<CreateRecipeBloc>(context).add(event);
+  }
+
+  void _cookingStepsChanged(BuildContext context, String text) {
+    final event = CookingStepsChanged(text);
     BlocProvider.of<CreateRecipeBloc>(context).add(event);
   }
 }
