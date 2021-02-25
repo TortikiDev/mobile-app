@@ -4,18 +4,28 @@ import 'package:image_picker/image_picker.dart';
 
 import '../../../../bloc/create_recipe/index.dart';
 import '../../../../bloc/error_handling/index.dart';
+import '../../../../data/repositories/repositories.dart';
 import '../../../reusable/widget_factory.dart';
 import 'create_recipe_screen.dart';
 
 class CreateRecipeScreenFactory implements WidgetFactory {
   @override
   Widget createWidget({dynamic data}) {
-    final imagePicker = ImagePicker();
-    return BlocProvider(
-      create: (context) => CreateRecipeBloc(
-        errorHandlingBloc: BlocProvider.of<ErrorHandlingBloc>(context),
-      )..add(BlocInit()),
-      child: CreateRecipeScreen(imagePicker: imagePicker),
+    return Builder(
+      builder: (context) {
+        final recipesRepository =
+            RepositoryProvider.of<RecipesRepository>(context);
+        final errorHandlingBloc = BlocProvider.of<ErrorHandlingBloc>(context);
+        final createRecipeBloc = CreateRecipeBloc(
+          recipesRepository: recipesRepository,
+          errorHandlingBloc: errorHandlingBloc,
+        )..add(BlocInit());
+        final imagePicker = ImagePicker();
+        return BlocProvider(
+          create: (context) => createRecipeBloc,
+          child: CreateRecipeScreen(imagePicker: imagePicker),
+        );
+      },
     );
   }
 }

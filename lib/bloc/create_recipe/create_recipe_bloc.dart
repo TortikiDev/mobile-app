@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:flutter/foundation.dart';
 
+import '../../data/repositories/repositories.dart';
 import '../base_bloc.dart';
 import '../error_handling/index.dart';
 import 'index.dart';
@@ -10,11 +11,15 @@ import 'index.dart';
 class CreateRecipeBloc extends BaseBloc<CreateRecipeEvent, CreateRecipeState> {
   // region Properties
 
+  final RecipesRepository recipesRepository;
+
   // endregion
 
   // region Lifecycle
 
-  CreateRecipeBloc({@required ErrorHandlingBloc errorHandlingBloc})
+  CreateRecipeBloc(
+      {@required this.recipesRepository,
+      @required ErrorHandlingBloc errorHandlingBloc})
       : super(
             initialState: CreateRecipeState.initial(),
             errorHandlingBloc: errorHandlingBloc);
@@ -41,15 +46,36 @@ class CreateRecipeBloc extends BaseBloc<CreateRecipeEvent, CreateRecipeState> {
       yield state.copy(cookingSteps: event.text);
       yield state.copy(canCreateRecipe: _canCreateRecipe());
     } else if (event is PhotoPicked) {
-      final updatedPhotos = state.photos + [event.photo];
-      yield state.copy(photos: updatedPhotos);
-      yield state.copy(canCreateRecipe: _canCreateRecipe());
+      if (event.photo != null) {
+        final updatedPhotos = state.photos + [event.photo];
+        yield state.copy(photos: updatedPhotos);
+        yield state.copy(canCreateRecipe: _canCreateRecipe());
+      }
     } else if (event is PhotoDeleted) {
       final updatedPhotos = state.photos;
       updatedPhotos.removeWhere((e) => e == event.photo);
       yield state.copy(photos: updatedPhotos);
       yield state.copy(canCreateRecipe: _canCreateRecipe());
-    } else if (event is CreateRecipe) {}
+    } else if (event is CreateRecipe) {
+      yield state.copy(creatingRecipe: true);
+      bool success;
+      try {
+        await recipesRepository.createRecipe(
+          title: state.title,
+          complexity: state.complexity,
+          description: state.description,
+          ingredients: state.ingredients,
+          cookingSteps: state.cookingSteps,
+          photos: state.photos,
+        );
+        success = true;
+      } on Exception catch (error) {
+        errorHandlingBloc.add(ExceptionRaised(error));
+        success = false;
+      }
+      yield state.copy(
+          creatingRecipe: false, recipeSuccessfulyCreated: success);
+    }
   }
 
   // endregion
@@ -57,7 +83,7 @@ class CreateRecipeBloc extends BaseBloc<CreateRecipeEvent, CreateRecipeState> {
   // region Private methods
 
   bool _canCreateRecipe() =>
-      state.title.length > 3 &&
+      state.title.length > 2 &&
       state.description.isNotEmpty &&
       state.ingredients.isNotEmpty &&
       state.cookingSteps.length > 3 &&

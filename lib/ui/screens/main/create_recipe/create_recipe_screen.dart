@@ -182,7 +182,7 @@ class _PhotosCollection extends StatelessWidget with PickImageMixin {
         .map<Widget>((photo) => AspectRatio(
             aspectRatio: 1,
             child: Stack(
-              clipBehavior: Clip.none,
+              key: ObjectKey(photo),
               children: [
                 Positioned.fill(
                   child: Container(
@@ -193,21 +193,22 @@ class _PhotosCollection extends StatelessWidget with PickImageMixin {
                     child: Image.file(photo, fit: BoxFit.cover),
                   ),
                 ),
-                Positioned(
-                  top: -8,
-                  right: -8,
-                  child: GestureDetector(
-                    child: CircleAvatar(
-                      radius: 12,
-                      child: Icon(
-                        Icons.close,
-                        color: Colors.white,
-                        size: 20,
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Padding(
+                    padding: EdgeInsets.only(bottom: 4),
+                    child: GestureDetector(
+                      child: CircleAvatar(
+                        radius: 16,
+                        child: Icon(
+                          Icons.delete_outline,
+                          color: Colors.red,
+                        ),
+                        backgroundColor: Colors.white54,
                       ),
-                      backgroundColor: Colors.grey,
+                      onTap: () => BlocProvider.of<CreateRecipeBloc>(context)
+                          .add(PhotoDeleted(photo)),
                     ),
-                    onTap: () => BlocProvider.of<CreateRecipeBloc>(context)
-                        .add(PhotoDeleted(photo)),
                   ),
                 ),
               ],
@@ -235,10 +236,9 @@ class _PhotosCollection extends StatelessWidget with PickImageMixin {
         [SizedBox(width: 8)];
 
     return SizedBox(
-      height: 104,
+      height: 128,
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
-        clipBehavior: Clip.none,
         child: Row(children: rowChilldren),
       ),
     );

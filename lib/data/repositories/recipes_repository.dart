@@ -1,5 +1,8 @@
 import 'dart:async';
+import 'dart:io';
 import 'dart:math';
+
+import 'package:flutter/foundation.dart';
 
 import '../http_client/responses/responses.dart';
 
@@ -50,4 +53,14 @@ class RecipesRepository {
     return Future.delayed(Duration(seconds: 2))
         .then((_) => Future.value(limitedResult));
   }
+
+  Future<void> createRecipe({
+    @required String title,
+    @required double complexity,
+    @required String description,
+    @required List<String> ingredients,
+    @required String cookingSteps,
+    @required List<File> photos,
+  }) =>
+      Future.delayed(Duration(seconds: 2));
 }
