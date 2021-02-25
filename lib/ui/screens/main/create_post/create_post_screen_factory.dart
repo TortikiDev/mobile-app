@@ -8,20 +8,14 @@ import '../../../../data/repositories/repositories.dart';
 import '../../../reusable/widget_factory.dart';
 import 'create_post_screen.dart';
 
-class CreatePostScreenFactoryData {
-  final PostsRepository postsRepository;
-
-  const CreatePostScreenFactoryData({@required this.postsRepository});
-}
-
-class CreatePostScreenFactory
-    implements WidgetFactory<CreatePostScreenFactoryData> {
+class CreatePostScreenFactory implements WidgetFactory {
   @override
-  Widget createWidget({CreatePostScreenFactoryData data}) {
+  Widget createWidget({dynamic data}) {
     return Builder(builder: (context) {
+      final postsRepository = RepositoryProvider.of<PostsRepository>(context);
       final errorHandlingBloc = BlocProvider.of<ErrorHandlingBloc>(context);
       final createPostBloc = CreatePostBloc(
-          postsRepository: data.postsRepository,
+          postsRepository: postsRepository,
           errorHandlingBloc: errorHandlingBloc)
         ..add(BlocInit());
       final imagePicker = ImagePicker();

@@ -10,6 +10,16 @@
     "type": "text",
     "placeholders": {}
   },
+  "clear": "Clear",
+  "@clear": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "add": "Add",
+  "@add": {
+    "type": "text",
+    "placeholders": {}
+  },
   "camera": "Camera",
   "@camera": {
     "type": "text",
@@ -125,6 +135,66 @@
     "type": "text",
     "placeholders": {}
   },
+  "newRecipe": "New recipe",
+  "@newRecipe": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "name": "Name",
+  "@name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "complexityAndDescription": "Complexity and description",
+  "@complexityAndDescription": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "ingredients": "Ingredients",
+  "@ingredients": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "ingredientsPlaceholder": "sugar 10 g, eggs 2 pcs...",
+  "@ingredientsPlaceholder": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "cooking": "Cooking",
+  "@cooking": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "cookingSteps": "Cooking steps",
+  "@cookingSteps": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "complexityPrompt": "The complexity of a recipe is determined by the combination of the following parameters: cooking time, cooking method, quantity and cost of ingredients.",
+  "@complexityPrompt": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "grams": "g",
+  "@grams": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "milliliters": "ml",
+  "@milliliters": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "pcs": "pcs",
+  "@pcs": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "photos": "Photos",
+  "@photos": {
+    "type": "text",
+    "placeholders": {}
+  },
   "map": "Map",
   "@map": {
     "type": "text",
@@ -137,6 +207,11 @@
   },
   "profile": "Profile",
   "@profile": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "shortDescription": "Short description",
+  "@shortDescription": {
     "type": "text",
     "placeholders": {}
   }

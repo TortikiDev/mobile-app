@@ -50,6 +50,10 @@ class AppLocalizations {
 
   String get error => Intl.message('Error', name: 'error', locale: localeName);
 
+  String get clear => Intl.message('Clear', name: 'clear', locale: localeName);
+
+  String get add => Intl.message('Add', name: 'add', locale: localeName);
+
   String get camera =>
       Intl.message('Camera', name: 'camera', locale: localeName);
 
@@ -128,6 +132,54 @@ class AppLocalizations {
 
   String get description =>
       Intl.message('Description', name: 'description', locale: localeName);
+
+  // endregion
+
+  // region Create recipe
+
+  String get newRecipe =>
+      Intl.message('New recipe', name: 'newRecipe', locale: localeName);
+
+  String get name => Intl.message('Name', name: 'name', locale: localeName);
+
+  String get shortDescription => Intl.message('Short description',
+      name: 'shortDescription', locale: localeName);
+
+  String get complexityAndDescription => Intl.message(
+        'Complexity and description',
+        name: 'complexityAndDescription',
+        locale: localeName,
+      );
+
+  String get ingredients =>
+      Intl.message('Ingredients', name: 'ingredients', locale: localeName);
+
+  String get ingredientsPlaceholder => Intl.message('sugar 10 g, eggs 2 pcs...',
+      name: 'ingredientsPlaceholder', locale: localeName);
+
+  String get cooking =>
+      Intl.message('Cooking', name: 'cooking', locale: localeName);
+
+  String get cookingSteps =>
+      Intl.message('Cooking steps', name: 'cookingSteps', locale: localeName);
+
+  String get complexityPrompt => Intl.message(
+        'The complexity of a recipe is determined by the combination'
+        ' of the following parameters: cooking time, cooking method, quantity'
+        ' and cost of ingredients.',
+        name: 'complexityPrompt',
+        locale: localeName,
+      );
+
+  String get grams => Intl.message('g', name: 'grams', locale: localeName);
+
+  String get milliliters =>
+      Intl.message('ml', name: 'milliliters', locale: localeName);
+
+  String get pcs => Intl.message('pcs', name: 'pcs', locale: localeName);
+
+  String get photos =>
+      Intl.message('Photos', name: 'photos', locale: localeName);
 
   // endregion
 

@@ -1,29 +1,31 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 
+import '../../../../bloc/create_recipe/index.dart';
 import '../../../../bloc/error_handling/index.dart';
-import '../../../../bloc/search_recipes/index.dart';
 import '../../../../data/repositories/repositories.dart';
 import '../../../reusable/widget_factory.dart';
-import 'search_recipes_screen.dart';
+import 'create_recipe_screen.dart';
 
-class SearchRecipesScreenFactory implements WidgetFactory {
+class CreateRecipeScreenFactory implements WidgetFactory {
   @override
   Widget createWidget({dynamic data}) {
-    return BlocProvider(
-      create: (context) {
+    return Builder(
+      builder: (context) {
         final recipesRepository =
             RepositoryProvider.of<RecipesRepository>(context);
-        final bookmarkedRecipesRepository =
-            RepositoryProvider.of<BookmarkedRecipesRepository>(context);
         final errorHandlingBloc = BlocProvider.of<ErrorHandlingBloc>(context);
-        return SearchRecipesBloc(
+        final createRecipeBloc = CreateRecipeBloc(
           recipesRepository: recipesRepository,
-          bookmarkedRecipesRepository: bookmarkedRecipesRepository,
           errorHandlingBloc: errorHandlingBloc,
         )..add(BlocInit());
+        final imagePicker = ImagePicker();
+        return BlocProvider(
+          create: (context) => createRecipeBloc,
+          child: CreateRecipeScreen(imagePicker: imagePicker),
+        );
       },
-      child: SearchRecipesScreen(),
     );
   }
 }

@@ -40,6 +40,10 @@ final appTheme = ThemeData(
         selectionColor: _colorScheme.primaryVariant,
         selectionHandleColor: _colorScheme.onPrimary),
     dialogBackgroundColor: _colorScheme.surface,
+    dialogTheme: DialogTheme(
+      backgroundColor: _colorScheme.surface,
+      contentTextStyle: _textTheme.subtitle1,
+    ),
     bottomSheetTheme:
         BottomSheetThemeData(backgroundColor: _colorScheme.surface));
 

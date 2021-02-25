@@ -21,8 +21,6 @@ class MainScreenFactory implements WidgetFactory {
       final accountRepository = AccountRepository();
       final postsRepository = PostsRepository();
       final recipesRepository = RecipesRepository();
-      final bookmarkedRecipesRepository =
-          RepositoryProvider.of<BookmarkedRecipesRepository>(context);
       final errorHandlingBloc = BlocProvider.of<ErrorHandlingBloc>(context);
       final mainBloc = MainBloc(
           jwtRepository: jwtRepository,
@@ -32,10 +30,7 @@ class MainScreenFactory implements WidgetFactory {
 
       final feedScreenFactory = FeedScreenFactory();
       final recipesScreenFactory = RecipesScreenFactory();
-      final searchRecipesScreenFactory = SearchRecipesScreenFactory(
-        recipesRepository: recipesRepository,
-        bookmarkedRecipesRepository: bookmarkedRecipesRepository,
-      );
+      final searchRecipesScreenFactory = SearchRecipesScreenFactory();
 
       return MultiRepositoryProvider(
         providers: [

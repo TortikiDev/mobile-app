@@ -20,14 +20,17 @@ mixin ShowDialogMixin {
               onDismiss?.call();
               return Future.value(true);
             },
-            child: AlertDialog(title: Text(message), actions: <Widget>[
-              DialogButton(
-                  title: localizations.ok,
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                    onOkPressed?.call();
-                  }),
-            ]),
+            child: AlertDialog(
+                content: Text(message),
+                contentPadding: EdgeInsets.fromLTRB(24, 40, 16, 34),
+                actions: <Widget>[
+                  DialogButton(
+                      title: localizations.ok,
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                        onOkPressed?.call();
+                      }),
+                ]),
           );
         });
   }
@@ -78,6 +81,7 @@ mixin ShowDialogMixin {
         message = localizations.badGateway;
         break;
     }
+
     showDialog(
         context: context,
         barrierDismissible: false,

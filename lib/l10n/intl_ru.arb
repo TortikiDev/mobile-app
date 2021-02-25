@@ -10,6 +10,16 @@
     "type": "text",
     "placeholders": {}
   },
+  "clear": "Очистить",
+  "@clear": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "add": "Добавить",
+  "@add": {
+    "type": "text",
+    "placeholders": {}
+  },
   "camera": "Камера",
   "@camera": {
     "type": "text",
@@ -120,6 +130,66 @@
     "type": "text",
     "placeholders": {}
   },
+  "newRecipe": "Новый рецепт",
+  "@newRecipe": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "name": "Название",
+  "@name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "complexityAndDescription": "Сложность и описание",
+  "@complexityAndDescription": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "ingredients": "Ингредиенты",
+  "@ingredients": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "ingredientsPlaceholder": "сахар 10 г, яйца 2 шт...",
+  "@ingredientsPlaceholder": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "cooking": "Приготовление",
+  "@cooking": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "cookingSteps": "Пошаговая инструкция",
+  "@cookingSteps": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "complexityPrompt": "Сложность рецепта определяется по совокупности следующих параметров: время приготовления, способ приготовления, количество и стоимость ингредиентов.",
+  "@complexityPrompt": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "grams": "г",
+  "@grams": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "milliliters": "мл",
+  "@milliliters": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "pcs": "шт",
+  "@pcs": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "photos": "Фото",
+  "@photos": {
+    "type": "text",
+    "placeholders": {}
+  },
   "map": "Карта",
   "@map": {
     "type": "text",
@@ -132,6 +202,11 @@
   },
   "profile": "Профиль",
   "@profile": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "shortDescription": "Краткое описание",
+  "@shortDescription": {
     "type": "text",
     "placeholders": {}
   }

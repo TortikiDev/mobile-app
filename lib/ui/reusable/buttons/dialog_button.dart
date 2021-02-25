@@ -10,11 +10,10 @@ class DialogButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return FlatButton(
       onPressed: onPressed,
-      child: Text(title,
-          style: TextStyle(
-              fontWeight: FontWeight.normal,
-              color: Theme.of(context).accentColor,
-              fontSize: 14)),
+      child: Text(
+        title,
+        style: Theme.of(context).textTheme.button,
+      ),
     );
   }
 }

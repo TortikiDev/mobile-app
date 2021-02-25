@@ -2,8 +2,13 @@ import 'package:flutter/material.dart';
 
 class SearchBar extends StatefulWidget {
   final Function(String) onTextChanged;
+  final Function() onBackArrowPressed;
 
-  SearchBar({Key key, this.onTextChanged}) : super(key: key);
+  SearchBar({
+    Key key,
+    this.onTextChanged,
+    this.onBackArrowPressed,
+  }) : super(key: key);
 
   @override
   _SearchBarState createState() => _SearchBarState();
@@ -32,10 +37,7 @@ class _SearchBarState extends State<SearchBar> {
             key: Key('Back button'),
             color: theme.colorScheme.onPrimary,
             icon: Icon(Icons.arrow_back),
-            onPressed: () {
-              FocusScope.of(context).unfocus();
-              Navigator.of(context).pop();
-            },
+            onPressed: widget.onBackArrowPressed,
           ),
           suffixIcon: IconButton(
             key: Key('Clear text button'),
