@@ -190,6 +190,11 @@
     "type": "text",
     "placeholders": {}
   },
+  "photos": "Photos",
+  "@photos": {
+    "type": "text",
+    "placeholders": {}
+  },
   "map": "Map",
   "@map": {
     "type": "text",

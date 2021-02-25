@@ -55,6 +55,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "pcs" : MessageLookupByLibrary.simpleMessage("шт"),
     "photo" : MessageLookupByLibrary.simpleMessage("Фото"),
     "photoLibrary" : MessageLookupByLibrary.simpleMessage("Галерея"),
+    "photos" : MessageLookupByLibrary.simpleMessage("Фото"),
     "profile" : MessageLookupByLibrary.simpleMessage("Профиль"),
     "recipes" : MessageLookupByLibrary.simpleMessage("Рецепты"),
     "resourceNotFound" : MessageLookupByLibrary.simpleMessage("Ресурс не найден"),

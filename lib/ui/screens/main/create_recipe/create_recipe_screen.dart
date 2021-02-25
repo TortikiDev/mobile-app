@@ -119,7 +119,7 @@ class CreateRecipeScreen extends StatelessWidget {
                       ),
                       SizedBox(height: 24),
                       Text(
-                        localizations.photo,
+                        localizations.photos,
                         style: theme.textTheme.subtitle1,
                       ),
                       SizedBox(height: 16),
@@ -197,9 +197,14 @@ class _PhotosCollection extends StatelessWidget with PickImageMixin {
                   top: -8,
                   right: -8,
                   child: GestureDetector(
-                    child: Icon(
-                      Icons.close_rounded,
-                      color: Colors.red,
+                    child: CircleAvatar(
+                      radius: 12,
+                      child: Icon(
+                        Icons.close,
+                        color: Colors.white,
+                        size: 20,
+                      ),
+                      backgroundColor: Colors.grey,
                     ),
                     onTap: () => BlocProvider.of<CreateRecipeBloc>(context)
                         .add(PhotoDeleted(photo)),
@@ -223,7 +228,7 @@ class _PhotosCollection extends StatelessWidget with PickImageMixin {
     final rowChilldren = <Widget>[SizedBox(width: 8)] +
         photosWidgets
             .map((e) => Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 4),
+                  padding: EdgeInsets.symmetric(horizontal: 8),
                   child: e,
                 ))
             .toList() +
@@ -233,6 +238,7 @@ class _PhotosCollection extends StatelessWidget with PickImageMixin {
       height: 104,
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
+        clipBehavior: Clip.none,
         child: Row(children: rowChilldren),
       ),
     );

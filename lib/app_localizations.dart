@@ -178,6 +178,9 @@ class AppLocalizations {
 
   String get pcs => Intl.message('pcs', name: 'pcs', locale: localeName);
 
+  String get photos =>
+      Intl.message('Photos', name: 'photos', locale: localeName);
+
   // endregion
 
   // region Map

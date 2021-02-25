@@ -185,6 +185,11 @@
     "type": "text",
     "placeholders": {}
   },
+  "photos": "Фото",
+  "@photos": {
+    "type": "text",
+    "placeholders": {}
+  },
   "map": "Карта",
   "@map": {
     "type": "text",
