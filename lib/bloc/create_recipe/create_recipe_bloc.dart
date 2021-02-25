@@ -56,7 +56,7 @@ class CreateRecipeBloc extends BaseBloc<CreateRecipeEvent, CreateRecipeState> {
       updatedPhotos.removeWhere((e) => e == event.photo);
       yield state.copy(photos: updatedPhotos);
       yield state.copy(canCreateRecipe: _canCreateRecipe());
-    } else if (event is CreateRecipe) {
+    } else if (event is CreateRecipe && _canCreateRecipe()) {
       yield state.copy(creatingRecipe: true);
       bool success;
       try {

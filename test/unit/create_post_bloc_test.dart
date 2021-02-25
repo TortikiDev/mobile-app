@@ -83,7 +83,7 @@ void main() {
   });
 
   test(
-      'CreatePost does not invoke repositorys createPost '
+      'CreatePost does not invoke repositories createPost '
       'method when photo is null', () {
     // given
     // when

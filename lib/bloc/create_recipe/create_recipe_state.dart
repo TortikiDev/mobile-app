@@ -67,4 +67,7 @@ class CreateRecipeState extends Equatable {
         creatingRecipe,
         recipeSuccessfulyCreated,
       ];
+
+  @override
+  bool get stringify => true;
 }

@@ -1,7 +1,5 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:provider/provider.dart';
-import 'package:sqflite/sqflite.dart';
 
 import '../../../../bloc/error_handling/index.dart';
 import '../../../../bloc/search_recipes/index.dart';
