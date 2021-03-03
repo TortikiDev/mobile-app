@@ -1,18 +1,27 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../bloc/error_handling/error_handling_bloc.dart';
 import '../../../bloc/recipe_details/index.dart';
 import '../../../ui/reusable/widget_factory.dart';
 import 'recipe_details_screen.dart';
 
-class RecipeDetailsScreenFactory implements WidgetFactory {
+class RecipeDetailsScreenFactoryData {
+  final int recipeId;
+
+  const RecipeDetailsScreenFactoryData(this.recipeId);
+}
+
+class RecipeDetailsScreenFactory
+    implements WidgetFactory<RecipeDetailsScreenFactoryData> {
   @override
-  Widget createWidget({dynamic data}) {
+  Widget createWidget({RecipeDetailsScreenFactoryData data}) {
     return BlocProvider(
-        create: (context) => RecipeDetailsBloc(
-            errorHandlingBloc: BlocProvider.of<ErrorHandlingBloc>(context),)
-          ..add(BlocInit()),
-        child: RecipeDetailsScreen(),);
+      create: (context) => RecipeDetailsBloc(
+        recipeId: data.recipeId,
+        recipesRepository: RepositoryProvider.of(context),
+        errorHandlingBloc: BlocProvider.of(context),
+      )..add(BlocInit()),
+      child: RecipeDetailsScreen(),
+    );
   }
 }
