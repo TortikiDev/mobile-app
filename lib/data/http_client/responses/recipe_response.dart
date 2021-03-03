@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 
-class RecipeShortResponse extends Equatable {
+class RecipeResponse extends Equatable {
   final int id;
   final String title;
   final double complexity;
@@ -15,7 +15,7 @@ class RecipeShortResponse extends Equatable {
   List<String> get imageUrls => List.of(_imageUrls);
   List<String> get ingredients => List.of(_ingredients);
 
-  RecipeShortResponse({
+  RecipeResponse({
     @required this.id,
     @required this.title,
     @required this.complexity,
@@ -28,7 +28,7 @@ class RecipeShortResponse extends Equatable {
   })  : _imageUrls = imageUrls,
         _ingredients = ingredients;
 
-  RecipeShortResponse copy({
+  RecipeResponse copy({
     int id,
     String title,
     double complexity,
@@ -39,7 +39,7 @@ class RecipeShortResponse extends Equatable {
     List<String> ingredients,
     String cookingSteps,
   }) =>
-      RecipeShortResponse(
+      RecipeResponse(
         id: id ?? this.id,
         title: title ?? this.title,
         complexity: complexity ?? this.complexity,
