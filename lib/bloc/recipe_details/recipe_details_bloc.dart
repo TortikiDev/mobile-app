@@ -6,7 +6,8 @@ import '../base_bloc.dart';
 import '../error_handling/index.dart';
 import 'index.dart';
 
-class RecipeDetailsBloc extends BaseBloc<RecipeDetailsEvent, RecipeDetailsState> {
+class RecipeDetailsBloc
+    extends BaseBloc<RecipeDetailsEvent, RecipeDetailsState> {
   // region Properties
 
   // endregion
@@ -15,7 +16,7 @@ class RecipeDetailsBloc extends BaseBloc<RecipeDetailsEvent, RecipeDetailsState>
 
   RecipeDetailsBloc({@required ErrorHandlingBloc errorHandlingBloc})
       : super(
-            initialState: RecipeDetailsState.initial(), 
+            initialState: RecipeDetailsState.initial(),
             errorHandlingBloc: errorHandlingBloc);
 
   @override
