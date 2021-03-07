@@ -14,8 +14,9 @@ class RecipeDetailsScreen extends StatelessWidget {
           slivers: [
             SliverAppBar(
               expandedHeight: 270,
-              pinned: true,
               stretch: true,
+              pinned: true,
+              toolbarHeight: 0,
               flexibleSpace: FlexibleSpaceBar(
                 background: state.recipe?.imageUrls?.first != null
                     ? CachedNetworkImage(
