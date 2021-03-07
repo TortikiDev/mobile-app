@@ -9,81 +9,86 @@ class RecipeView extends StatelessWidget {
   final RecipeViewModel model;
   final ThemeData theme;
   final Function(RecipeViewModel) addToBookmarks;
+  final Function(RecipeViewModel) showDetails;
 
   const RecipeView({
     Key key,
     @required this.model,
     @required this.theme,
     this.addToBookmarks,
+    this.showDetails,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 258,
-      child: Stack(
-        children: [
-          Positioned.fill(
-            child: model.imageUrl != null
-                ? CachedNetworkImage(
-                    imageUrl: model.imageUrl,
-                    fit: BoxFit.cover,
-                  )
-                : Container(),
-          ),
-          Positioned.fill(
-            child: Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    Colors.white54,
-                    Colors.black54,
-                  ],
+    return GestureDetector(
+      onTap: () => showDetails(model),
+      child: SizedBox(
+        height: 258,
+        child: Stack(
+          children: [
+            Positioned.fill(
+              child: model.imageUrl != null
+                  ? CachedNetworkImage(
+                      imageUrl: model.imageUrl,
+                      fit: BoxFit.cover,
+                    )
+                  : Container(),
+            ),
+            Positioned.fill(
+              child: Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Colors.white54,
+                      Colors.black54,
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-          Positioned(
-            right: 16,
-            left: 16,
-            bottom: 12,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  model.title,
-                  style: theme.textTheme.headline4,
-                ),
-                SizedBox(height: 16),
-                Row(
-                  children: [
-                    ComplexityCherriesWidget(complexity: model.complexity),
-                    Spacer(),
-                    IconButton(
-                      onPressed: _sharePressed,
-                      icon: Icon(
-                        Icons.share,
-                        color: theme.colorScheme.background,
+            Positioned(
+              right: 16,
+              left: 16,
+              bottom: 12,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    model.title,
+                    style: theme.textTheme.headline4,
+                  ),
+                  SizedBox(height: 16),
+                  Row(
+                    children: [
+                      ComplexityCherriesWidget(complexity: model.complexity),
+                      Spacer(),
+                      IconButton(
+                        onPressed: _sharePressed,
+                        icon: Icon(
+                          Icons.share,
+                          color: theme.colorScheme.background,
+                        ),
                       ),
-                    ),
-                    SizedBox(width: 8),
-                    IconButton(
-                      onPressed: () => addToBookmarks(model),
-                      icon: Icon(
-                        model.isInBookmarks
-                            ? Icons.bookmark
-                            : Icons.bookmark_border,
-                        color: theme.colorScheme.primary,
+                      SizedBox(width: 8),
+                      IconButton(
+                        onPressed: () => addToBookmarks(model),
+                        icon: Icon(
+                          model.isInBookmarks
+                              ? Icons.bookmark
+                              : Icons.bookmark_border,
+                          color: theme.colorScheme.primary,
+                        ),
                       ),
-                    ),
-                  ],
-                )
-              ],
-            ),
-          )
-        ],
+                    ],
+                  )
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

@@ -2,7 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../bloc/recipe_details/index.dart';
-import '../../../ui/reusable/widget_factory.dart';
+import '../../reusable/widget_factory.dart';
 import 'recipe_details_screen.dart';
 
 class RecipeDetailsScreenFactoryData {

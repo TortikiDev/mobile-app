@@ -5,11 +5,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../bloc/recipes/index.dart';
 import '../../../reusable/list_items/progress_indicator_item.dart';
+import '../../../reusable/widget_factory.dart';
+import '../../recipe_details/recipe_details_screen_factory.dart';
 import 'recipe/recipe_view.dart';
 import 'recipe/recipe_view_model.dart';
 
 class RecipesScreen extends StatefulWidget {
-  const RecipesScreen({Key key}) : super(key: key);
+  final WidgetFactory recipeDetailsScreenFactory;
+
+  const RecipesScreen({Key key, @required this.recipeDetailsScreenFactory})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _RecipesScreenState();
@@ -29,15 +34,23 @@ class _RecipesScreenState extends State<RecipesScreen>
           ? Center(
               child: SizedBox(
                   width: 32, height: 32, child: CircularProgressIndicator()))
-          : _ScrollView(state: state);
+          : _ScrollView(
+              state: state,
+              recipeDetailsScreenFactory: widget.recipeDetailsScreenFactory,
+            );
     });
   }
 }
 
 class _ScrollView extends StatelessWidget {
+  final WidgetFactory recipeDetailsScreenFactory;
   final RecipesState state;
 
-  const _ScrollView({Key key, @required this.state}) : super(key: key);
+  const _ScrollView({
+    Key key,
+    @required this.state,
+    @required this.recipeDetailsScreenFactory,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -61,6 +74,7 @@ class _ScrollView extends StatelessWidget {
                   theme: theme,
                   addToBookmarks: (model) =>
                       _addRecipeToBookmarks(model, context),
+                  showDetails: (model) => _showRecipeDetails(model, context),
                 );
               } else if (model is ProgressIndicatorItem) {
                 return SizedBox(
@@ -94,5 +108,15 @@ class _ScrollView extends StatelessWidget {
     final event = Bookmarks(model);
     final bloc = BlocProvider.of<RecipesBloc>(context);
     bloc.add(event);
+  }
+
+  void _showRecipeDetails(RecipeViewModel model, BuildContext context) {
+    final navigator = Navigator.of(context);
+    final screenData = RecipeDetailsScreenFactoryData(model.id);
+    final route = MaterialPageRoute(
+      builder: (context) =>
+          recipeDetailsScreenFactory.createWidget(data: screenData),
+    );
+    navigator.push(route);
   }
 }
