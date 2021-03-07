@@ -5,26 +5,26 @@ class RecipeShortResponse extends Equatable {
   final int id;
   final String title;
   final double complexity;
-  final String imageUrl;
+  final List<String> imageUrls;
 
   RecipeShortResponse({
     @required this.id,
     @required this.title,
     @required this.complexity,
-    @required this.imageUrl,
+    @required this.imageUrls,
   });
 
   RecipeShortResponse copy({
     int id,
     String title,
     double complexity,
-    String imageUrl,
+    List<String> imageUrls,
   }) =>
       RecipeShortResponse(
         id: id ?? this.id,
         title: title ?? this.title,
         complexity: complexity ?? this.complexity,
-        imageUrl: imageUrl ?? this.imageUrl,
+        imageUrls: imageUrls ?? this.imageUrls,
       );
 
   @override
@@ -32,7 +32,7 @@ class RecipeShortResponse extends Equatable {
         id,
         title,
         complexity,
-        imageUrl,
+        imageUrls,
       ];
 
   @override

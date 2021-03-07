@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:share/share.dart';
 
+import '../../../../../utils/iterable_safe_element_at.dart';
 import '../../../../reusable/complexity_cherries_widget.dart';
 import 'recipe_view_model.dart';
 
@@ -22,15 +23,15 @@ class RecipeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => showDetails(model),
+      onTap: () => showDetails?.call(model),
       child: SizedBox(
         height: 258,
         child: Stack(
           children: [
             Positioned.fill(
-              child: model.imageUrl != null
+              child: model.imageUrls.safeElementAt(0) != null
                   ? CachedNetworkImage(
-                      imageUrl: model.imageUrl,
+                      imageUrl: model.imageUrls.first,
                       fit: BoxFit.cover,
                     )
                   : Container(),
@@ -74,7 +75,7 @@ class RecipeView extends StatelessWidget {
                       ),
                       SizedBox(width: 8),
                       IconButton(
-                        onPressed: () => addToBookmarks(model),
+                        onPressed: () => addToBookmarks?.call(model),
                         icon: Icon(
                           model.isInBookmarks
                               ? Icons.bookmark

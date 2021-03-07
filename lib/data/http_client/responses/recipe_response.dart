@@ -20,11 +20,11 @@ class RecipeResponse extends Equatable {
     @required this.title,
     @required this.complexity,
     @required List<String> imageUrls,
-    @required this.userAvaratUrl,
-    @required this.userName,
-    @required this.description,
-    @required List<String> ingredients,
-    @required this.cookingSteps,
+    this.userAvaratUrl,
+    this.userName,
+    this.description,
+    List<String> ingredients,
+    this.cookingSteps,
   })  : _imageUrls = imageUrls,
         _ingredients = ingredients;
 

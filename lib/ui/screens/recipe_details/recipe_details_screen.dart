@@ -42,7 +42,7 @@ class RecipeDetailsScreen extends StatelessWidget {
               right: 16,
               child: SafeArea(
                 child: GestureDetector(
-                  onTap: () => Navigator.of(context).pop(),
+                  onTap: () => Navigator.of(context).maybePop(),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(16),
                     child: Container(

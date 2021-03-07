@@ -114,7 +114,12 @@ class _ScrollView extends StatelessWidget {
   void _showRecipeDetails(RecipeViewModel model, BuildContext context) {
     final bottomNavigationBloc = BlocProvider.of<BottomNavigationBloc>(context);
     final navigator = Navigator.of(context);
-    final screenData = RecipeDetailsScreenFactoryData(model.id);
+    final screenData = RecipeDetailsScreenFactoryData(
+      id: model.id,
+      title: model.title,
+      complexity: model.complexity,
+      imageUrls: model.imageUrls,
+    );
     final route = MaterialPageRoute(
       builder: (context) => WillPopScope(
         child: recipeDetailsScreenFactory.createWidget(data: screenData),

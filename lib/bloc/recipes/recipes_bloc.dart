@@ -109,7 +109,7 @@ class RecipesBloc extends BaseBloc<RecipesEvent, RecipesState> {
         id: response.id,
         title: response.title,
         complexity: response.complexity,
-        imageUrl: response.imageUrl,
+        imageUrls: response.imageUrls,
         isInBookmarks: state.bookmarkedRecipesIds.contains(response.id),
       );
 
@@ -141,7 +141,7 @@ class RecipesBloc extends BaseBloc<RecipesEvent, RecipesState> {
         id: model.id,
         title: model.title,
         complexity: model.complexity,
-        imageUrl: model.imageUrl,
+        imageUrls: model.imageUrls,
       );
 
   // endregion

@@ -29,21 +29,21 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _ErrorHandlingDecorator(
-      child: MaterialApp(
-        title: 'Tortiki',
-        theme: appTheme,
-        localizationsDelegates: [
-          const AppLocalizationsDelegate(),
-          GlobalMaterialLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate
-        ],
-        supportedLocales: [
-          const Locale('en'),
-          const Locale('ru'),
-        ],
-        home: FutureBuilder(
+    return MaterialApp(
+      title: 'Tortiki',
+      theme: appTheme,
+      localizationsDelegates: [
+        const AppLocalizationsDelegate(),
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate
+      ],
+      supportedLocales: [
+        const Locale('en'),
+        const Locale('ru'),
+      ],
+      home: _ErrorHandlingDecorator(
+        child: FutureBuilder(
           future: dbFactory.createDb(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {

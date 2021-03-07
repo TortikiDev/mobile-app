@@ -60,9 +60,9 @@ void main() {
     when(bookmarkedRecipesRepository.getRecipes())
         .thenAnswer((realInvocation) => Future.value([
               RecipeDbModel(
-                  id: 21, title: '123', complexity: 3.0, imageUrl: null),
+                  id: 21, title: '123', complexity: 3.0, imageUrls: []),
               RecipeDbModel(
-                  id: 22, title: '124', complexity: 3.1, imageUrl: null),
+                  id: 22, title: '124', complexity: 3.1, imageUrls: []),
             ]));
     sut.add(BlocInit());
     // then
@@ -75,17 +75,17 @@ void main() {
   test('LoadNextPage loads recipes next page', () {
     // given
     final initialItems = <ListItem>[
-      RecipeViewModel(id: 19, title: '111', complexity: 5, imageUrl: null),
+      RecipeViewModel(id: 19, title: '111', complexity: 5, imageUrls: []),
     ];
     final recipesNextPageResponse = [
       RecipeShortResponse(
-          id: 20, title: '122', complexity: 3.9, imageUrl: null),
+          id: 20, title: '122', complexity: 3.9, imageUrls: []),
       RecipeShortResponse(
-          id: 21, title: '123', complexity: 3.0, imageUrl: null),
+          id: 21, title: '123', complexity: 3.0, imageUrls: []),
       RecipeShortResponse(
-          id: 22, title: '124', complexity: 3.1, imageUrl: null),
+          id: 22, title: '124', complexity: 3.1, imageUrls: []),
       RecipeShortResponse(
-          id: 23, title: '125', complexity: 3.2, imageUrl: null),
+          id: 23, title: '125', complexity: 3.2, imageUrls: []),
     ];
 
     final baseState = initialState.copy(
@@ -98,21 +98,21 @@ void main() {
     );
     final expectedState2 = expectedState1.copy(
       listItems: [
-        RecipeViewModel(id: 19, title: '111', complexity: 5, imageUrl: null),
-        RecipeViewModel(id: 20, title: '122', complexity: 3.9, imageUrl: null),
+        RecipeViewModel(id: 19, title: '111', complexity: 5, imageUrls: []),
+        RecipeViewModel(id: 20, title: '122', complexity: 3.9, imageUrls: []),
         RecipeViewModel(
           id: 21,
           title: '123',
           complexity: 3.0,
-          imageUrl: null,
+          imageUrls: [],
           isInBookmarks: true,
         ),
-        RecipeViewModel(id: 22, title: '124', complexity: 3.1, imageUrl: null),
+        RecipeViewModel(id: 22, title: '124', complexity: 3.1, imageUrls: []),
         RecipeViewModel(
           id: 23,
           title: '125',
           complexity: 3.2,
-          imageUrl: null,
+          imageUrls: [],
           isInBookmarks: true,
         ),
       ],
@@ -138,20 +138,20 @@ void main() {
       'and updated bookmarked ids', () {
     // given
     final initialItems = <ListItem>[
-      RecipeViewModel(id: 20, title: '122', complexity: 3.9, imageUrl: null),
+      RecipeViewModel(id: 20, title: '122', complexity: 3.9, imageUrls: []),
       RecipeViewModel(
         id: 21,
         title: '123',
         complexity: 3.0,
-        imageUrl: null,
+        imageUrls: [],
         isInBookmarks: true,
       ),
-      RecipeViewModel(id: 22, title: '124', complexity: 3.1, imageUrl: null),
+      RecipeViewModel(id: 22, title: '124', complexity: 3.1, imageUrls: []),
       RecipeViewModel(
         id: 23,
         title: '125',
         complexity: 3.2,
-        imageUrl: null,
+        imageUrls: [],
         isInBookmarks: true,
       ),
     ];
@@ -166,22 +166,22 @@ void main() {
           id: 20,
           title: '122',
           complexity: 3.9,
-          imageUrl: null,
+          imageUrls: [],
           isInBookmarks: true,
         ),
         RecipeViewModel(
           id: 21,
           title: '123',
           complexity: 3.0,
-          imageUrl: null,
+          imageUrls: [],
           isInBookmarks: true,
         ),
-        RecipeViewModel(id: 22, title: '124', complexity: 3.1, imageUrl: null),
+        RecipeViewModel(id: 22, title: '124', complexity: 3.1, imageUrls: []),
         RecipeViewModel(
           id: 23,
           title: '125',
           complexity: 3.2,
-          imageUrl: null,
+          imageUrls: [],
           isInBookmarks: true,
         ),
       ],
@@ -193,16 +193,16 @@ void main() {
           id: 20,
           title: '122',
           complexity: 3.9,
-          imageUrl: null,
+          imageUrls: [],
           isInBookmarks: true,
         ),
-        RecipeViewModel(id: 21, title: '123', complexity: 3.0, imageUrl: null),
-        RecipeViewModel(id: 22, title: '124', complexity: 3.1, imageUrl: null),
+        RecipeViewModel(id: 21, title: '123', complexity: 3.0, imageUrls: []),
+        RecipeViewModel(id: 22, title: '124', complexity: 3.1, imageUrls: []),
         RecipeViewModel(
           id: 23,
           title: '125',
           complexity: 3.2,
-          imageUrl: null,
+          imageUrls: [],
           isInBookmarks: true,
         ),
       ],
@@ -229,10 +229,10 @@ void main() {
         id: 21,
         title: '123',
         complexity: 3.0,
-        imageUrl: null,
+        imageUrls: [],
         isInBookmarks: true,
       ),
-      RecipeViewModel(id: 22, title: '124', complexity: 3.1, imageUrl: null),
+      RecipeViewModel(id: 22, title: '124', complexity: 3.1, imageUrls: []),
     ];
 
     final baseState = initialState.copy(
@@ -246,11 +246,11 @@ void main() {
     // then
     await untilCalled(bookmarkedRecipesRepository.deleteRecipe(21));
     await untilCalled(bookmarkedRecipesRepository.addRecipe(
-      RecipeDbModel(id: 22, title: '124', complexity: 3.1, imageUrl: null),
+      RecipeDbModel(id: 22, title: '124', complexity: 3.1, imageUrls: []),
     ));
     verify(bookmarkedRecipesRepository.deleteRecipe(21)).called(1);
     verify(bookmarkedRecipesRepository.addRecipe(
-      RecipeDbModel(id: 22, title: '124', complexity: 3.1, imageUrl: null),
+      RecipeDbModel(id: 22, title: '124', complexity: 3.1, imageUrls: []),
     )).called(1);
   });
 
@@ -267,10 +267,10 @@ void main() {
           id: 21,
           title: 'pie 1',
           complexity: 2,
-          imageUrl: null,
+          imageUrls: [],
           isInBookmarks: true,
         ),
-        RecipeViewModel(id: 25, title: 'pie 2', complexity: 2, imageUrl: null),
+        RecipeViewModel(id: 25, title: 'pie 2', complexity: 2, imageUrls: []),
       ],
       loadingFirstPage: false,
     );
@@ -280,9 +280,9 @@ void main() {
     when(recipesRepository.getRecipes(searchQuery: 'pie'))
         .thenAnswer((realInvocation) => Future.value([
               RecipeShortResponse(
-                  id: 21, title: 'pie 1', complexity: 2, imageUrl: null),
+                  id: 21, title: 'pie 1', complexity: 2, imageUrls: []),
               RecipeShortResponse(
-                  id: 25, title: 'pie 2', complexity: 2, imageUrl: null),
+                  id: 25, title: 'pie 2', complexity: 2, imageUrls: []),
             ]));
     sut.emit(baseState);
     sut.add(SearchQueryChanged('pie'));

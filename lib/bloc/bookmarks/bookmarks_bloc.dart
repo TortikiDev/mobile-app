@@ -49,7 +49,7 @@ class BookmarksBloc extends BaseBloc<BookmarksEvent, BookmarksState> {
         id: response.id,
         title: response.title,
         complexity: response.complexity,
-        imageUrl: response.imageUrl,
+        imageUrls: response.imageUrls,
         isInBookmarks: true,
       );
 

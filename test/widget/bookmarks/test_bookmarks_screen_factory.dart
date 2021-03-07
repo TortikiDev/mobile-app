@@ -18,14 +18,14 @@ class TestBookmarksScreenFactory implements WidgetFactory {
         id: 1,
         title: '1',
         complexity: 4,
-        imageUrl: null,
+        imageUrls: null,
         isInBookmarks: true,
       ),
       RecipeViewModel(
         id: 2,
         title: '2',
         complexity: 3,
-        imageUrl: 'http://134.png',
+        imageUrls: ['http://134.png'],
         isInBookmarks: true,
       ),
     ];
