@@ -38,20 +38,22 @@ class RecipeDetailsScreen extends StatelessWidget {
               ],
             ),
             Positioned(
-              top: 56,
+              top: 8,
               right: 16,
-              child: GestureDetector(
-                onTap: () => Navigator.of(context).pop(),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(16),
-                  child: Container(
-                    width: 28,
-                    height: 28,
-                    color: Colors.black54,
-                    child: Icon(
-                      Icons.close,
-                      size: 20,
-                      color: Colors.white,
+              child: SafeArea(
+                child: GestureDetector(
+                  onTap: () => Navigator.of(context).pop(),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(16),
+                    child: Container(
+                      width: 28,
+                      height: 28,
+                      color: Colors.black54,
+                      child: Icon(
+                        Icons.close,
+                        size: 20,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ),
