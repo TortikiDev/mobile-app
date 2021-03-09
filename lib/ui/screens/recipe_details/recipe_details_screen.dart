@@ -6,7 +6,30 @@ import '../../reusable/images_collection.dart';
 import 'recipe_header/recipe_header.dart';
 import 'recipe_header/recipe_header_view_model.dart';
 
-class RecipeDetailsScreen extends StatelessWidget {
+class RecipeDetailsScreen extends StatefulWidget {
+  const RecipeDetailsScreen({Key key}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => _RecipeDetailsScreenState();
+}
+
+class _RecipeDetailsScreenState extends State<RecipeDetailsScreen> {
+  final scrollController = ScrollController();
+  bool statusBarBackgroundIsVisible = true;
+
+  @override
+  void initState() {
+    scrollController.addListener(_onScroll);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    scrollController.removeListener(_onScroll);
+    scrollController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,6 +38,7 @@ class RecipeDetailsScreen extends StatelessWidget {
           BlocBuilder<RecipeDetailsBloc, RecipeDetailsState>(
             builder: (context, state) => CustomScrollView(
               physics: BouncingScrollPhysics(),
+              controller: scrollController,
               slivers: [
                 SliverAppBar(
                   expandedHeight: 270,
@@ -63,6 +87,18 @@ class RecipeDetailsScreen extends StatelessWidget {
               ),
             ),
           ),
+          Visibility(
+            visible: statusBarBackgroundIsVisible,
+            child: Positioned(
+              top: 0,
+              left: 0,
+              right: 0,
+              child: Container(
+                height: 44,
+                color: Colors.white30,
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -73,5 +109,14 @@ class RecipeDetailsScreen extends StatelessWidget {
     final event = Bookmarks(model);
     final bloc = BlocProvider.of<RecipeDetailsBloc>(context);
     bloc.add(event);
+  }
+
+  void _onScroll() {
+    final showStatusBarBackground = scrollController.offset < 270;
+    if (statusBarBackgroundIsVisible != showStatusBarBackground) {
+      setState(() {
+        statusBarBackgroundIsVisible = showStatusBarBackground;
+      });
+    }
   }
 }
