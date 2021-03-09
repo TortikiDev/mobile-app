@@ -64,7 +64,11 @@ class RecipeView extends StatelessWidget {
                   SizedBox(height: 16),
                   Row(
                     children: [
-                      ComplexityCherriesWidget(complexity: model.complexity),
+                      ComplexityCherriesWidget(
+                        complexity: model.complexity,
+                        cherryColor: theme.colorScheme.primary,
+                        textColor: theme.colorScheme.background,
+                      ),
                       Spacer(),
                       IconButton(
                         onPressed: _sharePressed,

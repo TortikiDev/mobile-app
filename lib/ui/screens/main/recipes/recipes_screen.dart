@@ -121,10 +121,12 @@ class _ScrollView extends StatelessWidget {
       imageUrls: model.imageUrls,
     );
     final route = MaterialPageRoute(
-      builder: (context) => WillPopScope(
+      builder: (_) => WillPopScope(
         child: recipeDetailsScreenFactory.createWidget(data: screenData),
         onWillPop: () async {
           bottomNavigationBloc.add(ShowNavigationBar());
+          final recipesBloc = BlocProvider.of<RecipesBloc>(context);
+          recipesBloc.add(UpdateIsInBookmarks(model));
           return true;
         },
       ),

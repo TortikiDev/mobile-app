@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../bloc/recipe_details/index.dart';
 import '../../reusable/images_collection.dart';
+import 'recipe_header/recipe_header.dart';
+import 'recipe_header/recipe_header_view_model.dart';
 
 class RecipeDetailsScreen extends StatelessWidget {
   @override
@@ -26,9 +28,14 @@ class RecipeDetailsScreen extends StatelessWidget {
                 ),
                 SliverList(
                   delegate: SliverChildBuilderDelegate(
-                    (_, index) => ListTile(
-                      title: Text("Index: $index"),
-                    ),
+                    (context, index) {
+                      return RecipeHeader(
+                        model: state.headerViewModel,
+                        addToBookmarks: (model) =>
+                            _addRecipeToBookmarks(model, context),
+                      );
+                    },
+                    childCount: 1,
                   ),
                 )
               ],
@@ -59,5 +66,12 @@ class RecipeDetailsScreen extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void _addRecipeToBookmarks(
+      RecipeHeaderViewModel model, BuildContext context) {
+    final event = Bookmarks(model);
+    final bloc = BlocProvider.of<RecipeDetailsBloc>(context);
+    bloc.add(event);
   }
 }

@@ -36,6 +36,7 @@ class RecipeDetailsScreenFactory
       create: (context) => RecipeDetailsBloc(
         recipe: recipe,
         recipesRepository: RepositoryProvider.of(context),
+        bookmarkedRecipesRepository: RepositoryProvider.of(context),
         errorHandlingBloc: BlocProvider.of(context),
       )..add(BlocInit()),
       child: RecipeDetailsScreen(),

@@ -3,13 +3,18 @@ import 'package:flutter/material.dart';
 class ComplexityCherriesWidget extends StatelessWidget {
   final int _cherryCount = 5;
   final double complexity;
+  final Color cherryColor;
+  final Color textColor;
 
-  ComplexityCherriesWidget({@required this.complexity});
+  ComplexityCherriesWidget({
+    @required this.complexity,
+    @required this.cherryColor,
+    this.textColor = Colors.black,
+  });
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final cherryColor = theme.colorScheme.primary;
     final normalizedComplexity = complexity * _cherryCount;
 
     final rowChildren = List.generate(
@@ -21,8 +26,7 @@ class ComplexityCherriesWidget extends StatelessWidget {
         padding: EdgeInsets.only(top: 4, left: 12),
         child: Text(
           normalizedComplexity.toStringAsFixed(1),
-          style: theme.textTheme.subtitle1
-              .copyWith(color: theme.colorScheme.background),
+          style: theme.textTheme.subtitle1.copyWith(color: textColor),
         ),
       ),
     );

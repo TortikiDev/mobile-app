@@ -71,15 +71,17 @@ class RecipesRepository {
         (value) => RecipeResponse(
           id: id,
           title: 'Маффины в шоколадной глазури',
-          complexity: 3.5,
+          complexity: 0.5,
           imageUrls: [
-            'https://images.unsplash.com/photo-1486427944299-d1955d23e34d',
+            'https://images.unsplash.com/photo-1457666134378-6b77915bd5f'
+                '2?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Nnx8c3BvbmdlJTIwY2FrZXxlbnwwf'
+                'HwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=60',
             'https://images.unsplash.com/photo-1486427944299-d1955d23e34d',
             'https://images.unsplash.com/photo-1486427944299-d1955d23e34d',
           ],
           userAvaratUrl:
-              'https://images.unsplash.com/photo-1486427944299-d1955d23e34d',
-          userName: 'Мила Кунис',
+              'https://images.unsplash.com/photo-1510616022132-9976466385a8',
+          userName: 'Granny',
           description:
               'Чтобы придать обычным кексам более эффектный внешний вид,'
               ' вмешайте в часть теста растопленный шоколад и немного какао. '

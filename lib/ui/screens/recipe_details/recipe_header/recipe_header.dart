@@ -22,20 +22,28 @@ class RecipeHeader extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          model.title,
-          style: theme.textTheme.headline4,
+        SizedBox(height: 8),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Text(
+            model.title,
+            style: theme.textTheme.headline4.copyWith(color: Colors.black),
+          ),
         ),
-        SizedBox(height: 16),
+        SizedBox(height: 8),
         Row(
           children: [
-            ComplexityCherriesWidget(complexity: model.complexity),
+            SizedBox(width: 16),
+            ComplexityCherriesWidget(
+              complexity: model.complexity,
+              cherryColor: theme.colorScheme.onPrimary,
+            ),
             Spacer(),
             IconButton(
               onPressed: _sharePressed,
               icon: Icon(
                 Icons.share,
-                color: theme.colorScheme.background,
+                color: theme.colorScheme.primaryVariant,
               ),
             ),
             SizedBox(width: 8),
@@ -43,9 +51,10 @@ class RecipeHeader extends StatelessWidget {
               onPressed: () => addToBookmarks?.call(model),
               icon: Icon(
                 model.isInBookmarks ? Icons.bookmark : Icons.bookmark_border,
-                color: theme.colorScheme.primary,
+                color: theme.colorScheme.primaryVariant,
               ),
             ),
+            SizedBox(width: 8),
           ],
         ),
         SizedBox(width: 16),
