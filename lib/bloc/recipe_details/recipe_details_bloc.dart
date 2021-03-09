@@ -23,11 +23,15 @@ class RecipeDetailsBloc
 
   RecipeDetailsBloc({
     @required RecipeResponse recipe,
+    @required bool isInBookmarks,
     @required this.recipesRepository,
     @required this.bookmarkedRecipesRepository,
     @required ErrorHandlingBloc errorHandlingBloc,
   }) : super(
-          initialState: RecipeDetailsState.initial(recipe: recipe),
+          initialState: RecipeDetailsState.initial(
+            recipe: recipe,
+            isInBookmarks: isInBookmarks,
+          ),
           errorHandlingBloc: errorHandlingBloc,
         );
 
@@ -46,6 +50,7 @@ class RecipeDetailsBloc
         complexity: recipe.complexity,
         authorAvatarUrl: recipe.userAvaratUrl,
         authorName: recipe.userName,
+        isInBookmarks: state.headerViewModel.isInBookmarks,
       );
       yield state.copy(
         recipe: recipe,

@@ -119,6 +119,7 @@ class _ScrollView extends StatelessWidget {
       title: model.title,
       complexity: model.complexity,
       imageUrls: model.imageUrls,
+      isInBookmarks: model.isInBookmarks,
     );
     final route = MaterialPageRoute(
       builder: (_) => WillPopScope(

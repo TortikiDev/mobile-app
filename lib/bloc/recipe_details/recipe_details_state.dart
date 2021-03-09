@@ -15,7 +15,10 @@ class RecipeDetailsState extends Equatable {
     this.headerViewModel,
   });
 
-  factory RecipeDetailsState.initial({@required RecipeResponse recipe}) =>
+  factory RecipeDetailsState.initial({
+    @required RecipeResponse recipe,
+    @required bool isInBookmarks,
+  }) =>
       RecipeDetailsState(
         recipe: recipe,
         headerViewModel: RecipeHeaderViewModel(
@@ -23,6 +26,7 @@ class RecipeDetailsState extends Equatable {
           complexity: recipe.complexity,
           authorAvatarUrl: recipe.userAvaratUrl,
           authorName: recipe.userName ?? '',
+          isInBookmarks: isInBookmarks,
         ),
       );
 

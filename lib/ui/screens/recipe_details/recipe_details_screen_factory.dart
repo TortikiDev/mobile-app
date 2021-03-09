@@ -11,6 +11,7 @@ class RecipeDetailsScreenFactoryData {
   final String title;
   final double complexity;
   final List<String> _imageUrls;
+  final bool isInBookmarks;
 
   List<String> get imageUrls => List.of(_imageUrls);
 
@@ -19,6 +20,7 @@ class RecipeDetailsScreenFactoryData {
     @required this.title,
     @required this.complexity,
     @required List<String> imageUrls,
+    @required this.isInBookmarks,
   }) : _imageUrls = imageUrls;
 }
 
@@ -35,6 +37,7 @@ class RecipeDetailsScreenFactory
     return BlocProvider(
       create: (context) => RecipeDetailsBloc(
         recipe: recipe,
+        isInBookmarks: data.isInBookmarks,
         recipesRepository: RepositoryProvider.of(context),
         bookmarkedRecipesRepository: RepositoryProvider.of(context),
         errorHandlingBloc: BlocProvider.of(context),
