@@ -96,7 +96,7 @@ final _textTheme = TextTheme(
       color: _colorScheme.onBackground),
   bodyText2: TextStyle(
       fontWeight: FontWeight.normal,
-      fontSize: 14,
+      fontSize: 15,
       color: _colorScheme.onBackground),
   caption: TextStyle(
       fontWeight: FontWeight.w400, fontSize: 12, color: _colorScheme.onSurface),

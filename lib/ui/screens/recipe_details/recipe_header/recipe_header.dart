@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:share/share.dart';
 
+import '../../../../app_localizations.dart';
 import '../../../reusable/complexity_cherries_widget.dart';
 import '../../../reusable/disclosure_with_image_view.dart';
+import '../../../reusable/show_dialog_mixin.dart';
 import 'recipe_header_view_model.dart';
 
-class RecipeHeader extends StatelessWidget {
+class RecipeHeader extends StatelessWidget with ShowDialogMixin {
   final RecipeHeaderViewModel model;
   final Function(RecipeHeaderViewModel) addToBookmarks;
 
@@ -40,6 +42,18 @@ class RecipeHeader extends StatelessWidget {
               ComplexityCherriesWidget(
                 complexity: model.complexity,
                 cherryColor: theme.colorScheme.onPrimary,
+              ),
+              SizedBox(width: 8),
+              GestureDetector(
+                child: Padding(
+                  padding: EdgeInsets.only(top: 3),
+                  child: Icon(
+                    Icons.info,
+                    size: 18,
+                    color: theme.colorScheme.onSurface,
+                  ),
+                ),
+                onTap: () => _showComplexityInfoDialog(context),
               ),
               Spacer(),
               IconButton(
@@ -77,5 +91,10 @@ class RecipeHeader extends StatelessWidget {
     final baseUrl = 'https://tortiki.ru';
     final postUrl = '$baseUrl/recipe/$recipeId';
     Share.share(postUrl);
+  }
+
+  void _showComplexityInfoDialog(BuildContext context) {
+    final localizations = AppLocalizations.of(context);
+    showSimpleDialog(context: context, message: localizations.complexityPrompt);
   }
 }
