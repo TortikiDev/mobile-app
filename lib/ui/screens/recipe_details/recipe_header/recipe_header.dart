@@ -24,43 +24,49 @@ class RecipeHeader extends StatelessWidget {
       children: [
         SizedBox(height: 8),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
+          padding: EdgeInsets.symmetric(horizontal: 16),
           child: Text(
             model.title,
             style: theme.textTheme.headline4.copyWith(color: Colors.black),
           ),
         ),
-        SizedBox(height: 8),
-        Row(
-          children: [
-            SizedBox(width: 16),
-            ComplexityCherriesWidget(
-              complexity: model.complexity,
-              cherryColor: theme.colorScheme.onPrimary,
-            ),
-            Spacer(),
-            IconButton(
-              onPressed: _sharePressed,
-              icon: Icon(
-                Icons.share,
-                color: theme.colorScheme.primaryVariant,
+        SizedBox(height: 12),
+        SizedBox(
+          height: 40,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(width: 16),
+              ComplexityCherriesWidget(
+                complexity: model.complexity,
+                cherryColor: theme.colorScheme.onPrimary,
               ),
-            ),
-            SizedBox(width: 8),
-            IconButton(
-              onPressed: () => addToBookmarks?.call(model),
-              icon: Icon(
-                model.isInBookmarks ? Icons.bookmark : Icons.bookmark_border,
-                color: theme.colorScheme.primaryVariant,
+              Spacer(),
+              IconButton(
+                onPressed: _sharePressed,
+                icon: Icon(
+                  Icons.share,
+                  color: theme.colorScheme.primaryVariant,
+                ),
               ),
-            ),
-            SizedBox(width: 8),
-          ],
+              SizedBox(width: 8),
+              IconButton(
+                onPressed: () => addToBookmarks?.call(model),
+                icon: Icon(
+                  model.isInBookmarks ? Icons.bookmark : Icons.bookmark_border,
+                  color: theme.colorScheme.primaryVariant,
+                ),
+              ),
+              SizedBox(width: 8),
+            ],
+          ),
         ),
-        SizedBox(width: 16),
+        SizedBox(height: 16),
         Divider(),
         DisclosureWithImageView(
-            title: model.authorName, imageUrl: model.authorAvatarUrl),
+          title: model.authorName,
+          imageUrl: model.authorAvatarUrl,
+        ),
         Divider(),
       ],
     );

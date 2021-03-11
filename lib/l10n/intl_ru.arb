@@ -110,7 +110,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "description": "Содержание",
+  "description": "Описание",
   "@description": {
     "type": "text",
     "placeholders": {}

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../app_localizations.dart';
 import '../../../bloc/recipe_details/index.dart';
 import '../../reusable/images_collection.dart';
 import 'recipe_header/recipe_header.dart';
@@ -32,6 +33,8 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context);
+    final theme = Theme.of(context);
     return Scaffold(
       body: Stack(
         children: [
@@ -53,10 +56,55 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen> {
                 SliverList(
                   delegate: SliverChildBuilderDelegate(
                     (context, index) {
-                      return RecipeHeader(
-                        model: state.headerViewModel,
-                        addToBookmarks: (model) =>
-                            _addRecipeToBookmarks(model, context),
+                      return Column(
+                        children: [
+                          RecipeHeader(
+                            model: state.headerViewModel,
+                            addToBookmarks: (model) =>
+                                _addRecipeToBookmarks(model, context),
+                          ),
+                          if (!state.loading)
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 16.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(height: 24),
+                                  Text(
+                                    localizations.description,
+                                    style: theme.textTheme.headline5,
+                                  ),
+                                  SizedBox(height: 16),
+                                  Text(
+                                    state.recipe.description ?? '',
+                                    style: theme.textTheme.bodyText2,
+                                  ),
+                                  SizedBox(height: 24),
+                                  Text(
+                                    localizations.ingredients,
+                                    style: theme.textTheme.headline5,
+                                  ),
+                                  SizedBox(height: 16),
+                                  Text(
+                                    // ignore: lines_longer_than_80_chars
+                                    ' •  ${state.recipe.ingredients.join('\n •  ')}',
+                                    style: theme.textTheme.bodyText2,
+                                  ),
+                                  SizedBox(height: 24),
+                                  Text(
+                                    localizations.cooking,
+                                    style: theme.textTheme.headline5,
+                                  ),
+                                  SizedBox(height: 16),
+                                  Text(
+                                    state.recipe.cookingSteps ?? '',
+                                    style: theme.textTheme.bodyText2,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          SizedBox(height: 32),
+                        ],
                       );
                     },
                     childCount: 1,

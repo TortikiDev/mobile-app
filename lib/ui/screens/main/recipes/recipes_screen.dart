@@ -60,39 +60,40 @@ class _ScrollView extends StatelessWidget {
     return Scrollbar(
       child: RefreshIndicator(
         child: ListView.builder(
-            padding: EdgeInsets.only(bottom: 8),
-            itemCount: state.listItems.length,
-            itemBuilder: (context, index) {
-              final model = state.listItems[index];
-              if (model is RecipeViewModel) {
-                if ((index == state.listItems.length - 1) &&
-                    !state.loadingNextPage) {
-                  BlocProvider.of<RecipesBloc>(context).add(LoadNextPage());
-                }
-                return RecipeView(
-                  key: ObjectKey(model),
-                  model: model,
-                  theme: theme,
-                  addToBookmarks: (model) =>
-                      _addRecipeToBookmarks(model, context),
-                  showDetails: (model) => _showRecipeDetails(model, context),
-                );
-              } else if (model is ProgressIndicatorItem) {
-                return SizedBox(
-                  height: 64,
-                  child: Center(
-                    child: SizedBox(
-                      width: 24,
-                      height: 24,
-                      child: CircularProgressIndicator(),
-                    ),
-                  ),
-                );
-              } else {
-                throw UnimplementedError('Type [${model.runtimeType}] is not'
-                    ' implemented for list view builder');
+          padding: EdgeInsets.only(bottom: 8),
+          itemCount: state.listItems.length,
+          itemBuilder: (context, index) {
+            final model = state.listItems[index];
+            if (model is RecipeViewModel) {
+              if ((index == state.listItems.length - 1) &&
+                  !state.loadingNextPage) {
+                BlocProvider.of<RecipesBloc>(context).add(LoadNextPage());
               }
-            }),
+              return RecipeView(
+                key: ObjectKey(model),
+                model: model,
+                theme: theme,
+                addToBookmarks: (model) =>
+                    _addRecipeToBookmarks(model, context),
+                showDetails: (model) => _showRecipeDetails(model, context),
+              );
+            } else if (model is ProgressIndicatorItem) {
+              return SizedBox(
+                height: 64,
+                child: Center(
+                  child: SizedBox(
+                    width: 24,
+                    height: 24,
+                    child: CircularProgressIndicator(),
+                  ),
+                ),
+              );
+            } else {
+              throw UnimplementedError('Type [${model.runtimeType}] is not'
+                  ' implemented for list view builder');
+            }
+          },
+        ),
         onRefresh: () => _pullToRefreshList(context),
       ),
     );

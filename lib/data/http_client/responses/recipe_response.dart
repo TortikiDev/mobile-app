@@ -12,8 +12,8 @@ class RecipeResponse extends Equatable {
   final List<String> _ingredients;
   final String cookingSteps;
 
-  List<String> get imageUrls => List.of(_imageUrls);
-  List<String> get ingredients => List.of(_ingredients);
+  List<String> get imageUrls => List.of(_imageUrls ?? []);
+  List<String> get ingredients => List.of(_ingredients ?? []);
 
   RecipeResponse({
     @required this.id,

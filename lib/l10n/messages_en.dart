@@ -35,7 +35,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "connectionTimeout" : MessageLookupByLibrary.simpleMessage("Connection timeout"),
     "cooking" : MessageLookupByLibrary.simpleMessage("Cooking"),
     "cookingSteps" : MessageLookupByLibrary.simpleMessage("Cooking steps"),
-    "description" : MessageLookupByLibrary.simpleMessage(" Description"),
+    "description" : MessageLookupByLibrary.simpleMessage("Description"),
     "error" : MessageLookupByLibrary.simpleMessage("Error"),
     "feed" : MessageLookupByLibrary.simpleMessage("Feed"),
     "forbidder" : MessageLookupByLibrary.simpleMessage("Forbidden"),

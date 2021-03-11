@@ -44,7 +44,7 @@ class DisclosureWithImageView extends StatelessWidget {
             SizedBox(width: 16),
             Expanded(child: Text(title, style: theme.textTheme.subtitle1)),
             SizedBox(width: 8),
-            Icon(Icons.chevron_right),
+            Icon(Icons.chevron_right, color: Colors.grey),
             SizedBox(width: 8),
           ],
         ),

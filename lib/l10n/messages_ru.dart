@@ -35,7 +35,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "connectionTimeout" : MessageLookupByLibrary.simpleMessage("Таймаут соединения"),
     "cooking" : MessageLookupByLibrary.simpleMessage("Приготовление"),
     "cookingSteps" : MessageLookupByLibrary.simpleMessage("Пошаговая инструкция"),
-    "description" : MessageLookupByLibrary.simpleMessage("Содержание"),
+    "description" : MessageLookupByLibrary.simpleMessage("Описание"),
     "error" : MessageLookupByLibrary.simpleMessage("Ошибка"),
     "feed" : MessageLookupByLibrary.simpleMessage("Лента"),
     "forbidder" : MessageLookupByLibrary.simpleMessage("Отказано в доступе"),
