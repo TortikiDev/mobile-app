@@ -99,6 +99,9 @@ class CreateRecipeScreen extends StatelessWidget {
                             _ingredientsChanged(context, ingredients),
                         unitSuggestions: [
                           localizations.grams,
+                          localizations.teaspoons,
+                          localizations.tablespoons,
+                          localizations.milliliters,
                           localizations.milliliters,
                           localizations.pcs,
                         ],

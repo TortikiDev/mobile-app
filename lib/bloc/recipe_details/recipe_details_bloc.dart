@@ -62,6 +62,16 @@ class RecipeDetailsBloc
       final updatedRecipe = event.recipe.copy(isInBookmarks: isInBookmarks);
       yield state.copy(headerViewModel: updatedRecipe);
       _updateBookmarkedRecipeInDb();
+    } else if (event is VoteUp) {
+      invokeWithErrorCatching(
+        () => recipesRepository.voteUpRecipe(recipeId: state.recipe.id),
+      );
+      yield state.copy(recipe: state.recipe.copy(myVote: VoteResult.votedUp));
+    } else if (event is VoteDown) {
+      invokeWithErrorCatching(
+        () => recipesRepository.voteDownRecipe(recipeId: state.recipe.id),
+      );
+      yield state.copy(recipe: state.recipe.copy(myVote: VoteResult.votedDown));
     }
   }
 

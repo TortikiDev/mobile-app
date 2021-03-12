@@ -180,6 +180,16 @@
     "type": "text",
     "placeholders": {}
   },
+  "teaspoons": "teaspoons",
+  "@teaspoons": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tablespoons": "tablespoons",
+  "@tablespoons": {
+    "type": "text",
+    "placeholders": {}
+  },
   "milliliters": "ml",
   "@milliliters": {
     "type": "text",

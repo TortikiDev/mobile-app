@@ -135,6 +135,8 @@ class _ScrollView extends StatelessWidget {
       fullscreenDialog: true,
     );
     navigator.push(route);
-    bottomNavigationBloc.add(HideNavigationBar());
+    bottomNavigationBloc.add(
+      HideNavigationBar(),
+    );
   }
 }

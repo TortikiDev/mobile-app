@@ -17,3 +17,13 @@ class Bookmarks extends RecipeDetailsEvent {
   @override
   List<Object> get props => [recipe];
 }
+
+class VoteUp extends RecipeDetailsEvent {
+  @override
+  List<Object> get props => [];
+}
+
+class VoteDown extends RecipeDetailsEvent {
+  @override
+  List<Object> get props => [];
+}

@@ -34,7 +34,7 @@ class IngredientsChipsInput extends StatelessWidget {
         final trimmedQuery = query.trimRight().trimLeft();
         if (trimmedQuery.isNotEmpty) {
           final lastQueryChar = trimmedQuery.substring(trimmedQuery.length - 1);
-          if (lastQueryChar.isNumeric()) {
+          if (lastQueryChar.isNumeric() && trimmedQuery.length > 2) {
             final filteredUnitSuggestions =
                 unitSuggestions.map((unit) => '$trimmedQuery $unit').toList();
             suggestions.addAll(filteredUnitSuggestions);

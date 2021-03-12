@@ -12,6 +12,9 @@ class RecipeResponse extends Equatable {
   final List<String> _ingredients;
   final String cookingSteps;
 
+  /// Value from [VoteResult]
+  final int myVote;
+
   List<String> get imageUrls => List.of(_imageUrls ?? []);
   List<String> get ingredients => List.of(_ingredients ?? []);
 
@@ -25,6 +28,7 @@ class RecipeResponse extends Equatable {
     this.description,
     List<String> ingredients,
     this.cookingSteps,
+    this.myVote,
   })  : _imageUrls = imageUrls,
         _ingredients = ingredients;
 
@@ -38,6 +42,7 @@ class RecipeResponse extends Equatable {
     String description,
     List<String> ingredients,
     String cookingSteps,
+    int myVote,
   }) =>
       RecipeResponse(
         id: id ?? this.id,
@@ -49,6 +54,7 @@ class RecipeResponse extends Equatable {
         description: description ?? this.description,
         ingredients: ingredients ?? _ingredients,
         cookingSteps: cookingSteps ?? this.cookingSteps,
+        myVote: myVote ?? this.myVote,
       );
 
   @override
@@ -62,8 +68,15 @@ class RecipeResponse extends Equatable {
         description,
         _ingredients,
         cookingSteps,
+        myVote,
       ];
 
   @override
   bool get stringify => true;
+}
+
+mixin VoteResult {
+  static const unvoted = 0;
+  static const votedUp = 1;
+  static const votedDown = 2;
 }
