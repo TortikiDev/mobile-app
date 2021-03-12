@@ -1,12 +1,12 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter/material.dart';
-import 'package:tortiki/app_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations_en.dart';
 import '../../make_testable_widget.dart';
 import 'test_create_recipe_screen_factory.dart';
 
 void main() {
   testWidgets('Create recipe smoke test', (tester) async {
-    final localizations = AppLocalizations('en');
+    final localizations = AppLocalizationsEn();
     await tester.pumpWidget(makeTestableWidget(
         child: TestCreateRecipeScreenFactory().createWidget()));
     await tester.pumpAndSettle();

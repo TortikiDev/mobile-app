@@ -34,7 +34,6 @@ final appTheme = ThemeData(
     focusedBorder: UnderlineInputBorder(
         borderSide: BorderSide(color: _colorScheme.onPrimary)),
   ),
-  useTextSelectionTheme: true,
   textSelectionTheme: TextSelectionThemeData(
       cursorColor: _colorScheme.onPrimary,
       selectionColor: _colorScheme.primaryVariant,

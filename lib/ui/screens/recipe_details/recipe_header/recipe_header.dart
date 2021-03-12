@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:share/share.dart';
 
-import '../../../../app_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../reusable/complexity_cherries_widget.dart';
 import '../../../reusable/disclosure_with_image_view.dart';
 import '../../../reusable/show_dialog_mixin.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../app_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../bloc/bottom_navigation_bloc/index.dart';
 import '../../../bloc/main/index.dart';
 import '../../reusable/widget_factory.dart';

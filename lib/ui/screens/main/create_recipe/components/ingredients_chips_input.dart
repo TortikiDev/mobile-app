@@ -1,8 +1,7 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_chips_input/flutter_chips_input.dart';
 
-import '../../../../../app_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../../../utils/string_is_numeric.dart';
 
 class IngredientsChipsInput extends StatelessWidget {

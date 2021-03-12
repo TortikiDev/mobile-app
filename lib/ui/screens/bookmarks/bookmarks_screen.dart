@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../app_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../bloc/bookmarks/index.dart';
 import '../main/recipes/recipe/recipe_view.dart';
 import '../main/recipes/recipe/recipe_view_model.dart';

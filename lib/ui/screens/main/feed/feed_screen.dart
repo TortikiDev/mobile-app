@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../app_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../../bloc/feed/index.dart';
 import '../../../reusable/list_items/progress_indicator_item.dart';
 import 'post/post_view.dart';

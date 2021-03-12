@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../app_localizations.dart';
 import '../../bloc/bottom_navigation_bloc/index.dart';
 import '../app_theme.dart';
 import '../screens/bookmarks/bookmarks_screen_factory.dart';
