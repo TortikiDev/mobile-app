@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../bloc/recipe_details/index.dart';
+import '../../reusable/content_shimmer.dart';
 import '../../reusable/images_collection.dart';
 import 'recipe_header/recipe_header.dart';
 import 'recipe_header/recipe_header_view_model.dart';
@@ -16,7 +17,7 @@ class RecipeDetailsScreen extends StatefulWidget {
 }
 
 class _RecipeDetailsScreenState extends State<RecipeDetailsScreen>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   final scrollController = ScrollController();
   bool statusBarBackgroundIsVisible = true;
 
@@ -101,6 +102,25 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen>
                                   Text(
                                     state.recipe.cookingSteps ?? '',
                                     style: theme.textTheme.bodyText2,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          if (state.loading)
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 16.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(height: 24),
+                                  SizedBox(
+                                    height: 24,
+                                    child: ContentShimmer(),
+                                  ),
+                                  SizedBox(height: 16),
+                                  SizedBox(
+                                    height: 192,
+                                    child: ContentShimmer(),
                                   ),
                                 ],
                               ),
