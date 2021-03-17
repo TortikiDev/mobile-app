@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:tortiki/data/http_client/responses/responses.dart';
 
 import '../../../bloc/recipe_details/index.dart';
 import '../../reusable/images_collection.dart';

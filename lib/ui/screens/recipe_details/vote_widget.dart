@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../bloc/recipe_details/index.dart';
 import '../../../data/http_client/responses/responses.dart';
@@ -12,6 +13,7 @@ class VoteWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final localizations = AppLocalizations.of(context);
 
     return Column(
       children: [
@@ -21,8 +23,7 @@ class VoteWidget extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.only(bottom: 16),
             child: Text(
-              // TODO: localize
-              'Do you like this recipe?',
+              localizations.doYouLikeThisRecipe,
               style: theme.textTheme.subtitle2.copyWith(color: Colors.grey),
             ),
           ),
