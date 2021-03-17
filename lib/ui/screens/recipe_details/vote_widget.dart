@@ -7,8 +7,10 @@ import '../../../data/http_client/responses/responses.dart';
 
 class VoteWidget extends StatelessWidget {
   final int voteResult;
+  final TickerProvider vsync;
 
-  const VoteWidget({Key key, @required this.voteResult}) : super(key: key);
+  const VoteWidget({Key key, @required this.voteResult, @required this.vsync})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,14 +19,16 @@ class VoteWidget extends StatelessWidget {
 
     return Column(
       children: [
-        AnimatedOpacity(
-          duration: Duration(seconds: 1),
-          opacity: voteResult == VoteResult.unvoted ? 1 : 0,
-          child: Padding(
-            padding: EdgeInsets.only(bottom: 16),
-            child: Text(
-              localizations.doYouLikeThisRecipe,
-              style: theme.textTheme.subtitle2.copyWith(color: Colors.grey),
+        AnimatedSize(
+          vsync: vsync,
+          duration: Duration(milliseconds: 200),
+          child: SizedBox(
+            height: voteResult == VoteResult.unvoted ? 40 : 0,
+            child: Center(
+              child: Text(
+                localizations.doYouLikeThisRecipe,
+                style: theme.textTheme.subtitle2.copyWith(color: Colors.grey),
+              ),
             ),
           ),
         ),

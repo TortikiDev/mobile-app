@@ -15,7 +15,8 @@ class RecipeDetailsScreen extends StatefulWidget {
   State<StatefulWidget> createState() => _RecipeDetailsScreenState();
 }
 
-class _RecipeDetailsScreenState extends State<RecipeDetailsScreen> {
+class _RecipeDetailsScreenState extends State<RecipeDetailsScreen>
+    with SingleTickerProviderStateMixin {
   final scrollController = ScrollController();
   bool statusBarBackgroundIsVisible = true;
 
@@ -104,8 +105,12 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen> {
                                 ],
                               ),
                             ),
-                          SizedBox(height: 24),
-                          VoteWidget(voteResult: state.recipe.myVote),
+                          SizedBox(height: 8),
+                          if (!state.loading)
+                            VoteWidget(
+                              voteResult: state.recipe.myVote,
+                              vsync: this,
+                            ),
                           SizedBox(height: 32),
                         ],
                       );
