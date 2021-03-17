@@ -18,6 +18,15 @@ class Bookmarks extends RecipesEvent {
   List<Object> get props => [recipe];
 }
 
+class UpdateIsInBookmarks extends RecipesEvent {
+  final RecipeViewModel recipe;
+
+  UpdateIsInBookmarks(this.recipe);
+
+  @override
+  List<Object> get props => [recipe];
+}
+
 class PullToRefresh extends RecipesEvent {
   final Function onComplete;
 

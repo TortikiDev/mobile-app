@@ -5,7 +5,7 @@ import '../make_testable_widget.dart';
 import 'test_bookmarks_screen_factory.dart';
 
 void main() {
-  testWidgets('Bottom navigation controller smoke test', (tester) async {
+  testWidgets('Bookmarks screen smoke test', (tester) async {
     final bookmarksScreenFactory = TestBookmarksScreenFactory();
     await tester.pumpWidget(
         makeTestableWidget(child: bookmarksScreenFactory.createWidget()));

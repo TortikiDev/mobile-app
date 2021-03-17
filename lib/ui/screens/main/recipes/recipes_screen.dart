@@ -3,13 +3,19 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../bloc/bottom_navigation_bloc/index.dart';
 import '../../../../bloc/recipes/index.dart';
 import '../../../reusable/list_items/progress_indicator_item.dart';
+import '../../../reusable/widget_factory.dart';
+import '../../recipe_details/recipe_details_screen_factory.dart';
 import 'recipe/recipe_view.dart';
 import 'recipe/recipe_view_model.dart';
 
 class RecipesScreen extends StatefulWidget {
-  const RecipesScreen({Key key}) : super(key: key);
+  final WidgetFactory recipeDetailsScreenFactory;
+
+  const RecipesScreen({Key key, @required this.recipeDetailsScreenFactory})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _RecipesScreenState();
@@ -29,15 +35,23 @@ class _RecipesScreenState extends State<RecipesScreen>
           ? Center(
               child: SizedBox(
                   width: 32, height: 32, child: CircularProgressIndicator()))
-          : _ScrollView(state: state);
+          : _ScrollView(
+              state: state,
+              recipeDetailsScreenFactory: widget.recipeDetailsScreenFactory,
+            );
     });
   }
 }
 
 class _ScrollView extends StatelessWidget {
+  final WidgetFactory recipeDetailsScreenFactory;
   final RecipesState state;
 
-  const _ScrollView({Key key, @required this.state}) : super(key: key);
+  const _ScrollView({
+    Key key,
+    @required this.state,
+    @required this.recipeDetailsScreenFactory,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -46,38 +60,40 @@ class _ScrollView extends StatelessWidget {
     return Scrollbar(
       child: RefreshIndicator(
         child: ListView.builder(
-            padding: EdgeInsets.only(bottom: 8),
-            itemCount: state.listItems.length,
-            itemBuilder: (context, index) {
-              final model = state.listItems[index];
-              if (model is RecipeViewModel) {
-                if ((index == state.listItems.length - 1) &&
-                    !state.loadingNextPage) {
-                  BlocProvider.of<RecipesBloc>(context).add(LoadNextPage());
-                }
-                return RecipeView(
-                  key: ObjectKey(model),
-                  model: model,
-                  theme: theme,
-                  addToBookmarks: (model) =>
-                      _addRecipeToBookmarks(model, context),
-                );
-              } else if (model is ProgressIndicatorItem) {
-                return SizedBox(
-                  height: 64,
-                  child: Center(
-                    child: SizedBox(
-                      width: 24,
-                      height: 24,
-                      child: CircularProgressIndicator(),
-                    ),
-                  ),
-                );
-              } else {
-                throw UnimplementedError('Type [${model.runtimeType}] is not'
-                    ' implemented for list view builder');
+          padding: EdgeInsets.only(bottom: 8),
+          itemCount: state.listItems.length,
+          itemBuilder: (context, index) {
+            final model = state.listItems[index];
+            if (model is RecipeViewModel) {
+              if ((index == state.listItems.length - 1) &&
+                  !state.loadingNextPage) {
+                BlocProvider.of<RecipesBloc>(context).add(LoadNextPage());
               }
-            }),
+              return RecipeView(
+                key: ObjectKey(model),
+                model: model,
+                theme: theme,
+                addToBookmarks: (model) =>
+                    _addRecipeToBookmarks(model, context),
+                showDetails: (model) => _showRecipeDetails(model, context),
+              );
+            } else if (model is ProgressIndicatorItem) {
+              return SizedBox(
+                height: 64,
+                child: Center(
+                  child: SizedBox(
+                    width: 24,
+                    height: 24,
+                    child: CircularProgressIndicator(),
+                  ),
+                ),
+              );
+            } else {
+              throw UnimplementedError('Type [${model.runtimeType}] is not'
+                  ' implemented for list view builder');
+            }
+          },
+        ),
         onRefresh: () => _pullToRefreshList(context),
       ),
     );
@@ -94,5 +110,33 @@ class _ScrollView extends StatelessWidget {
     final event = Bookmarks(model);
     final bloc = BlocProvider.of<RecipesBloc>(context);
     bloc.add(event);
+  }
+
+  void _showRecipeDetails(RecipeViewModel model, BuildContext context) {
+    final bottomNavigationBloc = BlocProvider.of<BottomNavigationBloc>(context);
+    final navigator = Navigator.of(context);
+    final screenData = RecipeDetailsScreenFactoryData(
+      id: model.id,
+      title: model.title,
+      complexity: model.complexity,
+      imageUrls: model.imageUrls,
+      isInBookmarks: model.isInBookmarks,
+    );
+    final route = MaterialPageRoute(
+      builder: (_) => WillPopScope(
+        child: recipeDetailsScreenFactory.createWidget(data: screenData),
+        onWillPop: () async {
+          bottomNavigationBloc.add(ShowNavigationBar());
+          final recipesBloc = BlocProvider.of<RecipesBloc>(context);
+          recipesBloc.add(UpdateIsInBookmarks(model));
+          return true;
+        },
+      ),
+      fullscreenDialog: true,
+    );
+    navigator.push(route);
+    bottomNavigationBloc.add(
+      HideNavigationBar(),
+    );
   }
 }

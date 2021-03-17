@@ -8,7 +8,7 @@ class DialogButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FlatButton(
+    return TextButton(
       onPressed: onPressed,
       child: Text(
         title,

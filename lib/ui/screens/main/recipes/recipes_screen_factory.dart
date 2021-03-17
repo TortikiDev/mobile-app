@@ -5,11 +5,13 @@ import '../../../../bloc/error_handling/index.dart';
 import '../../../../bloc/recipes/index.dart';
 import '../../../../data/repositories/repositories.dart';
 import '../../../reusable/widget_factory.dart';
+import '../../recipe_details/recipe_details_screen_factory.dart';
 import 'recipes_screen.dart';
 
 class RecipesScreenFactory implements WidgetFactory {
   @override
   Widget createWidget({dynamic data}) {
+    final recipeDetailsWidgetFactory = RecipeDetailsScreenFactory();
     return BlocProvider(
       create: (context) {
         return RecipesBloc(
@@ -20,7 +22,9 @@ class RecipesScreenFactory implements WidgetFactory {
             errorHandlingBloc: BlocProvider.of<ErrorHandlingBloc>(context))
           ..add(BlocInit());
       },
-      child: RecipesScreen(),
+      child: RecipesScreen(
+        recipeDetailsScreenFactory: recipeDetailsWidgetFactory,
+      ),
     );
   }
 }

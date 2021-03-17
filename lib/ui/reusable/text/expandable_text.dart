@@ -45,16 +45,15 @@ class ExpandableTextState extends State<ExpandableText> {
         .copyWith(color: widget.theme.colorScheme.onSurface);
 
     final readMoreTextSpan = TextSpan(
-        text:
-            _expanded ? "  ${widget.readLessText}" : "  ${widget.readMoreText}",
-        style: readMoreTextStyle,
-        recognizer: _readMoreTapGesture);
+      text: _expanded ? "  ${widget.readLessText}" : "  ${widget.readMoreText}",
+      style: readMoreTextStyle,
+      recognizer: _readMoreTapGesture,
+    );
     final elipsisTextSpan = TextSpan(text: "...", style: textStyle);
 
-    final result = LayoutBuilder(
+    return LayoutBuilder(
       builder: (context, constraints) {
         assert(constraints.hasBoundedWidth);
-        final maxWidth = constraints.maxWidth;
         final text = TextSpan(
           text: widget.text,
         );
@@ -65,11 +64,17 @@ class ExpandableTextState extends State<ExpandableText> {
           ellipsis: '...',
         );
 
-        textPainter.layout(minWidth: constraints.minWidth, maxWidth: maxWidth);
+        textPainter.layout(
+          minWidth: constraints.minWidth,
+          maxWidth: constraints.maxWidth,
+        );
         final readMoreSize = textPainter.size;
 
         textPainter.text = text;
-        textPainter.layout(minWidth: constraints.minWidth, maxWidth: maxWidth);
+        textPainter.layout(
+          minWidth: constraints.minWidth,
+          maxWidth: constraints.maxWidth,
+        );
         final textSize = textPainter.size;
 
         int endIndex;
@@ -102,8 +107,6 @@ class ExpandableTextState extends State<ExpandableText> {
         );
       },
     );
-
-    return result;
   }
 
   void _onTapExpand() {

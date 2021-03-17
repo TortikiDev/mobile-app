@@ -7,4 +7,14 @@ abstract class BaseBloc<Event, State> extends Bloc<Event, State> {
 
   BaseBloc({@required State initialState, @required this.errorHandlingBloc})
       : super(initialState);
+
+  Future<T> invokeWithErrorCatching<T>(Future<T> Function() target) async {
+    T result;
+    try {
+      result = await target();
+    } on Exception catch (e) {
+      errorHandlingBloc.add(ExceptionRaised(e));
+    }
+    return result;
+  }
 }

@@ -1,213 +1,47 @@
 {
-  "@@locale": "ru",
-  "ok": "OK",
-  "@ok": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "error": "Ошибка",
-  "@error": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "clear": "Очистить",
-  "@clear": {
-    "type": "text",
-    "placeholders": {}
-  },
   "add": "Добавить",
-  "@add": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "camera": "Камера",
-  "@camera": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "photoLibrary": "Галерея",
-  "@photoLibrary": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "somethingWentWrong": "Что-то пошло не так",
-  "@somethingWentWrong": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "serverIsNotAvailable": "Сервер недоступен",
-  "@serverIsNotAvailable": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "connectionTimeout": "Таймаут соединения",
-  "@connectionTimeout": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "connectionError": "Ошибка соединения",
-  "@connectionError": {
-    "type": "text",
-    "placeholders": {}
-  },
   "apiResponseParsingError": "Ошибка обработки ответа",
-  "@apiResponseParsingError": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "badRequest": "Неверный запрос",
-  "@badRequest": {
-    "type": "text",
-    "placeholders": {}
-  },
   "authorizationError": "Ошибка авторизации",
-  "@authorizationError": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "forbidder": "Отказано в доступе",
-  "@forbidder": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "resourceNotFound": "Ресурс не найден",
-  "@resourceNotFound": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "methodNotAllowed": "Метод не доступен",
-  "@methodNotAllowed": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "internalServerError": "Внутренняя ошибка сервера",
-  "@internalServerError": {
-    "type": "text",
-    "placeholders": {}
-  },
   "badGateway": "Ошибочный шлюз",
-  "@badGateway": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "feed": "Лента",
-  "@feed": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "recipes": "Рецепты",
-  "@recipes": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "newPost": "Новый пост",
-  "@newPost": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "photo": "Фото",
-  "@photo": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "description": "Содержание",
-  "@description": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "more": "ещё",
-  "@more": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "showLess": "свернуть",
-  "@showLess": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "main": "Главная",
-  "@main": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "newRecipe": "Новый рецепт",
-  "@newRecipe": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "name": "Название",
-  "@name": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "complexityAndDescription": "Сложность и описание",
-  "@complexityAndDescription": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "ingredients": "Ингредиенты",
-  "@ingredients": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "ingredientsPlaceholder": "сахар 10 г, яйца 2 шт...",
-  "@ingredientsPlaceholder": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "cooking": "Приготовление",
-  "@cooking": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "cookingSteps": "Пошаговая инструкция",
-  "@cookingSteps": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "complexityPrompt": "Сложность рецепта определяется по совокупности следующих параметров: время приготовления, способ приготовления, количество и стоимость ингредиентов.",
-  "@complexityPrompt": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "grams": "г",
-  "@grams": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "milliliters": "мл",
-  "@milliliters": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "pcs": "шт",
-  "@pcs": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "photos": "Фото",
-  "@photos": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "map": "Карта",
-  "@map": {
-    "type": "text",
-    "placeholders": {}
-  },
+  "badRequest": "Неверный запрос",
   "bookmarks": "Избранное",
-  "@bookmarks": {
-    "type": "text",
-    "placeholders": {}
-  },
+  "camera": "Камера",
+  "clear": "Очистить",
+  "complexityAndDescription": "Сложность и описание",
+  "complexityPrompt": "Сложность рецепта определяется по совокупности следующих параметров: время приготовления, способ приготовления, количество и стоимость ингредиентов.",
+  "connectionError": "Ошибка соединения",
+  "connectionTimeout": "Таймаут соединения",
+  "cooking": "Приготовление",
+  "cookingSteps": "Пошаговая инструкция",
+  "description": "Описание",
+  "doYouLikeThisRecipe": "Вам понравился рецепт?",
+  "error": "Ошибка",
+  "feed": "Лента",
+  "forbidder": "Отказано в доступе",
+  "grams": "г",
+  "ingredients": "Ингредиенты",
+  "ingredientsPlaceholder": "сахар 10 г, яйца 2 шт...",
+  "internalServerError": "Внутренняя ошибка сервера",
+  "main": "Главная",
+  "map": "Карта",
+  "methodNotAllowed": "Метод не доступен",
+  "milliliters": "мл",
+  "more": "ещё",
+  "name": "Название",
+  "newPost": "Новый пост",
+  "newRecipe": "Новый рецепт",
+  "ok": "OK",
+  "pcs": "шт",
+  "photo": "Фото",
+  "photoLibrary": "Галерея",
+  "photos": "Фото",
   "profile": "Профиль",
-  "@profile": {
-    "type": "text",
-    "placeholders": {}
-  },
+  "recipes": "Рецепты",
+  "resourceNotFound": "Ресурс не найден",
+  "serverIsNotAvailable": "Сервер недоступен",
   "shortDescription": "Краткое описание",
-  "@shortDescription": {
-    "type": "text",
-    "placeholders": {}
-  }
+  "showLess": "свернуть",
+  "somethingWentWrong": "Что-то пошло не так",
+  "tablespoons": "ст.л.",
+  "teaspoons": "ч.л."
 }

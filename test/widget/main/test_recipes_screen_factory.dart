@@ -8,6 +8,8 @@ import 'package:tortiki/ui/screens/main/recipes/recipes_screen.dart';
 
 class _MockRecipesBloc extends MockBloc<RecipesState> implements RecipesBloc {}
 
+class _MockScreenFactory extends Mock implements WidgetFactory {}
+
 class TestRecipesScreenFactory implements WidgetFactory {
   @override
   Widget createWidget({dynamic data}) {
@@ -16,9 +18,13 @@ class TestRecipesScreenFactory implements WidgetFactory {
     when(feedBloc.state).thenReturn(feedInitialState);
     whenListen(feedBloc, Stream<RecipesState>.value(feedInitialState));
 
+    final recipeDetailsScreenFactory = _MockScreenFactory();
+
     return BlocProvider<RecipesBloc>(
       create: (context) => feedBloc,
-      child: RecipesScreen(),
+      child: RecipesScreen(
+        recipeDetailsScreenFactory: recipeDetailsScreenFactory,
+      ),
     );
   }
 }

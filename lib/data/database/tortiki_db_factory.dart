@@ -20,7 +20,7 @@ class TortikiDbFactory implements DbFactory {
           id INTEGER PRIMARY KEY, 
           title TEXT, 
           complexity REAL, 
-          imageUrl TEXT)
+          imageUrls TEXT)
         ''',
         );
       },

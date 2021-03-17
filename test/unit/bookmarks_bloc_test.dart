@@ -52,13 +52,13 @@ void main() {
         id: 1,
         title: '1',
         complexity: 4,
-        imageUrl: null,
+        imageUrls: [],
       ),
       RecipeDbModel(
         id: 2,
         title: '2',
         complexity: 3,
-        imageUrl: 'http://134.png',
+        imageUrls: ['http://134.png'],
       ),
     ];
     final recipesModels = [
@@ -66,14 +66,14 @@ void main() {
         id: 1,
         title: '1',
         complexity: 4,
-        imageUrl: null,
+        imageUrls: [],
         isInBookmarks: true,
       ),
       RecipeViewModel(
         id: 2,
         title: '2',
         complexity: 3,
-        imageUrl: 'http://134.png',
+        imageUrls: ['http://134.png'],
         isInBookmarks: true,
       ),
     ];
@@ -102,14 +102,14 @@ void main() {
         id: 1,
         title: '1',
         complexity: 4,
-        imageUrl: null,
+        imageUrls: [],
         isInBookmarks: true,
       ),
       RecipeViewModel(
         id: 2,
         title: '2',
         complexity: 3,
-        imageUrl: 'http://134.png',
+        imageUrls: ['http://134.png'],
         isInBookmarks: true,
       ),
     ];
@@ -120,7 +120,7 @@ void main() {
         id: 1,
         title: '1',
         complexity: 4,
-        imageUrl: null,
+        imageUrls: [],
         isInBookmarks: true,
       )
     ]);
@@ -138,14 +138,14 @@ void main() {
         id: 1,
         title: '1',
         complexity: 4,
-        imageUrl: null,
+        imageUrls: [],
         isInBookmarks: true,
       ),
       RecipeViewModel(
         id: 2,
         title: '2',
         complexity: 3,
-        imageUrl: 'http://134.png',
+        imageUrls: ['http://134.png'],
         isInBookmarks: true,
       ),
     ];

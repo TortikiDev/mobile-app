@@ -70,6 +70,23 @@ class RecipesBloc extends BaseBloc<RecipesEvent, RecipesState> {
         bookmarkedRecipesIds: updatedBookmarkedRecipesIds,
       );
     }
+    if (event is UpdateIsInBookmarks) {
+      final updatedBookmarkedRecipesIds = await _getBookmarkedRecipesIds();
+      final updatedIsInBookmarks =
+          updatedBookmarkedRecipesIds.contains(event.recipe.id);
+      if (event.recipe.isInBookmarks != updatedIsInBookmarks) {
+        final updatedRecipe =
+            event.recipe.copy(isInBookmarks: updatedIsInBookmarks);
+        final updatedListItems = state.listItems;
+        final recipeIndex = updatedListItems.indexOf(event.recipe);
+        updatedListItems
+            .replaceRange(recipeIndex, recipeIndex + 1, [updatedRecipe]);
+        yield state.copy(
+          listItems: updatedListItems,
+          bookmarkedRecipesIds: updatedBookmarkedRecipesIds,
+        );
+      }
+    }
   }
 
   // endregion
@@ -109,7 +126,7 @@ class RecipesBloc extends BaseBloc<RecipesEvent, RecipesState> {
         id: response.id,
         title: response.title,
         complexity: response.complexity,
-        imageUrl: response.imageUrl,
+        imageUrls: response.imageUrls,
         isInBookmarks: state.bookmarkedRecipesIds.contains(response.id),
       );
 
@@ -141,7 +158,7 @@ class RecipesBloc extends BaseBloc<RecipesEvent, RecipesState> {
         id: model.id,
         title: model.title,
         complexity: model.complexity,
-        imageUrl: model.imageUrl,
+        imageUrls: model.imageUrls,
       );
 
   // endregion

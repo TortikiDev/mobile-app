@@ -1,11 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:sqflite/sqflite.dart';
 
-import '../app_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../bloc/error_handling/index.dart';
 import '../data/database/db_factory.dart';
 import '../data/http_client/http_client_factory.dart';
@@ -29,21 +28,13 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _ErrorHandlingDecorator(
-      child: MaterialApp(
-        title: 'Tortiki',
-        theme: appTheme,
-        localizationsDelegates: [
-          const AppLocalizationsDelegate(),
-          GlobalMaterialLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate
-        ],
-        supportedLocales: [
-          const Locale('en'),
-          const Locale('ru'),
-        ],
-        home: FutureBuilder(
+    return MaterialApp(
+      title: 'Tortiki',
+      theme: appTheme,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
+      home: _ErrorHandlingDecorator(
+        child: FutureBuilder(
           future: dbFactory.createDb(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {

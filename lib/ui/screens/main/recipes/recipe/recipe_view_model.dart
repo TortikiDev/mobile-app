@@ -7,29 +7,31 @@ class RecipeViewModel extends Equatable implements ListItem {
   final int id;
   final String title;
   final double complexity;
-  final String imageUrl;
+  final List<String> _imageUrls;
   final bool isInBookmarks;
+
+  List<String> get imageUrls => List.of(_imageUrls);
 
   RecipeViewModel({
     @required this.id,
     @required this.title,
     @required this.complexity,
-    @required this.imageUrl,
+    @required List<String> imageUrls,
     this.isInBookmarks = false,
-  });
+  }) : _imageUrls = imageUrls;
 
   RecipeViewModel copy({
     int id,
     String title,
     double complexity,
-    String imageUrl,
+    List<String> imageUrls,
     bool isInBookmarks,
   }) =>
       RecipeViewModel(
         id: id ?? this.id,
         title: title ?? this.title,
         complexity: complexity ?? this.complexity,
-        imageUrl: imageUrl ?? this.imageUrl,
+        imageUrls: imageUrls ?? this.imageUrls,
         isInBookmarks: isInBookmarks ?? this.isInBookmarks,
       );
 
@@ -38,7 +40,7 @@ class RecipeViewModel extends Equatable implements ListItem {
         id,
         title,
         complexity,
-        imageUrl,
+        imageUrls,
         isInBookmarks,
       ];
 
