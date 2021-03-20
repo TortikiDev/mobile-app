@@ -10,6 +10,8 @@ import 'package:tortiki/ui/screens/main/recipes/recipe/recipe_view_model.dart';
 class _MockBookmarksBloc extends MockBloc<BookmarksState>
     implements BookmarksBloc {}
 
+class TestRecipeDetaailsScreenFactory extends Mock implements WidgetFactory {}
+
 class TestBookmarksScreenFactory implements WidgetFactory {
   @override
   Widget createWidget({dynamic data}) {
@@ -35,9 +37,13 @@ class TestBookmarksScreenFactory implements WidgetFactory {
     when(bookmarksBloc.state).thenReturn(bookmarksState);
     whenListen(bookmarksBloc, Stream<BookmarksState>.value(bookmarksState));
 
+    final recipeDetailsScreenFactory = TestRecipeDetaailsScreenFactory();
+
     return BlocProvider<BookmarksBloc>(
       create: (context) => bookmarksBloc,
-      child: BookmarksScreen(),
+      child: BookmarksScreen(
+        recipeDetailsScreenFactory: recipeDetailsScreenFactory,
+      ),
     );
   }
 }

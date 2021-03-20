@@ -37,7 +37,20 @@ class BookmarksBloc extends BaseBloc<BookmarksEvent, BookmarksState> {
       final currentRecipes = state.listItems;
       currentRecipes.remove(event.recipe);
       yield state.copy(listItems: currentRecipes);
-    } 
+    } else if (event is UpdateIsInBookmarks) {
+      final bookmarkedRecipesIds = await _getBookmarkedRecipesIds();
+      final updatedIsInBookmarks =
+          bookmarkedRecipesIds.contains(event.recipe.id);
+      if (event.recipe.isInBookmarks != updatedIsInBookmarks) {
+        final updatedRecipe =
+            event.recipe.copy(isInBookmarks: updatedIsInBookmarks);
+        final updatedListItems = state.listItems;
+        final recipeIndex = updatedListItems.indexOf(event.recipe);
+        updatedListItems
+            .replaceRange(recipeIndex, recipeIndex + 1, [updatedRecipe]);
+        yield state.copy(listItems: updatedListItems);
+      }
+    }
   }
 
   // endregion
@@ -52,6 +65,11 @@ class BookmarksBloc extends BaseBloc<BookmarksEvent, BookmarksState> {
         imageUrls: response.imageUrls,
         isInBookmarks: true,
       );
+
+  Future<Set<int>> _getBookmarkedRecipesIds() async {
+    final recipes = await bookmarksRepository.getRecipes();
+    return recipes.map((e) => e.id).toSet();
+  }
 
   // endregion
 }

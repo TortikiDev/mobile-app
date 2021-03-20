@@ -17,3 +17,12 @@ class RemoveFromBookmarks extends BookmarksEvent {
   @override
   List<Object> get props => [recipe];
 }
+
+class UpdateIsInBookmarks extends BookmarksEvent {
+  final RecipeViewModel recipe;
+
+  UpdateIsInBookmarks(this.recipe);
+
+  @override
+  List<Object> get props => [recipe];
+}

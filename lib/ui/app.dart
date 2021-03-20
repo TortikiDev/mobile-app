@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:sqflite/sqflite.dart';
 
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../bloc/error_handling/index.dart';
 import '../data/database/db_factory.dart';
 import '../data/http_client/http_client_factory.dart';
@@ -12,6 +12,7 @@ import '../data/repositories/repositories.dart';
 import 'app_theme.dart';
 import 'reusable/show_dialog_mixin.dart';
 import 'reusable/widget_factory.dart';
+import 'screens/recipe_details/recipe_details_screen_factory.dart';
 import 'screens/splash_screen.dart';
 
 class App extends StatelessWidget {
@@ -44,6 +45,9 @@ class App extends StatelessWidget {
                     create: (context) => httpClientFactory.createHttpClient(),
                   ),
                   Provider<Database>(create: (context) => snapshot.data),
+                  Provider<RecipeDetailsScreenFactory>(
+                    create: (context) => RecipeDetailsScreenFactory(),
+                  )
                 ],
                 child: RepositoryProvider(
                   create: (context) => BookmarkedRecipesRepository(
