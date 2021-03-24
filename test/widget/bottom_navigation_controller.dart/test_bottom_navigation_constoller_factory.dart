@@ -13,16 +13,26 @@ class _MockErrorHandlingBloc extends MockBloc<ErrorHandlingState>
 class _MockBookmarkedRecipesRepository extends Mock
     implements BookmarkedRecipesRepository {}
 
+class _MockScreenFactory extends Mock implements WidgetFactory {}
+
 class TestBottomNaigationControllerFactory implements WidgetFactory {
   @override
   Widget createWidget({dynamic data}) {
     final errorHandlingBloc = _MockErrorHandlingBloc();
+    
+    final mainScreenFactory = _MockScreenFactory();
+    final mapScreenFactory = _MockScreenFactory();
+    final bookmarksScreenFactory = _MockScreenFactory();
 
     return BlocProvider<ErrorHandlingBloc>(
       create: (context) => errorHandlingBloc,
       child: RepositoryProvider<BookmarkedRecipesRepository>(
           create: (context) => _MockBookmarkedRecipesRepository(),
-          child: BottomNavigationController()),
+          child: BottomNavigationController(
+            mainScreenFactory: mainScreenFactory,
+            mapScreenFactory: mapScreenFactory,
+            bookmarksScreenFactory: bookmarksScreenFactory,
+          )),
     );
   }
 }

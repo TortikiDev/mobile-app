@@ -1,13 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:widget_factory/widget_factory.dart';
 
 import '../app_theme.dart';
-import '../screens/bookmarks/bookmarks_screen_factory.dart';
-import '../screens/main/main_screen_factory.dart';
 import 'bottom_navigation_controller_item.dart';
 
 class BottomNavigationController extends StatefulWidget {
-  BottomNavigationController({Key key}) : super(key: key);
+  final WidgetFactory mainScreenFactory;
+  final WidgetFactory mapScreenFactory;
+  final WidgetFactory bookmarksScreenFactory;
+
+  BottomNavigationController({
+    Key key,
+    @required this.mainScreenFactory,
+    @required this.mapScreenFactory,
+    @required this.bookmarksScreenFactory,
+  }) : super(key: key);
 
   @override
   _BottomNavigationControllerState createState() =>
@@ -16,7 +24,6 @@ class BottomNavigationController extends StatefulWidget {
 
 class _BottomNavigationControllerState
     extends State<BottomNavigationController> {
-  final pagesBucket = PageStorageBucket();
   final pageController = PageController();
   List<BottomNaigationControllerItem> _items;
   int _currentPage = 0;
@@ -28,7 +35,7 @@ class _BottomNavigationControllerState
       final localizations = AppLocalizations.of(context);
       _items = [
         BottomNaigationControllerItem(
-          MainScreenFactory().createWidget(),
+          widget.mainScreenFactory.createWidget(),
           BottomNavigationBarItem(
             label: localizations.main,
             icon: ImageIcon(AssetImage('assets/cherry/cherry.png'),
@@ -36,19 +43,14 @@ class _BottomNavigationControllerState
           ),
         ),
         BottomNaigationControllerItem(
-          Container(
-            color: appTheme.colorScheme.background,
-            child: Center(
-              child: Text(localizations.map, style: theme.textTheme.bodyText2),
-            ),
-          ),
+          widget.mapScreenFactory.createWidget(),
           BottomNavigationBarItem(
             label: localizations.map,
             icon: Icon(Icons.location_pin),
           ),
         ),
         BottomNaigationControllerItem(
-          BookmarksScreenFactory().createWidget(),
+          widget.bookmarksScreenFactory.createWidget(),
           BottomNavigationBarItem(
             label: localizations.bookmarks,
             icon: Icon(Icons.bookmark),
@@ -70,13 +72,11 @@ class _BottomNavigationControllerState
     }
 
     return Scaffold(
-      body: PageStorage(
-        bucket: pagesBucket,
-        child: PageView(
-            physics: NeverScrollableScrollPhysics(),
-            children: _items.map((e) => e.page).toList(),
-            controller: pageController,
-            onPageChanged: (index) => _currentPage = index),
+      body: PageView(
+        physics: NeverScrollableScrollPhysics(),
+        children: _items.map((e) => e.page).toList(),
+        controller: pageController,
+        onPageChanged: (index) => _currentPage = index,
       ),
       bottomNavigationBar: BottomNavigationBar(
         showSelectedLabels: false,

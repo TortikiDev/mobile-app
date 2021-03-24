@@ -170,6 +170,7 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen>
               left: 0,
               right: 0,
               child: Container(
+                // TODO: check bg height on android devices
                 height: 44,
                 color: Colors.white30,
               ),
