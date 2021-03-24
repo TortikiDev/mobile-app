@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:widget_factory/widget_factory.dart';
 
-import '../../../bloc/bottom_navigation_bloc/index.dart';
 import '../../../bloc/main/index.dart';
 import 'create_post/create_post_screen_factory.dart';
 import 'create_recipe/create_recipe_screen_factory.dart';
@@ -96,18 +95,10 @@ class _MainScreenState extends State<MainScreen> {
 
   void _pushFullScreenRoute(BuildContext context,
       {@required WidgetFactory screenFactory}) {
-    final bottomNavigationBloc = BlocProvider.of<BottomNavigationBloc>(context);
     final pageRoute = MaterialPageRoute(
-      builder: (context) => WillPopScope(
-        child: screenFactory.createWidget(),
-        onWillPop: () async {
-          bottomNavigationBloc.add(ShowNavigationBar());
-          return true;
-        },
-      ),
+      builder: (context) => screenFactory.createWidget(),
       fullscreenDialog: true,
     );
     Navigator.of(context).push(pageRoute);
-    bottomNavigationBloc.add(HideNavigationBar());
   }
 }

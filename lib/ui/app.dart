@@ -9,10 +9,8 @@ import 'package:widget_factory/widget_factory.dart';
 import '../bloc/error_handling/index.dart';
 import '../data/database/db_factory.dart';
 import '../data/http_client/http_client_factory.dart';
-import '../data/repositories/repositories.dart';
 import 'app_theme.dart';
 import 'reusable/show_dialog_mixin.dart';
-import 'screens/recipe_details/recipe_details_screen_factory.dart';
 import 'screens/splash_screen.dart';
 
 class App extends StatelessWidget {
@@ -45,23 +43,8 @@ class App extends StatelessWidget {
                     create: (context) => httpClientFactory.createHttpClient(),
                   ),
                   Provider<Database>(create: (context) => snapshot.data),
-                  Provider<RecipeDetailsScreenFactory>(
-                    create: (context) => RecipeDetailsScreenFactory(),
-                  )
                 ],
-                child: MultiRepositoryProvider(
-                  providers: [
-                    RepositoryProvider(
-                      create: (context) => BookmarkedRecipesRepository(
-                        db: Provider.of<Database>(context, listen: false),
-                      ),
-                    ),
-                    RepositoryProvider(
-                      create: (context) => RecipesRepository(),
-                    ),
-                  ],
-                  child: bottomNavigationControllerFactory.createWidget(),
-                ),
+                child: bottomNavigationControllerFactory.createWidget(),
               );
             } else {
               return SplashScreen();

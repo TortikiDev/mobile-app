@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../bloc/bottom_navigation_bloc/index.dart';
 import '../app_theme.dart';
 import '../screens/bookmarks/bookmarks_screen_factory.dart';
 import '../screens/main/main_screen_factory.dart';
@@ -71,25 +69,21 @@ class _BottomNavigationControllerState
       ];
     }
 
-    return BlocBuilder<BottomNavigationBloc, BottomNavigationState>(
-      builder: (context, state) => Scaffold(
-        body: PageStorage(
-          bucket: pagesBucket,
-          child: PageView(
-              physics: NeverScrollableScrollPhysics(),
-              children: _items.map((e) => e.page).toList(),
-              controller: pageController,
-              onPageChanged: (index) => _currentPage = index),
-        ),
-        bottomNavigationBar: state.isHidden
-            ? null
-            : BottomNavigationBar(
-                showSelectedLabels: false,
-                showUnselectedLabels: false,
-                items: _items.map((e) => e.barItem).toList(),
-                currentIndex: _currentPage,
-                onTap: _onItemTapped,
-              ),
+    return Scaffold(
+      body: PageStorage(
+        bucket: pagesBucket,
+        child: PageView(
+            physics: NeverScrollableScrollPhysics(),
+            children: _items.map((e) => e.page).toList(),
+            controller: pageController,
+            onPageChanged: (index) => _currentPage = index),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+        items: _items.map((e) => e.barItem).toList(),
+        currentIndex: _currentPage,
+        onTap: _onItemTapped,
       ),
     );
   }

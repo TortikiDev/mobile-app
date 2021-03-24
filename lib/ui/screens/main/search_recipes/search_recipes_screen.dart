@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:widget_factory/widget_factory.dart';
 
-import '../../../../bloc/bottom_navigation_bloc/index.dart';
 import '../../../../bloc/search_recipes/index.dart';
 import '../../../reusable/list_items/progress_indicator_item.dart';
 import '../../../reusable/search_bar.dart';
@@ -169,7 +168,6 @@ class _ScrollViewState extends State<_ScrollView> {
   }
 
   void _showRecipeDetails(RecipeViewModel model, BuildContext context) {
-    final bottomNavigationBloc = BlocProvider.of<BottomNavigationBloc>(context);
     final navigator = Navigator.of(context);
     final screenData = RecipeDetailsScreenFactoryData(
       id: model.id,
@@ -182,7 +180,6 @@ class _ScrollViewState extends State<_ScrollView> {
       builder: (_) => WillPopScope(
         child: widget.recipeDetailsScreenFactory.createWidget(data: screenData),
         onWillPop: () async {
-          bottomNavigationBloc.add(ShowNavigationBar());
           final bookmarksBloc = BlocProvider.of<SearchRecipesBloc>(context);
           bookmarksBloc.add(UpdateIsInBookmarks(model));
           return true;
@@ -191,8 +188,5 @@ class _ScrollViewState extends State<_ScrollView> {
       fullscreenDialog: true,
     );
     navigator.push(route);
-    bottomNavigationBloc.add(
-      HideNavigationBar(),
-    );
   }
 }

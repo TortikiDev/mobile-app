@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:widget_factory/widget_factory.dart';
 
-import '../../../../bloc/bottom_navigation_bloc/index.dart';
 import '../../../../bloc/recipes/index.dart';
 import '../../../reusable/list_items/progress_indicator_item.dart';
 import '../../recipe_details/recipe_details_screen_factory.dart';
@@ -113,7 +112,6 @@ class _ScrollView extends StatelessWidget {
   }
 
   void _showRecipeDetails(RecipeViewModel model, BuildContext context) {
-    final bottomNavigationBloc = BlocProvider.of<BottomNavigationBloc>(context);
     final navigator = Navigator.of(context);
     final screenData = RecipeDetailsScreenFactoryData(
       id: model.id,
@@ -126,7 +124,6 @@ class _ScrollView extends StatelessWidget {
       builder: (_) => WillPopScope(
         child: recipeDetailsScreenFactory.createWidget(data: screenData),
         onWillPop: () async {
-          bottomNavigationBloc.add(ShowNavigationBar());
           final recipesBloc = BlocProvider.of<RecipesBloc>(context);
           recipesBloc.add(UpdateIsInBookmarks(model));
           return true;
@@ -135,8 +132,5 @@ class _ScrollView extends StatelessWidget {
       fullscreenDialog: true,
     );
     navigator.push(route);
-    bottomNavigationBloc.add(
-      HideNavigationBar(),
-    );
   }
 }
