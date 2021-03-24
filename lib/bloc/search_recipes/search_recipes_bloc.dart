@@ -72,6 +72,22 @@ class SearchRecipesBloc
         listItems: updatedListItems,
         bookmarkedRecipesIds: updatedBookmarkedRecipesIds,
       );
+     } else if (event is UpdateIsInBookmarks) {
+      final updatedBookmarkedRecipesIds = await _getBookmarkedRecipesIds();
+      final updatedIsInBookmarks =
+          updatedBookmarkedRecipesIds.contains(event.recipe.id);
+      if (event.recipe.isInBookmarks != updatedIsInBookmarks) {
+        final updatedRecipe =
+            event.recipe.copy(isInBookmarks: updatedIsInBookmarks);
+        final updatedListItems = state.listItems;
+        final recipeIndex = updatedListItems.indexOf(event.recipe);
+        updatedListItems
+            .replaceRange(recipeIndex, recipeIndex + 1, [updatedRecipe]);
+        yield state.copy(
+          listItems: updatedListItems,
+          bookmarkedRecipesIds: updatedBookmarkedRecipesIds,
+        );
+      }
     }
   }
 

@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:widget_factory/widget_factory.dart';
@@ -39,10 +40,18 @@ class MainScreenFactory implements WidgetFactory {
         ],
         child: BlocProvider(
           create: (context) => mainBloc,
-          child: MainScreen(
-            feedScreenFactory: feedScreenFactory,
-            recipesScreenFactory: recipesScreenFactory,
-            searchRecipesScreenFactory: searchRecipesScreenFactory,
+          child: Navigator(
+            onGenerateRoute: (settings) {
+              return MaterialPageRoute(
+                builder: (context) {
+                  return MainScreen(
+                    feedScreenFactory: feedScreenFactory,
+                    recipesScreenFactory: recipesScreenFactory,
+                    searchRecipesScreenFactory: searchRecipesScreenFactory,
+                  );
+                },
+              );
+            },
           ),
         ),
       );

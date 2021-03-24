@@ -41,13 +41,10 @@ class BookmarksBloc extends BaseBloc<BookmarksEvent, BookmarksState> {
       final bookmarkedRecipesIds = await _getBookmarkedRecipesIds();
       final updatedIsInBookmarks =
           bookmarkedRecipesIds.contains(event.recipe.id);
-      if (event.recipe.isInBookmarks != updatedIsInBookmarks) {
-        final updatedRecipe =
-            event.recipe.copy(isInBookmarks: updatedIsInBookmarks);
+      if (!updatedIsInBookmarks &&
+          event.recipe.isInBookmarks != updatedIsInBookmarks) {
         final updatedListItems = state.listItems;
-        final recipeIndex = updatedListItems.indexOf(event.recipe);
-        updatedListItems
-            .replaceRange(recipeIndex, recipeIndex + 1, [updatedRecipe]);
+        updatedListItems.remove(event.recipe);
         yield state.copy(listItems: updatedListItems);
       }
     }
