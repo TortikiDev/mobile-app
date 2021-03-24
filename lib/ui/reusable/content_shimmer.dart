@@ -14,22 +14,23 @@ class ContentShimmer extends StatefulWidget {
 
 class _ContentShimmerState extends State<ContentShimmer>
     with SingleTickerProviderStateMixin {
-  final _shimmerWidth = 50.0;
-
   AnimationController _animationController;
-  Animation<double> _shimmerAnimation;
+  Animation<Color> _colorAnimation;
 
   @override
   void initState() {
     super.initState();
     _animationController = AnimationController(
-      duration: Duration(seconds: 2),
+      duration: Duration(milliseconds: 800),
+      reverseDuration: Duration(milliseconds: 800),
       vsync: this,
     );
-    _shimmerAnimation = Tween<double>(begin: _shimmerWidth, end: 1000)
-        .animate(_animationController)
-          ..addListener(() => setState(() {}));
-    _animationController.repeat();
+    _colorAnimation = ColorTween(
+      begin: widget.backgroundColor,
+      end: widget.backgroundColor.withAlpha(120),
+    ).animate(_animationController)
+      ..addListener(() => setState(() {}));
+    _animationController.repeat(reverse: true);
   }
 
   @override
@@ -40,35 +41,12 @@ class _ContentShimmerState extends State<ContentShimmer>
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Container(
-          decoration: BoxDecoration(
-            color: widget.backgroundColor,
-            borderRadius: BorderRadius.all(Radius.circular(8)),
-          ),
-          clipBehavior: Clip.hardEdge,
-        ),
-        Positioned(
-          top: 0,
-          bottom: 0,
-          left: _shimmerAnimation.value,
-          child: Container(
-            width: 100,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight,
-                colors: <Color>[
-                  widget.backgroundColor,
-                  Colors.white54,
-                  widget.backgroundColor,
-                ],
-              ),
-            ),
-          ),
-        ),
-      ],
+    return Container(
+      decoration: BoxDecoration(
+        color: _colorAnimation.value,
+        borderRadius: BorderRadius.all(Radius.circular(8)),
+      ),
+      clipBehavior: Clip.hardEdge,
     );
   }
 }
