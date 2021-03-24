@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mockito/mockito.dart';
 import 'package:tortiki/bloc/bottom_navigation_bloc/index.dart';
 import 'package:tortiki/bloc/main/index.dart';
-import 'package:tortiki/ui/reusable/widget_factory.dart';
+import 'package:widget_factory/widget_factory.dart';
 import 'package:tortiki/ui/screens/main/main_screen.dart';
 
 import 'test_feed_screen_factory.dart';

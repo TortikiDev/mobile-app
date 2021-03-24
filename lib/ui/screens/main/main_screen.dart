@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:widget_factory/widget_factory.dart';
+
 import '../../../bloc/bottom_navigation_bloc/index.dart';
 import '../../../bloc/main/index.dart';
-import '../../reusable/widget_factory.dart';
 import 'create_post/create_post_screen_factory.dart';
 import 'create_recipe/create_recipe_screen_factory.dart';
 

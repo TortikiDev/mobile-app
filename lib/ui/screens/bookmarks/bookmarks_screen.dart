@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:widget_factory/widget_factory.dart';
 
 import '../../../bloc/bookmarks/index.dart';
 import '../../../bloc/bottom_navigation_bloc/index.dart';
-import '../../reusable/widget_factory.dart';
 import '../main/recipes/recipe/recipe_view.dart';
 import '../main/recipes/recipe/recipe_view_model.dart';
 import '../recipe_details/recipe_details_screen_factory.dart';

@@ -5,7 +5,7 @@ import 'package:tortiki/bloc/bottom_navigation_bloc/index.dart';
 import 'package:tortiki/bloc/error_handling/index.dart';
 import 'package:tortiki/data/repositories/repositories.dart';
 import 'package:tortiki/ui/bottom_navigation/bottom_navigation_controller.dart';
-import 'package:tortiki/ui/reusable/widget_factory.dart';
+import 'package:widget_factory/widget_factory.dart';
 import 'package:mockito/mockito.dart';
 
 class _MockErrorHandlingBloc extends MockBloc<ErrorHandlingState>

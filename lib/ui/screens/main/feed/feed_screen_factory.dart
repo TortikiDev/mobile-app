@@ -1,10 +1,10 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:widget_factory/widget_factory.dart';
 
 import '../../../../bloc/error_handling/index.dart';
 import '../../../../bloc/feed/index.dart';
 import '../../../../data/repositories/repositories.dart';
-import '../../../reusable/widget_factory.dart';
 import 'feed_screen.dart';
 
 class FeedScreenFactory implements WidgetFactory {

@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mockito/mockito.dart';
 import 'package:tortiki/bloc/create_recipe/index.dart';
-import 'package:tortiki/ui/reusable/widget_factory.dart';
+import 'package:widget_factory/widget_factory.dart';
 import 'package:tortiki/ui/screens/main/create_recipe/create_recipe_screen.dart';
 
 class _MockCreateRecipeBloc extends MockBloc<CreateRecipeState>

@@ -2,11 +2,11 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:widget_factory/widget_factory.dart';
 
 import '../../../../bloc/bottom_navigation_bloc/index.dart';
 import '../../../../bloc/recipes/index.dart';
 import '../../../reusable/list_items/progress_indicator_item.dart';
-import '../../../reusable/widget_factory.dart';
 import '../../recipe_details/recipe_details_screen_factory.dart';
 import 'recipe/recipe_view.dart';
 import 'recipe/recipe_view_model.dart';
