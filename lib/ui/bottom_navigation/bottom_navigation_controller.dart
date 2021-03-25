@@ -10,7 +10,7 @@ class BottomNavigationController extends StatefulWidget {
   final WidgetFactory mapScreenFactory;
   final WidgetFactory bookmarksScreenFactory;
 
-  BottomNavigationController({
+  const BottomNavigationController({
     Key key,
     @required this.mainScreenFactory,
     @required this.mapScreenFactory,
@@ -38,8 +38,11 @@ class _BottomNavigationControllerState
           widget.mainScreenFactory.createWidget(),
           BottomNavigationBarItem(
             label: localizations.main,
-            icon: ImageIcon(AssetImage('assets/cherry/cherry.png'),
-                key: Key('cherry icon'), size: 24),
+            icon: ImageIcon(
+              AssetImage('assets/cherry/cherry.png'),
+              key: Key('cherry icon'),
+              size: 24,
+            ),
           ),
         ),
         BottomNaigationControllerItem(
