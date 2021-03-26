@@ -5,6 +5,8 @@ class ConfectionerShortResponse extends Equatable {
   final String name;
   final String address;
   final String avatarUrl;
+  final double lat;
+  final double long;
 
   /// Star type from [ConfectionerRatingStarType]
   final int starType;
@@ -16,6 +18,8 @@ class ConfectionerShortResponse extends Equatable {
     @required this.avatarUrl,
     @required this.starType,
     @required this.rating,
+    @required this.lat,
+    @required this.long,
   });
 
   ConfectionerShortResponse copy({
@@ -24,6 +28,8 @@ class ConfectionerShortResponse extends Equatable {
     String avatarUrl,
     int starType,
     int rating,
+    double lat,
+    double long,
   }) =>
       ConfectionerShortResponse(
         name: name ?? this.name,
@@ -31,6 +37,8 @@ class ConfectionerShortResponse extends Equatable {
         avatarUrl: avatarUrl ?? this.avatarUrl,
         starType: starType ?? this.starType,
         rating: rating ?? this.rating,
+        lat: lat ?? this.lat,
+        long: long ?? this.long,
       );
 
   @override
@@ -40,6 +48,8 @@ class ConfectionerShortResponse extends Equatable {
         avatarUrl,
         starType,
         rating,
+        lat,
+        long,
       ];
 
   @override

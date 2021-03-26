@@ -42,5 +42,6 @@
     "cSpell.enableFiletypes": [
         "dart"
     ],
-    "cSpell.enabled": true
+    "cSpell.enabled": true,
+    "dart.previewLsp": null
 }
