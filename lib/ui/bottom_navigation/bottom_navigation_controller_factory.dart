@@ -30,6 +30,7 @@ class BottomNavigationControllerFactory implements WidgetFactory {
             RepositoryProvider(
               create: (context) => BookmarkedRecipesRepository(db: db),
             ),
+            RepositoryProvider(create: (context) => ConfectionersRepository()),
           ],
           child: Navigator(
             onGenerateRoute: (settings) {

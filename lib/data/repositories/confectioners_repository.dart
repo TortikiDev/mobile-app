@@ -20,7 +20,7 @@ class ConfectionersRepository {
             'https://images.unsplash.com/photo-1510616022132-9976466385a8',
         starType: ConfectionerRatingStarType.silver,
         rating: 56,
-        coordinate: LatLongResponse(54.652, 39.862),
+        coordinate: LatLongResponse(54.603, 39.862),
       ),
       ConfectionerShortResponse(
         name: 'Билли',
@@ -29,7 +29,7 @@ class ConfectionersRepository {
             'https://images.unsplash.com/photo-1486427944299-d1955d23e34d',
         starType: ConfectionerRatingStarType.none,
         rating: 1,
-        coordinate: LatLongResponse(54.600, 39.842),
+        coordinate: LatLongResponse(54.601, 39.862),
       ),
       ConfectionerShortResponse(
         name: 'Михаил Круг',
@@ -38,7 +38,7 @@ class ConfectionersRepository {
             'https://images.unsplash.com/photo-1510616022132-9976466385a8',
         starType: ConfectionerRatingStarType.gold,
         rating: 433,
-        coordinate: LatLongResponse(54.595, 39.862),
+        coordinate: LatLongResponse(54.602, 39.863),
       ),
     ];
   }
