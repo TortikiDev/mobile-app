@@ -1,11 +1,12 @@
 import 'package:flutter/foundation.dart';
 
+import '../http_client/requests/requests.dart';
+import '../http_client/responses/lat_long_response.dart';
 import '../http_client/responses/responses.dart';
 
 class ConfectionersRepository {
   Future<List<ConfectionerShortResponse>> getConfectioners({
-    @required double userLat,
-    @required double userLong,
+    @required LatLong mapCenter,
     String searchQuery,
     int limit = 24,
     int lastId,
@@ -19,8 +20,7 @@ class ConfectionersRepository {
             'https://images.unsplash.com/photo-1510616022132-9976466385a8',
         starType: ConfectionerRatingStarType.silver,
         rating: 56,
-        lat: 54.652,
-        long: 39.862,
+        coordinate: LatLongResponse(54.652, 39.862),
       ),
       ConfectionerShortResponse(
         name: 'Билли',
@@ -29,8 +29,7 @@ class ConfectionersRepository {
             'https://images.unsplash.com/photo-1486427944299-d1955d23e34d',
         starType: ConfectionerRatingStarType.none,
         rating: 1,
-        lat: 54.600,
-        long: 39.842,
+        coordinate: LatLongResponse(54.600, 39.842),
       ),
       ConfectionerShortResponse(
         name: 'Михаил Круг',
@@ -39,8 +38,7 @@ class ConfectionersRepository {
             'https://images.unsplash.com/photo-1510616022132-9976466385a8',
         starType: ConfectionerRatingStarType.gold,
         rating: 433,
-        lat: 54.595,
-        long: 39.862,
+        coordinate: LatLongResponse(54.595, 39.862),
       ),
     ];
   }
