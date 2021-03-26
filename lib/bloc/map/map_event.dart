@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-import '../../data/http_client/requests/requests.dart';
+import 'package:latlong/latlong.dart';
 
 abstract class MapEvent extends Equatable {}
 
@@ -10,7 +10,7 @@ class BlocInit extends MapEvent {
 }
 
 class UpdateMapCenter extends MapEvent {
-  final LatLong coordinate;
+  final LatLng coordinate;
 
   UpdateMapCenter(this.coordinate);
 

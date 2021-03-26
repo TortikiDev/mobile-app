@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:tortiki/data/http_client/requests/lat_long.dart';
 
 import '../../data/repositories/repositories.dart';
 import '../base_bloc.dart';
@@ -28,9 +29,14 @@ class MapBloc extends BaseBloc<MapEvent, MapState> {
   @override
   Stream<MapState> mapEventToState(MapEvent event) async* {
     if (event is UpdateMapCenter) {
-      yield state.copy(mapCenter: event.coordinate, loading: true);
+      final mapCenter = LatLong(
+        event.coordinate.latitude,
+        event.coordinate.latitude,
+      );
+      
+      yield state.copy(mapCenter: mapCenter, loading: true);
       final confectioners = await confectionersRepository.getConfectioners(
-        mapCenter: event.coordinate,
+        mapCenter: mapCenter,
       );
       yield state.copy(confectioners: confectioners, loading: false);
     }
