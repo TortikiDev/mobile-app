@@ -9,6 +9,7 @@ import 'package:latlong/latlong.dart';
 import '../../../bloc/map/index.dart';
 import '../../../data/http_client/responses/confectioner_short_response.dart';
 import '../../../utils/string_is_valid_url.dart';
+import 'animated_map_controller.dart';
 
 class MapScreen extends StatefulWidget {
   MapScreen({Key key}) : super(key: key);
@@ -18,10 +19,9 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen>
-    with
-        AutomaticKeepAliveClientMixin<MapScreen>,
-        SingleTickerProviderStateMixin {
-  final _mapController = MapController();
+    with AutomaticKeepAliveClientMixin<MapScreen>, TickerProviderStateMixin {
+  MapController _mapController;
+  AnimatedMapController _animatedMapController;
   StreamSubscription _mapChangeSubscription;
   ConfectionerShortResponse _selectedConfectioner;
 
@@ -34,13 +34,24 @@ class _MapScreenState extends State<MapScreen>
   @override
   void initState() {
     super.initState();
-    _mapChangeSubscription = _mapController.mapEventStream.listen((event) {
+    _mapController = MapController();
+    _animatedMapController = AnimatedMapController(
+      mapController: _mapController,
+      duration: Duration(seconds: 1),
+      tickerProvider: this,
+    );
+
+    _mapChangeSubscription = _mapController.mapEventStream
+        .where((event) => event.source != MapEventSource.mapController)
+        .listen((event) {
       if (_confectionerPanelAnimationController.status ==
           AnimationStatus.completed) {
         _confectionerPanelAnimationController.reverse();
       }
-      final mapCenter = event.center;
-      BlocProvider.of<MapBloc>(context).add(UpdateMapCenter(mapCenter));
+      if (event.source == MapEventSource.dragEnd) {
+        final mapCenter = event.center;
+        BlocProvider.of<MapBloc>(context).add(UpdateMapCenter(mapCenter));
+      }
     });
 
     _confectionerPanelAnimationController = AnimationController(
@@ -163,6 +174,11 @@ class _MapScreenState extends State<MapScreen>
       _selectedConfectioner = confectioner;
     });
     _confectionerPanelAnimationController.forward();
+    final newMapCenter = LatLng(
+      confectioner.coordinate.lat,
+      confectioner.coordinate.long,
+    );
+    _animatedMapController.move(newMapCenter);
   }
 }
 
