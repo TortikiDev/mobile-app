@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong/latlong.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 import '../../../bloc/map/index.dart';
 import '../../../data/http_client/responses/confectioner_short_response.dart';
@@ -113,13 +114,13 @@ class _MapScreenState extends State<MapScreen>
           ),
           if (_selectedConfectioner != null)
             Positioned(
-              bottom: -64,
+              bottom: -128,
               left: 0,
               right: 0,
               child: SlideTransition(
                 position: _confectionerPanelOffsetAnimation,
                 child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16),
+                  padding: EdgeInsets.symmetric(horizontal: 8),
                   child: Dismissible(
                     key: Key('Confectioner panel dismisible'),
                     direction: DismissDirection.down,
@@ -201,15 +202,139 @@ class _ConfectionerPanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Container(
-      height: 64,
+      height: 128,
+      padding: EdgeInsets.all(8),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(8)),
         color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black26,
+            offset: Offset(0, 2),
+            blurRadius: 4,
+          )
+        ],
       ),
-      child: Center(
-        child: Text(confectioner.name),
+      child: Row(
+        children: [
+          AspectRatio(
+            aspectRatio: 1,
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(8)),
+                color: Colors.grey[300],
+              ),
+              clipBehavior: Clip.hardEdge,
+              child: CachedNetworkImage(
+                imageUrl: confectioner.avatarUrl,
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 2),
+                AutoSizeText(
+                  confectioner.name,
+                  style: theme.textTheme.subtitle1,
+                  maxLines: 1,
+                  minFontSize: 10,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                SizedBox(height: 4),
+                Text(
+                  confectioner.address,
+                  style: theme.textTheme.caption
+                      .copyWith(color: theme.colorScheme.onSurface),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                SizedBox(height: 8),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    if (confectioner.starType !=
+                        ConfectionerRatingStarType.none)
+                      Padding(
+                        padding: EdgeInsets.only(right: 4),
+                        child: Icon(
+                          Icons.star,
+                          size: 16,
+                          color: _getRatignStarColor(confectioner.starType),
+                        ),
+                      ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 4),
+                      child: Text(
+                        confectioner.rating.toString(),
+                        style: theme.textTheme.subtitle2
+                            .copyWith(color: theme.colorScheme.onPrimary),
+                        maxLines: 1,
+                      ),
+                    )
+                  ],
+                ),
+                Spacer(),
+                SizedBox(
+                  height: 24,
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: MaterialButton(
+                          onPressed: () => _goToProfile(context),
+                          child: Text('Профиль'),
+                          color: theme.colorScheme.onPrimary,
+                          textColor: Colors.white,
+                          height: 24,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: 16),
+                      Expanded(
+                        child: MaterialButton(
+                          onPressed: () => _goToProfile(context),
+                          child: Text('Маршрут'),
+                          color: theme.colorScheme.onPrimary,
+                          textColor: Colors.white,
+                          height: 24,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 8),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
+
+  Color _getRatignStarColor(int ratingStarType) {
+    switch (ratingStarType) {
+      case ConfectionerRatingStarType.bronze:
+        return Colors.brown[400];
+      case ConfectionerRatingStarType.silver:
+        return Colors.grey[300];
+      case ConfectionerRatingStarType.gold:
+        return Colors.yellow[600];
+      default:
+        return Colors.transparent;
+    }
+  }
+
+  void _goToProfile(BuildContext context) {}
 }
