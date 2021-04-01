@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'lat_long_response.dart';
 
 class ConfectionerShortResponse extends Equatable {
+  final int id;
   final String name;
   final String address;
   final String avatarUrl;
@@ -14,6 +15,7 @@ class ConfectionerShortResponse extends Equatable {
   final int rating;
 
   ConfectionerShortResponse({
+    @required this.id,
     @required this.name,
     @required this.address,
     @required this.avatarUrl,
@@ -23,6 +25,7 @@ class ConfectionerShortResponse extends Equatable {
   });
 
   ConfectionerShortResponse copy({
+    int id,
     String name,
     String address,
     String avatarUrl,
@@ -31,6 +34,7 @@ class ConfectionerShortResponse extends Equatable {
     LatLongResponse coordinate,
   }) =>
       ConfectionerShortResponse(
+        id: id ?? this.id,
         name: name ?? this.name,
         address: address ?? this.address,
         avatarUrl: avatarUrl ?? this.avatarUrl,
@@ -41,6 +45,7 @@ class ConfectionerShortResponse extends Equatable {
 
   @override
   List<Object> get props => [
+        id,
         name,
         address,
         avatarUrl,

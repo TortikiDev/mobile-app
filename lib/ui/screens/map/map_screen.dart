@@ -139,35 +139,45 @@ class _MapScreenState extends State<MapScreen>
 
   List<Marker> _getConfectionerMarkers(
           List<ConfectionerShortResponse> confectioners, ThemeData theme) =>
-      confectioners
-          .map(
-            (conf) => Marker(
-              width: 48,
-              height: 48,
-              point: LatLng(conf.coordinate.lat, conf.coordinate.long),
-              builder: (context) => GestureDetector(
-                onTap: () => _tapOnConfectionerMarker(conf),
-                child: CircleAvatar(
-                  radius: 48,
-                  backgroundColor: theme.colorScheme.primaryVariant,
-                  child: conf.avatarUrl?.isValidUrl() ?? false
-                      ? CachedNetworkImage(
-                          key: Key(conf.avatarUrl),
-                          imageUrl: conf.avatarUrl,
-                          imageBuilder: (context, imageProvider) {
-                            return CircleAvatar(
-                                radius: 21,
-                                backgroundColor: Colors.transparent,
-                                backgroundImage: imageProvider);
-                          },
-                          fit: BoxFit.cover,
-                        )
-                      : Container(color: Colors.grey[300]),
-                ),
+      confectioners.map((conf) {
+        final isSelected = _selectedConfectioner?.id == conf.id;
+        final markerSize = isSelected ? 64.0 : 48.0;
+        final photoRadius = (markerSize * 0.5) - (isSelected ? 5.0 : 3.0);
+        final borderColor = isSelected
+            ? theme.colorScheme.onPrimary
+            : theme.colorScheme.primaryVariant;
+
+        return Marker(
+          width: markerSize,
+          height: markerSize,
+          point: LatLng(conf.coordinate.lat, conf.coordinate.long),
+          builder: (context) {
+            return GestureDetector(
+              onTap: () => _tapOnConfectionerMarker(conf),
+              child: CircleAvatar(
+                key: ValueKey(isSelected),
+                radius: markerSize,
+                backgroundColor: borderColor,
+                child: conf.avatarUrl?.isValidUrl() ?? false
+                    ? CachedNetworkImage(
+                        key: Key(conf.avatarUrl),
+                        imageUrl: conf.avatarUrl,
+                        imageBuilder: (context, imageProvider) {
+                          return CircleAvatar(
+                            key: ValueKey(isSelected),
+                            radius: photoRadius,
+                            backgroundColor: Colors.transparent,
+                            backgroundImage: imageProvider,
+                          );
+                        },
+                        fit: BoxFit.cover,
+                      )
+                    : Container(color: Colors.grey[300]),
               ),
-            ),
-          )
-          .toList();
+            );
+          },
+        );
+      }).toList();
 
   void _tapOnConfectionerMarker(ConfectionerShortResponse confectioner) {
     setState(() {

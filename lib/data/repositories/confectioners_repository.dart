@@ -14,6 +14,7 @@ class ConfectionersRepository {
     await Future.delayed(Duration(seconds: 2));
     return [
       ConfectionerShortResponse(
+        id: 1,
         name: 'Мила Кунис',
         address: 'ул. Островского, 26а',
         avatarUrl:
@@ -23,6 +24,7 @@ class ConfectionersRepository {
         coordinate: LatLongResponse(54.603, 39.862),
       ),
       ConfectionerShortResponse(
+        id: 2,
         name: 'Билли',
         address: 'ул. Островского, 27а',
         avatarUrl:
@@ -32,6 +34,7 @@ class ConfectionersRepository {
         coordinate: LatLongResponse(54.601, 39.862),
       ),
       ConfectionerShortResponse(
+        id: 3,
         name: 'Михаил Круг',
         address: 'ул. Островского, 28а',
         avatarUrl:
