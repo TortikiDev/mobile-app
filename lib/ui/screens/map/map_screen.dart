@@ -5,11 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong/latlong.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
 import '../../../bloc/map/index.dart';
 import '../../../data/http_client/responses/confectioner_short_response.dart';
 import '../../../utils/string_is_valid_url.dart';
+import '../../reusable/buttons/secondary_button.dart';
 import 'animated_map_controller.dart';
 
 class MapScreen extends StatefulWidget {
@@ -203,6 +205,7 @@ class _ConfectionerPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final localizations = AppLocalizations.of(context);
 
     return Container(
       height: 128,
@@ -287,28 +290,16 @@ class _ConfectionerPanel extends StatelessWidget {
                   child: Row(
                     children: [
                       Expanded(
-                        child: MaterialButton(
+                        child: SecondaryButton(
+                          text: localizations.profile,
                           onPressed: () => _goToProfile(context),
-                          child: Text('Профиль'),
-                          color: theme.colorScheme.onPrimary,
-                          textColor: Colors.white,
-                          height: 24,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
                         ),
                       ),
                       SizedBox(width: 16),
                       Expanded(
-                        child: MaterialButton(
-                          onPressed: () => _goToProfile(context),
-                          child: Text('Маршрут'),
-                          color: theme.colorScheme.onPrimary,
-                          textColor: Colors.white,
-                          height: 24,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
+                        child: SecondaryButton(
+                          text: localizations.route,
+                          onPressed: () => _buildRoute(context),
                         ),
                       ),
                     ],
@@ -336,5 +327,11 @@ class _ConfectionerPanel extends StatelessWidget {
     }
   }
 
-  void _goToProfile(BuildContext context) {}
+  void _goToProfile(BuildContext context) {
+    // TODO: implement _goToProfile
+  }
+
+  void _buildRoute(BuildContext context) {
+    // TODO: implement _buildRoute
+  }
 }

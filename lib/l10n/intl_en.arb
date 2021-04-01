@@ -38,6 +38,7 @@
   "profile": "Profile",
   "recipes": "Recipes",
   "resourceNotFound": "Resource not found",
+  "route": "Route",
   "serverIsNotAvailable": "Server is not available",
   "shortDescription": "Short description",
   "showLess": "show less",
