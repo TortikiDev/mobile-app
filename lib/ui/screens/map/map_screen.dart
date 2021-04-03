@@ -5,14 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong/latlong.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:auto_size_text/auto_size_text.dart';
 
 import '../../../bloc/map/index.dart';
 import '../../../data/http_client/responses/confectioner_short_response.dart';
 import '../../../utils/string_is_valid_url.dart';
-import '../../reusable/buttons/secondary_button.dart';
 import 'animated_map_controller.dart';
+import 'confectioner_panel.dart';
 
 class MapScreen extends StatefulWidget {
   MapScreen({Key key}) : super(key: key);
@@ -128,7 +126,7 @@ class _MapScreenState extends State<MapScreen>
                     direction: DismissDirection.down,
                     onDismissed: (direction) =>
                         _confectionerPanelAnimationController.reverse(),
-                    child: _ConfectionerPanel(
+                    child: ConfectionerPanel(
                       confectioner: _selectedConfectioner,
                     ),
                   ),
@@ -192,146 +190,5 @@ class _MapScreenState extends State<MapScreen>
       confectioner.coordinate.long,
     );
     _animatedMapController.move(newMapCenter);
-  }
-}
-
-class _ConfectionerPanel extends StatelessWidget {
-  final ConfectionerShortResponse confectioner;
-  const _ConfectionerPanel({
-    Key key,
-    @required this.confectioner,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final localizations = AppLocalizations.of(context);
-
-    return Container(
-      height: 128,
-      padding: EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(8)),
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black26,
-            offset: Offset(0, 2),
-            blurRadius: 4,
-          )
-        ],
-      ),
-      child: Row(
-        children: [
-          AspectRatio(
-            aspectRatio: 1,
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(8)),
-                color: Colors.grey[300],
-              ),
-              clipBehavior: Clip.hardEdge,
-              child: CachedNetworkImage(
-                imageUrl: confectioner.avatarUrl,
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-          SizedBox(width: 16),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 2),
-                AutoSizeText(
-                  confectioner.name,
-                  style: theme.textTheme.subtitle1,
-                  maxLines: 1,
-                  minFontSize: 10,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                SizedBox(height: 4),
-                Text(
-                  confectioner.address,
-                  style: theme.textTheme.caption
-                      .copyWith(color: theme.colorScheme.onSurface),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                SizedBox(height: 8),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    if (confectioner.starType !=
-                        ConfectionerRatingStarType.none)
-                      Padding(
-                        padding: EdgeInsets.only(right: 4),
-                        child: Icon(
-                          Icons.star,
-                          size: 16,
-                          color: _getRatignStarColor(confectioner.starType),
-                        ),
-                      ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 4),
-                      child: Text(
-                        confectioner.rating.toString(),
-                        style: theme.textTheme.subtitle2
-                            .copyWith(color: theme.colorScheme.onPrimary),
-                        maxLines: 1,
-                      ),
-                    )
-                  ],
-                ),
-                Spacer(),
-                SizedBox(
-                  height: 24,
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: SecondaryButton(
-                          text: localizations.profile,
-                          onPressed: () => _goToProfile(context),
-                        ),
-                      ),
-                      SizedBox(width: 16),
-                      Expanded(
-                        child: SecondaryButton(
-                          text: localizations.route,
-                          onPressed: () => _buildRoute(context),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(height: 8),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Color _getRatignStarColor(int ratingStarType) {
-    switch (ratingStarType) {
-      case ConfectionerRatingStarType.bronze:
-        return Colors.brown[400];
-      case ConfectionerRatingStarType.silver:
-        return Colors.grey[300];
-      case ConfectionerRatingStarType.gold:
-        return Colors.yellow[600];
-      default:
-        return Colors.transparent;
-    }
-  }
-
-  void _goToProfile(BuildContext context) {
-    // TODO: implement _goToProfile
-  }
-
-  void _buildRoute(BuildContext context) {
-    // TODO: implement _buildRoute
   }
 }

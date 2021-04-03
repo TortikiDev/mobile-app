@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-
 import 'package:latlong/latlong.dart';
 
 abstract class MapEvent extends Equatable {}

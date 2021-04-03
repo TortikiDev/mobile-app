@@ -45,6 +45,8 @@ dependencies:
   widget_factory: ^0.0.1
   flutter_map: ^0.12.0
   auto_size_text: ^2.1.0
+  map_launcher: ^1.1.3+1
+  flutter_svg: ^0.19.3
 
 dev_dependencies:
   # Test
