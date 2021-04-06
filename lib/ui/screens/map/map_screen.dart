@@ -3,17 +3,26 @@ import 'dart:async';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong/latlong.dart';
+import 'package:widget_factory/widget_factory.dart';
 
 import '../../../bloc/map/index.dart';
+import '../../../data/http_client/requests/requests.dart';
 import '../../../data/http_client/responses/confectioner_short_response.dart';
 import '../../../utils/string_is_valid_url.dart';
 import 'animated_map_controller.dart';
 import 'confectioner_panel.dart';
+import 'search_confectioners/search_confectioners_screen_factory.dart';
 
 class MapScreen extends StatefulWidget {
-  MapScreen({Key key}) : super(key: key);
+  final WidgetFactory searchConfectionersScreenFactory;
+
+  MapScreen({
+    Key key,
+    @required this.searchConfectionersScreenFactory,
+  }) : super(key: key);
 
   @override
   _MapScreenState createState() => _MapScreenState();
@@ -67,8 +76,8 @@ class _MapScreenState extends State<MapScreen>
       }
     });
     _confectionerPanelOffsetAnimation = Tween<Offset>(
-      begin: Offset(0.0, 0.0),
-      end: Offset(0.0, -1.2),
+      begin: Offset(0.0, 1.0),
+      end: Offset(0.0, 0.0),
     ).animate(CurvedAnimation(
       parent: _confectionerPanelAnimationController,
       curve: Curves.easeOutSine,
@@ -112,23 +121,32 @@ class _MapScreenState extends State<MapScreen>
               ),
             ],
           ),
+          Positioned(
+            top: 8,
+            left: 8,
+            right: 8,
+            child: SafeArea(
+              child: GestureDetector(
+                onTap: () =>
+                    _searchConfectioners(context, mapCenter: state.mapCenter),
+                child: _MapSearchBar(),
+              ),
+            ),
+          ),
           if (_selectedConfectioner != null)
             Positioned(
-              bottom: -128,
+              bottom: 0,
               left: 0,
               right: 0,
               child: SlideTransition(
                 position: _confectionerPanelOffsetAnimation,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 8),
-                  child: Dismissible(
-                    key: Key('Confectioner panel dismisible'),
-                    direction: DismissDirection.down,
-                    onDismissed: (direction) =>
-                        _confectionerPanelAnimationController.reverse(),
-                    child: ConfectionerPanel(
-                      confectioner: _selectedConfectioner,
-                    ),
+                child: Dismissible(
+                  key: Key('Confectioner panel dismisible'),
+                  direction: DismissDirection.down,
+                  onDismissed: (direction) =>
+                      _confectionerPanelAnimationController.reverse(),
+                  child: ConfectionerPanel(
+                    confectioner: _selectedConfectioner,
                   ),
                 ),
               ),
@@ -190,5 +208,60 @@ class _MapScreenState extends State<MapScreen>
       confectioner.coordinate.long,
     );
     _animatedMapController.move(newMapCenter);
+  }
+
+  void _searchConfectioners(BuildContext context,
+      {@required LatLong mapCenter}) {
+    final screenData =
+        SearchConfectionersScreenFactoryData(mapCenter: mapCenter);
+    final route1 = PageRouteBuilder(
+      pageBuilder: (c, a1, a2) => widget.searchConfectionersScreenFactory
+          .createWidget(data: screenData),
+      transitionsBuilder: (c, anim, a2, child) =>
+          FadeTransition(opacity: anim, child: child),
+      transitionDuration: Duration(milliseconds: 400),
+      reverseTransitionDuration: Duration(milliseconds: 400),
+    );
+    Navigator.of(context).push(route1);
+  }
+}
+
+class _MapSearchBar extends StatelessWidget {
+  const _MapSearchBar({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final localizations = AppLocalizations.of(context);
+
+    return Container(
+      height: 48,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black12,
+            offset: Offset(0, 2),
+            blurRadius: 4,
+          )
+        ],
+      ),
+      child: Row(
+        children: [
+          SizedBox(width: 12),
+          Icon(
+            Icons.search,
+            color: theme.colorScheme.onPrimary,
+          ),
+          SizedBox(width: 12),
+          Text(
+            localizations.searchConfectioner,
+            style: theme.textTheme.subtitle1
+                .copyWith(color: theme.colorScheme.onSurface),
+          ),
+          SizedBox(width: 16),
+        ],
+      ),
+    );
   }
 }

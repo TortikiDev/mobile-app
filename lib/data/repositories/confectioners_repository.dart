@@ -17,6 +17,7 @@ class ConfectionersRepository {
         id: 1,
         name: 'Мила Кунис',
         address: 'ул. Островского, 26а',
+        gender: Gender.female,
         avatarUrl:
             'https://images.unsplash.com/photo-1510616022132-9976466385a8',
         starType: ConfectionerRatingStarType.silver,
@@ -27,6 +28,7 @@ class ConfectionersRepository {
         id: 2,
         name: 'Билли',
         address: 'ул. Островского, 27а',
+        gender: Gender.none,
         avatarUrl:
             'https://images.unsplash.com/photo-1486427944299-d1955d23e34d',
         starType: ConfectionerRatingStarType.none,
@@ -36,6 +38,7 @@ class ConfectionersRepository {
       ConfectionerShortResponse(
         id: 3,
         name: 'Михаил Круг',
+        gender: Gender.male,
         address: 'ул. Островского, 28а',
         avatarUrl:
             'https://images.unsplash.com/photo-1510616022132-9976466385a8',

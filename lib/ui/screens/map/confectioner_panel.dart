@@ -21,104 +21,118 @@ class ConfectionerPanel extends StatelessWidget {
     final localizations = AppLocalizations.of(context);
 
     return Container(
-      height: 128,
-      padding: EdgeInsets.all(8),
+      height: 164,
+      padding: EdgeInsets.fromLTRB(16, 8, 16, 16),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(8)),
         color: Colors.white,
         boxShadow: [
           BoxShadow(
-            color: Colors.black26,
-            offset: Offset(0, 2),
-            blurRadius: 4,
+            color: Colors.black12,
+            offset: Offset(0, 0),
+            blurRadius: 6,
           )
         ],
       ),
-      child: Row(
+      child: Column(
         children: [
-          AspectRatio(
-            aspectRatio: 1,
+          Center(
             child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(8)),
-                color: Colors.grey[300],
-              ),
-              clipBehavior: Clip.hardEdge,
-              child: CachedNetworkImage(
-                imageUrl: confectioner.avatarUrl,
-                fit: BoxFit.cover,
-              ),
+              width: 24,
+              height: 4,
+              color: Colors.black12,
             ),
           ),
-          SizedBox(width: 16),
+          SizedBox(height: 8),
           Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child: Row(
               children: [
-                SizedBox(height: 2),
-                AutoSizeText(
-                  confectioner.name,
-                  style: theme.textTheme.subtitle1,
-                  maxLines: 1,
-                  minFontSize: 10,
-                  overflow: TextOverflow.ellipsis,
+                AspectRatio(
+                  aspectRatio: 1,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                      color: Colors.grey[300],
+                    ),
+                    clipBehavior: Clip.hardEdge,
+                    child: CachedNetworkImage(
+                      imageUrl: confectioner.avatarUrl,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                 ),
-                SizedBox(height: 4),
-                Text(
-                  confectioner.address,
-                  style: theme.textTheme.caption
-                      .copyWith(color: theme.colorScheme.onSurface),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                SizedBox(height: 8),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    if (confectioner.starType !=
-                        ConfectionerRatingStarType.none)
-                      Padding(
-                        padding: EdgeInsets.only(right: 4),
-                        child: Icon(
-                          Icons.star,
-                          size: 16,
-                          color: _getRatignStarColor(confectioner.starType),
-                        ),
-                      ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 4),
-                      child: Text(
-                        confectioner.rating.toString(),
-                        style: theme.textTheme.subtitle2
-                            .copyWith(color: theme.colorScheme.onPrimary),
-                        maxLines: 1,
-                      ),
-                    )
-                  ],
-                ),
-                Spacer(),
-                SizedBox(
-                  height: 24,
-                  child: Row(
+                SizedBox(width: 16),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Expanded(
-                        child: SecondaryButton(
-                          text: localizations.profile,
-                          onPressed: () => _goToProfile(context),
-                        ),
+                      SizedBox(height: 2),
+                      AutoSizeText(
+                        confectioner.name,
+                        style: theme.textTheme.subtitle1,
+                        maxLines: 1,
+                        minFontSize: 10,
+                        overflow: TextOverflow.ellipsis,
                       ),
-                      SizedBox(width: 16),
-                      Expanded(
-                        child: SecondaryButton(
-                          text: localizations.route,
-                          onPressed: () => _showDirections(context),
+                      SizedBox(height: 4),
+                      Text(
+                        confectioner.address,
+                        style: theme.textTheme.caption
+                            .copyWith(color: theme.colorScheme.onSurface),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      SizedBox(height: 8),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          if (confectioner.starType !=
+                              ConfectionerRatingStarType.none)
+                            Padding(
+                              padding: EdgeInsets.only(right: 4),
+                              child: Icon(
+                                Icons.star,
+                                size: 16,
+                                color:
+                                    _getRatignStarColor(confectioner.starType),
+                              ),
+                            ),
+                          Padding(
+                            padding: EdgeInsets.only(left: 4),
+                            child: Text(
+                              confectioner.rating.toString(),
+                              style: theme.textTheme.subtitle2
+                                  .copyWith(color: theme.colorScheme.onPrimary),
+                              maxLines: 1,
+                            ),
+                          )
+                        ],
+                      ),
+                      Spacer(),
+                      SizedBox(
+                        height: 24,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            Expanded(
+                              child: SecondaryButton(
+                                text: localizations.profile,
+                                onPressed: () => _goToProfile(context),
+                              ),
+                            ),
+                            SizedBox(width: 16),
+                            Expanded(
+                              child: SecondaryButton(
+                                text: localizations.route,
+                                onPressed: () => _showDirections(context),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ],
                   ),
                 ),
-                SizedBox(height: 8),
               ],
             ),
           ),

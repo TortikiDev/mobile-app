@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
 class SearchBar extends StatefulWidget {
+  final bool autofocus;
   final Function(String) onTextChanged;
   final Function() onBackArrowPressed;
 
   SearchBar({
     Key key,
+    this.autofocus,
     this.onTextChanged,
     this.onBackArrowPressed,
   }) : super(key: key);
@@ -27,12 +29,18 @@ class _SearchBarState extends State<SearchBar> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Container(
+      height: 64,
       color: theme.colorScheme.primary,
       padding: EdgeInsets.all(8),
       child: TextField(
         controller: textController,
         onChanged: widget.onTextChanged,
+        autofocus: widget.autofocus,
         decoration: InputDecoration(
+          contentPadding: EdgeInsets.fromLTRB(12, 14, 12, 12),
+          fillColor: Colors.white,
+          border: InputBorder.none,
+          focusedBorder: InputBorder.none,
           prefixIcon: IconButton(
             key: Key('Back button'),
             color: theme.colorScheme.onPrimary,

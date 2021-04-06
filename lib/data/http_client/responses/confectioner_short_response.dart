@@ -7,6 +7,9 @@ class ConfectionerShortResponse extends Equatable {
   final int id;
   final String name;
   final String address;
+
+  /// Confectioner's gender from [Gender]
+  final int gender;
   final String avatarUrl;
   final LatLongResponse coordinate;
 
@@ -18,6 +21,7 @@ class ConfectionerShortResponse extends Equatable {
     @required this.id,
     @required this.name,
     @required this.address,
+    @required this.gender,
     @required this.avatarUrl,
     @required this.starType,
     @required this.rating,
@@ -28,6 +32,7 @@ class ConfectionerShortResponse extends Equatable {
     int id,
     String name,
     String address,
+    int gender,
     String avatarUrl,
     int starType,
     int rating,
@@ -37,6 +42,7 @@ class ConfectionerShortResponse extends Equatable {
         id: id ?? this.id,
         name: name ?? this.name,
         address: address ?? this.address,
+        gender: gender ?? this.gender,
         avatarUrl: avatarUrl ?? this.avatarUrl,
         starType: starType ?? this.starType,
         rating: rating ?? this.rating,
@@ -48,6 +54,7 @@ class ConfectionerShortResponse extends Equatable {
         id,
         name,
         address,
+        gender,
         avatarUrl,
         starType,
         rating,
@@ -63,4 +70,10 @@ mixin ConfectionerRatingStarType {
   static const bronze = 1;
   static const silver = 2;
   static const gold = 3;
+}
+
+mixin Gender {
+  static const none = 0;
+  static const male = 1;
+  static const female = 2;
 }

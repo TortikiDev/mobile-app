@@ -2,25 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:widget_factory/widget_factory.dart';
 
-import '../../../../bloc/search_recipes/index.dart';
+import '../../../../bloc/search_confectioners/index.dart';
 import '../../../reusable/list_items/progress_indicator_item.dart';
 import '../../../reusable/search_bar.dart';
-import '../../recipe_details/recipe_details_screen_factory.dart';
-import '../recipes/recipe/recipe_view.dart';
-import '../recipes/recipe/recipe_view_model.dart';
+import 'confectioner/confectioner_view.dart';
+import 'confectioner/confectioner_view_model.dart';
 
-class SearchRecipesScreen extends StatelessWidget {
-  final WidgetFactory recipeDetailsScreenFactory;
+class SearchConfectionersScreen extends StatelessWidget {
+  final WidgetFactory confectionerProfileScreenFactory;
 
-  const SearchRecipesScreen({
+  const SearchConfectionersScreen({
     Key key,
-    @required this.recipeDetailsScreenFactory,
+    @required this.confectionerProfileScreenFactory,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return BlocBuilder<SearchRecipesBloc, SearchRecipesState>(
+    return BlocBuilder<SearchConfectionersBloc, SearchConfectionersState>(
       builder: (context, state) => Scaffold(
         resizeToAvoidBottomInset: false,
         body: Stack(
@@ -68,7 +67,8 @@ class SearchRecipesScreen extends StatelessWidget {
                   Expanded(
                     child: _ScrollView(
                       state: state,
-                      recipeDetailsScreenFactory: recipeDetailsScreenFactory,
+                      confectionerProfileScreenFactory:
+                          confectionerProfileScreenFactory,
                     ),
                   ),
                 ],
@@ -81,20 +81,20 @@ class SearchRecipesScreen extends StatelessWidget {
   }
 
   void _onSearchTextChanged(BuildContext context, String text) {
-    final bloc = BlocProvider.of<SearchRecipesBloc>(context);
+    final bloc = BlocProvider.of<SearchConfectionersBloc>(context);
     final event = SearchQueryChanged(text);
     bloc.add(event);
   }
 }
 
 class _ScrollView extends StatefulWidget {
-  final SearchRecipesState state;
-  final WidgetFactory recipeDetailsScreenFactory;
+  final SearchConfectionersState state;
+  final WidgetFactory confectionerProfileScreenFactory;
 
   _ScrollView({
     Key key,
     @required this.state,
-    @required this.recipeDetailsScreenFactory,
+    @required this.confectionerProfileScreenFactory,
   }) : super(key: key);
 
   @override
@@ -130,17 +130,17 @@ class _ScrollViewState extends State<_ScrollView> {
         itemCount: widget.state.listItems.length,
         itemBuilder: (context, index) {
           final model = widget.state.listItems[index];
-          if (model is RecipeViewModel) {
+          if (model is ConfectionerViewModel) {
             if ((index == widget.state.listItems.length - 1) &&
                 !widget.state.loadingNextPage) {
-              BlocProvider.of<SearchRecipesBloc>(context).add(LoadNextPage());
+              BlocProvider.of<SearchConfectionersBloc>(context)
+                  .add(LoadNextPage());
             }
-            return RecipeView(
+            return ConfectionerView(
               key: ObjectKey(model),
               model: model,
               theme: theme,
-              addToBookmarks: (model) => _addRecipeToBookmarks(model, context),
-              showDetails: (model) => _showRecipeDetails(model, context),
+              showDetails: (model) => _showConfectionerProfile(model, context),
             );
           } else if (model is ProgressIndicatorItem) {
             return SizedBox(
@@ -162,31 +162,12 @@ class _ScrollViewState extends State<_ScrollView> {
     );
   }
 
-  void _addRecipeToBookmarks(RecipeViewModel model, BuildContext context) {
-    final event = Bookmarks(model);
-    final bloc = BlocProvider.of<SearchRecipesBloc>(context);
-    bloc.add(event);
-  }
-
-  void _showRecipeDetails(RecipeViewModel model, BuildContext context) {
+  void _showConfectionerProfile(
+      ConfectionerViewModel model, BuildContext context) {
+    // TODO: add confectioner profile screen data
     final navigator = Navigator.of(context);
-    final screenData = RecipeDetailsScreenFactoryData(
-      id: model.id,
-      title: model.title,
-      complexity: model.complexity,
-      imageUrls: model.imageUrls,
-      isInBookmarks: model.isInBookmarks,
-    );
     final route = MaterialPageRoute(
-      builder: (_) => WillPopScope(
-        child: widget.recipeDetailsScreenFactory.createWidget(data: screenData),
-        onWillPop: () async {
-          final bookmarksBloc = BlocProvider.of<SearchRecipesBloc>(context);
-          bookmarksBloc.add(UpdateIsInBookmarks(model));
-          return true;
-        },
-      ),
-      fullscreenDialog: true,
+      builder: (_) => widget.confectionerProfileScreenFactory.createWidget(),
     );
     navigator.push(route);
   }
