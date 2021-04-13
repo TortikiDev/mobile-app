@@ -45,6 +45,7 @@ class SearchConfectionersBloc
         yield state.copy(listItems: [], setSearchQueryToNull: true);
       }
     } else if (event is LoadNextPage) {
+      // TODO: fix get next page behavior
       // final initialListItems = state.listItems;
       // final liatItemsOnLoad = initialListItems + [ProgressIndicatorItem()];
       // yield state.copy(loadingNextPage: true, listItems: liatItemsOnLoad);
