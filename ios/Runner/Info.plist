@@ -45,6 +45,8 @@
 	<string>Allow access to camera to capture photos</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Allow access to microphone</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>App needs access to location and direction when open.</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
     <string>comgooglemaps</string>

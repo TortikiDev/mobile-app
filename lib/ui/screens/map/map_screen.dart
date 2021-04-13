@@ -1,10 +1,13 @@
 import 'dart:async';
+import 'dart:html';
+import 'dart:math' as math;
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter_map_location/flutter_map_location.dart';
 import 'package:latlong/latlong.dart';
 import 'package:widget_factory/widget_factory.dart';
 
@@ -12,6 +15,7 @@ import '../../../bloc/map/index.dart';
 import '../../../data/http_client/requests/requests.dart';
 import '../../../data/http_client/responses/confectioner_short_response.dart';
 import '../../../utils/string_is_valid_url.dart';
+import '../../constants.dart';
 import 'animated_map_controller.dart';
 import 'confectioner_panel.dart';
 import 'search_confectioners/search_confectioners_screen_factory.dart';
@@ -34,6 +38,10 @@ class _MapScreenState extends State<MapScreen>
   AnimatedMapController _animatedMapController;
   StreamSubscription _mapChangeSubscription;
   ConfectionerShortResponse _selectedConfectioner;
+
+  final List<Marker> _userLocationMarkers = [];
+  ValueNotifier<LocationServiceStatus> _locationStatusNotifier;
+  Function _locationButtonPressed;
 
   AnimationController _confectionerPanelAnimationController;
   Animation<Offset> _confectionerPanelOffsetAnimation;
@@ -101,102 +109,164 @@ class _MapScreenState extends State<MapScreen>
       final confectionerMarkers =
           _getConfectionerMarkers(state.confectioners, theme);
 
-      return Stack(
-        children: [
-          FlutterMap(
-            mapController: _mapController,
-            options: MapOptions(
-              // TODO: use actual user's coordinates
-              center: LatLng(54.602, 39.862),
-              zoom: 16.5,
+      return Scaffold(
+        body: Stack(
+          children: [
+            FlutterMap(
+              mapController: _mapController,
+              options: MapOptions(
+                center: Constants.defaultMapCenter,
+                zoom: 16.5,
+                minZoom: 12,
+                plugins: [LocationPlugin()],
+              ),
+              layers: [
+                TileLayerOptions(
+                  urlTemplate:
+                      "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                  subdomains: ['a', 'b', 'c'],
+                ),
+                MarkerLayerOptions(
+                  markers: confectionerMarkers + _userLocationMarkers,
+                ),
+                LocationOptions(
+                  markers: _userLocationMarkers,
+                  onLocationRequested: (coord) {
+                    if (coord?.location != null) {
+                      _animatedMapController.move(coord.location, 16.5);
+                    }
+                  },
+                  buttonBuilder: (context, status, onPressed) {
+                    _locationStatusNotifier = status;
+                    _locationButtonPressed = onPressed;
+                    return Container();
+                  },
+                ),
+              ],
             ),
-            layers: [
-              TileLayerOptions(
-                urlTemplate:
-                    "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-                subdomains: ['a', 'b', 'c'],
+            if (_locationStatusNotifier != null)
+              Positioned(
+                bottom: 16,
+                right: 16,
+                child: ValueListenableBuilder<LocationServiceStatus>(
+                  valueListenable: _locationStatusNotifier,
+                  builder: (context, status, child) {
+                    Icon buttonIcon;
+                    switch (status) {
+                      case LocationServiceStatus.disabled:
+                      case LocationServiceStatus.permissionDenied:
+                      case LocationServiceStatus.unsubscribed:
+                        buttonIcon = Icon(
+                          Icons.navigation,
+                          color: theme.colorScheme.onSurface,
+                        );
+                        break;
+                      default:
+                        buttonIcon = Icon(Icons.navigation);
+                        break;
+                    }
+
+                    return FloatingActionButton(
+                      onPressed: () {
+                        _locationButtonPressed?.call();
+                        if (_userLocationMarkers.isNotEmpty) {
+                          final userLocation = _userLocationMarkers.first.point;
+                          _animatedMapController.move(userLocation, 16.5);
+                        }
+                      },
+                      child: Transform.rotate(
+                        angle: math.pi * 0.25,
+                        child: buttonIcon,
+                      ),
+                    );
+                  },
+                ),
               ),
-              MarkerLayerOptions(
-                markers: confectionerMarkers,
-              ),
-            ],
-          ),
-          Positioned(
-            top: 8,
-            left: 8,
-            right: 8,
-            child: SafeArea(
-              child: GestureDetector(
-                onTap: () =>
-                    _searchConfectioners(context, mapCenter: state.mapCenter),
-                child: _MapSearchBar(),
-              ),
-            ),
-          ),
-          if (_selectedConfectioner != null)
             Positioned(
-              bottom: 0,
-              left: 0,
-              right: 0,
-              child: SlideTransition(
-                position: _confectionerPanelOffsetAnimation,
-                child: Dismissible(
-                  key: Key('Confectioner panel dismisible'),
-                  direction: DismissDirection.down,
-                  onDismissed: (direction) =>
-                      _confectionerPanelAnimationController.reverse(),
-                  child: ConfectionerPanel(
-                    confectioner: _selectedConfectioner,
-                  ),
+              top: 8,
+              left: 8,
+              right: 8,
+              child: SafeArea(
+                child: GestureDetector(
+                  onTap: () =>
+                      _searchConfectioners(context, mapCenter: state.mapCenter),
+                  child: _MapSearchBar(),
                 ),
               ),
             ),
-        ],
+            if (_selectedConfectioner != null)
+              Positioned(
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: SlideTransition(
+                  position: _confectionerPanelOffsetAnimation,
+                  child: Dismissible(
+                    key: Key('Confectioner panel dismisible'),
+                    direction: DismissDirection.down,
+                    onDismissed: (direction) =>
+                        _confectionerPanelAnimationController.reverse(),
+                    child: ConfectionerPanel(
+                      confectioner: _selectedConfectioner,
+                    ),
+                  ),
+                ),
+              ),
+          ],
+        ),
       );
     });
   }
 
   List<Marker> _getConfectionerMarkers(
-          List<ConfectionerShortResponse> confectioners, ThemeData theme) =>
-      confectioners.map((conf) {
-        final isSelected = _selectedConfectioner?.id == conf.id;
-        final markerSize = isSelected ? 64.0 : 48.0;
-        final photoRadius = (markerSize * 0.5) - (isSelected ? 5.0 : 3.0);
-        final borderColor = isSelected
-            ? theme.colorScheme.onPrimary
-            : theme.colorScheme.primaryVariant;
+      List<ConfectionerShortResponse> confectioners, ThemeData theme) {
+    if (_selectedConfectioner != null) {
+      final selected = confectioners
+          .firstWhere((element) => element.id == _selectedConfectioner.id);
+      confectioners.remove(selected);
+      confectioners.add(selected);
+    }
 
-        return Marker(
-          width: markerSize,
-          height: markerSize,
-          point: LatLng(conf.coordinate.lat, conf.coordinate.long),
-          builder: (context) {
-            return GestureDetector(
-              onTap: () => _tapOnConfectionerMarker(conf),
-              child: CircleAvatar(
-                key: ValueKey(isSelected),
-                radius: markerSize,
-                backgroundColor: borderColor,
-                child: conf.avatarUrl?.isValidUrl() ?? false
-                    ? CachedNetworkImage(
-                        key: Key(conf.avatarUrl),
-                        imageUrl: conf.avatarUrl,
-                        imageBuilder: (context, imageProvider) {
-                          return CircleAvatar(
-                            key: ValueKey(isSelected),
-                            radius: photoRadius,
-                            backgroundColor: Colors.transparent,
-                            backgroundImage: imageProvider,
-                          );
-                        },
-                        fit: BoxFit.cover,
-                      )
-                    : Container(color: Colors.grey[300]),
-              ),
-            );
-          },
-        );
-      }).toList();
+    return confectioners.map((conf) {
+      final isSelected = _selectedConfectioner?.id == conf.id;
+      final markerSize = isSelected ? 64.0 : 48.0;
+      final photoRadius = (markerSize * 0.5) - (isSelected ? 5.0 : 3.0);
+      final borderColor = isSelected
+          ? theme.colorScheme.onPrimary
+          : theme.colorScheme.primaryVariant;
+
+      return Marker(
+        width: markerSize,
+        height: markerSize,
+        point: LatLng(conf.coordinate.lat, conf.coordinate.long),
+        builder: (context) {
+          return GestureDetector(
+            onTap: () => _tapOnConfectionerMarker(conf),
+            child: CircleAvatar(
+              key: ValueKey(isSelected),
+              radius: markerSize,
+              backgroundColor: borderColor,
+              child: conf.avatarUrl?.isValidUrl() ?? false
+                  ? CachedNetworkImage(
+                      key: Key(conf.avatarUrl),
+                      imageUrl: conf.avatarUrl,
+                      imageBuilder: (context, imageProvider) {
+                        return CircleAvatar(
+                          key: ValueKey(isSelected),
+                          radius: photoRadius,
+                          backgroundColor: Colors.transparent,
+                          backgroundImage: imageProvider,
+                        );
+                      },
+                      fit: BoxFit.cover,
+                    )
+                  : Container(color: Colors.grey[300]),
+            ),
+          );
+        },
+      );
+    }).toList();
+  }
 
   void _tapOnConfectionerMarker(ConfectionerShortResponse confectioner) {
     setState(() {

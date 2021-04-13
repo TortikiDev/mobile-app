@@ -1,12 +1,12 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tortiki/ui/screens/map/search_confectioners/search_confectioners_screen_factory.dart';
 import 'package:widget_factory/widget_factory.dart';
 
 import '../../../bloc/error_handling/index.dart';
 import '../../../bloc/map/index.dart';
 import '../../../data/repositories/repositories.dart';
 import 'map_screen.dart';
+import 'search_confectioners/search_confectioners_screen_factory.dart';
 
 class MapScreenFactory implements WidgetFactory {
   @override

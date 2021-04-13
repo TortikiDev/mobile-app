@@ -5,7 +5,6 @@ import 'package:flutter/foundation.dart';
 import '../../data/http_client/requests/requests.dart';
 import '../../data/http_client/responses/confectioner_short_response.dart';
 import '../../data/repositories/repositories.dart';
-import '../../ui/reusable/list_items/progress_indicator_item.dart';
 import '../../ui/screens/map/search_confectioners/confectioner/confectioner_view_model.dart';
 import '../base_bloc.dart';
 import '../error_handling/index.dart';

@@ -22,7 +22,7 @@ class ConfectionersRepository {
             'https://images.unsplash.com/photo-1510616022132-9976466385a8',
         starType: ConfectionerRatingStarType.silver,
         rating: 56,
-        coordinate: LatLongResponse(54.603, 39.862),
+        coordinate: LatLongResponse(54.605, 39.862),
       ),
       ConfectionerShortResponse(
         id: 2,
@@ -33,7 +33,7 @@ class ConfectionersRepository {
             'https://images.unsplash.com/photo-1486427944299-d1955d23e34d',
         starType: ConfectionerRatingStarType.none,
         rating: 1,
-        coordinate: LatLongResponse(54.601, 39.862),
+        coordinate: LatLongResponse(54.601, 39.863),
       ),
       ConfectionerShortResponse(
         id: 3,
