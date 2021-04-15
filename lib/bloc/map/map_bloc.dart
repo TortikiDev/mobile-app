@@ -42,7 +42,7 @@ class MapBloc extends BaseBloc<MapEvent, MapState> {
     } else if (event is UpdateMapCenter) {
       final mapCenter = LatLong(
         event.coordinate.latitude,
-        event.coordinate.latitude,
+        event.coordinate.longitude,
       );
 
       yield state.copy(mapCenter: mapCenter, loading: true);

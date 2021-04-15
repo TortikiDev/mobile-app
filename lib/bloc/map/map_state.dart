@@ -35,4 +35,7 @@ class MapState extends Equatable {
         _confectioners,
         loading,
       ];
+
+  @override
+  bool get stringify => true;
 }
