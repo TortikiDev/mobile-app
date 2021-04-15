@@ -1,7 +1,7 @@
 import 'dart:async';
-import 'dart:html';
 import 'dart:math' as math;
 
+import 'package:app_settings/app_settings.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,6 +16,7 @@ import '../../../data/http_client/requests/requests.dart';
 import '../../../data/http_client/responses/confectioner_short_response.dart';
 import '../../../utils/string_is_valid_url.dart';
 import '../../constants.dart';
+import '../../reusable/show_dialog_mixin.dart';
 import 'animated_map_controller.dart';
 import 'confectioner_panel.dart';
 import 'search_confectioners/search_confectioners_screen_factory.dart';
@@ -33,7 +34,10 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen>
-    with AutomaticKeepAliveClientMixin<MapScreen>, TickerProviderStateMixin {
+    with
+        AutomaticKeepAliveClientMixin<MapScreen>,
+        TickerProviderStateMixin,
+        ShowDialogMixin {
   MapController _mapController;
   AnimatedMapController _animatedMapController;
   StreamSubscription _mapChangeSubscription;
@@ -116,7 +120,7 @@ class _MapScreenState extends State<MapScreen>
               mapController: _mapController,
               options: MapOptions(
                 center: Constants.defaultMapCenter,
-                zoom: 16.5,
+                zoom: 12,
                 minZoom: 12,
                 plugins: [LocationPlugin()],
               ),
@@ -153,16 +157,14 @@ class _MapScreenState extends State<MapScreen>
                   builder: (context, status, child) {
                     Icon buttonIcon;
                     switch (status) {
-                      case LocationServiceStatus.disabled:
-                      case LocationServiceStatus.permissionDenied:
-                      case LocationServiceStatus.unsubscribed:
+                      case LocationServiceStatus.subscribed:
+                        buttonIcon = Icon(Icons.navigation);
+                        break;
+                      default:
                         buttonIcon = Icon(
                           Icons.navigation,
                           color: theme.colorScheme.onSurface,
                         );
-                        break;
-                      default:
-                        buttonIcon = Icon(Icons.navigation);
                         break;
                     }
 
@@ -172,6 +174,16 @@ class _MapScreenState extends State<MapScreen>
                         if (_userLocationMarkers.isNotEmpty) {
                           final userLocation = _userLocationMarkers.first.point;
                           _animatedMapController.move(userLocation, 16.5);
+                        } else if (status ==
+                            LocationServiceStatus.permissionDenied) {
+                          final localizations = AppLocalizations.of(context);
+                          showTwoButtonsDialog(
+                            context: context,
+                            message: localizations.goToLocationSettingsMessage,
+                            okButtonTitle: localizations.toSettings,
+                            onOkPressed: () async =>
+                                AppSettings.openLocationSettings(),
+                          );
                         }
                       },
                       child: Transform.rotate(

@@ -6,6 +6,7 @@
   "badRequest": "Bad request",
   "bookmarks": "Bookmarks",
   "camera": "Camera",
+  "cancel": "Cancel",
   "clear": "Clear",
   "complexityAndDescription": "Complexity and description",
   "complexityPrompt": "The complexity of a recipe is determined by the combination of the following parameters: cooking time, cooking method, quantity and cost of ingredients.",
@@ -18,6 +19,7 @@
   "error": "Error",
   "feed": "Feed",
   "forbidder": "Forbidden",
+  "goToLocationSettingsMessage": "To show your current location, grant permission to the geolocation service in the application settings ",
   "grams": "g",
   "ingredients": "Ingredients",
   "ingredientsPlaceholder": "sugar 10 g, eggs 2 pcs...",
@@ -45,5 +47,6 @@
   "showLess": "show less",
   "somethingWentWrong": "Something went wrong",
   "tablespoons": "tablespoons",
-  "teaspoons": "teaspoons"
+  "teaspoons": "teaspoons",
+  "toSettings": "To settings"
 }
