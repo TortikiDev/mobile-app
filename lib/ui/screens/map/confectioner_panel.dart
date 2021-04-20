@@ -56,7 +56,8 @@ class ConfectionerPanel extends StatelessWidget {
                     ),
                     clipBehavior: Clip.hardEdge,
                     child: CachedNetworkImage(
-                      // TODO: add placeholder depends on gender (boy or girl icon)
+                      // TODO: add placeholder 
+                      // depends on gender (boy or girl icon)
                       imageUrl: confectioner.avatarUrl,
                       fit: BoxFit.cover,
                     ),

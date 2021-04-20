@@ -38,7 +38,8 @@ class ConfectionerView extends StatelessWidget {
                     ),
                     clipBehavior: Clip.hardEdge,
                     child: CachedNetworkImage(
-                      // TODO: add placeholder depends on gender (boy or girl icon)
+                      // TODO: add placeholder 
+                      // depends on gender (boy or girl icon)
                       imageUrl: model.avatarUrl,
                       fit: BoxFit.cover,
                     ),
