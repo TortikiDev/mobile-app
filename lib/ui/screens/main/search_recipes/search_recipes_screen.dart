@@ -1,13 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:widget_factory/widget_factory.dart';
 
 import '../../../../bloc/search_recipes/index.dart';
 import '../../../reusable/list_items/progress_indicator_item.dart';
 import '../../../reusable/search_bar.dart';
+import '../../recipe_details/recipe_details_screen_factory.dart';
 import '../recipes/recipe/recipe_view.dart';
 import '../recipes/recipe/recipe_view_model.dart';
 
 class SearchRecipesScreen extends StatelessWidget {
+  final WidgetFactory recipeDetailsScreenFactory;
+
+  const SearchRecipesScreen({
+    Key key,
+    @required this.recipeDetailsScreenFactory,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -48,6 +57,7 @@ class SearchRecipesScreen extends StatelessWidget {
               child: Column(
                 children: [
                   SearchBar(
+                    autofocus: true,
                     onTextChanged: (text) =>
                         _onSearchTextChanged(context, text),
                     onBackArrowPressed: () {
@@ -56,7 +66,10 @@ class SearchRecipesScreen extends StatelessWidget {
                     },
                   ),
                   Expanded(
-                    child: _ScrollView(state: state),
+                    child: _ScrollView(
+                      state: state,
+                      recipeDetailsScreenFactory: recipeDetailsScreenFactory,
+                    ),
                   ),
                 ],
               ),
@@ -76,8 +89,13 @@ class SearchRecipesScreen extends StatelessWidget {
 
 class _ScrollView extends StatefulWidget {
   final SearchRecipesState state;
+  final WidgetFactory recipeDetailsScreenFactory;
 
-  _ScrollView({Key key, @required this.state}) : super(key: key);
+  _ScrollView({
+    Key key,
+    @required this.state,
+    @required this.recipeDetailsScreenFactory,
+  }) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _ScrollViewState();
@@ -122,6 +140,7 @@ class _ScrollViewState extends State<_ScrollView> {
               model: model,
               theme: theme,
               addToBookmarks: (model) => _addRecipeToBookmarks(model, context),
+              showDetails: (model) => _showRecipeDetails(model, context),
             );
           } else if (model is ProgressIndicatorItem) {
             return SizedBox(
@@ -147,5 +166,28 @@ class _ScrollViewState extends State<_ScrollView> {
     final event = Bookmarks(model);
     final bloc = BlocProvider.of<SearchRecipesBloc>(context);
     bloc.add(event);
+  }
+
+  void _showRecipeDetails(RecipeViewModel model, BuildContext context) {
+    final navigator = Navigator.of(context);
+    final screenData = RecipeDetailsScreenFactoryData(
+      id: model.id,
+      title: model.title,
+      complexity: model.complexity,
+      imageUrls: model.imageUrls,
+      isInBookmarks: model.isInBookmarks,
+    );
+    final route = MaterialPageRoute(
+      builder: (_) => WillPopScope(
+        child: widget.recipeDetailsScreenFactory.createWidget(data: screenData),
+        onWillPop: () async {
+          final bookmarksBloc = BlocProvider.of<SearchRecipesBloc>(context);
+          bookmarksBloc.add(UpdateIsInBookmarks(model));
+          return true;
+        },
+      ),
+      fullscreenDialog: true,
+    );
+    navigator.push(route);
   }
 }

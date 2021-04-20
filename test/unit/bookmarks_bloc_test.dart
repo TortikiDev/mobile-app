@@ -158,4 +158,51 @@ void main() {
     await untilCalled(bookmarksRepository.deleteRecipe(2));
     verify(bookmarksRepository.deleteRecipe(2)).called(1);
   });
+
+  test('UpdateIsInBookmarks with false flag emits state without deleted recipe',
+      () {
+    // given
+    final bookmarkedRecipes = [
+      RecipeDbModel(
+        id: 1,
+        title: '1',
+        complexity: 4,
+        imageUrls: [],
+      ),
+    ];
+    final recipesModels = [
+      RecipeViewModel(
+        id: 1,
+        title: '1',
+        complexity: 4,
+        imageUrls: [],
+        isInBookmarks: true,
+      ),
+      RecipeViewModel(
+        id: 2,
+        title: '2',
+        complexity: 3,
+        imageUrls: ['http://134.png'],
+        isInBookmarks: true,
+      ),
+    ];
+
+    final baseState = initialState.copy(listItems: recipesModels);
+    final expectedState = baseState.copy(listItems: [
+      RecipeViewModel(
+        id: 1,
+        title: '1',
+        complexity: 4,
+        imageUrls: [],
+        isInBookmarks: true,
+      )
+    ]);
+    // when
+    when(bookmarksRepository.getRecipes())
+        .thenAnswer((realInvocation) => Future.value(bookmarkedRecipes));
+    sut.emit(baseState);
+    sut.add(UpdateIsInBookmarks(recipesModels.last));
+    // then
+    expect(sut, emits(expectedState));
+  });
 }

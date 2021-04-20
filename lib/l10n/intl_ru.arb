@@ -6,6 +6,7 @@
   "badRequest": "Неверный запрос",
   "bookmarks": "Избранное",
   "camera": "Камера",
+  "cancel": "Отмена",
   "clear": "Очистить",
   "complexityAndDescription": "Сложность и описание",
   "complexityPrompt": "Сложность рецепта определяется по совокупности следующих параметров: время приготовления, способ приготовления, количество и стоимость ингредиентов.",
@@ -18,6 +19,7 @@
   "error": "Ошибка",
   "feed": "Лента",
   "forbidder": "Отказано в доступе",
+  "goToLocationSettingsMessage": "Для использования вашего текущего местоположения предоставьте разрешение сервису геолокации в настройках приложения",
   "grams": "г",
   "ingredients": "Ингредиенты",
   "ingredientsPlaceholder": "сахар 10 г, яйца 2 шт...",
@@ -38,10 +40,13 @@
   "profile": "Профиль",
   "recipes": "Рецепты",
   "resourceNotFound": "Ресурс не найден",
+  "route": "Маршрут",
+  "searchConfectioner": "Поиск кондитера",
   "serverIsNotAvailable": "Сервер недоступен",
   "shortDescription": "Краткое описание",
   "showLess": "свернуть",
   "somethingWentWrong": "Что-то пошло не так",
   "tablespoons": "ст.л.",
-  "teaspoons": "ч.л."
+  "teaspoons": "ч.л.",
+  "toSettings": "В настройки"
 }

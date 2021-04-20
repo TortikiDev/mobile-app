@@ -35,6 +35,43 @@ mixin ShowDialogMixin {
         });
   }
 
+  void showTwoButtonsDialog(
+      {@required BuildContext context,
+      @required String message,
+      String okButtonTitle,
+      String cancelButtonTitle,
+      VoidCallback onOkPressed,
+      VoidCallback onDismiss}) {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) {
+          final localizations = AppLocalizations.of(context);
+          return WillPopScope(
+            onWillPop: () {
+              onDismiss?.call();
+              return Future.value(true);
+            },
+            child: AlertDialog(
+                content: Text(message),
+                contentPadding: EdgeInsets.fromLTRB(24, 40, 16, 34),
+                actions: <Widget>[
+                  DialogButton(
+                      title: cancelButtonTitle ?? localizations.cancel,
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      }),
+                  DialogButton(
+                      title: okButtonTitle ?? localizations.ok,
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                        onOkPressed?.call();
+                      }),
+                ]),
+          );
+        });
+  }
+
   void showErrorDialog({
     @required BuildContext context,
     @required ErrorDialogMessage errorMessage,

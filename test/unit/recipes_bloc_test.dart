@@ -63,14 +63,10 @@ void main() {
       RecipeDbModel(id: 22, title: '124', complexity: 3.1, imageUrls: []),
     ];
     final recipesResponse = [
-      RecipeShortResponse(
-          id: 20, title: '122', complexity: 3.9, imageUrls: []),
-      RecipeShortResponse(
-          id: 21, title: '123', complexity: 3.0, imageUrls: []),
-      RecipeShortResponse(
-          id: 22, title: '124', complexity: 3.1, imageUrls: []),
-      RecipeShortResponse(
-          id: 23, title: '125', complexity: 3.2, imageUrls: []),
+      RecipeShortResponse(id: 20, title: '122', complexity: 3.9, imageUrls: []),
+      RecipeShortResponse(id: 21, title: '123', complexity: 3.0, imageUrls: []),
+      RecipeShortResponse(id: 22, title: '124', complexity: 3.1, imageUrls: []),
+      RecipeShortResponse(id: 23, title: '125', complexity: 3.2, imageUrls: []),
     ];
 
     final expectedState1 = initialState.copy(loadingFirstPage: true);
@@ -116,14 +112,10 @@ void main() {
   test('PullToRefresh loads recipes first page', () {
     // given
     final recipesResponse = [
-      RecipeShortResponse(
-          id: 20, title: '122', complexity: 3.9, imageUrls: []),
-      RecipeShortResponse(
-          id: 21, title: '123', complexity: 3.0, imageUrls: []),
-      RecipeShortResponse(
-          id: 22, title: '124', complexity: 3.1, imageUrls: []),
-      RecipeShortResponse(
-          id: 23, title: '125', complexity: 3.2, imageUrls: []),
+      RecipeShortResponse(id: 20, title: '122', complexity: 3.9, imageUrls: []),
+      RecipeShortResponse(id: 21, title: '123', complexity: 3.0, imageUrls: []),
+      RecipeShortResponse(id: 22, title: '124', complexity: 3.1, imageUrls: []),
+      RecipeShortResponse(id: 23, title: '125', complexity: 3.2, imageUrls: []),
     ];
 
     final baseState = initialState.copy(bookmarkedRecipesIds: {21, 22});
@@ -176,14 +168,10 @@ void main() {
       RecipeViewModel(id: 19, title: '111', complexity: 5, imageUrls: []),
     ];
     final recipesNextPageResponse = [
-      RecipeShortResponse(
-          id: 20, title: '122', complexity: 3.9, imageUrls: []),
-      RecipeShortResponse(
-          id: 21, title: '123', complexity: 3.0, imageUrls: []),
-      RecipeShortResponse(
-          id: 22, title: '124', complexity: 3.1, imageUrls: []),
-      RecipeShortResponse(
-          id: 23, title: '125', complexity: 3.2, imageUrls: []),
+      RecipeShortResponse(id: 20, title: '122', complexity: 3.9, imageUrls: []),
+      RecipeShortResponse(id: 21, title: '123', complexity: 3.0, imageUrls: []),
+      RecipeShortResponse(id: 22, title: '124', complexity: 3.1, imageUrls: []),
+      RecipeShortResponse(id: 23, title: '125', complexity: 3.2, imageUrls: []),
     ];
 
     final baseState = initialState.copy(
@@ -350,5 +338,64 @@ void main() {
     verify(bookmarkedRecipesRepository.addRecipe(
       RecipeDbModel(id: 22, title: '124', complexity: 3.1, imageUrls: []),
     )).called(1);
+  });
+
+  test('UpdateIsInBookmarks emits state with updated recipe', () {
+    // given
+    final bookmarkedRecipes = [
+      RecipeDbModel(
+        id: 1,
+        title: '1',
+        complexity: 4,
+        imageUrls: [],
+      ),
+    ];
+    final recipesModels = [
+      RecipeViewModel(
+        id: 1,
+        title: '1',
+        complexity: 4,
+        imageUrls: [],
+        isInBookmarks: true,
+      ),
+      RecipeViewModel(
+        id: 2,
+        title: '2',
+        complexity: 3,
+        imageUrls: ['http://134.png'],
+        isInBookmarks: true,
+      ),
+    ];
+
+    final baseState = initialState.copy(
+      listItems: recipesModels,
+      bookmarkedRecipesIds: {1, 2},
+    );
+    final expectedState = baseState.copy(
+      listItems: [
+        RecipeViewModel(
+          id: 1,
+          title: '1',
+          complexity: 4,
+          imageUrls: [],
+          isInBookmarks: true,
+        ),
+        RecipeViewModel(
+          id: 2,
+          title: '2',
+          complexity: 3,
+          imageUrls: ['http://134.png'],
+          isInBookmarks: false,
+        ),
+      ],
+      bookmarkedRecipesIds: {1},
+    );
+    // when
+    when(bookmarkedRecipesRepository.getRecipes())
+        .thenAnswer((realInvocation) => Future.value(bookmarkedRecipes));
+    sut.emit(baseState);
+    sut.add(UpdateIsInBookmarks(recipesModels.last));
+    // then
+    expect(sut, emits(expectedState));
   });
 }

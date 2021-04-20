@@ -1,41 +1,29 @@
-import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tortiki/bloc/bottom_navigation_bloc/index.dart';
-import 'package:tortiki/bloc/error_handling/index.dart';
-import 'package:tortiki/data/repositories/repositories.dart';
 import 'package:tortiki/ui/bottom_navigation/bottom_navigation_controller.dart';
-import 'package:tortiki/ui/reusable/widget_factory.dart';
+import 'package:widget_factory/widget_factory.dart';
 import 'package:mockito/mockito.dart';
 
-class _MockErrorHandlingBloc extends MockBloc<ErrorHandlingState>
-    implements ErrorHandlingBloc {}
+class _MockMainScreenFactory extends Mock implements WidgetFactory {}
 
-class _MockBottomNavigationBloc extends MockBloc<BottomNavigationState>
-    implements BottomNavigationBloc {}
+class _MockMapScreenFactory extends Mock implements WidgetFactory {}
 
-class _MockBookmarkedRecipesRepository extends Mock
-    implements BookmarkedRecipesRepository {}
+class _MockBookmarksScreenFactory extends Mock implements WidgetFactory {}
 
 class TestBottomNaigationControllerFactory implements WidgetFactory {
   @override
   Widget createWidget({dynamic data}) {
-    final errorHandlingBloc = _MockErrorHandlingBloc();
-    final bottomNavigationBloc = _MockBottomNavigationBloc();
-    final bottomNavigationState = BottomNavigationState.initial();
-    when(bottomNavigationBloc.state).thenReturn(bottomNavigationState);
-    whenListen(bottomNavigationBloc,
-        Stream<BottomNavigationState>.value(bottomNavigationState));
+    final mainScreenFactory = _MockMainScreenFactory();
+    final mapScreenFactory = _MockMapScreenFactory();
+    final bookmarksScreenFactory = _MockBookmarksScreenFactory();
 
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<ErrorHandlingBloc>(create: (context) => errorHandlingBloc),
-        BlocProvider<BottomNavigationBloc>(
-            create: (context) => bottomNavigationBloc)
-      ],
-      child: RepositoryProvider<BookmarkedRecipesRepository>(
-          create: (context) => _MockBookmarkedRecipesRepository(),
-          child: BottomNavigationController()),
+    when(mainScreenFactory.createWidget()).thenReturn(Container());
+    when(mapScreenFactory.createWidget()).thenReturn(Container());
+    when(bookmarksScreenFactory.createWidget()).thenReturn(Container());
+
+    return BottomNavigationController(
+      mainScreenFactory: mainScreenFactory,
+      mapScreenFactory: mapScreenFactory,
+      bookmarksScreenFactory: bookmarksScreenFactory,
     );
   }
 }

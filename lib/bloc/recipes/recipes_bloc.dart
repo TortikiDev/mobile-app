@@ -69,8 +69,7 @@ class RecipesBloc extends BaseBloc<RecipesEvent, RecipesState> {
         listItems: updatedListItems,
         bookmarkedRecipesIds: updatedBookmarkedRecipesIds,
       );
-    }
-    if (event is UpdateIsInBookmarks) {
+    } else if (event is UpdateIsInBookmarks) {
       final updatedBookmarkedRecipesIds = await _getBookmarkedRecipesIds();
       final updatedIsInBookmarks =
           updatedBookmarkedRecipesIds.contains(event.recipe.id);

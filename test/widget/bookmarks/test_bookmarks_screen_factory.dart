@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:mockito/mockito.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tortiki/bloc/bookmarks/index.dart';
-import 'package:tortiki/ui/reusable/widget_factory.dart';
+import 'package:widget_factory/widget_factory.dart';
 import 'package:tortiki/ui/screens/bookmarks/bookmarks_screen.dart';
 import 'package:tortiki/ui/screens/main/recipes/recipe/recipe_view_model.dart';
 
 class _MockBookmarksBloc extends MockBloc<BookmarksState>
     implements BookmarksBloc {}
+
+class TestRecipeDetaailsScreenFactory extends Mock implements WidgetFactory {}
 
 class TestBookmarksScreenFactory implements WidgetFactory {
   @override
@@ -35,9 +37,13 @@ class TestBookmarksScreenFactory implements WidgetFactory {
     when(bookmarksBloc.state).thenReturn(bookmarksState);
     whenListen(bookmarksBloc, Stream<BookmarksState>.value(bookmarksState));
 
+    final recipeDetailsScreenFactory = TestRecipeDetaailsScreenFactory();
+
     return BlocProvider<BookmarksBloc>(
       create: (context) => bookmarksBloc,
-      child: BookmarksScreen(),
+      child: BookmarksScreen(
+        recipeDetailsScreenFactory: recipeDetailsScreenFactory,
+      ),
     );
   }
 }

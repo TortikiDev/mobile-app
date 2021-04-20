@@ -1,9 +1,9 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:widget_factory/widget_factory.dart';
 
 import '../../../bloc/recipe_details/index.dart';
 import '../../../data/http_client/responses/recipe_response.dart';
-import '../../reusable/widget_factory.dart';
 import 'recipe_details_screen.dart';
 
 class RecipeDetailsScreenFactoryData {

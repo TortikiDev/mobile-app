@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mockito/mockito.dart';
 import 'package:tortiki/bloc/recipes/index.dart';
-import 'package:tortiki/ui/reusable/widget_factory.dart';
+import 'package:widget_factory/widget_factory.dart';
 import 'package:tortiki/ui/screens/main/recipes/recipes_screen.dart';
 
 class _MockRecipesBloc extends MockBloc<RecipesState> implements RecipesBloc {}

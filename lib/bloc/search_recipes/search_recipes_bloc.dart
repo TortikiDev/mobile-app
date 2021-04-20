@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rxdart/rxdart.dart';
 
 import '../../data/database/models/models.dart';
 import '../../data/http_client/responses/responses.dart';
@@ -72,7 +74,43 @@ class SearchRecipesBloc
         listItems: updatedListItems,
         bookmarkedRecipesIds: updatedBookmarkedRecipesIds,
       );
+    } else if (event is UpdateIsInBookmarks) {
+      final updatedBookmarkedRecipesIds = await _getBookmarkedRecipesIds();
+      final updatedIsInBookmarks =
+          updatedBookmarkedRecipesIds.contains(event.recipe.id);
+      if (event.recipe.isInBookmarks != updatedIsInBookmarks) {
+        final updatedRecipe =
+            event.recipe.copy(isInBookmarks: updatedIsInBookmarks);
+        final updatedListItems = state.listItems;
+        final recipeIndex = updatedListItems.indexOf(event.recipe);
+        updatedListItems
+            .replaceRange(recipeIndex, recipeIndex + 1, [updatedRecipe]);
+        yield state.copy(
+          listItems: updatedListItems,
+          bookmarkedRecipesIds: updatedBookmarkedRecipesIds,
+        );
+      }
     }
+  }
+
+  @override
+  Stream<Transition<SearchRecipesEvent, SearchRecipesState>> transformEvents(
+    Stream<SearchRecipesEvent> events,
+    TransitionFunction<SearchRecipesEvent, SearchRecipesState> transitionFn,
+  ) {
+    bool debouncedEventFilter(SearchRecipesEvent event) {
+      return event is SearchQueryChanged && event.query.isNotEmpty;
+    }
+
+    final nonDebounceStream =
+        events.where((event) => !debouncedEventFilter(event));
+    final debounceStream = events
+        .where(debouncedEventFilter)
+        .debounceTime(Duration(milliseconds: 1500));
+    return super.transformEvents(
+      MergeStream([nonDebounceStream, debounceStream]),
+      transitionFn,
+    );
   }
 
   // endregion
@@ -89,8 +127,9 @@ class SearchRecipesBloc
       errorHandlingBloc.add(ExceptionRaised(e));
       return null;
     }
-    final result =
-        firstPageResponse.map(_mapRecipeResponseToViewModel).toList();
+    final result = firstPageResponse != null
+        ? firstPageResponse.map(_mapRecipeResponseToViewModel).toList()
+        : <RecipeViewModel>[];
     return result;
   }
 

@@ -31,3 +31,12 @@ class LoadNextPage extends SearchRecipesEvent {
   @override
   List<Object> get props => [];
 }
+
+class UpdateIsInBookmarks extends SearchRecipesEvent {
+  final RecipeViewModel recipe;
+
+  UpdateIsInBookmarks(this.recipe);
+
+  @override
+  List<Object> get props => [recipe];
+}
