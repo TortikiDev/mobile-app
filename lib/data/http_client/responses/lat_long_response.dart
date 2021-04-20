@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-class LatLongResponse implements Equatable {
+class LatLongResponse extends Equatable {
   final double lat;
   final double long;
 

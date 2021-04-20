@@ -91,7 +91,7 @@ void main() {
     );
   });
 
-  test('UpdateMapCenter loads confectioners', () {
+  test('UpdateMapCenter loads confectioners', () async {
     // given
     final confectionersStub = [
       ConfectionerShortResponse(

@@ -250,7 +250,7 @@ void main() {
     )).called(1);
   });
 
-  test('SearchQueryChanged loadis recipes with search query', () async {
+  test('SearchQueryChanged loades recipes with search query', () async {
     // given
     final baseState = initialState.copy(
       bookmarkedRecipesIds: {21},
@@ -270,8 +270,6 @@ void main() {
       ],
       loadingFirstPage: false,
     );
-    final expectedState3 =
-        expectedState2.copy(listItems: [], setSearchQueryToNull: true);
     // when
     when(recipesRepository.getRecipes(searchQuery: 'pie'))
         .thenAnswer((realInvocation) => Future.value([
@@ -282,13 +280,14 @@ void main() {
             ]));
     sut.emit(baseState);
     sut.add(SearchQueryChanged('pie'));
-    sut.add(SearchQueryChanged('pi'));
     // then
-    emitsInOrder([
-      expectedState1,
-      expectedState2,
-      expectedState3,
-    ]);
+    expectLater(
+      sut,
+      emitsInOrder([
+        expectedState1,
+        expectedState2,
+      ]),
+    );
   });
 
   test('UpdateIsInBookmarks emits state with updated recipe', () {

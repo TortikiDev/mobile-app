@@ -16,6 +16,16 @@ class ConfectionerView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Container(
+      height: 56,
+      color: Colors.amber,
+      child: Align(
+        alignment: Alignment.bottomLeft,
+        child: Container(
+          height: 1,
+          color: Colors.grey,
+        ),
+      ),
+    );
   }
 }

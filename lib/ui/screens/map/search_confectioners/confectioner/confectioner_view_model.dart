@@ -38,4 +38,7 @@ class ConfectionerViewModel extends Equatable implements ListItem {
         starType,
         rating,
       ];
+
+  @override
+  bool get stringify => true;
 }

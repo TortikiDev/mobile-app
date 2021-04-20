@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rxdart/rxdart.dart';
 
 import '../../data/database/models/models.dart';
 import '../../data/http_client/responses/responses.dart';
@@ -72,7 +74,7 @@ class SearchRecipesBloc
         listItems: updatedListItems,
         bookmarkedRecipesIds: updatedBookmarkedRecipesIds,
       );
-     } else if (event is UpdateIsInBookmarks) {
+    } else if (event is UpdateIsInBookmarks) {
       final updatedBookmarkedRecipesIds = await _getBookmarkedRecipesIds();
       final updatedIsInBookmarks =
           updatedBookmarkedRecipesIds.contains(event.recipe.id);
@@ -91,6 +93,22 @@ class SearchRecipesBloc
     }
   }
 
+  @override
+  Stream<Transition<SearchRecipesEvent, SearchRecipesState>> transformEvents(
+    Stream<SearchRecipesEvent> events,
+    TransitionFunction<SearchRecipesEvent, SearchRecipesState> transitionFn,
+  ) {
+    final nonDebounceStream =
+        events.where((event) => event is! SearchQueryChanged);
+    final debounceStream = events
+        .where((event) => event is SearchQueryChanged)
+        .debounceTime(Duration(milliseconds: 1500));
+    return super.transformEvents(
+      MergeStream([nonDebounceStream, debounceStream]),
+      transitionFn,
+    );
+  }
+
   // endregion
 
   // region Private methods
@@ -105,8 +123,9 @@ class SearchRecipesBloc
       errorHandlingBloc.add(ExceptionRaised(e));
       return null;
     }
-    final result =
-        firstPageResponse.map(_mapRecipeResponseToViewModel).toList();
+    final result = firstPageResponse != null
+        ? firstPageResponse.map(_mapRecipeResponseToViewModel).toList()
+        : <RecipeViewModel>[];
     return result;
   }
 

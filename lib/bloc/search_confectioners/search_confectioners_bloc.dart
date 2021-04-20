@@ -1,10 +1,13 @@
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rxdart/rxdart.dart';
 
 import '../../data/http_client/requests/requests.dart';
 import '../../data/http_client/responses/confectioner_short_response.dart';
 import '../../data/repositories/repositories.dart';
+import '../../ui/reusable/list_items/progress_indicator_item.dart';
 import '../../ui/screens/map/search_confectioners/confectioner/confectioner_view_model.dart';
 import '../base_bloc.dart';
 import '../error_handling/index.dart';
@@ -45,15 +48,32 @@ class SearchConfectionersBloc
         yield state.copy(listItems: [], setSearchQueryToNull: true);
       }
     } else if (event is LoadNextPage) {
-      // TODO: fix get next page behavior
-      // final initialListItems = state.listItems;
-      // final liatItemsOnLoad = initialListItems + [ProgressIndicatorItem()];
-      // yield state.copy(loadingNextPage: true, listItems: liatItemsOnLoad);
-      // final recipesNextPage =
-      //     await _getConfectionersNextPage(searchQuery: state.searchQuery);
-      // final updatedListItems = initialListItems + recipesNextPage;
-      // yield state.copy(loadingNextPage: false, listItems: updatedListItems);
+      final initialListItems = state.listItems;
+      final liatItemsOnLoad = initialListItems + [ProgressIndicatorItem()];
+      yield state.copy(loadingNextPage: true, listItems: liatItemsOnLoad);
+      final recipesNextPage =
+          await _getConfectionersNextPage(searchQuery: state.searchQuery);
+      final updatedListItems = initialListItems + recipesNextPage;
+      yield state.copy(loadingNextPage: false, listItems: updatedListItems);
     }
+  }
+
+  @override
+  Stream<Transition<SearchConfectionersEvent, SearchConfectionersState>>
+      transformEvents(
+    Stream<SearchConfectionersEvent> events,
+    TransitionFunction<SearchConfectionersEvent, SearchConfectionersState>
+        transitionFn,
+  ) {
+    final nonDebounceStream =
+        events.where((event) => event is! SearchQueryChanged);
+    final debounceStream = events
+        .where((event) => event is SearchQueryChanged)
+        .debounceTime(Duration(milliseconds: 1500));
+    return super.transformEvents(
+      MergeStream([nonDebounceStream, debounceStream]),
+      transitionFn,
+    );
   }
 
   // endregion
@@ -72,8 +92,9 @@ class SearchConfectionersBloc
       errorHandlingBloc.add(ExceptionRaised(e));
       return null;
     }
-    final result =
-        firstPageResponse.map(_mapConfectionerResponseToViewModel).toList();
+    final result = firstPageResponse != null
+        ? firstPageResponse.map(_mapConfectionerResponseToViewModel).toList()
+        : <ConfectionerViewModel>[];
     return result;
   }
 
