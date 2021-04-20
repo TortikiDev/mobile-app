@@ -6,6 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:map_launcher/map_launcher.dart';
 
 import '../../../data/http_client/responses/responses.dart';
+import '../../../utils/get_rating_star_color.dart';
 import '../../reusable/buttons/secondary_button.dart';
 
 class ConfectionerPanel extends StatelessWidget {
@@ -55,6 +56,7 @@ class ConfectionerPanel extends StatelessWidget {
                     ),
                     clipBehavior: Clip.hardEdge,
                     child: CachedNetworkImage(
+                      // TODO: add placeholder depends on gender (boy or girl icon)
                       imageUrl: confectioner.avatarUrl,
                       fit: BoxFit.cover,
                     ),
@@ -89,16 +91,16 @@ class ConfectionerPanel extends StatelessWidget {
                           if (confectioner.starType !=
                               ConfectionerRatingStarType.none)
                             Padding(
-                              padding: EdgeInsets.only(right: 4),
+                              padding: EdgeInsets.only(right: 2),
                               child: Icon(
                                 Icons.star,
-                                size: 16,
+                                size: 20,
                                 color:
-                                    _getRatignStarColor(confectioner.starType),
+                                    getRatignStarColor(confectioner.starType),
                               ),
                             ),
                           Padding(
-                            padding: EdgeInsets.only(left: 4),
+                            padding: EdgeInsets.only(left: 4, top: 2),
                             child: Text(
                               confectioner.rating.toString(),
                               style: theme.textTheme.subtitle2
@@ -139,19 +141,6 @@ class ConfectionerPanel extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  Color _getRatignStarColor(int ratingStarType) {
-    switch (ratingStarType) {
-      case ConfectionerRatingStarType.bronze:
-        return Colors.brown[400];
-      case ConfectionerRatingStarType.silver:
-        return Colors.grey[300];
-      case ConfectionerRatingStarType.gold:
-        return Colors.yellow[600];
-      default:
-        return Colors.transparent;
-    }
   }
 
   void _goToProfile(BuildContext context) {

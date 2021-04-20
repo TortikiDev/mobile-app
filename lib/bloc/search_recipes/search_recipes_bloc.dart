@@ -98,10 +98,14 @@ class SearchRecipesBloc
     Stream<SearchRecipesEvent> events,
     TransitionFunction<SearchRecipesEvent, SearchRecipesState> transitionFn,
   ) {
+    bool debouncedEventFilter(SearchRecipesEvent event) {
+      return event is SearchQueryChanged && event.query.isNotEmpty;
+    }
+
     final nonDebounceStream =
-        events.where((event) => event is! SearchQueryChanged);
+        events.where((event) => !debouncedEventFilter(event));
     final debounceStream = events
-        .where((event) => event is SearchQueryChanged)
+        .where(debouncedEventFilter)
         .debounceTime(Duration(milliseconds: 1500));
     return super.transformEvents(
       MergeStream([nonDebounceStream, debounceStream]),
