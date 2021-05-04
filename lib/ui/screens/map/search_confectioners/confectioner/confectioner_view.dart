@@ -2,7 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../data/http_client/responses/responses.dart';
+import '../../../../../data/http_client/responses/confectioner/rating_star_type.dart';
 import '../../../../../utils/get_rating_star_color.dart';
 import 'confectioner_view_model.dart';
 

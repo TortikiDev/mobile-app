@@ -6,18 +6,21 @@ import 'package:pinch_zoom/pinch_zoom.dart';
 import 'package:share/share.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:widget_factory/widget_factory.dart';
 import '../../../../../bloc/feed/index.dart';
 import '../../../../../utils/string_is_valid_url.dart';
 import '../../../../reusable/text/expandable_text.dart';
 import 'post_view_model.dart';
 
 class PostView extends StatefulWidget {
+  final WidgetFactory confectionerProfileScreenFactory;
   final PostViewModel model;
   final ThemeData theme;
   final AppLocalizations localizations;
 
   PostView(
       {Key key,
+      @required this.confectionerProfileScreenFactory,
       @required this.model,
       @required this.theme,
       @required this.localizations})
@@ -42,30 +45,36 @@ class _PostViewState extends State<PostView> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Row(
-          children: [
-            Padding(
-                padding: EdgeInsets.all(16.0),
-                child: CircleAvatar(
-                    radius: 20,
-                    backgroundColor: Colors.grey[300],
-                    child: model.userAvaratUrl?.isValidUrl() ?? false
-                        ? CachedNetworkImage(
-                            imageUrl: model.userAvaratUrl,
-                            imageBuilder: (context, imageProvider) {
-                              return CircleAvatar(
-                                  radius: 19.5,
-                                  backgroundColor: Colors.transparent,
-                                  backgroundImage: imageProvider);
-                            },
-                            fit: BoxFit.cover)
-                        : null)),
-            Expanded(
-                child: Padding(
-                    padding: EdgeInsets.only(right: 16.0),
-                    child:
-                        Text(model.userName, style: theme.textTheme.subtitle1)))
-          ],
+        GestureDetector(
+          onTap: () => _showAuthorProfile(context),
+          child: Container(
+            color: Colors.transparent,
+            child: Row(
+              children: [
+                Padding(
+                    padding: EdgeInsets.all(16.0),
+                    child: CircleAvatar(
+                        radius: 20,
+                        backgroundColor: Colors.grey[300],
+                        child: model.userAvaratUrl?.isValidUrl() ?? false
+                            ? CachedNetworkImage(
+                                imageUrl: model.userAvaratUrl,
+                                imageBuilder: (context, imageProvider) {
+                                  return CircleAvatar(
+                                      radius: 19.5,
+                                      backgroundColor: Colors.transparent,
+                                      backgroundImage: imageProvider);
+                                },
+                                fit: BoxFit.cover)
+                            : null)),
+                Expanded(
+                    child: Padding(
+                        padding: EdgeInsets.only(right: 16.0),
+                        child: Text(model.userName,
+                            style: theme.textTheme.subtitle1)))
+              ],
+            ),
+          ),
         ),
         AspectRatio(
             aspectRatio: 1,
@@ -132,5 +141,12 @@ class _PostViewState extends State<PostView> {
         ? ExpandDescription(model.id)
         : CollapseDescription(model.id);
     BlocProvider.of<FeedBloc>(context).add(event);
+  }
+
+  void _showAuthorProfile(BuildContext context) {
+    // TODO: pass confeectioner id
+    final screen = widget.confectionerProfileScreenFactory.createWidget();
+    final route = MaterialPageRoute(builder: (context) => screen);
+    Navigator.of(context).push(route);
   }
 }

@@ -4,13 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:widget_factory/widget_factory.dart';
 import '../../../../bloc/feed/index.dart';
 import '../../../reusable/list_items/progress_indicator_item.dart';
 import 'post/post_view.dart';
 import 'post/post_view_model.dart';
 
 class FeedScreen extends StatefulWidget {
-  const FeedScreen({Key key}) : super(key: key);
+  final WidgetFactory confectionerProfileScreenFactory;
+
+  const FeedScreen({
+    Key key,
+    @required this.confectionerProfileScreenFactory,
+  }) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _FeedScreenState();
@@ -29,16 +35,29 @@ class _FeedScreenState extends State<FeedScreen>
       return state.loadingFirstPage
           ? Center(
               child: SizedBox(
-                  width: 32, height: 32, child: CircularProgressIndicator()))
-          : _ScrollView(state: state);
+                width: 32,
+                height: 32,
+                child: CircularProgressIndicator(),
+              ),
+            )
+          : _ScrollView(
+              state: state,
+              confectionerProfileScreenFactory:
+                  widget.confectionerProfileScreenFactory,
+            );
     });
   }
 }
 
 class _ScrollView extends StatelessWidget {
   final FeedState state;
+  final WidgetFactory confectionerProfileScreenFactory;
 
-  const _ScrollView({Key key, @required this.state}) : super(key: key);
+  const _ScrollView({
+    Key key,
+    @required this.state,
+    @required this.confectionerProfileScreenFactory,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -59,17 +78,22 @@ class _ScrollView extends StatelessWidget {
                     }
                     return PostView(
                         key: ObjectKey(model),
+                        confectionerProfileScreenFactory:
+                            confectionerProfileScreenFactory,
                         model: model,
                         theme: theme,
                         localizations: localizations);
                   } else if (model is ProgressIndicatorItem) {
                     return SizedBox(
-                        height: 40,
-                        child: Center(
-                            child: SizedBox(
-                                width: 24,
-                                height: 24,
-                                child: CircularProgressIndicator())));
+                      height: 40,
+                      child: Center(
+                        child: SizedBox(
+                          width: 24,
+                          height: 24,
+                          child: CircularProgressIndicator(),
+                        ),
+                      ),
+                    );
                   } else {
                     throw UnimplementedError(
                         'Type [${model.runtimeType}] is not'

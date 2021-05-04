@@ -13,7 +13,7 @@ import 'package:widget_factory/widget_factory.dart';
 
 import '../../../bloc/map/index.dart';
 import '../../../data/http_client/requests/requests.dart';
-import '../../../data/http_client/responses/confectioner_short_response.dart';
+import '../../../data/http_client/responses/confectioner/confectioner_short_response.dart';
 import '../../../utils/string_is_valid_url.dart';
 import '../../constants.dart';
 import '../../reusable/show_dialog_mixin.dart';

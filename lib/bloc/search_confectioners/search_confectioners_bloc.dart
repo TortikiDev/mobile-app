@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rxdart/rxdart.dart';
 
 import '../../data/http_client/requests/requests.dart';
-import '../../data/http_client/responses/confectioner_short_response.dart';
+import '../../data/http_client/responses/confectioner/confectioner_short_response.dart';
 import '../../data/repositories/repositories.dart';
 import '../../ui/reusable/list_items/progress_indicator_item.dart';
 import '../../ui/screens/map/search_confectioners/confectioner/confectioner_view_model.dart';

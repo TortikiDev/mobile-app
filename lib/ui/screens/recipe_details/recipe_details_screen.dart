@@ -43,7 +43,8 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen>
         children: [
           BlocBuilder<RecipeDetailsBloc, RecipeDetailsState>(
             builder: (context, state) => CustomScrollView(
-              physics: BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(
+              parent: AlwaysScrollableScrollPhysics()),
               controller: scrollController,
               slivers: [
                 SliverAppBar(
