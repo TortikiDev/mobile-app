@@ -23,10 +23,12 @@ import 'search_confectioners/search_confectioners_screen_factory.dart';
 
 class MapScreen extends StatefulWidget {
   final WidgetFactory searchConfectionersScreenFactory;
+  final WidgetFactory confectionerProfileScreenFactory;
 
   MapScreen({
     Key key,
     @required this.searchConfectionersScreenFactory,
+    @required this.confectionerProfileScreenFactory,
   }) : super(key: key);
 
   @override
@@ -220,6 +222,8 @@ class _MapScreenState extends State<MapScreen>
                         _confectionerPanelAnimationController.reverse(),
                     child: ConfectionerPanel(
                       confectioner: _selectedConfectioner,
+                      confectionerProfileScreenFactory:
+                          widget.confectionerProfileScreenFactory,
                     ),
                   ),
                 ),

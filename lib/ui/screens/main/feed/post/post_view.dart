@@ -4,12 +4,13 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pinch_zoom/pinch_zoom.dart';
 import 'package:share/share.dart';
+import 'package:widget_factory/widget_factory.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:widget_factory/widget_factory.dart';
 import '../../../../../bloc/feed/index.dart';
 import '../../../../../utils/string_is_valid_url.dart';
 import '../../../../reusable/text/expandable_text.dart';
+import '../../../profile/external_confectioner_profile/external_confectioner_profile_screen_factory.dart';
 import 'post_view_model.dart';
 
 class PostView extends StatefulWidget {
@@ -83,6 +84,7 @@ class _PostViewState extends State<PostView> {
                 child: Padding(
                   padding: EdgeInsets.only(top: 0.5, bottom: 0.5),
                   child: model.imageUrl?.isValidUrl() ?? false
+                      // TODO: check if zoom clips image or not
                       ? PinchZoom(
                           maxScale: 1.2,
                           zoomedBackgroundColor: Colors.black.withOpacity(0.1),
@@ -144,8 +146,12 @@ class _PostViewState extends State<PostView> {
   }
 
   void _showAuthorProfile(BuildContext context) {
-    // TODO: pass confeectioner id
-    final screen = widget.confectionerProfileScreenFactory.createWidget();
+    final screenData = ExternalConfectionerProfileScreenFactoryData(
+      confectionerId: model.userId,
+      confectionerName: model.userName,
+    );
+    final screen =
+        widget.confectionerProfileScreenFactory.createWidget(data: screenData);
     final route = MaterialPageRoute(builder: (context) => screen);
     Navigator.of(context).push(route);
   }

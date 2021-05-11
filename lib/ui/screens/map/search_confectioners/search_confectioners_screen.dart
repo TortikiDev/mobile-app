@@ -5,6 +5,7 @@ import 'package:widget_factory/widget_factory.dart';
 import '../../../../bloc/search_confectioners/index.dart';
 import '../../../reusable/list_items/progress_indicator_item.dart';
 import '../../../reusable/search_bar.dart';
+import '../../profile/external_confectioner_profile/external_confectioner_profile_screen_factory.dart';
 import 'confectioner/confectioner_view.dart';
 import 'confectioner/confectioner_view_model.dart';
 
@@ -164,10 +165,15 @@ class _ScrollViewState extends State<_ScrollView> {
 
   void _showConfectionerProfile(
       ConfectionerViewModel model, BuildContext context) {
-    // TODO: add confectioner profile screen data
+    final screenData = ExternalConfectionerProfileScreenFactoryData(
+      confectionerId: model.id,
+      confectionerName: model.name,
+    );
+    final screen =
+        widget.confectionerProfileScreenFactory.createWidget(data: screenData);
     final navigator = Navigator.of(context);
     final route = MaterialPageRoute(
-      builder: (_) => widget.confectionerProfileScreenFactory.createWidget(),
+      builder: (_) => screen,
     );
     navigator.push(route);
   }

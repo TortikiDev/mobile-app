@@ -14,6 +14,7 @@ class PostsRepository {
           userAvaratUrl:
               'https://images.unsplash.com/photo-1510616022132-9976466385a8',
           userName: 'Granny',
+          userId: 54321,
           imageUrl:
               'https://images.unsplash.com/photo-1486427944299-d1955d23e34d',
           description:
@@ -24,6 +25,7 @@ class PostsRepository {
           id: 124,
           userAvaratUrl: null,
           userName: 'DEady',
+          userId: 54322,
           imageUrl:
               'https://images.unsplash.com/photo-1510616022132-9976466385a8',
           description:

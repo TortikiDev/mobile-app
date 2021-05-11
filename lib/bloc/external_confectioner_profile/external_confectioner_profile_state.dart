@@ -1,32 +1,48 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter/foundation.dart';
 
 import '../../data/http_client/responses/responses.dart';
 
 class ExternalConfectionerProfileState extends Equatable {
+  final int confectionerId;
+  final String confectionerName;
   final ConfectionerResponse confectioner;
   final bool loading;
 
   const ExternalConfectionerProfileState({
+    @required this.confectionerId,
+    @required this.confectionerName,
     this.confectioner,
     this.loading = false,
   });
 
-  factory ExternalConfectionerProfileState.initial() =>
+  factory ExternalConfectionerProfileState.initial({
+    @required int confectionerId,
+    @required String confectionerName,
+  }) =>
       ExternalConfectionerProfileState(
-          confectioner: ConfectionerResponse(
-        id: 3,
-        name: 'Михаил Круг',
-        gender: Gender.male,
-        address: 'ул. Островского, 28а',
-        about: 'Люблю готовить тортики 🎂. По любым вопросам'
-            ' пишите мне в соцсетях или или на почту',
-        avatarUrl:
-            'https://images.unsplash.com/photo-1510616022132-9976466385a8',
-        starType: ConfectionerRatingStarType.gold,
-        rating: 433,
-        coordinate: LatLongResponse(54.602, 39.863),
-      ));
+        confectionerId: confectionerId,
+        confectionerName: confectionerName,
+      );
+
+  ExternalConfectionerProfileState copy({
+    int confectionerId,
+    String confectionerName,
+    ConfectionerResponse confectioner,
+    bool loading,
+  }) =>
+      ExternalConfectionerProfileState(
+        confectionerId: confectionerId ?? this.confectionerId,
+        confectionerName: confectionerName ?? this.confectionerName,
+        confectioner: confectioner ?? this.confectioner,
+        loading: loading ?? this.loading,
+      );
 
   @override
-  List<Object> get props => [confectioner, loading];
+  List<Object> get props => [
+        confectionerId,
+        confectionerName,
+        confectioner,
+        loading,
+      ];
 }

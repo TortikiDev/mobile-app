@@ -85,6 +85,7 @@ class FeedBloc extends BaseBloc<FeedEvent, FeedState> {
           id: response.id,
           userAvaratUrl: response.userAvaratUrl,
           userName: response.userName,
+          userId: response.userId,
           imageUrl: response.imageUrl,
           description: response.description,
           likes: response.likes,
