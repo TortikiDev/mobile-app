@@ -20,90 +20,95 @@ class ConfectionerView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 88,
-      child: Stack(
-        children: [
-          Container(
-            height: 164,
-            padding: EdgeInsets.fromLTRB(8, 8, 8, 12),
-            child: Row(
-              children: [
-                AspectRatio(
-                  aspectRatio: 1,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(8)),
-                      color: Colors.grey[300],
-                    ),
-                    clipBehavior: Clip.hardEdge,
-                    child: CachedNetworkImage(
-                      // TODO: add placeholder 
-                      // depends on gender (boy or girl icon)
-                      imageUrl: model.avatarUrl,
-                      fit: BoxFit.cover,
+    return GestureDetector(
+      onTap: () => showDetails(model),
+      child: Container(
+        height: 88,
+        color: Colors.transparent,
+        child: Stack(
+          children: [
+            Container(
+              height: 164,
+              padding: EdgeInsets.fromLTRB(8, 8, 8, 12),
+              child: Row(
+                children: [
+                  AspectRatio(
+                    aspectRatio: 1,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(8)),
+                        color: Colors.grey[300],
+                      ),
+                      clipBehavior: Clip.hardEdge,
+                      child: CachedNetworkImage(
+                        // TODO: add placeholder
+                        // depends on gender (boy or girl icon)
+                        imageUrl: model.avatarUrl,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
-                ),
-                SizedBox(width: 16),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(height: 2),
-                      AutoSizeText(
-                        model.name,
-                        style: theme.textTheme.subtitle1,
-                        maxLines: 1,
-                        minFontSize: 10,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      SizedBox(height: 4),
-                      Text(
-                        model.address,
-                        style: theme.textTheme.caption
-                            .copyWith(color: theme.colorScheme.onSurface),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      SizedBox(height: 8),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          if (model.starType != ConfectionerRatingStarType.none)
-                            Padding(
-                              padding: EdgeInsets.only(right: 2),
-                              child: Icon(
-                                Icons.star,
-                                size: 20,
-                                color: getRatignStarColor(model.starType),
+                  SizedBox(width: 16),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(height: 2),
+                        AutoSizeText(
+                          model.name,
+                          style: theme.textTheme.subtitle1,
+                          maxLines: 1,
+                          minFontSize: 10,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        SizedBox(height: 4),
+                        Text(
+                          model.address,
+                          style: theme.textTheme.caption
+                              .copyWith(color: theme.colorScheme.onSurface),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        SizedBox(height: 8),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            if (model.starType !=
+                                ConfectionerRatingStarType.none)
+                              Padding(
+                                padding: EdgeInsets.only(right: 2),
+                                child: Icon(
+                                  Icons.star,
+                                  size: 20,
+                                  color: getRatignStarColor(model.starType),
+                                ),
                               ),
-                            ),
-                          Padding(
-                            padding: EdgeInsets.only(left: 4, top: 2),
-                            child: Text(
-                              model.rating.toString(),
-                              style: theme.textTheme.subtitle2
-                                  .copyWith(color: theme.colorScheme.onPrimary),
-                              maxLines: 1,
-                            ),
-                          )
-                        ],
-                      ),
-                    ],
+                            Padding(
+                              padding: EdgeInsets.only(left: 4, top: 2),
+                              child: Text(
+                                model.rating.toString(),
+                                style: theme.textTheme.subtitle2.copyWith(
+                                    color: theme.colorScheme.onPrimary),
+                                maxLines: 1,
+                              ),
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: Divider(),
-          ),
-        ],
+            Positioned(
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: Divider(),
+            ),
+          ],
+        ),
       ),
     );
   }

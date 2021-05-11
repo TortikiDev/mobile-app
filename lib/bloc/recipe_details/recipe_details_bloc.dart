@@ -50,6 +50,7 @@ class RecipeDetailsBloc
         complexity: recipe.complexity,
         authorAvatarUrl: recipe.userAvaratUrl,
         authorName: recipe.userName,
+        authorId: recipe.userId,
         isInBookmarks: state.headerViewModel.isInBookmarks,
       );
       yield state.copy(

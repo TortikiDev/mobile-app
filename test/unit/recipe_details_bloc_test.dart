@@ -71,6 +71,7 @@ void main() {
       imageUrls: ['http://123.png'],
       userAvaratUrl: 'http://avatar.png',
       userName: 'name',
+      userId: 123,
       description: '12345',
       ingredients: ['1', '2'],
       cookingSteps: '54321',
@@ -86,6 +87,7 @@ void main() {
         complexity: 4.0,
         authorAvatarUrl: 'http://avatar.png',
         authorName: 'name',
+        authorId: 123,
       ),
     );
     // when
@@ -109,6 +111,7 @@ void main() {
       complexity: 4.0,
       authorAvatarUrl: 'http://avatar.png',
       authorName: 'name',
+      authorId: 123,
       isInBookmarks: false,
     );
 
@@ -130,6 +133,7 @@ void main() {
       complexity: 4.0,
       authorAvatarUrl: 'http://avatar.png',
       authorName: 'name',
+      authorId: 123,
       isInBookmarks: false,
     );
 
@@ -163,6 +167,7 @@ void main() {
       complexity: 4.0,
       authorAvatarUrl: 'http://avatar.png',
       authorName: 'name',
+      authorId: 123,
       isInBookmarks: false,
     );
 

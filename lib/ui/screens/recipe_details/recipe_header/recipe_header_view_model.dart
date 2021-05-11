@@ -7,6 +7,7 @@ class RecipeHeaderViewModel extends Equatable {
   final bool isInBookmarks;
   final String authorAvatarUrl;
   final String authorName;
+  final int authorId;
 
   RecipeHeaderViewModel({
     @required this.title,
@@ -14,6 +15,7 @@ class RecipeHeaderViewModel extends Equatable {
     this.isInBookmarks = false,
     @required this.authorAvatarUrl,
     @required this.authorName,
+    @required this.authorId,
   });
 
   RecipeHeaderViewModel copy({
@@ -22,6 +24,7 @@ class RecipeHeaderViewModel extends Equatable {
     bool isInBookmarks,
     String authorAvatarUrl,
     String authorName,
+    String authorId,
   }) =>
       RecipeHeaderViewModel(
         title: title ?? this.title,
@@ -29,6 +32,7 @@ class RecipeHeaderViewModel extends Equatable {
         isInBookmarks: isInBookmarks ?? this.isInBookmarks,
         authorAvatarUrl: authorAvatarUrl ?? this.authorAvatarUrl,
         authorName: authorName ?? this.authorName,
+        authorId: authorId ?? this.authorId,
       );
 
   @override
@@ -38,6 +42,7 @@ class RecipeHeaderViewModel extends Equatable {
         isInBookmarks,
         authorAvatarUrl,
         authorName,
+        authorId,
       ];
 
   @override

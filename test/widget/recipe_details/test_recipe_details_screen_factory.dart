@@ -10,6 +10,8 @@ import 'package:widget_factory/widget_factory.dart';
 class _MockRecipeDetailsBloc extends MockBloc<RecipeDetailsState>
     implements RecipeDetailsBloc {}
 
+class _MockScreenFactory extends Mock implements WidgetFactory {}
+
 class TestRecipeDetailsScreeFactory implements WidgetFactory {
   @override
   Widget createWidget({dynamic data}) {
@@ -27,9 +29,12 @@ class TestRecipeDetailsScreeFactory implements WidgetFactory {
     whenListen(recipeDetailsBloc,
         Stream<RecipeDetailsState>.value(recipeDetailsState));
 
+    final confectionerProfileScreenFactory = _MockScreenFactory();
+
     return BlocProvider<RecipeDetailsBloc>(
       create: (context) => recipeDetailsBloc,
-      child: RecipeDetailsScreen(),
+      child: RecipeDetailsScreen(
+          confectionerProfileScreenFactory: confectionerProfileScreenFactory),
     );
   }
 }

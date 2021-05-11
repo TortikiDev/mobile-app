@@ -4,6 +4,7 @@ import 'package:widget_factory/widget_factory.dart';
 
 import '../../../bloc/recipe_details/index.dart';
 import '../../../data/http_client/responses/recipe_response.dart';
+import '../profile/external_confectioner_profile/external_confectioner_profile_screen_factory.dart';
 import 'recipe_details_screen.dart';
 
 class RecipeDetailsScreenFactoryData {
@@ -28,6 +29,8 @@ class RecipeDetailsScreenFactory
     implements WidgetFactory<RecipeDetailsScreenFactoryData> {
   @override
   Widget createWidget({RecipeDetailsScreenFactoryData data}) {
+    final confectionerProfileScreenFactory =
+        ExternalConfectionerProfileScreenFactory();
     final recipe = RecipeResponse(
       id: data.id,
       title: data.title,
@@ -42,7 +45,9 @@ class RecipeDetailsScreenFactory
         bookmarkedRecipesRepository: RepositoryProvider.of(context),
         errorHandlingBloc: BlocProvider.of(context),
       )..add(BlocInit()),
-      child: RecipeDetailsScreen(),
+      child: RecipeDetailsScreen(
+        confectionerProfileScreenFactory: confectionerProfileScreenFactory,
+      ),
     );
   }
 }

@@ -18,7 +18,18 @@ class ExternalConfectionerProfileScreen extends StatelessWidget {
 
     return BlocBuilder<ExternalConfectionerProfileBloc,
         ExternalConfectionerProfileState>(builder: (context, state) {
-      final confectioner = state.confectioner;
+      final confectioner = state.confectioner ??
+          ConfectionerResponse(
+            id: null,
+            name: '',
+            address: '',
+            about: '',
+            avatarUrl: null,
+            gender: Gender.none,
+            starType: ConfectionerRatingStarType.none,
+            rating: 0,
+            coordinate: null,
+          );
 
       return Scaffold(
         appBar: AppBar(title: Text(state.confectionerName)),
@@ -55,7 +66,7 @@ class ExternalConfectionerProfileScreen extends StatelessWidget {
                                 height: 16,
                                 child: ContentShimmer(),
                               ),
-                              SizedBox(height: 8),
+                              SizedBox(height: 12),
                               SizedBox(
                                 height: 16,
                                 width: 200,

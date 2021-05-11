@@ -6,7 +6,7 @@ import '../../../../bloc/error_handling/index.dart';
 import '../../../../bloc/search_confectioners/index.dart';
 import '../../../../data/http_client/requests/requests.dart';
 import '../../../../data/repositories/repositories.dart';
-import '../../../reusable/in_develop_screen_factory.dart';
+import '../../profile/external_confectioner_profile/external_confectioner_profile_screen_factory.dart';
 import 'search_confectioners_screen.dart';
 
 class SearchConfectionersScreenFactoryData {
@@ -19,8 +19,8 @@ class SearchConfectionersScreenFactory
     implements WidgetFactory<SearchConfectionersScreenFactoryData> {
   @override
   Widget createWidget({SearchConfectionersScreenFactoryData data}) {
-    // TODO: use actual factory
-    final confectionerProfileScreenFactory = InDevelopWidgetFactory();
+    final confectionerProfileScreenFactory =
+        ExternalConfectionerProfileScreenFactory();
 
     return BlocProvider(
       create: (context) {
