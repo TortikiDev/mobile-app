@@ -1,28 +1,31 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:pinch_zoom/pinch_zoom.dart';
 import 'package:share/share.dart';
-import 'package:widget_factory/widget_factory.dart';
 
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import '../../../../../bloc/feed/index.dart';
 import '../../../../../utils/string_is_valid_url.dart';
 import '../../../../reusable/text/expandable_text.dart';
-import '../../../profile/external_confectioner_profile/external_confectioner_profile_screen_factory.dart';
 import 'post_view_model.dart';
 
 class PostView extends StatefulWidget {
-  final WidgetFactory confectionerProfileScreenFactory;
   final PostViewModel model;
+  final Function(PostViewModel) onAuthorTap;
+  final Function(PostViewModel) onLike;
+  final Function({
+    @required PostViewModel model,
+    @required bool isExpanded,
+  }) onExpandDescription;
   final ThemeData theme;
   final AppLocalizations localizations;
 
   PostView(
       {Key key,
-      @required this.confectionerProfileScreenFactory,
       @required this.model,
+      @required this.onAuthorTap,
+      @required this.onLike,
+      @required this.onExpandDescription,
       @required this.theme,
       @required this.localizations})
       : super(key: key);
@@ -47,7 +50,7 @@ class _PostViewState extends State<PostView> {
     return Column(
       children: [
         GestureDetector(
-          onTap: () => _showAuthorProfile(context),
+          onTap: () => widget.onAuthorTap(model),
           child: Container(
             color: Colors.transparent,
             child: Row(
@@ -93,24 +96,26 @@ class _PostViewState extends State<PostView> {
                       : null,
                 ))),
         Padding(
-            padding: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 8.0),
-            child: ExpandableText(model.description,
-                readMoreText: localizations.more,
-                readLessText: localizations.showLess,
-                theme: theme,
-                onExpand: _expandDescription,
-                initialExpandedValue: model.descriptionExpanded)),
+          padding: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 8.0),
+          child: ExpandableText(model.description,
+              readMoreText: localizations.more,
+              readLessText: localizations.showLess,
+              theme: theme,
+              onExpand: (expanded) => widget.onExpandDescription(
+                  model: model, isExpanded: expanded),
+              initialExpandedValue: model.descriptionExpanded),
+        ),
         Padding(
           padding: EdgeInsets.only(left: 16.0, right: 16.0),
           child: Row(
             children: [
               IconButton(
-                  icon: Icon(
-                      model.liked ? Icons.favorite : Icons.favorite_border,
-                      color: model.liked
-                          ? theme.colorScheme.onPrimary
-                          : theme.colorScheme.secondaryVariant),
-                  onPressed: _likePressed),
+                icon: Icon(model.liked ? Icons.favorite : Icons.favorite_border,
+                    color: model.liked
+                        ? theme.colorScheme.onPrimary
+                        : theme.colorScheme.secondaryVariant),
+                onPressed: () => widget.onLike(model),
+              ),
               Padding(
                   padding: EdgeInsets.only(right: 4),
                   child: Text(model.likes.toString(),
@@ -126,33 +131,10 @@ class _PostViewState extends State<PostView> {
     );
   }
 
-  void _likePressed() {
-    final event = model.liked ? Unlike(model.id) : Like(model.id);
-    BlocProvider.of<FeedBloc>(context).add(event);
-  }
-
   void _sharePressed() {
     // TODO: specify actual base url
     final baseUrl = 'https://tortiki.ru';
     final postUrl = '$baseUrl/post/${model.id}';
     Share.share(postUrl);
-  }
-
-  void _expandDescription(bool isExpanded) {
-    final event = isExpanded
-        ? ExpandDescription(model.id)
-        : CollapseDescription(model.id);
-    BlocProvider.of<FeedBloc>(context).add(event);
-  }
-
-  void _showAuthorProfile(BuildContext context) {
-    final screenData = ExternalConfectionerProfileScreenFactoryData(
-      confectionerId: model.userId,
-      confectionerName: model.userName,
-    );
-    final screen =
-        widget.confectionerProfileScreenFactory.createWidget(data: screenData);
-    final route = MaterialPageRoute(builder: (context) => screen);
-    Navigator.of(context).push(route);
   }
 }

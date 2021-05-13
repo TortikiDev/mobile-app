@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:widget_factory/widget_factory.dart';
 
 import '../../../../bloc/external_confectioner_profile/index.dart';
 import '../../../../data/http_client/responses/responses.dart';
@@ -9,8 +10,18 @@ import '../../../../utils/get_rating_star_color.dart';
 import '../../../../utils/string_is_valid_url.dart';
 import '../../../reusable/content_shimmer.dart';
 import '../../../reusable/disclosure.dart';
+import '../user_posts/user_posts_factory.dart';
 
 class ExternalConfectionerProfileScreen extends StatelessWidget {
+  final WidgetFactory userPostsScreenFacory;
+  final WidgetFactory userRecipesScreenFacory;
+
+  const ExternalConfectionerProfileScreen({
+    Key key,
+    @required this.userPostsScreenFacory,
+    @required this.userRecipesScreenFacory,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -142,9 +153,18 @@ class ExternalConfectionerProfileScreen extends StatelessWidget {
                             ),
                             SizedBox(height: 24),
                             Divider(),
-                            Disclosure(title: localizations.publications),
+                            GestureDetector(
+                              onTap: () => _goToPublications(context,
+                                  confectionerId: state.confectionerId),
+                              child:
+                                  Disclosure(title: localizations.publications),
+                            ),
                             Divider(),
-                            Disclosure(title: localizations.recipes),
+                            GestureDetector(
+                              onTap: () => _goToRecipes(context,
+                                  confectionerId: state.confectionerId),
+                              child: Disclosure(title: localizations.recipes),
+                            ),
                             Divider(),
                             SizedBox(height: 48),
                           ],
@@ -157,5 +177,21 @@ class ExternalConfectionerProfileScreen extends StatelessWidget {
         ),
       );
     });
+  }
+
+  void _goToPublications(BuildContext context, {@required int confectionerId}) {
+    final data =
+        UserPostsScreenFactoryData(isMyPosts: false, userId: confectionerId);
+    final screen = userPostsScreenFacory.createWidget(data: data);
+    final route = MaterialPageRoute(builder: (context) => screen);
+    Navigator.of(context).push(route);
+  }
+
+  void _goToRecipes(BuildContext context, {@required int confectionerId}) {
+    // final data =
+    // UserPostsScreenFactoryData(isMyPosts: false, userId: confectionerId);
+    final screen = userRecipesScreenFacory.createWidget();
+    final route = MaterialPageRoute(builder: (context) => screen);
+    Navigator.of(context).push(route);
   }
 }
