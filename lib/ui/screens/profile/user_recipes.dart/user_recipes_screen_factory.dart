@@ -6,20 +6,20 @@ import '../../../../bloc/user_recipes/index.dart';
 import '../../recipe_details/recipe_details_screen_factory.dart';
 import 'user_recipes_screen.dart';
 
-class UserPostsScreenFactoryData {
+class UserRecipesScreenFactoryData {
   final bool isMyRecipes;
   final int userId;
 
-  UserPostsScreenFactoryData({
+  UserRecipesScreenFactoryData({
     @required this.isMyRecipes,
     @required this.userId,
   });
 }
 
 class UserRecipesScreenFactory
-    implements WidgetFactory<UserPostsScreenFactoryData> {
+    implements WidgetFactory<UserRecipesScreenFactoryData> {
   @override
-  Widget createWidget({UserPostsScreenFactoryData data}) {
+  Widget createWidget({UserRecipesScreenFactoryData data}) {
     final recipeDetailsScreenFactory = RecipeDetailsScreenFactory();
     return BlocProvider(
       create: (context) => UserRecipesBloc(

@@ -11,6 +11,7 @@ import '../../../../utils/string_is_valid_url.dart';
 import '../../../reusable/content_shimmer.dart';
 import '../../../reusable/disclosure.dart';
 import '../user_posts/user_posts_factory.dart';
+import '../user_recipes.dart/user_recipes_screen_factory.dart';
 
 class ExternalConfectionerProfileScreen extends StatelessWidget {
   final WidgetFactory userPostsScreenFacory;
@@ -188,9 +189,9 @@ class ExternalConfectionerProfileScreen extends StatelessWidget {
   }
 
   void _goToRecipes(BuildContext context, {@required int confectionerId}) {
-    // final data =
-    // UserPostsScreenFactoryData(isMyPosts: false, userId: confectionerId);
-    final screen = userRecipesScreenFacory.createWidget();
+    final data = UserRecipesScreenFactoryData(
+        isMyRecipes: false, userId: confectionerId);
+    final screen = userRecipesScreenFacory.createWidget(data: data);
     final route = MaterialPageRoute(builder: (context) => screen);
     Navigator.of(context).push(route);
   }

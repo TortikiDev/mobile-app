@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:widget_factory/widget_factory.dart';
 
 import '../../../../bloc/external_confectioner_profile/index.dart';
-import '../../../reusable/in_develop_screen_factory.dart';
 import '../user_posts/user_posts_factory.dart';
+import '../user_recipes.dart/user_recipes_screen_factory.dart';
 import 'external_confectioner_profile_screen.dart';
 
 class ExternalConfectionerProfileScreenFactoryData {
@@ -22,7 +22,7 @@ class ExternalConfectionerProfileScreenFactory
   @override
   Widget createWidget({ExternalConfectionerProfileScreenFactoryData data}) {
     final userPostsScreenFacory = UserPostsScreenFactory();
-    final userRecipesScreenFacory = InDevelopWidgetFactory();
+    final userRecipesScreenFacory = UserRecipesScreenFactory();
 
     return BlocProvider(
       create: (context) => ExternalConfectionerProfileBloc(

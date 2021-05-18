@@ -21,7 +21,7 @@ class UserRecipesScreen extends StatelessWidget {
     final localizaitons = AppLocalizations.of(context);
 
     return Scaffold(
-      appBar: AppBar(title: Text(localizaitons.publications)),
+      appBar: AppBar(title: Text(localizaitons.recipes)),
       body: BlocBuilder<UserRecipesBloc, UserRecipesState>(
           builder: (context, state) {
         return state.loadingFirstPage
