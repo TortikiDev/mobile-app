@@ -27,9 +27,10 @@ dependencies:
     sdk: flutter
 
   # Business logic
-  flutter_bloc: ^6.0.6
+  flutter_bloc: ^6.1.0
   equatable: ^1.2.5
   package_info: ^0.4.3
+  mask_text_input_formatter: ^1.1.0
   # Networking
   dio: ^3.0.10
   cached_network_image: ^2.3.3

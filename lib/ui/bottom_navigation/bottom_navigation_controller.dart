@@ -4,6 +4,7 @@ import '../../app_localizations.dart';
 import '../app_theme.dart';
 import '../screens/main/main_screen_factory.dart';
 import 'bottom_navigation_item.dart';
+import '../screens/main/profile_screen_factory.dart';
 
 class BottomNaigationController extends StatefulWidget {
   BottomNaigationController({Key key}) : super(key: key);
@@ -54,8 +55,19 @@ class _BottomNaigationControllerState extends State<BottomNaigationController> {
             Container(
                 color: appTheme.colorScheme.background,
                 child: Center(
-                    child: Text(localizations.profile,
-                        style: theme.textTheme.button))),
+                    child: FlatButton(
+                        onPressed: () {
+                          print('test event');
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      ProfileScreenFactory().createWidget()));
+                        },
+                        child: Text("Тестовый текст для кнопки"))
+                    // Text(localizations.profile,
+                    //     style: theme.textTheme.button)
+                    )),
             BottomNavigationBarItem(
                 label: localizations.profile, icon: Icon(Icons.account_circle)))
       ];

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tortiki/bloc/base_bloc.dart';
 
 import '../../../../app_localizations.dart';
 import '../../../../bloc/feed/index.dart';

@@ -12,19 +12,20 @@ import 'reusable/show_dialog_mixin.dart';
 class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        title: 'Tortiki',
-        theme: appTheme,
-        localizationsDelegates: [
-          const AppLocalizationsDelegate(),
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate
-        ],
-        supportedLocales: [
-          const Locale('en'),
-          const Locale('ru'),
-        ],
-        home: _ErrorHandlingDecorator(child: BottomNaigationController()));
+    return _ErrorHandlingDecorator(
+        child: MaterialApp(
+            title: 'Tortiki',
+            theme: appTheme,
+            localizationsDelegates: [
+              const AppLocalizationsDelegate(),
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate
+            ],
+            supportedLocales: [
+              const Locale('en'),
+              const Locale('ru'),
+            ],
+            home: BottomNaigationController()));
   }
 }
 
