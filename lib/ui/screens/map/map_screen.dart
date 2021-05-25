@@ -260,39 +260,42 @@ class _MapScreenState extends State<MapScreen>
         builder: (context) {
           return GestureDetector(
             onTap: () => _tapOnConfectionerMarker(conf),
-            child: CircleAvatar(
-              key: ValueKey(isSelected),
-              radius: markerSize,
-              backgroundColor: borderColor,
-              child: conf.avatarUrl?.isValidUrl() ?? false
-                  ? CachedNetworkImage(
-                      key: Key(conf.avatarUrl),
-                      imageUrl: conf.avatarUrl,
-                      imageBuilder: (context, imageProvider) {
-                        return CircleAvatar(
-                          key: ValueKey(isSelected),
-                          radius: photoRadius,
-                          backgroundColor: Colors.transparent,
-                          backgroundImage: imageProvider,
-                        );
-                      },
-                      fit: BoxFit.cover,
-                    )
-                  : ClipRRect(
-                      borderRadius: BorderRadius.circular(photoRadius),
-                      child: Container(
-                        width: 2 * photoRadius,
-                        height: 2 * photoRadius,
-                        color: Colors.grey[300],
-                        padding: const EdgeInsets.all(4.0),
-                        child: Image.asset(
-                          getPlaceholderAssetName(
-                            size: AvatarSize.small,
-                            male: conf.gender == Gender.male,
+            child: Transform.rotate(
+              angle: -_mapController.rotation / 60,
+              child: CircleAvatar(
+                key: ValueKey(isSelected),
+                radius: markerSize,
+                backgroundColor: borderColor,
+                child: conf.avatarUrl?.isValidUrl() ?? false
+                    ? CachedNetworkImage(
+                        key: Key(conf.avatarUrl),
+                        imageUrl: conf.avatarUrl,
+                        imageBuilder: (context, imageProvider) {
+                          return CircleAvatar(
+                            key: ValueKey(isSelected),
+                            radius: photoRadius,
+                            backgroundColor: Colors.transparent,
+                            backgroundImage: imageProvider,
+                          );
+                        },
+                        fit: BoxFit.cover,
+                      )
+                    : ClipRRect(
+                        borderRadius: BorderRadius.circular(photoRadius),
+                        child: Container(
+                          width: 2 * photoRadius,
+                          height: 2 * photoRadius,
+                          color: Colors.grey[300],
+                          padding: const EdgeInsets.all(4.0),
+                          child: Image.asset(
+                            getPlaceholderAssetName(
+                              size: AvatarSize.small,
+                              male: conf.gender == Gender.male,
+                            ),
                           ),
                         ),
                       ),
-                    ),
+              ),
             ),
           );
         },
