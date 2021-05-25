@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:share/share.dart';
 
+import '../../../../data/http_client/responses/responses.dart';
 import '../../../reusable/complexity_cherries_widget.dart';
 import '../../../reusable/disclosure_with_image_view.dart';
 import '../../../reusable/show_dialog_mixin.dart';
@@ -79,9 +80,10 @@ class RecipeHeader extends StatelessWidget with ShowDialogMixin {
         ),
         SizedBox(height: 16),
         Divider(),
-        DisclosureWithImageView(
+        DisclosureWithAvatar(
           title: model.authorName,
           imageUrl: model.authorAvatarUrl,
+          male: model.authorGender == Gender.male,
           onTap: () => showAuthorProfile(model),
         ),
         Divider(),

@@ -53,6 +53,7 @@ void main() {
           userAvaratUrl: 'https://images.unsplash.com/photo',
           userName: 'Granny',
           userId: 1123,
+          userGender: Gender.female,
           imageUrl: 'https://images.unsplash.com/photo',
           description:
               'В качестве рекламы моего рецепта могу сказать следующее.',
@@ -63,6 +64,7 @@ void main() {
           userAvaratUrl: null,
           userName: 'DEady',
           userId: 1124,
+          userGender: Gender.male,
           imageUrl: 'https://images.unsplash.com/photo',
           description: 'Результат просто превосходный!',
           likes: 1250,
@@ -74,6 +76,7 @@ void main() {
           userAvaratUrl: 'https://images.unsplash.com/photo',
           userName: 'Granny',
           userId: 1123,
+          userGender: Gender.female,
           imageUrl: 'https://images.unsplash.com/photo',
           description:
               'В качестве рекламы моего рецепта могу сказать следующее.',
@@ -83,6 +86,7 @@ void main() {
           id: 124,
           userAvaratUrl: null,
           userName: 'DEady',
+          userGender: Gender.male,
           userId: 1124,
           imageUrl: 'https://images.unsplash.com/photo',
           description: 'Результат просто превосходный!',
@@ -131,6 +135,7 @@ void main() {
           userAvaratUrl: 'https://images.unsplash.com/photo',
           userName: 'Granny',
           userId: 1123,
+          userGender: Gender.female,
           imageUrl: 'https://images.unsplash.com/photo',
           description:
               'В качестве рекламы моего рецепта могу сказать следующее.',
@@ -141,6 +146,7 @@ void main() {
           userAvaratUrl: null,
           userName: 'DEady',
           userId: 1124,
+          userGender: Gender.male,
           imageUrl: 'https://images.unsplash.com/photo',
           description: 'Результат просто превосходный!',
           likes: 1250,
@@ -152,6 +158,7 @@ void main() {
           userAvaratUrl: 'https://images.unsplash.com/photo',
           userName: 'Granny',
           userId: 1123,
+          userGender: Gender.female,
           imageUrl: 'https://images.unsplash.com/photo',
           description:
               'В качестве рекламы моего рецепта могу сказать следующее.',
@@ -162,6 +169,7 @@ void main() {
           userAvaratUrl: null,
           userName: 'DEady',
           userId: 1124,
+          userGender: Gender.male,
           imageUrl: 'https://images.unsplash.com/photo',
           description: 'Результат просто превосходный!',
           likes: 1250,
@@ -202,6 +210,7 @@ void main() {
           userAvaratUrl: 'https://images.unsplash.com/photo',
           userName: 'Granny',
           userId: 1100,
+          userGender: Gender.female,
           imageUrl: 'https://images.unsplash.com/photo',
           description:
               'В качестве рекламы моего рецепта могу сказать следующее.',
@@ -215,6 +224,7 @@ void main() {
           userAvaratUrl: 'https://images.unsplash.com/photo',
           userName: 'Granny',
           userId: 1123,
+          userGender: Gender.female,
           imageUrl: 'https://images.unsplash.com/photo',
           description:
               'В качестве рекламы моего рецепта могу сказать следующее.',
@@ -225,6 +235,7 @@ void main() {
           userAvaratUrl: null,
           userName: 'DEady',
           userId: 1124,
+          userGender: Gender.male,
           imageUrl: 'https://images.unsplash.com/photo',
           description: 'Результат просто превосходный!',
           likes: 1250,
@@ -237,6 +248,7 @@ void main() {
               userAvaratUrl: 'https://images.unsplash.com/photo',
               userName: 'Granny',
               userId: 1123,
+              userGender: Gender.female,
               imageUrl: 'https://images.unsplash.com/photo',
               description:
                   'В качестве рекламы моего рецепта могу сказать следующее.',
@@ -247,6 +259,7 @@ void main() {
               userAvaratUrl: null,
               userName: 'DEady',
               userId: 1124,
+              userGender: Gender.male,
               imageUrl: 'https://images.unsplash.com/photo',
               description: 'Результат просто превосходный!',
               likes: 1250,
@@ -279,6 +292,7 @@ void main() {
           userAvaratUrl: 'https://images.unsplash.com/photo',
           userName: 'Granny',
           userId: 1123,
+          userGender: Gender.female,
           imageUrl: 'https://images.unsplash.com/photo',
           description:
               'В качестве рекламы моего рецепта могу сказать следующее.',
@@ -291,6 +305,7 @@ void main() {
           userAvaratUrl: 'https://images.unsplash.com/photo',
           userName: 'Granny',
           userId: 1123,
+          userGender: Gender.female,
           imageUrl: 'https://images.unsplash.com/photo',
           description:
               'В качестве рекламы моего рецепта могу сказать следующее.',
@@ -319,6 +334,7 @@ void main() {
           userAvaratUrl: 'https://images.unsplash.com/photo',
           userName: 'Granny',
           userId: 1123,
+          userGender: Gender.female,
           imageUrl: 'https://images.unsplash.com/photo',
           description:
               'В качестве рекламы моего рецепта могу сказать следующее.',
@@ -345,6 +361,7 @@ void main() {
           userAvaratUrl: 'https://images.unsplash.com/photo',
           userName: 'Granny',
           userId: 1123,
+          userGender: Gender.female,
           imageUrl: 'https://images.unsplash.com/photo',
           description:
               'В качестве рекламы моего рецепта могу сказать следующее.',
@@ -357,6 +374,7 @@ void main() {
           userAvaratUrl: 'https://images.unsplash.com/photo',
           userName: 'Granny',
           userId: 1123,
+          userGender: Gender.female,
           imageUrl: 'https://images.unsplash.com/photo',
           description:
               'В качестве рекламы моего рецепта могу сказать следующее.',
@@ -385,6 +403,7 @@ void main() {
           userAvaratUrl: 'https://images.unsplash.com/photo',
           userName: 'Granny',
           userId: 1123,
+          userGender: Gender.female,
           imageUrl: 'https://images.unsplash.com/photo',
           description:
               'В качестве рекламы моего рецепта могу сказать следующее.',

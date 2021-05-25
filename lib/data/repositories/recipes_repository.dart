@@ -141,6 +141,7 @@ class RecipesRepository {
               'https://images.unsplash.com/photo-1510616022132-9976466385a8',
           userName: 'Granny',
           userId: 123,
+          userGender: Gender.female,
           description:
               'Чтобы придать обычным кексам более эффектный внешний вид,'
               ' вмешайте в часть теста растопленный шоколад и немного какао. '

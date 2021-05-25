@@ -97,6 +97,7 @@ class UserPostsBloc extends BaseBloc<UserPostsEvent, UserPostsState> {
           userAvaratUrl: response.userAvaratUrl,
           userName: response.userName,
           userId: response.userId,
+          userGender: response.userGender,
           imageUrl: response.imageUrl,
           description: response.description,
           likes: response.likes,

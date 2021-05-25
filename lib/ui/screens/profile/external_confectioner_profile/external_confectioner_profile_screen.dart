@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -7,9 +6,10 @@ import 'package:widget_factory/widget_factory.dart';
 import '../../../../bloc/external_confectioner_profile/index.dart';
 import '../../../../data/http_client/responses/responses.dart';
 import '../../../../utils/get_rating_star_color.dart';
-import '../../../../utils/string_is_valid_url.dart';
 import '../../../reusable/content_shimmer.dart';
 import '../../../reusable/disclosure.dart';
+import '../../../reusable/image_views/avatar.dart';
+import '../../../reusable/image_views/avatar_size.dart';
 import '../user_posts/user_posts_factory.dart';
 import '../user_recipes.dart/user_recipes_screen_factory.dart';
 
@@ -55,13 +55,12 @@ class ExternalConfectionerProfileScreen extends StatelessWidget {
               stretch: true,
               toolbarHeight: 0,
               flexibleSpace: FlexibleSpaceBar(
-                background: confectioner?.avatarUrl?.isValidUrl() ?? false
-                    ? CachedNetworkImage(
-                        imageUrl: confectioner.avatarUrl,
-                        fit: BoxFit.cover,
-                      )
-                    // TODO: use boy or girls avatar placeholder
-                    : Container(color: Colors.grey[300]),
+                background: Avatar(
+                  url: confectioner.avatarUrl,
+                  male: state.confectionerGender == Gender.male,
+                  placeholderSize: AvatarSize.large,
+                  placeholderPadding: const EdgeInsets.all(32),
+                ),
               ),
             ),
             SliverList(

@@ -9,6 +9,7 @@ class Avatar extends StatelessWidget {
   final double cornerRadius;
   final bool male;
   final AvatarSize placeholderSize;
+  final EdgeInsets placeholderPadding;
 
   const Avatar({
     Key key,
@@ -16,6 +17,7 @@ class Avatar extends StatelessWidget {
     this.cornerRadius = 0.0,
     this.male = false,
     this.placeholderSize = AvatarSize.small,
+    this.placeholderPadding = const EdgeInsets.all(8.0),
   }) : super(key: key);
 
   @override
@@ -34,7 +36,7 @@ class Avatar extends StatelessWidget {
               fit: BoxFit.cover,
             )
           : Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: placeholderPadding,
               child: Image.asset(
                 getPlaceholderAssetName(
                   size: placeholderSize,

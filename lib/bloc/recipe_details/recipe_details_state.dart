@@ -26,6 +26,7 @@ class RecipeDetailsState extends Equatable {
           complexity: recipe.complexity,
           authorAvatarUrl: recipe.userAvaratUrl,
           authorName: recipe.userName ?? '',
+          authorGender: recipe.userGender,
           authorId: recipe.userId,
           isInBookmarks: isInBookmarks,
         ),

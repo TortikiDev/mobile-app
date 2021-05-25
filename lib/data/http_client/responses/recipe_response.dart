@@ -9,6 +9,8 @@ class RecipeResponse extends Equatable {
   final String userAvaratUrl;
   final String userName;
   final int userId;
+  /// From [Gender]
+  final int userGender;
   final String description;
   final List<String> _ingredients;
   final String cookingSteps;
@@ -27,6 +29,7 @@ class RecipeResponse extends Equatable {
     this.userAvaratUrl,
     this.userName,
     this.userId,
+    this.userGender,
     this.description,
     List<String> ingredients,
     this.cookingSteps,
@@ -42,6 +45,7 @@ class RecipeResponse extends Equatable {
     String userAvaratUrl,
     String userName,
     int userId,
+    int userGender,
     String description,
     List<String> ingredients,
     String cookingSteps,
@@ -55,6 +59,7 @@ class RecipeResponse extends Equatable {
         userAvaratUrl: userAvaratUrl ?? this.userAvaratUrl,
         userName: userName ?? this.userName,
         userId: userId ?? this.userId,
+        userGender: userGender ?? this.userGender,
         description: description ?? this.description,
         ingredients: ingredients ?? _ingredients,
         cookingSteps: cookingSteps ?? this.cookingSteps,
@@ -70,6 +75,7 @@ class RecipeResponse extends Equatable {
         userAvaratUrl,
         userName,
         userId,
+        userGender,
         description,
         _ingredients,
         cookingSteps,

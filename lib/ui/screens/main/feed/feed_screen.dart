@@ -118,6 +118,7 @@ class _ScrollView extends StatelessWidget {
     final screenData = ExternalConfectionerProfileScreenFactoryData(
       confectionerId: model.userId,
       confectionerName: model.userName,
+      confectionerGender: model.userGender,
     );
     final screen =
         confectionerProfileScreenFactory.createWidget(data: screenData);

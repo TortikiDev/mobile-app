@@ -168,6 +168,7 @@ class _ScrollViewState extends State<_ScrollView> {
     final screenData = ExternalConfectionerProfileScreenFactoryData(
       confectionerId: model.id,
       confectionerName: model.name,
+      confectionerGender: model.gender,
     );
     final screen =
         widget.confectionerProfileScreenFactory.createWidget(data: screenData);

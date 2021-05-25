@@ -21,12 +21,14 @@ class ExternalConfectionerProfileBloc extends BaseBloc<
   ExternalConfectionerProfileBloc({
     @required int confectionerId,
     @required String confectionerName,
+    @required int confectionerGender,
     @required this.confectionersRepository,
     @required ErrorHandlingBloc errorHandlingBloc,
   }) : super(
             initialState: ExternalConfectionerProfileState.initial(
               confectionerId: confectionerId,
               confectionerName: confectionerName,
+              confectionerGender: confectionerGender,
             ),
             errorHandlingBloc: errorHandlingBloc);
 

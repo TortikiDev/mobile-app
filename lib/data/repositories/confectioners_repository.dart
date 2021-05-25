@@ -42,7 +42,7 @@ class ConfectionersRepository {
         gender: Gender.male,
         address: 'ул. Островского, 28а',
         avatarUrl:
-            'https://images.unsplash.com/photo-1510616022132-9976466385a8',
+            null, //https://images.unsplash.com/photo-1510616022132-9976466385a8',
         starType: ConfectionerRatingStarType.gold,
         rating: 433,
         coordinate: LatLongResponse(54.602, 39.863),
@@ -60,7 +60,8 @@ class ConfectionersRepository {
       address: 'ул. Островского, 28а',
       about: 'Люблю готовить тортики 🎂. По любым вопросам'
           ' пишите мне в соцсетях или или на почту',
-      avatarUrl: 'https://images.unsplash.com/photo-1510616022132-9976466385a8',
+      avatarUrl:
+          null, //'https://images.unsplash.com/photo-1510616022132-9976466385a8',
       starType: ConfectionerRatingStarType.gold,
       rating: 433,
       coordinate: LatLongResponse(54.602, 39.863),

@@ -10,10 +10,12 @@ import 'external_confectioner_profile_screen.dart';
 class ExternalConfectionerProfileScreenFactoryData {
   final int confectionerId;
   final String confectionerName;
+  final int confectionerGender;
 
   ExternalConfectionerProfileScreenFactoryData({
     @required this.confectionerId,
     @required this.confectionerName,
+    @required this.confectionerGender,
   });
 }
 
@@ -28,6 +30,7 @@ class ExternalConfectionerProfileScreenFactory
       create: (context) => ExternalConfectionerProfileBloc(
         confectionerId: data.confectionerId,
         confectionerName: data.confectionerName,
+        confectionerGender: data.confectionerGender,
         confectionersRepository: RepositoryProvider.of(context),
         errorHandlingBloc: BlocProvider.of(context),
       )..add(BlocInit()),

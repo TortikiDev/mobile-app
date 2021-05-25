@@ -202,6 +202,7 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen>
     final screenData = ExternalConfectionerProfileScreenFactoryData(
       confectionerId: model.authorId,
       confectionerName: model.authorName,
+      confectionerGender: model.authorGender,
     );
     final screen =
         widget.confectionerProfileScreenFactory.createWidget(data: screenData);

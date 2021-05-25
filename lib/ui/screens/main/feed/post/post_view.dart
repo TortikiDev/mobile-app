@@ -5,7 +5,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:pinch_zoom/pinch_zoom.dart';
 import 'package:share/share.dart';
 
+import '../../../../../data/http_client/responses/responses.dart';
 import '../../../../../utils/string_is_valid_url.dart';
+import '../../../../reusable/image_views/circlar_avatar.dart';
 import '../../../../reusable/text/expandable_text.dart';
 import 'post_view_model.dart';
 
@@ -56,21 +58,13 @@ class _PostViewState extends State<PostView> {
             child: Row(
               children: [
                 Padding(
-                    padding: EdgeInsets.all(16.0),
-                    child: CircleAvatar(
-                        radius: 20,
-                        backgroundColor: Colors.grey[300],
-                        child: model.userAvaratUrl?.isValidUrl() ?? false
-                            ? CachedNetworkImage(
-                                imageUrl: model.userAvaratUrl,
-                                imageBuilder: (context, imageProvider) {
-                                  return CircleAvatar(
-                                      radius: 19.5,
-                                      backgroundColor: Colors.transparent,
-                                      backgroundImage: imageProvider);
-                                },
-                                fit: BoxFit.cover)
-                            : null)),
+                  padding: EdgeInsets.all(16.0),
+                  child: CirclarAvatar(
+                    radius: 20,
+                    url: model.userAvaratUrl,
+                    male: model.userGender == Gender.male,
+                  ),
+                ),
                 Expanded(
                     child: Padding(
                         padding: EdgeInsets.only(right: 16.0),
@@ -92,7 +86,10 @@ class _PostViewState extends State<PostView> {
                           maxScale: 1.2,
                           zoomedBackgroundColor: Colors.black.withOpacity(0.1),
                           image: CachedNetworkImage(
-                              imageUrl: model.imageUrl, fit: BoxFit.cover))
+                            imageUrl: model.imageUrl,
+                            fit: BoxFit.cover,
+                          ),
+                        )
                       : null,
                 ))),
         Padding(
@@ -116,14 +113,19 @@ class _PostViewState extends State<PostView> {
                         : theme.colorScheme.secondaryVariant),
                 onPressed: () => widget.onLike(model),
               ),
-              Padding(
-                  padding: EdgeInsets.only(right: 4),
-                  child: Text(model.likes.toString(),
-                      style: theme.textTheme.caption)),
+              SizedBox(
+                width: 28,
+                child: Text(
+                  model.likes.toString(),
+                  style: theme.textTheme.caption,
+                ),
+              ),
+              SizedBox(width: 4),
               IconButton(
-                  icon: Icon(Icons.share,
-                      color: theme.colorScheme.secondaryVariant),
-                  onPressed: _sharePressed)
+                icon: Icon(Icons.share,
+                    color: theme.colorScheme.secondaryVariant),
+                onPressed: _sharePressed,
+              )
             ],
           ),
         ),

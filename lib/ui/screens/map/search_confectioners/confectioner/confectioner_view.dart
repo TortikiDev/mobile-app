@@ -1,9 +1,10 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../data/http_client/responses/confectioner/rating_star_type.dart';
+import '../../../../../data/http_client/responses/responses.dart';
 import '../../../../../utils/get_rating_star_color.dart';
+import '../../../../reusable/image_views/avatar.dart';
 import 'confectioner_view_model.dart';
 
 class ConfectionerView extends StatelessWidget {
@@ -40,11 +41,9 @@ class ConfectionerView extends StatelessWidget {
                         color: Colors.grey[300],
                       ),
                       clipBehavior: Clip.hardEdge,
-                      child: CachedNetworkImage(
-                        // TODO: add placeholder
-                        // depends on gender (boy or girl icon)
-                        imageUrl: model.avatarUrl,
-                        fit: BoxFit.cover,
+                      child: Avatar(
+                        url: model.avatarUrl,
+                        male: model.gender == Gender.male,
                       ),
                     ),
                   ),

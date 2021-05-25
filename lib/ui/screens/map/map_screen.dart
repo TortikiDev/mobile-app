@@ -14,8 +14,10 @@ import 'package:widget_factory/widget_factory.dart';
 import '../../../bloc/map/index.dart';
 import '../../../data/http_client/requests/requests.dart';
 import '../../../data/http_client/responses/confectioner/confectioner_short_response.dart';
+import '../../../data/http_client/responses/responses.dart';
 import '../../../utils/string_is_valid_url.dart';
 import '../../constants.dart';
+import '../../reusable/image_views/avatar_size.dart';
 import '../../reusable/show_dialog_mixin.dart';
 import 'animated_map_controller.dart';
 import 'confectioner_panel.dart';
@@ -276,7 +278,21 @@ class _MapScreenState extends State<MapScreen>
                       },
                       fit: BoxFit.cover,
                     )
-                  : Container(color: Colors.grey[300]),
+                  : ClipRRect(
+                      borderRadius: BorderRadius.circular(photoRadius),
+                      child: Container(
+                        width: 2 * photoRadius,
+                        height: 2 * photoRadius,
+                        color: Colors.grey[300],
+                        padding: const EdgeInsets.all(4.0),
+                        child: Image.asset(
+                          getPlaceholderAssetName(
+                            size: AvatarSize.small,
+                            male: conf.gender == Gender.male,
+                          ),
+                        ),
+                      ),
+                    ),
             ),
           );
         },

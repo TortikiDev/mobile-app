@@ -1,18 +1,19 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-import '../../utils/string_is_valid_url.dart';
+import 'image_views/circlar_avatar.dart';
 
-class DisclosureWithImageView extends StatelessWidget {
+class DisclosureWithAvatar extends StatelessWidget {
   final String imageUrl;
+  final bool male;
   final String title;
   final double height;
   final VoidCallback onTap;
 
-  const DisclosureWithImageView({
+  const DisclosureWithAvatar({
     Key key,
     @required this.title,
     this.imageUrl,
+    this.male = false,
     this.height = 56,
     this.onTap,
   }) : super(key: key);
@@ -30,21 +31,10 @@ class DisclosureWithImageView extends StatelessWidget {
           padding: EdgeInsets.fromLTRB(16, 8, 8, 8),
           child: Row(
             children: [
-              CircleAvatar(
+              CirclarAvatar(
                 radius: 20,
-                backgroundColor: Colors.grey[300],
-                child: imageUrl?.isValidUrl() ?? false
-                    ? CachedNetworkImage(
-                        imageUrl: imageUrl,
-                        imageBuilder: (context, imageProvider) {
-                          return CircleAvatar(
-                              radius: 19.5,
-                              backgroundColor: Colors.transparent,
-                              backgroundImage: imageProvider);
-                        },
-                        fit: BoxFit.cover,
-                      )
-                    : null,
+                url: imageUrl,
+                male: male,
               ),
               SizedBox(width: 16),
               Expanded(child: Text(title, style: theme.textTheme.subtitle1)),

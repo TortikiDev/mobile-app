@@ -51,6 +51,7 @@ class RecipeDetailsBloc
         authorAvatarUrl: recipe.userAvaratUrl,
         authorName: recipe.userName,
         authorId: recipe.userId,
+        authorGender: recipe.userGender,
         isInBookmarks: state.headerViewModel.isInBookmarks,
       );
       yield state.copy(

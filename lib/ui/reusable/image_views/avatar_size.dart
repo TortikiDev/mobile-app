@@ -16,8 +16,8 @@ String getPlaceholderAssetName({
   }
 
   if (male) {
-    return 'assets/boy_$sizeSuffix';
+    return 'assets/boy_$sizeSuffix.png';
   } else {
-    return 'assets/girl_$sizeSuffix';
+    return 'assets/girl_$sizeSuffix.png';
   }
 }

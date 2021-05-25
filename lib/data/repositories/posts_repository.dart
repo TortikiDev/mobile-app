@@ -15,6 +15,7 @@ class PostsRepository {
               'https://images.unsplash.com/photo-1510616022132-9976466385a8',
           userName: 'Granny',
           userId: 54321,
+          userGender: Gender.female,
           imageUrl:
               'https://images.unsplash.com/photo-1486427944299-d1955d23e34d',
           description:
@@ -26,6 +27,7 @@ class PostsRepository {
           userAvaratUrl: null,
           userName: 'DEady',
           userId: 54322,
+          userGender: Gender.male,
           imageUrl:
               'https://images.unsplash.com/photo-1510616022132-9976466385a8',
           description:
@@ -69,6 +71,7 @@ class PostsRepository {
               'https://images.unsplash.com/photo-1510616022132-9976466385a8',
           userName: 'Granny',
           userId: 54321,
+          userGender: Gender.female,
           imageUrl:
               'https://images.unsplash.com/photo-1486427944299-d1955d23e34d',
           description:
@@ -80,6 +83,7 @@ class PostsRepository {
           userAvaratUrl:
               'https://images.unsplash.com/photo-1510616022132-9976466385a8',
           userName: 'Granny',
+          userGender: Gender.female,
           userId: 54322,
           imageUrl:
               'https://images.unsplash.com/photo-1510616022132-9976466385a8',
@@ -122,6 +126,7 @@ class PostsRepository {
           userAvaratUrl:
               'https://images.unsplash.com/photo-1510616022132-9976466385a8',
           userName: 'Granny',
+          userGender: Gender.female,
           userId: 54321,
           imageUrl:
               'https://images.unsplash.com/photo-1486427944299-d1955d23e34d',
@@ -134,6 +139,7 @@ class PostsRepository {
           userAvaratUrl:
               'https://images.unsplash.com/photo-1510616022132-9976466385a8',
           userName: 'Granny',
+          userGender: Gender.female,
           userId: 54322,
           imageUrl:
               'https://images.unsplash.com/photo-1510616022132-9976466385a8',

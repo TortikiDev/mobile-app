@@ -6,6 +6,8 @@ import 'avatar_size.dart';
 class CirclarAvatar extends StatelessWidget {
   final String url;
   final double radius;
+  final Color borderColor;
+  final Color backgroundColor;
   final bool male;
   final AvatarSize placeholderSize;
 
@@ -13,6 +15,8 @@ class CirclarAvatar extends StatelessWidget {
     Key key,
     @required this.url,
     @required this.radius,
+    this.borderColor,
+    this.backgroundColor,
     this.male = false,
     this.placeholderSize = AvatarSize.small,
   }) : super(key: key);
@@ -23,27 +27,40 @@ class CirclarAvatar extends StatelessWidget {
 
     return CircleAvatar(
       radius: radius,
-      backgroundColor: Colors.grey[300],
+      backgroundColor: borderColor ?? Colors.grey[300],
       child: isValidUrl
           ? CachedNetworkImage(
               imageUrl: url,
               imageBuilder: (context, imageProvider) {
                 return CircleAvatar(
                   radius: radius - 0.5,
-                  backgroundColor: Colors.transparent,
+                  backgroundColor: backgroundColor ?? Colors.grey[300],
                   backgroundImage: imageProvider,
                 );
               },
               fit: BoxFit.cover,
             )
-          : Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Image.asset(
-                getPlaceholderAssetName(
-                  size: placeholderSize,
-                  male: male,
-                ),
-              ),
+          : Builder(
+              builder: (context) {
+                final size = 2 * radius - 1;
+
+                return ClipRRect(
+                  borderRadius: BorderRadius.circular(radius - 0.5),
+                  clipBehavior: Clip.hardEdge,
+                  child: Container(
+                    width: size,
+                    height: size,
+                    color: backgroundColor ?? Colors.grey[300],
+                    padding: const EdgeInsets.all(4.0),
+                    child: Image.asset(
+                      getPlaceholderAssetName(
+                        size: placeholderSize,
+                        male: male,
+                      ),
+                    ),
+                  ),
+                );
+              },
             ),
     );
   }
