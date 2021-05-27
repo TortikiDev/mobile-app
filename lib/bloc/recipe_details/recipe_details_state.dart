@@ -49,4 +49,7 @@ class RecipeDetailsState extends Equatable {
         loading,
         headerViewModel,
       ];
+
+  @override
+  bool get stringify => true;
 }

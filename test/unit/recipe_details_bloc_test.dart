@@ -88,7 +88,7 @@ void main() {
         complexity: 4.0,
         authorAvatarUrl: 'http://avatar.png',
         authorName: 'name',
-        authorGender: Gender.male,
+        authorGender: Gender.female,
         authorId: 123,
       ),
     );

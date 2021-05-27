@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:mockito/mockito.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tortiki/bloc/external_confectioner_profile/index.dart';
-import 'package:tortiki/data/http_client/responses/responses.dart';
 import 'package:tortiki/ui/screens/profile/external_confectioner_profile/external_confectioner_profile_screen.dart';
 import 'package:tortiki/ui/screens/profile/external_confectioner_profile/external_confectioner_profile_screen_factory.dart';
 
