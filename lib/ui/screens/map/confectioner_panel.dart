@@ -1,18 +1,24 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:map_launcher/map_launcher.dart';
+import 'package:widget_factory/widget_factory.dart';
 
 import '../../../data/http_client/responses/responses.dart';
 import '../../../utils/get_rating_star_color.dart';
 import '../../reusable/buttons/secondary_button.dart';
+import '../../reusable/image_views/avatar.dart';
+import '../../reusable/image_views/avatar_size.dart';
+import '../profile/external_confectioner_profile/external_confectioner_profile_screen_factory.dart';
 
 class ConfectionerPanel extends StatelessWidget {
+  final WidgetFactory confectionerProfileScreenFactory;
   final ConfectionerShortResponse confectioner;
+
   const ConfectionerPanel({
     Key key,
+    @required this.confectionerProfileScreenFactory,
     @required this.confectioner,
   }) : super(key: key);
 
@@ -55,11 +61,10 @@ class ConfectionerPanel extends StatelessWidget {
                       color: Colors.grey[300],
                     ),
                     clipBehavior: Clip.hardEdge,
-                    child: CachedNetworkImage(
-                      // TODO: add placeholder 
-                      // depends on gender (boy or girl icon)
-                      imageUrl: confectioner.avatarUrl,
-                      fit: BoxFit.cover,
+                    child: Avatar(
+                      url: confectioner.avatarUrl,
+                      male: confectioner.gender == Gender.male,
+                      placeholderSize: AvatarSize.large,
                     ),
                   ),
                 ),
@@ -145,7 +150,15 @@ class ConfectionerPanel extends StatelessWidget {
   }
 
   void _goToProfile(BuildContext context) {
-    // TODO: implement _goToProfile
+    final screenData = ExternalConfectionerProfileScreenFactoryData(
+      confectionerId: confectioner.id,
+      confectionerName: confectioner.name,
+      confectionerGender: confectioner.gender,
+    );
+    final screen =
+        confectionerProfileScreenFactory.createWidget(data: screenData);
+    final route = MaterialPageRoute(builder: (context) => screen);
+    Navigator.of(context).push(route);
   }
 
   Future<void> _showDirections(BuildContext context) async {

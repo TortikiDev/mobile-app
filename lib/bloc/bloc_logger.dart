@@ -19,7 +19,7 @@ class BlocLogger extends BlocObserver {
   }
 
   @override
-  void onError(Cubit cubit, Object error, StackTrace stackTrace) {
+  void onError(BlocBase cubit, Object error, StackTrace stackTrace) {
     debugPrint(
         "[$_tag error ${DateTime.now().toString()}] ${error.toString()}");
     super.onError(cubit, error, stackTrace);

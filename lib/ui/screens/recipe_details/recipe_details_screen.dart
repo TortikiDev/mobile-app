@@ -1,16 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:widget_factory/widget_factory.dart';
 
 import '../../../bloc/recipe_details/index.dart';
 import '../../reusable/content_shimmer.dart';
 import '../../reusable/images_collection.dart';
+import '../profile/external_confectioner_profile/external_confectioner_profile_screen_factory.dart';
 import 'recipe_header/recipe_header.dart';
 import 'recipe_header/recipe_header_view_model.dart';
 import 'vote_widget.dart';
 
 class RecipeDetailsScreen extends StatefulWidget {
-  const RecipeDetailsScreen({Key key}) : super(key: key);
+  final WidgetFactory confectionerProfileScreenFactory;
+
+  const RecipeDetailsScreen({
+    Key key,
+    @required this.confectionerProfileScreenFactory,
+  }) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _RecipeDetailsScreenState();
@@ -43,7 +50,8 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen>
         children: [
           BlocBuilder<RecipeDetailsBloc, RecipeDetailsState>(
             builder: (context, state) => CustomScrollView(
-              physics: BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(
+                  parent: AlwaysScrollableScrollPhysics()),
               controller: scrollController,
               slivers: [
                 SliverAppBar(
@@ -65,6 +73,8 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen>
                             model: state.headerViewModel,
                             addToBookmarks: (model) =>
                                 _addRecipeToBookmarks(model, context),
+                            showAuthorProfile: (model) =>
+                                _showAuthorProfile(model, context),
                           ),
                           if (!state.loading)
                             Padding(
@@ -186,6 +196,18 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen>
     final event = Bookmarks(model);
     final bloc = BlocProvider.of<RecipeDetailsBloc>(context);
     bloc.add(event);
+  }
+
+  void _showAuthorProfile(RecipeHeaderViewModel model, BuildContext context) {
+    final screenData = ExternalConfectionerProfileScreenFactoryData(
+      confectionerId: model.authorId,
+      confectionerName: model.authorName,
+      confectionerGender: model.authorGender,
+    );
+    final screen =
+        widget.confectionerProfileScreenFactory.createWidget(data: screenData);
+    final route = MaterialPageRoute(builder: (context) => screen);
+    Navigator.of(context).push(route);
   }
 
   void _onScroll() {

@@ -6,7 +6,7 @@ import 'test_recipe_details_screen_factory.dart';
 
 void main() {
   testWidgets('Recipe details screen smoke test', (tester) async {
-    final bookmarksScreenFactory = TestRecipeDetailsScreeFactory();
+    final bookmarksScreenFactory = TestRecipeDetailsScreenFactory();
     await tester.pumpWidget(
         makeTestableWidget(child: bookmarksScreenFactory.createWidget()));
     await tester.pumpAndSettle();

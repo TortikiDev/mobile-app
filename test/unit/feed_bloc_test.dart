@@ -26,8 +26,7 @@ void main() {
     postsRepository = _MockPostsRepository();
 
     sut = FeedBloc(
-        postsRepository: postsRepository,
-        errorHandlingBloc: errorHandlingBloc);
+        postsRepository: postsRepository, errorHandlingBloc: errorHandlingBloc);
   });
 
   tearDown(() {
@@ -41,7 +40,7 @@ void main() {
   test('close does not emit new states', () {
     sut?.close();
     expectLater(
-      sut,
+      sut.stream,
       emitsDone,
     );
   });
@@ -53,6 +52,8 @@ void main() {
           id: 123,
           userAvaratUrl: 'https://images.unsplash.com/photo',
           userName: 'Granny',
+          userId: 1123,
+          userGender: Gender.female,
           imageUrl: 'https://images.unsplash.com/photo',
           description:
               'В качестве рекламы моего рецепта могу сказать следующее.',
@@ -62,6 +63,8 @@ void main() {
           id: 124,
           userAvaratUrl: null,
           userName: 'DEady',
+          userId: 1124,
+          userGender: Gender.male,
           imageUrl: 'https://images.unsplash.com/photo',
           description: 'Результат просто превосходный!',
           likes: 1250,
@@ -72,6 +75,8 @@ void main() {
           id: 123,
           userAvaratUrl: 'https://images.unsplash.com/photo',
           userName: 'Granny',
+          userId: 1123,
+          userGender: Gender.female,
           imageUrl: 'https://images.unsplash.com/photo',
           description:
               'В качестве рекламы моего рецепта могу сказать следующее.',
@@ -81,6 +86,8 @@ void main() {
           id: 124,
           userAvaratUrl: null,
           userName: 'DEady',
+          userGender: Gender.male,
+          userId: 1124,
           imageUrl: 'https://images.unsplash.com/photo',
           description: 'Результат просто превосходный!',
           likes: 1250,
@@ -97,7 +104,7 @@ void main() {
 
     // then
     expectLater(
-      sut,
+      sut.stream,
       emitsInOrder([expectedState1, expectedState2]),
     );
   });
@@ -110,12 +117,14 @@ void main() {
     final expectedState2 = initialState.copy(loadingFirstPage: false);
 
     // when
-    when(postsRepository.getPosts()).thenThrow(DioError());
+    when(postsRepository.getPosts()).thenThrow(
+      DioError(requestOptions: RequestOptions(path: '/')),
+    );
     sut.add(BlocInit());
 
     // then
     expectLater(
-      sut,
+      sut.stream,
       emitsInOrder([expectedState1, expectedState2]),
     );
   });
@@ -127,6 +136,8 @@ void main() {
           id: 123,
           userAvaratUrl: 'https://images.unsplash.com/photo',
           userName: 'Granny',
+          userId: 1123,
+          userGender: Gender.female,
           imageUrl: 'https://images.unsplash.com/photo',
           description:
               'В качестве рекламы моего рецепта могу сказать следующее.',
@@ -136,6 +147,8 @@ void main() {
           id: 124,
           userAvaratUrl: null,
           userName: 'DEady',
+          userId: 1124,
+          userGender: Gender.male,
           imageUrl: 'https://images.unsplash.com/photo',
           description: 'Результат просто превосходный!',
           likes: 1250,
@@ -146,6 +159,8 @@ void main() {
           id: 123,
           userAvaratUrl: 'https://images.unsplash.com/photo',
           userName: 'Granny',
+          userId: 1123,
+          userGender: Gender.female,
           imageUrl: 'https://images.unsplash.com/photo',
           description:
               'В качестве рекламы моего рецепта могу сказать следующее.',
@@ -155,6 +170,8 @@ void main() {
           id: 124,
           userAvaratUrl: null,
           userName: 'DEady',
+          userId: 1124,
+          userGender: Gender.male,
           imageUrl: 'https://images.unsplash.com/photo',
           description: 'Результат просто превосходный!',
           likes: 1250,
@@ -169,7 +186,7 @@ void main() {
 
     // then
     expectLater(
-      sut,
+      sut.stream,
       emitsInOrder([expectedState]),
     );
   });
@@ -180,7 +197,9 @@ void main() {
     // given
 
     // when
-    when(postsRepository.getPosts()).thenThrow(DioError());
+    when(postsRepository.getPosts()).thenThrow(
+      DioError(requestOptions: RequestOptions(path: '/')),
+    );
     sut.add(BlocInit());
 
     // then
@@ -194,6 +213,8 @@ void main() {
           id: 100,
           userAvaratUrl: 'https://images.unsplash.com/photo',
           userName: 'Granny',
+          userId: 1100,
+          userGender: Gender.female,
           imageUrl: 'https://images.unsplash.com/photo',
           description:
               'В качестве рекламы моего рецепта могу сказать следующее.',
@@ -206,6 +227,8 @@ void main() {
           id: 123,
           userAvaratUrl: 'https://images.unsplash.com/photo',
           userName: 'Granny',
+          userId: 1123,
+          userGender: Gender.female,
           imageUrl: 'https://images.unsplash.com/photo',
           description:
               'В качестве рекламы моего рецепта могу сказать следующее.',
@@ -215,6 +238,8 @@ void main() {
           id: 124,
           userAvaratUrl: null,
           userName: 'DEady',
+          userId: 1124,
+          userGender: Gender.male,
           imageUrl: 'https://images.unsplash.com/photo',
           description: 'Результат просто превосходный!',
           likes: 1250,
@@ -226,6 +251,8 @@ void main() {
               id: 123,
               userAvaratUrl: 'https://images.unsplash.com/photo',
               userName: 'Granny',
+              userId: 1123,
+              userGender: Gender.female,
               imageUrl: 'https://images.unsplash.com/photo',
               description:
                   'В качестве рекламы моего рецепта могу сказать следующее.',
@@ -235,6 +262,8 @@ void main() {
               id: 124,
               userAvaratUrl: null,
               userName: 'DEady',
+              userId: 1124,
+              userGender: Gender.male,
               imageUrl: 'https://images.unsplash.com/photo',
               description: 'Результат просто превосходный!',
               likes: 1250,
@@ -254,7 +283,7 @@ void main() {
 
     // then
     expectLater(
-      sut,
+      sut.stream,
       emitsInOrder([expectedState1, expectedState2]),
     );
   });
@@ -266,6 +295,8 @@ void main() {
           id: 123,
           userAvaratUrl: 'https://images.unsplash.com/photo',
           userName: 'Granny',
+          userId: 1123,
+          userGender: Gender.female,
           imageUrl: 'https://images.unsplash.com/photo',
           description:
               'В качестве рекламы моего рецепта могу сказать следующее.',
@@ -277,6 +308,8 @@ void main() {
           id: 123,
           userAvaratUrl: 'https://images.unsplash.com/photo',
           userName: 'Granny',
+          userId: 1123,
+          userGender: Gender.female,
           imageUrl: 'https://images.unsplash.com/photo',
           description:
               'В качестве рекламы моего рецепта могу сказать следующее.',
@@ -294,7 +327,7 @@ void main() {
     sut.add(Like(123));
 
     // then
-    expectLater(sut, emits(expectedState));
+    expectLater(sut.stream, emits(expectedState));
   });
 
   test('Like event invokes likePost() repository method', () async {
@@ -304,6 +337,8 @@ void main() {
           id: 123,
           userAvaratUrl: 'https://images.unsplash.com/photo',
           userName: 'Granny',
+          userId: 1123,
+          userGender: Gender.female,
           imageUrl: 'https://images.unsplash.com/photo',
           description:
               'В качестве рекламы моего рецепта могу сказать следующее.',
@@ -329,6 +364,8 @@ void main() {
           id: 123,
           userAvaratUrl: 'https://images.unsplash.com/photo',
           userName: 'Granny',
+          userId: 1123,
+          userGender: Gender.female,
           imageUrl: 'https://images.unsplash.com/photo',
           description:
               'В качестве рекламы моего рецепта могу сказать следующее.',
@@ -340,6 +377,8 @@ void main() {
           id: 123,
           userAvaratUrl: 'https://images.unsplash.com/photo',
           userName: 'Granny',
+          userId: 1123,
+          userGender: Gender.female,
           imageUrl: 'https://images.unsplash.com/photo',
           description:
               'В качестве рекламы моего рецепта могу сказать следующее.',
@@ -357,7 +396,7 @@ void main() {
     sut.add(Unlike(123));
 
     // then
-    expectLater(sut, emits(expectedState));
+    expectLater(sut.stream, emits(expectedState));
   });
 
   test('Unike event invokes likePost() repository method', () async {
@@ -367,6 +406,8 @@ void main() {
           id: 123,
           userAvaratUrl: 'https://images.unsplash.com/photo',
           userName: 'Granny',
+          userId: 1123,
+          userGender: Gender.female,
           imageUrl: 'https://images.unsplash.com/photo',
           description:
               'В качестве рекламы моего рецепта могу сказать следующее.',

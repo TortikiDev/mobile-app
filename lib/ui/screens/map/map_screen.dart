@@ -13,9 +13,11 @@ import 'package:widget_factory/widget_factory.dart';
 
 import '../../../bloc/map/index.dart';
 import '../../../data/http_client/requests/requests.dart';
-import '../../../data/http_client/responses/confectioner_short_response.dart';
+import '../../../data/http_client/responses/confectioner/confectioner_short_response.dart';
+import '../../../data/http_client/responses/responses.dart';
 import '../../../utils/string_is_valid_url.dart';
 import '../../constants.dart';
+import '../../reusable/image_views/avatar_size.dart';
 import '../../reusable/show_dialog_mixin.dart';
 import 'animated_map_controller.dart';
 import 'confectioner_panel.dart';
@@ -23,10 +25,12 @@ import 'search_confectioners/search_confectioners_screen_factory.dart';
 
 class MapScreen extends StatefulWidget {
   final WidgetFactory searchConfectionersScreenFactory;
+  final WidgetFactory confectionerProfileScreenFactory;
 
   MapScreen({
     Key key,
     @required this.searchConfectionersScreenFactory,
+    @required this.confectionerProfileScreenFactory,
   }) : super(key: key);
 
   @override
@@ -220,6 +224,8 @@ class _MapScreenState extends State<MapScreen>
                         _confectionerPanelAnimationController.reverse(),
                     child: ConfectionerPanel(
                       confectioner: _selectedConfectioner,
+                      confectionerProfileScreenFactory:
+                          widget.confectionerProfileScreenFactory,
                     ),
                   ),
                 ),
@@ -254,25 +260,42 @@ class _MapScreenState extends State<MapScreen>
         builder: (context) {
           return GestureDetector(
             onTap: () => _tapOnConfectionerMarker(conf),
-            child: CircleAvatar(
-              key: ValueKey(isSelected),
-              radius: markerSize,
-              backgroundColor: borderColor,
-              child: conf.avatarUrl?.isValidUrl() ?? false
-                  ? CachedNetworkImage(
-                      key: Key(conf.avatarUrl),
-                      imageUrl: conf.avatarUrl,
-                      imageBuilder: (context, imageProvider) {
-                        return CircleAvatar(
-                          key: ValueKey(isSelected),
-                          radius: photoRadius,
-                          backgroundColor: Colors.transparent,
-                          backgroundImage: imageProvider,
-                        );
-                      },
-                      fit: BoxFit.cover,
-                    )
-                  : Container(color: Colors.grey[300]),
+            child: Transform.rotate(
+              angle: -_mapController.rotation / 60,
+              child: CircleAvatar(
+                key: ValueKey(isSelected),
+                radius: markerSize,
+                backgroundColor: borderColor,
+                child: conf.avatarUrl?.isValidUrl() ?? false
+                    ? CachedNetworkImage(
+                        key: Key(conf.avatarUrl),
+                        imageUrl: conf.avatarUrl,
+                        imageBuilder: (context, imageProvider) {
+                          return CircleAvatar(
+                            key: ValueKey(isSelected),
+                            radius: photoRadius,
+                            backgroundColor: Colors.transparent,
+                            backgroundImage: imageProvider,
+                          );
+                        },
+                        fit: BoxFit.cover,
+                      )
+                    : ClipRRect(
+                        borderRadius: BorderRadius.circular(photoRadius),
+                        child: Container(
+                          width: 2 * photoRadius,
+                          height: 2 * photoRadius,
+                          color: Colors.grey[300],
+                          padding: const EdgeInsets.all(4.0),
+                          child: Image.asset(
+                            getPlaceholderAssetName(
+                              size: AvatarSize.small,
+                              male: conf.gender == Gender.male,
+                            ),
+                          ),
+                        ),
+                      ),
+              ),
             ),
           );
         },

@@ -66,6 +66,64 @@ class RecipesRepository {
         .then((_) => Future.value(limitedResult));
   }
 
+  Future<List<RecipeShortResponse>> getRecipesOfUser({
+    @required int userId,
+    int limit = 24,
+    int lastId,
+  }) {
+    final recipesStub = [
+      RecipeShortResponse(
+        id: 155,
+        title: 'Бисквитный торт',
+        complexity: 0.7,
+        imageUrls: [
+          'https://images.unsplash.com/photo-1457666134378-6b77915bd5f'
+              '2?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Nnx8c3BvbmdlJTIwY2FrZXxlbnwwf'
+              'HwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=60',
+          'https://images.unsplash.com/photo-1570205931109-7ab14fdbd'
+              '70b?ixid=MXwxMjA3fDB8MHxzZWFyY2h8NHx8cmFzcGJlcnJ5JTIwcGllf'
+              'GVufDB8f'
+              'DB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=60'
+        ],
+      ),
+      RecipeShortResponse(
+        id: 156,
+        title: 'Малиновый пирог с глазурью',
+        complexity: 0.3,
+        imageUrls: [
+          'https://images.unsplash.com/photo-1570205931109-7ab14fdbd'
+              '70b?ixid=MXwxMjA3fDB8MHxzZWFyY2h8NHx8cmFzcGJlcnJ5JTIwcGllf'
+              'GVufDB8f'
+              'DB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=60',
+          'https://images.unsplash.com/photo-1457666134378-6b77915bd5f'
+              '2?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Nnx8c3BvbmdlJTIwY2FrZXxlbnwwf'
+              'HwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=60'
+        ],
+      ),
+    ];
+
+    final result = <RecipeShortResponse>[];
+    do {
+      result.addAll(recipesStub);
+    } while (result.length <= limit);
+    final limitedResult = result
+        .getRange(0, min(limit, result.length))
+        .toList()
+        .asMap()
+        .map((key, value) => MapEntry(key, value.copy(id: key)))
+        .values
+        .toList();
+
+    return Future.delayed(Duration(seconds: 2))
+        .then((_) => Future.value(limitedResult));
+  }
+
+  Future<List<RecipeShortResponse>> getMyRecipes({
+    int limit = 24,
+    int lastId,
+  }) =>
+      getRecipes(limit: limit, lastId: lastId);
+
   Future<RecipeResponse> getRecipe(int id) =>
       Future.delayed(Duration(seconds: 2)).then(
         (value) => RecipeResponse(
@@ -82,6 +140,8 @@ class RecipesRepository {
           userAvaratUrl:
               'https://images.unsplash.com/photo-1510616022132-9976466385a8',
           userName: 'Granny',
+          userId: 123,
+          userGender: Gender.female,
           description:
               'Чтобы придать обычным кексам более эффектный внешний вид,'
               ' вмешайте в часть теста растопленный шоколад и немного какао. '

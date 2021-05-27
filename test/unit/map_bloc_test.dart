@@ -42,7 +42,7 @@ void main() {
   test('close does not emit new states', () {
     sut.close();
     expectLater(
-      sut,
+      sut.stream,
       emitsDone,
     );
   });
@@ -86,7 +86,7 @@ void main() {
     sut.add(BlocInit());
     // then
     expectLater(
-      sut,
+      sut.stream,
       emitsInOrder([expectedState1, expectedState2]),
     );
   });
@@ -126,7 +126,7 @@ void main() {
     sut.add(UpdateMapCenter(LatLng(57, 34)));
     // then
     expectLater(
-      sut,
+      sut.stream,
       emitsInOrder([expectedState1, expectedState2]),
     );
   });

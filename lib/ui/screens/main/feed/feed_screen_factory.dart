@@ -5,17 +5,22 @@ import 'package:widget_factory/widget_factory.dart';
 import '../../../../bloc/error_handling/index.dart';
 import '../../../../bloc/feed/index.dart';
 import '../../../../data/repositories/repositories.dart';
+import '../../profile/external_confectioner_profile/external_confectioner_profile_screen_factory.dart';
 import 'feed_screen.dart';
 
 class FeedScreenFactory implements WidgetFactory {
   @override
   Widget createWidget({dynamic data}) {
+    final confectionerProfileScreenFactory =
+        ExternalConfectionerProfileScreenFactory();
     return BlocProvider(
       create: (context) => FeedBloc(
         postsRepository: RepositoryProvider.of<PostsRepository>(context),
         errorHandlingBloc: BlocProvider.of<ErrorHandlingBloc>(context),
       )..add(BlocInit()),
-      child: FeedScreen(),
+      child: FeedScreen(
+        confectionerProfileScreenFactory: confectionerProfileScreenFactory,
+      ),
     );
   }
 }

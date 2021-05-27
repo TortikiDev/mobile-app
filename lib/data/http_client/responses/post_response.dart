@@ -5,6 +5,9 @@ class PostResponse extends Equatable {
   final int id;
   final String userAvaratUrl;
   final String userName;
+  final int userId;
+  /// From [Gender]
+  final int userGender;
   final String imageUrl;
   final String description;
   final int likes;
@@ -15,6 +18,8 @@ class PostResponse extends Equatable {
       {@required this.id,
       @required this.userAvaratUrl,
       @required this.userName,
+      @required this.userId,
+      @required this.userGender,
       @required this.imageUrl,
       @required this.description,
       @required this.likes,
@@ -25,6 +30,8 @@ class PostResponse extends Equatable {
           {int id,
           String userAvaratUrl,
           String userName,
+          int userId,
+          int userGender,
           String imageUrl,
           String description,
           int likes,
@@ -34,6 +41,8 @@ class PostResponse extends Equatable {
           id: id ?? this.id,
           userAvaratUrl: userAvaratUrl ?? this.userAvaratUrl,
           userName: userName ?? this.userName,
+          userId: userId ?? this.userId,
+          userGender: userGender ?? this.userGender,
           imageUrl: imageUrl ?? this.imageUrl,
           description: description ?? this.description,
           likes: likes ?? this.likes,
@@ -45,6 +54,8 @@ class PostResponse extends Equatable {
         id,
         userAvaratUrl,
         userName,
+        userId,
+        userGender,
         imageUrl,
         description,
         likes,

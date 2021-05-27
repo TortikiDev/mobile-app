@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../data/http_client/responses/confectioner_short_response.dart';
+import '../data/http_client/responses/confectioner/rating_star_type.dart';
 
 /// Returns color for confecctioner's rating star
 /// [ratingStarType] - value from [ConfectionerRatingStarType]

@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 
-import 'lat_long_response.dart';
+import '../lat_long_response.dart';
 
 class ConfectionerShortResponse extends Equatable {
   final int id;
@@ -63,17 +63,4 @@ class ConfectionerShortResponse extends Equatable {
 
   @override
   bool get stringify => true;
-}
-
-mixin ConfectionerRatingStarType {
-  static const none = 0;
-  static const bronze = 1;
-  static const silver = 2;
-  static const gold = 3;
-}
-
-mixin Gender {
-  static const none = 0;
-  static const male = 1;
-  static const female = 2;
 }

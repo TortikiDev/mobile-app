@@ -1,4 +1,3 @@
-import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mockito/mockito.dart';
@@ -10,7 +9,7 @@ import 'test_feed_screen_factory.dart';
 import 'test_recipes_screen_factory.dart';
 import 'test_search_recipes_screen_factory.dart';
 
-class _MockMainBloc extends MockBloc<MainState> implements MainBloc {}
+class _MockMainBloc extends Mock implements MainBloc {}
 
 class TestMainScreenFactory implements WidgetFactory {
   @override
@@ -18,7 +17,8 @@ class TestMainScreenFactory implements WidgetFactory {
     final mainBloc = _MockMainBloc();
     final mainInitialState = MainState.initial();
     when(mainBloc.state).thenReturn(mainInitialState);
-    whenListen(mainBloc, Stream<MainState>.value(mainInitialState));
+    when(mainBloc.stream).thenAnswer(
+        (realInvocation) => Stream<MainState>.value(mainInitialState));
 
     return BlocProvider<MainBloc>(
       create: (context) => mainBloc,

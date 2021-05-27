@@ -57,7 +57,7 @@ void main() {
   test('close does not emit new states', () {
     sut.close();
     expectLater(
-      sut,
+      sut.stream,
       emitsDone,
     );
   });
@@ -71,6 +71,8 @@ void main() {
       imageUrls: ['http://123.png'],
       userAvaratUrl: 'http://avatar.png',
       userName: 'name',
+      userId: 123,
+      userGender: Gender.female,
       description: '12345',
       ingredients: ['1', '2'],
       cookingSteps: '54321',
@@ -86,6 +88,8 @@ void main() {
         complexity: 4.0,
         authorAvatarUrl: 'http://avatar.png',
         authorName: 'name',
+        authorGender: Gender.female,
+        authorId: 123,
       ),
     );
     // when
@@ -94,7 +98,7 @@ void main() {
     sut.add(BlocInit());
     // then
     expect(
-      sut,
+      sut.stream,
       emitsInOrder([
         expectedState1,
         expectedState2,
@@ -109,6 +113,8 @@ void main() {
       complexity: 4.0,
       authorAvatarUrl: 'http://avatar.png',
       authorName: 'name',
+      authorGender: Gender.male,
+      authorId: 123,
       isInBookmarks: false,
     );
 
@@ -118,7 +124,7 @@ void main() {
     sut.add(Bookmarks(headerViewModelStub));
     // then
     expect(
-      sut,
+      sut.stream,
       emits(expectedState),
     );
   });
@@ -130,6 +136,8 @@ void main() {
       complexity: 4.0,
       authorAvatarUrl: 'http://avatar.png',
       authorName: 'name',
+      authorGender: Gender.male,
+      authorId: 123,
       isInBookmarks: false,
     );
 
@@ -139,7 +147,7 @@ void main() {
     sut.add(Bookmarks(headerViewModelStub));
     // then
     expect(
-      sut,
+      sut.stream,
       emits(expectedState),
     );
   });
@@ -153,6 +161,7 @@ void main() {
       imageUrls: ['http://123.png'],
       userAvaratUrl: 'http://avatar.png',
       userName: 'name',
+      userGender: Gender.female,
       description: '12345',
       ingredients: ['1', '2'],
       cookingSteps: '54321',
@@ -163,6 +172,8 @@ void main() {
       complexity: 4.0,
       authorAvatarUrl: 'http://avatar.png',
       authorName: 'name',
+      authorGender: Gender.male,
+      authorId: 123,
       isInBookmarks: false,
     );
 
@@ -201,7 +212,7 @@ void main() {
     sut.add(VoteUp());
     // then
     expect(
-      sut,
+      sut.stream,
       emits(expectedState),
     );
   });
@@ -214,7 +225,7 @@ void main() {
     sut.add(VoteDown());
     // then
     expect(
-      sut,
+      sut.stream,
       emits(expectedState),
     );
   });

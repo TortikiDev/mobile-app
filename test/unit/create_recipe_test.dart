@@ -38,7 +38,7 @@ void main() {
   test('close does not emit new states', () {
     sut?.close();
     expectLater(
-      sut,
+      sut.stream,
       emitsDone,
     );
   });
@@ -50,7 +50,7 @@ void main() {
     sut.add(TitleChanged(title));
     // then
     expect(
-      sut,
+      sut.stream,
       emits(initialState.copy(title: title)),
     );
   });
@@ -61,7 +61,7 @@ void main() {
     sut.add(PlusComplexity());
     // then
     expect(
-      sut,
+      sut.stream,
       emits(initialState.copy(complexity: initialState.complexity + 0.5)),
     );
   });
@@ -72,7 +72,7 @@ void main() {
     sut.add(MinusComplexity());
     // then
     expect(
-      sut,
+      sut.stream,
       emits(initialState.copy(complexity: initialState.complexity - 0.5)),
     );
   });
@@ -84,7 +84,7 @@ void main() {
     sut.add(DescriptionChanged(description));
     // then
     expect(
-      sut,
+      sut.stream,
       emits(initialState.copy(description: description)),
     );
   });
@@ -96,7 +96,7 @@ void main() {
     sut.add(IngredientsChanged(ingredients));
     // then
     expect(
-      sut,
+      sut.stream,
       emits(initialState.copy(ingredients: ingredients)),
     );
   });
@@ -108,7 +108,7 @@ void main() {
     sut.add(CookingStepsChanged(cookingSteps));
     // then
     expect(
-      sut,
+      sut.stream,
       emits(initialState.copy(cookingSteps: cookingSteps)),
     );
   });
@@ -120,7 +120,7 @@ void main() {
     sut.add(PhotoPicked(photo));
     // then
     expect(
-      sut,
+      sut.stream,
       emits(initialState.copy(photos: initialState.photos + [photo])),
     );
   });
@@ -135,7 +135,7 @@ void main() {
     sut.add(PhotoDeleted(photo1));
     // then
     expect(
-      sut,
+      sut.stream,
       emits(initialState.copy(photos: [photo2])),
     );
   });
@@ -147,7 +147,7 @@ void main() {
     sut.close();
     // then
     expect(
-      sut,
+      sut.stream,
       neverEmits(initialState.copy(creatingRecipe: true)),
     );
   });
@@ -190,12 +190,10 @@ void main() {
     final expectedState5 = expectedState4.copy(cookingSteps: cookingSteps);
     final expectedState6 = expectedState5.copy(photos: [photo1]);
     final expectedState7 = expectedState6.copy(canCreateRecipe: true);
-    final expectedState8 =
-        expectedState7.copy(photos: [photo1, photo2]);
+    final expectedState8 = expectedState7.copy(photos: [photo1, photo2]);
     final expectedState9 =
         expectedState8.copy(photos: [photo1, photo2, photo3]);
-    final expectedState10 =
-        expectedState9.copy(photos: [photo1, photo2]);
+    final expectedState10 = expectedState9.copy(photos: [photo1, photo2]);
     final expectedState11 = expectedState10.copy(creatingRecipe: true);
     final expectedState12 = expectedState11.copy(
         creatingRecipe: false, recipeSuccessfulyCreated: true);
@@ -222,7 +220,7 @@ void main() {
     sut.add(CreateRecipe());
     // then
     expect(
-      sut,
+      sut.stream,
       emitsInOrder([
         expectedState0,
         expectedState1,

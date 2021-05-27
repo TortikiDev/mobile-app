@@ -26,6 +26,8 @@ class RecipeDetailsState extends Equatable {
           complexity: recipe.complexity,
           authorAvatarUrl: recipe.userAvaratUrl,
           authorName: recipe.userName ?? '',
+          authorGender: recipe.userGender,
+          authorId: recipe.userId,
           isInBookmarks: isInBookmarks,
         ),
       );
@@ -47,4 +49,7 @@ class RecipeDetailsState extends Equatable {
         loading,
         headerViewModel,
       ];
+
+  @override
+  bool get stringify => true;
 }
