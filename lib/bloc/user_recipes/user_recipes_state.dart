@@ -25,7 +25,7 @@ class UserRecipesState extends Equatable {
         _bookmarkedRecipesIds = bookmarkedRecipesIds;
 
   factory UserRecipesState.initial({
-    @required bool isMyRecipes,
+    bool isMyRecipes = false,
     @required int userId,
   }) =>
       UserRecipesState(
