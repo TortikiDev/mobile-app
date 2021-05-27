@@ -1,4 +1,3 @@
-import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:mockito/mockito.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,8 +6,7 @@ import 'package:widget_factory/widget_factory.dart';
 import 'package:tortiki/ui/screens/bookmarks/bookmarks_screen.dart';
 import 'package:tortiki/ui/screens/main/recipes/recipe/recipe_view_model.dart';
 
-class _MockBookmarksBloc extends MockBloc<BookmarksState>
-    implements BookmarksBloc {}
+class _MockBookmarksBloc extends Mock implements BookmarksBloc {}
 
 class TestRecipeDetaailsScreenFactory extends Mock implements WidgetFactory {}
 
@@ -35,7 +33,8 @@ class TestBookmarksScreenFactory implements WidgetFactory {
     final bookmarksBloc = _MockBookmarksBloc();
     final bookmarksState = BookmarksState(listItems: recipesModels);
     when(bookmarksBloc.state).thenReturn(bookmarksState);
-    whenListen(bookmarksBloc, Stream<BookmarksState>.value(bookmarksState));
+    when(bookmarksBloc.stream)
+        .thenAnswer((_) => Stream<BookmarksState>.value(bookmarksState));
 
     final recipeDetailsScreenFactory = TestRecipeDetaailsScreenFactory();
 

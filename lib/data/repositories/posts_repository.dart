@@ -174,8 +174,14 @@ class PostsRepository {
 
   Future<void> likePost({int postId}) => Future.delayed(Duration(seconds: 1));
 
-  Future<void> unlikePost({int postId}) => Future.delayed(Duration(seconds: 1))
-      .then((_) => Future.error(DioError(type: DioErrorType.SEND_TIMEOUT)));
+  Future<void> unlikePost({int postId}) =>
+      Future.delayed(Duration(seconds: 1)).then(
+        (_) => Future.error(
+          DioError(
+              requestOptions: RequestOptions(path: '/'),
+              type: DioErrorType.sendTimeout),
+        ),
+      );
 
   Future<void> createPost({
     @required File photo,

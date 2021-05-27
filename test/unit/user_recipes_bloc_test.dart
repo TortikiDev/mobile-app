@@ -53,7 +53,7 @@ void main() {
   test('close does not emit new states', () {
     sut.close();
     expectLater(
-      sut,
+      sut.stream,
       emitsDone,
     );
   });
@@ -102,7 +102,7 @@ void main() {
     sut.add(BlocInit());
     // then
     expect(
-      sut,
+      sut.stream,
       emitsInOrder([
         expectedState1,
         expectedState2,
@@ -146,7 +146,7 @@ void main() {
     sut.add(PullToRefresh(() {}));
     // then
     expect(
-      sut,
+      sut.stream,
       emits(expectedState),
     );
   });
@@ -213,7 +213,7 @@ void main() {
     sut.add(LoadNextPage());
     // then
     expect(
-      sut,
+      sut.stream,
       emitsInOrder([
         expectedState1,
         expectedState2,
@@ -302,7 +302,7 @@ void main() {
     sut.add(Bookmarks(initialItems[1]));
     // then
     expect(
-      sut,
+      sut.stream,
       emitsInOrder([
         expectedState1,
         expectedState2,
@@ -398,6 +398,6 @@ void main() {
     sut.emit(baseState);
     sut.add(UpdateIsInBookmarks(recipesModels.last));
     // then
-    expect(sut, emits(expectedState));
+    expect(sut.stream, emits(expectedState));
   });
 }

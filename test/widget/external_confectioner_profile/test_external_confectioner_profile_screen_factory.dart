@@ -1,4 +1,3 @@
-import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:mockito/mockito.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,8 +7,7 @@ import 'package:tortiki/ui/screens/profile/external_confectioner_profile/externa
 
 import 'package:widget_factory/widget_factory.dart';
 
-class _MockExternalConfectionerProfileBloc
-    extends MockBloc<ExternalConfectionerProfileState>
+class _MockExternalConfectionerProfileBloc extends Mock
     implements ExternalConfectionerProfileBloc {}
 
 class _MockScreenFactory extends Mock implements WidgetFactory {}
@@ -25,7 +23,7 @@ class TestExternalConfectionerProfileScreenFactory
       confectionerGender: data.confectionerGender,
     );
     when(recipeDetailsBloc.state).thenReturn(recipeDetailsState);
-    whenListen(recipeDetailsBloc,
+    when(recipeDetailsBloc.stream).thenAnswer((_) =>
         Stream<ExternalConfectionerProfileState>.value(recipeDetailsState));
 
     final userPostsScreenFacory = _MockScreenFactory();

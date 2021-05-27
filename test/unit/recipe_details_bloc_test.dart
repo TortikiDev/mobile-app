@@ -57,7 +57,7 @@ void main() {
   test('close does not emit new states', () {
     sut.close();
     expectLater(
-      sut,
+      sut.stream,
       emitsDone,
     );
   });
@@ -98,7 +98,7 @@ void main() {
     sut.add(BlocInit());
     // then
     expect(
-      sut,
+      sut.stream,
       emitsInOrder([
         expectedState1,
         expectedState2,
@@ -124,7 +124,7 @@ void main() {
     sut.add(Bookmarks(headerViewModelStub));
     // then
     expect(
-      sut,
+      sut.stream,
       emits(expectedState),
     );
   });
@@ -147,7 +147,7 @@ void main() {
     sut.add(Bookmarks(headerViewModelStub));
     // then
     expect(
-      sut,
+      sut.stream,
       emits(expectedState),
     );
   });
@@ -212,7 +212,7 @@ void main() {
     sut.add(VoteUp());
     // then
     expect(
-      sut,
+      sut.stream,
       emits(expectedState),
     );
   });
@@ -225,7 +225,7 @@ void main() {
     sut.add(VoteDown());
     // then
     expect(
-      sut,
+      sut.stream,
       emits(expectedState),
     );
   });

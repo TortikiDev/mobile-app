@@ -24,34 +24,49 @@ void main() {
   test('close does not emit new states', () {
     sut.close();
     expectLater(
-      sut,
+      sut.stream,
       emitsDone,
     );
   });
 
   test('raise possible exceptions and dismiss dialogs after each', () {
     // given
+    final options = RequestOptions(path: '/');
     final exceptions = <Exception>[
       TimeoutException('123'),
-      DioError(type: DioErrorType.SEND_TIMEOUT),
-      DioError(type: DioErrorType.CONNECT_TIMEOUT),
-      DioError(type: DioErrorType.RECEIVE_TIMEOUT),
+      DioError(requestOptions: options, type: DioErrorType.sendTimeout),
+      DioError(requestOptions: options, type: DioErrorType.connectTimeout),
+      DioError(requestOptions: options, type: DioErrorType.receiveTimeout),
       DioError(
-          type: DioErrorType.RESPONSE, response: Response(statusCode: 400)),
+          requestOptions: options,
+          type: DioErrorType.response,
+          response: Response(requestOptions: options, statusCode: 400)),
       DioError(
-          type: DioErrorType.RESPONSE, response: Response(statusCode: 401)),
+          requestOptions: options,
+          type: DioErrorType.response,
+          response: Response(requestOptions: options, statusCode: 401)),
       DioError(
-          type: DioErrorType.RESPONSE, response: Response(statusCode: 403)),
+          requestOptions: options,
+          type: DioErrorType.response,
+          response: Response(requestOptions: options, statusCode: 403)),
       DioError(
-          type: DioErrorType.RESPONSE, response: Response(statusCode: 404)),
+          requestOptions: options,
+          type: DioErrorType.response,
+          response: Response(requestOptions: options, statusCode: 404)),
       DioError(
-          type: DioErrorType.RESPONSE, response: Response(statusCode: 405)),
+          requestOptions: options,
+          type: DioErrorType.response,
+          response: Response(requestOptions: options, statusCode: 405)),
       DioError(
-          type: DioErrorType.RESPONSE, response: Response(statusCode: 500)),
+          requestOptions: options,
+          type: DioErrorType.response,
+          response: Response(requestOptions: options, statusCode: 500)),
       DioError(
-          type: DioErrorType.RESPONSE, response: Response(statusCode: 502)),
-      DioError(type: DioErrorType.DEFAULT),
-      DioError(type: DioErrorType.CANCEL),
+          requestOptions: options,
+          type: DioErrorType.response,
+          response: Response(requestOptions: options, statusCode: 502)),
+      DioError(requestOptions: options, type: DioErrorType.other),
+      DioError(requestOptions: options, type: DioErrorType.cancel),
       Exception()
     ];
 
@@ -63,7 +78,7 @@ void main() {
 
     // then
     expectLater(
-      sut,
+      sut.stream,
       emitsInOrder([
         ShowDialog(message: ErrorDialogMessage.connectionTimeout),
         NoError(),
@@ -101,8 +116,14 @@ void main() {
     // given
     final exceptions = <Exception>[
       TimeoutException('123'),
-      DioError(type: DioErrorType.SEND_TIMEOUT),
-      DioError(type: DioErrorType.CONNECT_TIMEOUT),
+      DioError(
+        requestOptions: RequestOptions(path: '/'),
+        type: DioErrorType.sendTimeout,
+      ),
+      DioError(
+        requestOptions: RequestOptions(path: '/'),
+        type: DioErrorType.connectTimeout,
+      ),
     ];
 
     // when
@@ -110,11 +131,14 @@ void main() {
       sut.add(ExceptionRaised(exception));
     }
     sut.add(DismissErrorDialog());
-    sut.add(ExceptionRaised(DioError(type: DioErrorType.DEFAULT)));
+    sut.add(ExceptionRaised(DioError(
+      requestOptions: RequestOptions(path: '/'),
+      type: DioErrorType.other,
+    )));
 
     // then
     expectLater(
-      sut,
+      sut.stream,
       emitsInOrder([
         ShowDialog(message: ErrorDialogMessage.connectionTimeout),
         NoError(),

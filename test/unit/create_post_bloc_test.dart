@@ -36,7 +36,7 @@ void main() {
   test('close does not emit new states', () {
     sut?.close();
     expectLater(
-      sut,
+      sut.stream,
       emitsDone,
     );
   });
@@ -50,7 +50,7 @@ void main() {
     sut.add(PhotoPicked(photo));
     // then
     expect(
-      sut,
+      sut.stream,
       emitsInOrder([
         expectedState1,
         expectedState2,
@@ -65,7 +65,7 @@ void main() {
     sut.add(DescriptionChanged(description));
     // then
     expect(
-      sut,
+      sut.stream,
       emits(initialState.copy(description: description)),
     );
   });
@@ -77,7 +77,7 @@ void main() {
     sut.close();
     // then
     expect(
-      sut,
+      sut.stream,
       neverEmits(initialState.copy(creatingPost: true)),
     );
   });
@@ -113,7 +113,7 @@ void main() {
     sut.add(CreatePost());
     // then
     expect(
-      sut,
+      sut.stream,
       emitsInOrder([
         expectedState0,
         expectedState1,

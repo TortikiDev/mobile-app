@@ -43,7 +43,7 @@ void main() {
   test('close does not emit new states', () {
     sut.close();
     expectLater(
-      sut,
+      sut.stream,
       emitsDone,
     );
   });
@@ -60,7 +60,7 @@ void main() {
     sut.add(BlocInit());
     // then
     expectLater(
-      sut,
+      sut.stream,
       emits(initialState.copy(showCreatePostButton: true)),
     );
   });
@@ -77,7 +77,7 @@ void main() {
     sut.add(BlocInit());
     // then
     expectLater(
-      sut,
+      sut.stream,
       emits(initialState.copy(showCreatePostButton: false)),
     );
   });
@@ -92,7 +92,7 @@ void main() {
     sut.add(BlocInit());
     // then
     expectLater(
-      sut,
+      sut.stream,
       emits(initialState.copy(showCreatePostButton: false)),
     );
   });

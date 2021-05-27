@@ -20,12 +20,12 @@ class ErrorHandlingBloc extends Bloc<ErrorHandlingEvent, ErrorHandlingState> {
         dialogMessage = ErrorDialogMessage.connectionTimeout;
       } else if (exception is DioError) {
         switch (exception.type) {
-          case DioErrorType.SEND_TIMEOUT:
-          case DioErrorType.CONNECT_TIMEOUT:
-          case DioErrorType.RECEIVE_TIMEOUT:
+          case DioErrorType.sendTimeout:
+          case DioErrorType.connectTimeout:
+          case DioErrorType.receiveTimeout:
             dialogMessage = ErrorDialogMessage.connectionTimeout;
             break;
-          case DioErrorType.RESPONSE:
+          case DioErrorType.response:
             switch (exception.response.statusCode) {
               case 400:
                 dialogMessage = ErrorDialogMessage.badRequest;
@@ -50,10 +50,10 @@ class ErrorHandlingBloc extends Bloc<ErrorHandlingEvent, ErrorHandlingState> {
                 break;
             }
             break;
-          case DioErrorType.DEFAULT:
+          case DioErrorType.other:
             dialogMessage = ErrorDialogMessage.connectionError;
             break;
-          case DioErrorType.CANCEL:
+          case DioErrorType.cancel:
             return;
         }
       }

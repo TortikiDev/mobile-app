@@ -44,7 +44,7 @@ void main() {
   test('close does not emit new states', () {
     sut?.close();
     expectLater(
-      sut,
+      sut.stream,
       emitsDone,
     );
   });
@@ -108,7 +108,7 @@ void main() {
 
     // then
     expectLater(
-      sut,
+      sut.stream,
       emitsInOrder([expectedState1, expectedState2]),
     );
   });
@@ -121,13 +121,16 @@ void main() {
     final expectedState2 = initialState.copy(loadingFirstPage: false);
 
     // when
-    when(postsRepository.getPostsOfUser(userId: userIdStub))
-        .thenAnswer((invoccation) => Future.error(DioError()));
+    when(postsRepository.getPostsOfUser(userId: userIdStub)).thenAnswer(
+      (invoccation) => Future.error(
+        DioError(requestOptions: RequestOptions(path: '/')),
+      ),
+    );
     sut.add(BlocInit());
 
     // then
     expectLater(
-      sut,
+      sut.stream,
       emitsInOrder([expectedState1, expectedState2]),
     );
   });
@@ -189,7 +192,7 @@ void main() {
 
     // then
     expectLater(
-      sut,
+      sut.stream,
       emitsInOrder([expectedState]),
     );
   });
@@ -200,8 +203,10 @@ void main() {
     // given
 
     // when
-    when(postsRepository.getPostsOfUser(userId: userIdStub))
-        .thenAnswer((invoccation) => Future.error(DioError()));
+    when(postsRepository.getPostsOfUser(userId: userIdStub)).thenAnswer(
+      (invoccation) =>
+          Future.error(DioError(requestOptions: RequestOptions(path: '/'))),
+    );
     sut.add(BlocInit());
 
     // then
@@ -285,7 +290,7 @@ void main() {
 
     // then
     expectLater(
-      sut,
+      sut.stream,
       emitsInOrder([expectedState1, expectedState2]),
     );
   });
@@ -329,7 +334,7 @@ void main() {
     sut.add(Like(123));
 
     // then
-    expectLater(sut, emits(expectedState));
+    expectLater(sut.stream, emits(expectedState));
   });
 
   test('Like event invokes likePost() repository method', () async {
@@ -398,7 +403,7 @@ void main() {
     sut.add(Unlike(123));
 
     // then
-    expectLater(sut, emits(expectedState));
+    expectLater(sut.stream, emits(expectedState));
   });
 
   test('Unike event invokes likePost() repository method', () async {
