@@ -12,7 +12,7 @@ class _MockRecipeDetailsBloc extends MockBloc<RecipeDetailsState>
 
 class _MockScreenFactory extends Mock implements WidgetFactory {}
 
-class TestRecipeDetailsScreeFactory implements WidgetFactory {
+class TestRecipeDetailsScreenFactory implements WidgetFactory {
   @override
   Widget createWidget({dynamic data}) {
     final recipe = RecipeResponse(
