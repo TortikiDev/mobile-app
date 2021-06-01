@@ -2,19 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:widget_factory/widget_factory.dart';
 
-import '../app_theme.dart';
 import 'bottom_navigation_controller_item.dart';
 
 class BottomNavigationController extends StatefulWidget {
   final WidgetFactory mainScreenFactory;
   final WidgetFactory mapScreenFactory;
   final WidgetFactory bookmarksScreenFactory;
+  final WidgetFactory profileScreenFactory;
 
   const BottomNavigationController({
     Key key,
     @required this.mainScreenFactory,
     @required this.mapScreenFactory,
     @required this.bookmarksScreenFactory,
+    @required this.profileScreenFactory,
   }) : super(key: key);
 
   @override
@@ -31,7 +32,6 @@ class _BottomNavigationControllerState
   @override
   Widget build(BuildContext context) {
     if (_items == null) {
-      final theme = Theme.of(context);
       final localizations = AppLocalizations.of(context);
       _items = [
         BottomNaigationControllerItem(
@@ -60,12 +60,7 @@ class _BottomNavigationControllerState
           ),
         ),
         BottomNaigationControllerItem(
-          Container(
-            color: appTheme.colorScheme.background,
-            child: Center(
-              child: Text(localizations.profile, style: theme.textTheme.button),
-            ),
-          ),
+          widget.profileScreenFactory.createWidget(),
           BottomNavigationBarItem(
             label: localizations.profile,
             icon: Icon(Icons.account_circle),
