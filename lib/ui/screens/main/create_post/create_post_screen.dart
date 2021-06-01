@@ -2,10 +2,11 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:image_picker/image_picker.dart';
 
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../../bloc/create_post/index.dart';
+import '../../../reusable/loading_indicator.dart';
 import '../../../reusable/pick_image_mixin.dart';
 
 class CreatePostScreen extends StatelessWidget with PickImageMixin {
@@ -34,7 +35,7 @@ class CreatePostScreen extends StatelessWidget with PickImageMixin {
                         child: SizedBox(
                           width: 16,
                           height: 16,
-                          child: CircularProgressIndicator(strokeWidth: 3),
+                          child: LoadingIndicator(strokeWidth: 3),
                         ),
                       ),
                     )

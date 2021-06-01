@@ -9,12 +9,15 @@ class _MockMapScreenFactory extends Mock implements WidgetFactory {}
 
 class _MockBookmarksScreenFactory extends Mock implements WidgetFactory {}
 
+class _MockProfileScreenFactory extends Mock implements WidgetFactory {}
+
 class TestBottomNaigationControllerFactory implements WidgetFactory {
   @override
   Widget createWidget({dynamic data}) {
     final mainScreenFactory = _MockMainScreenFactory();
     final mapScreenFactory = _MockMapScreenFactory();
     final bookmarksScreenFactory = _MockBookmarksScreenFactory();
+    final profileScreenFactory = _MockProfileScreenFactory();
 
     when(mainScreenFactory.createWidget()).thenReturn(Container());
     when(mapScreenFactory.createWidget()).thenReturn(Container());
@@ -24,6 +27,7 @@ class TestBottomNaigationControllerFactory implements WidgetFactory {
       mainScreenFactory: mainScreenFactory,
       mapScreenFactory: mapScreenFactory,
       bookmarksScreenFactory: bookmarksScreenFactory,
+      profileScreenFactory: profileScreenFactory,
     );
   }
 }

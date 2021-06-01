@@ -4,6 +4,7 @@ import 'package:widget_factory/widget_factory.dart';
 
 import '../../../../bloc/search_confectioners/index.dart';
 import '../../../reusable/list_items/progress_indicator_item.dart';
+import '../../../reusable/loading_indicator.dart';
 import '../../../reusable/search_bar.dart';
 import '../../profile/external_confectioner_profile/external_confectioner_profile_screen_factory.dart';
 import 'confectioner/confectioner_view.dart';
@@ -44,7 +45,7 @@ class SearchConfectionersScreen extends StatelessWidget {
                   child: SizedBox(
                     height: 32,
                     width: 32,
-                    child: CircularProgressIndicator(),
+                    child: LoadingIndicator(),
                   ),
                 ),
               ),
@@ -150,7 +151,7 @@ class _ScrollViewState extends State<_ScrollView> {
                 child: SizedBox(
                   width: 24,
                   height: 24,
-                  child: CircularProgressIndicator(),
+                  child: LoadingIndicator(),
                 ),
               ),
             );

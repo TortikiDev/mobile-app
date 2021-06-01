@@ -7,6 +7,7 @@ import 'package:widget_factory/widget_factory.dart';
 
 import '../../../../bloc/feed/index.dart';
 import '../../../reusable/list_items/progress_indicator_item.dart';
+import '../../../reusable/loading_indicator.dart';
 import '../../profile/external_confectioner_profile/external_confectioner_profile_screen_factory.dart';
 import 'post/post_view.dart';
 import 'post/post_view_model.dart';
@@ -38,7 +39,7 @@ class _FeedScreenState extends State<FeedScreen>
               child: SizedBox(
                 width: 32,
                 height: 32,
-                child: CircularProgressIndicator(),
+                child: LoadingIndicator(),
               ),
             )
           : _ScrollView(
@@ -67,6 +68,7 @@ class _ScrollView extends StatelessWidget {
 
     return Scrollbar(
         child: RefreshIndicator(
+            color: theme.accentColor,
             child: ListView.builder(
                 padding: EdgeInsets.only(bottom: 8),
                 itemCount: state.feedItems.length,
@@ -94,7 +96,7 @@ class _ScrollView extends StatelessWidget {
                         child: SizedBox(
                           width: 24,
                           height: 24,
-                          child: CircularProgressIndicator(),
+                          child: LoadingIndicator(),
                         ),
                       ),
                     );

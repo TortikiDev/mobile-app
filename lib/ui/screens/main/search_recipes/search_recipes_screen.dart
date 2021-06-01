@@ -4,6 +4,7 @@ import 'package:widget_factory/widget_factory.dart';
 
 import '../../../../bloc/search_recipes/index.dart';
 import '../../../reusable/list_items/progress_indicator_item.dart';
+import '../../../reusable/loading_indicator.dart';
 import '../../../reusable/search_bar.dart';
 import '../../recipe_details/recipe_details_screen_factory.dart';
 import '../recipes/recipe/recipe_view.dart';
@@ -44,7 +45,7 @@ class SearchRecipesScreen extends StatelessWidget {
                   child: SizedBox(
                     height: 32,
                     width: 32,
-                    child: CircularProgressIndicator(),
+                    child: LoadingIndicator(),
                   ),
                 ),
               ),
@@ -149,7 +150,7 @@ class _ScrollViewState extends State<_ScrollView> {
                 child: SizedBox(
                   width: 24,
                   height: 24,
-                  child: CircularProgressIndicator(),
+                  child: LoadingIndicator(),
                 ),
               ),
             );

@@ -6,7 +6,8 @@ import '../base_bloc.dart';
 import '../error_handling/index.dart';
 import 'index.dart';
 
-class ClientProfileBloc extends BaseBloc<ClientProfileEvent, ClientProfileState> {
+class ClientProfileBloc
+    extends BaseBloc<ClientProfileEvent, ClientProfileState> {
   // region Properties
 
   // endregion
@@ -15,7 +16,7 @@ class ClientProfileBloc extends BaseBloc<ClientProfileEvent, ClientProfileState>
 
   ClientProfileBloc({@required ErrorHandlingBloc errorHandlingBloc})
       : super(
-            initialState: ClientProfileState.initial(), 
+            initialState: ClientProfileState.initial(),
             errorHandlingBloc: errorHandlingBloc);
 
   @override

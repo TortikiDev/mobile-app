@@ -6,6 +6,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../bloc/user_posts/index.dart';
 import '../../../reusable/list_items/progress_indicator_item.dart';
+import '../../../reusable/loading_indicator.dart';
 import '../../main/feed/post/post_view.dart';
 import '../../main/feed/post/post_view_model.dart';
 
@@ -23,7 +24,7 @@ class UserPostsScreen extends StatelessWidget {
                 child: SizedBox(
                   width: 32,
                   height: 32,
-                  child: CircularProgressIndicator(),
+                  child: LoadingIndicator(),
                 ),
               )
             : _ScrollView(state: state);
@@ -44,6 +45,7 @@ class _ScrollView extends StatelessWidget {
 
     return Scrollbar(
         child: RefreshIndicator(
+            color: theme.accentColor,
             child: ListView.builder(
                 padding: EdgeInsets.only(bottom: 8),
                 itemCount: state.feedItems.length,
@@ -72,7 +74,7 @@ class _ScrollView extends StatelessWidget {
                         child: SizedBox(
                           width: 24,
                           height: 24,
-                          child: CircularProgressIndicator(),
+                          child: LoadingIndicator(),
                         ),
                       ),
                     );

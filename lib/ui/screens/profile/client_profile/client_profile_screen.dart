@@ -42,7 +42,6 @@ class ClientProfileScreen extends StatelessWidget {
           Spacer(),
           AppVersionLogo(),
           SizedBox(height: 16),
-          CircularProgressIndicator()
         ],
       ),
     );

@@ -6,6 +6,7 @@ import 'package:widget_factory/widget_factory.dart';
 
 import '../../../../bloc/recipes/index.dart';
 import '../../../reusable/list_items/progress_indicator_item.dart';
+import '../../../reusable/loading_indicator.dart';
 import '../../recipe_details/recipe_details_screen_factory.dart';
 import 'recipe/recipe_view.dart';
 import 'recipe/recipe_view_model.dart';
@@ -32,8 +33,7 @@ class _RecipesScreenState extends State<RecipesScreen>
     return BlocBuilder<RecipesBloc, RecipesState>(builder: (context, state) {
       return state.loadingFirstPage
           ? Center(
-              child: SizedBox(
-                  width: 32, height: 32, child: CircularProgressIndicator()))
+              child: SizedBox(width: 32, height: 32, child: LoadingIndicator()))
           : _ScrollView(
               state: state,
               recipeDetailsScreenFactory: widget.recipeDetailsScreenFactory,
@@ -58,6 +58,7 @@ class _ScrollView extends StatelessWidget {
 
     return Scrollbar(
       child: RefreshIndicator(
+        color: theme.accentColor,
         child: ListView.builder(
           padding: EdgeInsets.only(bottom: 8),
           itemCount: state.listItems.length,
@@ -83,7 +84,7 @@ class _ScrollView extends StatelessWidget {
                   child: SizedBox(
                     width: 24,
                     height: 24,
-                    child: CircularProgressIndicator(),
+                    child: LoadingIndicator(),
                   ),
                 ),
               );
