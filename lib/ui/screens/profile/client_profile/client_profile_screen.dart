@@ -16,14 +16,13 @@ class ClientProfileScreen extends StatelessWidget {
         title: Text(localizations.profile),
         actions: [
           IconButton(
-            icon: Icon(Icons.send),
+            icon: Icon(Icons.logout),
             tooltip: localizations.newPost,
             onPressed: () => _logout(context),
           ),
         ],
       ),
       body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           ProfileField(
             title: localizations.phone,
@@ -33,7 +32,7 @@ class ClientProfileScreen extends StatelessWidget {
           ProfileField(
             title: localizations.city,
             value: 'Рязань',
-            onTap: () => _editPhone(context),
+            onTap: () => _pickCity(context),
           ),
           SizedBox(height: 40),
           PrimaryButton(
@@ -43,6 +42,7 @@ class ClientProfileScreen extends StatelessWidget {
           Spacer(),
           AppVersionLogo(),
           SizedBox(height: 16),
+          CircularProgressIndicator()
         ],
       ),
     );
