@@ -55,8 +55,15 @@ void main() {
     // when
     when(jwtRepository.getJwt())
         .thenAnswer((realInvocation) => Future.value('123'));
-    when(accountRepository.getMyAccount()).thenAnswer((realInvocation) =>
-        Future.value(Account(type: AccountType.confectioner)));
+    when(accountRepository.getMyAccount()).thenAnswer(
+      (realInvocation) => Future.value(
+        Account(
+          type: AccountType.confectioner,
+          city: '',
+          phone: '',
+        ),
+      ),
+    );
     sut.add(BlocInit());
     // then
     expectLater(
@@ -73,7 +80,14 @@ void main() {
     when(jwtRepository.getJwt())
         .thenAnswer((realInvocation) => Future.value('123'));
     when(accountRepository.getMyAccount()).thenAnswer(
-        (realInvocation) => Future.value(Account(type: AccountType.client)));
+      (realInvocation) => Future.value(
+        Account(
+          type: AccountType.client,
+          city: '',
+          phone: '',
+        ),
+      ),
+    );
     sut.add(BlocInit());
     // then
     expectLater(

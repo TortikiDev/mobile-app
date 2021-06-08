@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SearchBar extends StatefulWidget {
   final bool autofocus;
+  final String hintText;
   final Function(String) onTextChanged;
   final Function() onBackArrowPressed;
 
   SearchBar({
     Key key,
-    this.autofocus,
+    this.autofocus = false,
+    this.hintText,
     this.onTextChanged,
     this.onBackArrowPressed,
   }) : super(key: key);
@@ -28,6 +31,7 @@ class _SearchBarState extends State<SearchBar> {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context);
     final theme = Theme.of(context);
     return Container(
       height: 64,
@@ -50,6 +54,7 @@ class _SearchBarState extends State<SearchBar> {
           fillColor: Colors.white,
           border: InputBorder.none,
           focusedBorder: InputBorder.none,
+          hintText: widget.hintText ?? localizations.search,
           prefixIcon: IconButton(
             key: Key('Back button'),
             color: theme.colorScheme.onPrimary,

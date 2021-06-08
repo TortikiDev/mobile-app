@@ -64,21 +64,23 @@ class _ErrorHandlingDecorator extends StatelessWidget with ShowDialogMixin {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (context) => ErrorHandlingBloc(),
-        child: BlocListener<ErrorHandlingBloc, ErrorHandlingState>(
-            listenWhen: (previous, current) => current is ShowDialog,
-            listener: (context, state) {
-              void dismissError() => BlocProvider.of<ErrorHandlingBloc>(context)
-                  .add(DismissErrorDialog());
+      create: (context) => ErrorHandlingBloc(),
+      child: BlocListener<ErrorHandlingBloc, ErrorHandlingState>(
+        listenWhen: (previous, current) => current is ShowDialog,
+        listener: (context, state) {
+          void dismissError() => BlocProvider.of<ErrorHandlingBloc>(context)
+              .add(DismissErrorDialog());
 
-              if (state is ShowDialog) {
-                showErrorDialog(
-                    context: context,
-                    errorMessage: state.message,
-                    onOkPressed: dismissError,
-                    onDismiss: dismissError);
-              }
-            },
-            child: child));
+          if (state is ShowDialog) {
+            showErrorDialog(
+                context: context,
+                errorMessage: state.message,
+                onOkPressed: dismissError,
+                onDismiss: dismissError);
+          }
+        },
+        child: child,
+      ),
+    );
   }
 }

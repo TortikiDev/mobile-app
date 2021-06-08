@@ -46,6 +46,7 @@
   "recipes": "Recipes",
   "resourceNotFound": "Resource not found",
   "route": "Route",
+  "search": "Search",
   "searchConfectioner": "Search confectioner",
   "serverIsNotAvailable": "Server is not available",
   "shortDescription": "Short description",
@@ -53,5 +54,6 @@
   "somethingWentWrong": "Something went wrong",
   "tablespoons": "tablespoons",
   "teaspoons": "teaspoons",
-  "toSettings": "To settings"
+  "toSettings": "To settings",
+  "useCurrentLocation": "Use current location"
 }

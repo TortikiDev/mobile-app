@@ -1,14 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:widget_factory/widget_factory.dart';
 
 import '../../../../bloc/client_profile/index.dart';
 import '../../../reusable/app_version_logo.dart';
 import '../../../reusable/buttons/primary_button.dart';
 import '../../../reusable/profile_field.dart';
+import '../pick_city/pick_city_screen_factory.dart';
 
 class ClientProfileScreen extends StatelessWidget {
-  const ClientProfileScreen({Key key}) : super(key: key);
+  final WidgetFactory pickCityScreenFactory;
+
+  const ClientProfileScreen({
+    Key key,
+    @required this.pickCityScreenFactory,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +43,7 @@ class ClientProfileScreen extends StatelessWidget {
               ProfileField(
                 title: localizations.city,
                 value: state.city,
-                onTap: () => _pickCity(context),
+                onTap: () => _pickCity(context, state.city),
               ),
               SizedBox(height: 40),
               PrimaryButton(
@@ -53,9 +60,17 @@ class ClientProfileScreen extends StatelessWidget {
     );
   }
 
-  void _pickCity(BuildContext context) {
-    // TODO: go to pick city screen
-    print('Pick city');
+  Future<void> _pickCity(BuildContext context, String selecteCity) async {
+    final screenData = PickCityScreenFactoryData(selectedCity: selecteCity);
+    final route = MaterialPageRoute<String>(
+      builder: (context) =>
+          pickCityScreenFactory.createWidget(data: screenData),
+    );
+    final selectCityResult = await Navigator.of(context).push<String>(route);
+    if (selectCityResult != null) {
+      final event = PickCity(selectCityResult);
+      BlocProvider.of<ClientProfileBloc>(context).add(event);
+    }
   }
 
   void _becomeConfectioner(BuildContext context) {

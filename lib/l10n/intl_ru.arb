@@ -46,6 +46,7 @@
   "recipes": "Рецепты",
   "resourceNotFound": "Ресурс не найден",
   "route": "Маршрут",
+  "search": "Поиск",
   "searchConfectioner": "Поиск кондитера",
   "serverIsNotAvailable": "Сервер недоступен",
   "shortDescription": "Краткое описание",
@@ -53,5 +54,6 @@
   "somethingWentWrong": "Что-то пошло не так",
   "tablespoons": "ст.л.",
   "teaspoons": "ч.л.",
-  "toSettings": "В настройки"
+  "toSettings": "В настройки",
+  "useCurrentLocation": "Текущее местоположение"
 }
