@@ -26,6 +26,7 @@
   "ingredients": "Ингредиенты",
   "ingredientsPlaceholder": "сахар 10 г, яйца 2 шт...",
   "internalServerError": "Внутренняя ошибка сервера",
+  "logout": "Выйти",
   "main": "Главная",
   "map": "Карта",
   "methodNotAllowed": "Метод не доступен",

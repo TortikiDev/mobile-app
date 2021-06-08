@@ -26,6 +26,7 @@
   "ingredients": "Ingredients",
   "ingredientsPlaceholder": "sugar 10 g, eggs 2 pcs...",
   "internalServerError": "Internal server error",
+  "logout": "Logout",
   "main": "Main",
   "map": "Map",
   "methodNotAllowed": "Method Not Allowed",

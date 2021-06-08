@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../../../bloc/client_profile/index.dart';
 import '../../../reusable/app_version_logo.dart';
 import '../../../reusable/buttons/primary_button.dart';
 import '../../../reusable/profile_field.dart';
@@ -17,39 +19,38 @@ class ClientProfileScreen extends StatelessWidget {
         actions: [
           IconButton(
             icon: Icon(Icons.logout),
-            tooltip: localizations.newPost,
+            tooltip: localizations.logout,
             onPressed: () => _logout(context),
           ),
         ],
       ),
-      body: Column(
-        children: [
-          ProfileField(
-            title: localizations.phone,
-            value: '+7 999 987 65 43',
-            onTap: () => _editPhone(context),
-          ),
-          ProfileField(
-            title: localizations.city,
-            value: 'Рязань',
-            onTap: () => _pickCity(context),
-          ),
-          SizedBox(height: 40),
-          PrimaryButton(
-            text: localizations.becomeConfectioner,
-            onPressed: () => _becomeConfectioner(context),
-          ),
-          Spacer(),
-          AppVersionLogo(),
-          SizedBox(height: 16),
-        ],
+      body: BlocBuilder<ClientProfileBloc, ClientProfileState>(
+        builder: (context, state) {
+          return Column(
+            children: [
+              ProfileField(
+                title: localizations.phone,
+                value: state.phone,
+                onTap: () {},
+              ),
+              ProfileField(
+                title: localizations.city,
+                value: state.city,
+                onTap: () => _pickCity(context),
+              ),
+              SizedBox(height: 40),
+              PrimaryButton(
+                text: localizations.becomeConfectioner,
+                onPressed: () => _becomeConfectioner(context),
+              ),
+              Spacer(),
+              AppVersionLogo(),
+              SizedBox(height: 16),
+            ],
+          );
+        },
       ),
     );
-  }
-
-  void _editPhone(BuildContext context) {
-    // TODO: go to edit phone screen
-    print('Edit phone');
   }
 
   void _pickCity(BuildContext context) {
@@ -63,7 +64,7 @@ class ClientProfileScreen extends StatelessWidget {
   }
 
   void _logout(BuildContext context) {
-    // TODO: peerform logout
-    print('Logout');
+    final event = Logout();
+    BlocProvider.of<ClientProfileBloc>(context).add(event);
   }
 }
