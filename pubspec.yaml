@@ -38,7 +38,7 @@ dependencies:
   sqflite: ^2.0.0+3
   path:
   # UI
-  pinch_zoom: ^0.1.0
+  pinch_zoom_image_last: ^0.4.1
   share: ^2.0.4
   image_picker: ^0.7.5+3
   flutter_rating_bar: ^4.0.0

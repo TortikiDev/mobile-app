@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:pinch_zoom/pinch_zoom.dart';
+import 'package:pinch_zoom_image_last/pinch_zoom_image_last.dart';
 import 'package:share/share.dart';
 
 import '../../../../../data/http_client/responses/responses.dart';
@@ -74,24 +74,25 @@ class _PostViewState extends State<PostView> {
             ),
           ),
         ),
-        AspectRatio(
-            aspectRatio: 1,
-            child: Container(
-                color: Colors.grey[300],
-                child: Padding(
-                  padding: EdgeInsets.only(top: 0.5, bottom: 0.5),
-                  child: model.imageUrl?.isValidUrl() ?? false
-                      // TODO: check if zoom clips image or not
-                      ? PinchZoom(
-                          maxScale: 1.2,
-                          zoomedBackgroundColor: Colors.black.withOpacity(0.1),
-                          image: CachedNetworkImage(
-                            imageUrl: model.imageUrl,
-                            fit: BoxFit.cover,
-                          ),
-                        )
-                      : null,
-                ))),
+        Container(
+          color: Colors.grey[300],
+          child: Padding(
+            padding: EdgeInsets.only(top: 0.5, bottom: 0.5),
+            child: model.imageUrl?.isValidUrl() ?? false
+                // TODO: check if zoom clips image or not
+                ? PinchZoomImage(
+                    zoomedBackgroundColor: Colors.black.withOpacity(0.1),
+                    image: AspectRatio(
+                      aspectRatio: 1,
+                      child: CachedNetworkImage(
+                        imageUrl: model.imageUrl,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  )
+                : null,
+          ),
+        ),
         Padding(
           padding: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 8.0),
           child: ExpandableText(model.description,
