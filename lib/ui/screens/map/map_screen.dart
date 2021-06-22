@@ -8,7 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_location/flutter_map_location.dart';
-import 'package:latlong/latlong.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:widget_factory/widget_factory.dart';
 
 import '../../../bloc/map/index.dart';
@@ -47,7 +47,6 @@ class _MapScreenState extends State<MapScreen>
   StreamSubscription _mapChangeSubscription;
   ConfectionerShortResponse _selectedConfectioner;
 
-  final List<Marker> _userLocationMarkers = [];
   ValueNotifier<LocationServiceStatus> _locationStatusNotifier;
   Function _locationButtonPressed;
 
@@ -134,20 +133,26 @@ class _MapScreenState extends State<MapScreen>
                       "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
                   subdomains: ['a', 'b', 'c'],
                 ),
-                MarkerLayerOptions(
-                  markers: confectionerMarkers + _userLocationMarkers,
-                ),
+                MarkerLayerOptions(markers: confectionerMarkers),
                 LocationOptions(
-                  markers: _userLocationMarkers,
+                  (context, status, onPressed) {
+                    _locationStatusNotifier = status;
+                    _locationButtonPressed = onPressed;
+                    return Container();
+                  },
+                  markerBuilder: (context, latLongData, notifier) {
+                    return Marker(
+                      point: latLongData.location,
+                      builder: (context) => Icon(
+                        Icons.my_location,
+                        color: theme.accentColor,
+                      ),
+                    );
+                  },
                   onLocationRequested: (coord) {
                     if (coord?.location != null) {
                       _animatedMapController.move(coord.location, 16.5);
                     }
-                  },
-                  buttonBuilder: (context, status, onPressed) {
-                    _locationStatusNotifier = status;
-                    _locationButtonPressed = onPressed;
-                    return Container();
                   },
                 ),
               ],
@@ -174,10 +179,8 @@ class _MapScreenState extends State<MapScreen>
 
                     return FloatingActionButton(
                       onPressed: () {
-                        _locationButtonPressed?.call();
-                        if (_userLocationMarkers.isNotEmpty) {
-                          final userLocation = _userLocationMarkers.first.point;
-                          _animatedMapController.move(userLocation, 16.5);
+                        if (_locationButtonPressed != null) {
+                          _locationButtonPressed();
                         } else if (status ==
                             LocationServiceStatus.permissionDenied) {
                           final localizations = AppLocalizations.of(context);

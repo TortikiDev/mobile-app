@@ -4,7 +4,7 @@ import 'package:tortiki/bloc/error_handling/index.dart';
 import 'package:tortiki/bloc/map/index.dart';
 import 'package:tortiki/data/http_client/requests/requests.dart';
 import 'package:tortiki/data/http_client/responses/responses.dart';
-import 'package:latlong/latlong.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:tortiki/data/repositories/repositories.dart';
 import 'package:mockito/mockito.dart';
 import 'package:tortiki/ui/constants.dart';
