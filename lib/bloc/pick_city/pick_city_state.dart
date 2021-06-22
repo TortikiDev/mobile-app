@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/foundation.dart';
 
 class PickCityState extends Equatable {
   final List<String> allCities;
@@ -11,22 +10,22 @@ class PickCityState extends Equatable {
   const PickCityState({
     this.allCities = const [],
     this.citiesToShow = const [],
-    @required this.selectedCity,
+    required this.selectedCity,
     this.searchQuery = '',
     this.loading = false,
   });
 
   factory PickCityState.initial({
-    @required String selectedCity,
+    required String selectedCity,
   }) =>
       PickCityState(selectedCity: selectedCity);
 
   PickCityState copy({
-    List<String> allCities,
-    List<String> citiesToShow,
-    String selectedCity,
-    String searchQuery,
-    bool loading,
+    List<String>? allCities,
+    List<String>? citiesToShow,
+    String? selectedCity,
+    String? searchQuery,
+    bool? loading,
   }) =>
       PickCityState(
         allCities: allCities ?? this.allCities,
@@ -37,7 +36,7 @@ class PickCityState extends Equatable {
       );
 
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         allCities,
         citiesToShow,
         selectedCity,

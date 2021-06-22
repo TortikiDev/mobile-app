@@ -6,7 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:tortiki/bloc/error_handling/index.dart';
 
 void main() {
-  ErrorHandlingBloc sut;
+  late ErrorHandlingBloc sut;
   final initialState = NoError();
 
   setUp(() {
@@ -14,7 +14,7 @@ void main() {
   });
 
   tearDown(() {
-    sut?.close();
+    sut.close();
   });
 
   test('initial state is correct', () {

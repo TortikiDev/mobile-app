@@ -13,13 +13,13 @@ class BookmarksScreen extends StatelessWidget {
   final WidgetFactory recipeDetailsScreenFactory;
 
   const BookmarksScreen({
-    Key key,
-    @required this.recipeDetailsScreenFactory,
+    Key? key,
+    required this.recipeDetailsScreenFactory,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final localizations = AppLocalizations.of(context);
+    final localizations = AppLocalizations.of(context)!;
 
     return Scaffold(
       appBar: AppBar(title: Text(localizations.bookmarks)),
@@ -62,9 +62,9 @@ class _ScrollView extends StatelessWidget {
   final BookmarksState state;
 
   const _ScrollView({
-    Key key,
-    @required this.state,
-    @required this.recipeDetailsScreenFactory,
+    Key? key,
+    required this.state,
+    required this.recipeDetailsScreenFactory,
   }) : super(key: key);
 
   @override

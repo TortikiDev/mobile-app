@@ -13,7 +13,7 @@ import '../../main/feed/post/post_view_model.dart';
 class UserPostsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final localizaitons = AppLocalizations.of(context);
+    final localizaitons = AppLocalizations.of(context)!;
 
     return Scaffold(
       appBar: AppBar(title: Text(localizaitons.publications)),
@@ -36,12 +36,12 @@ class UserPostsScreen extends StatelessWidget {
 class _ScrollView extends StatelessWidget {
   final UserPostsState state;
 
-  const _ScrollView({Key key, @required this.state}) : super(key: key);
+  const _ScrollView({Key? key, required this.state}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final localizations = AppLocalizations.of(context);
+    final localizations = AppLocalizations.of(context)!;
 
     return Scrollbar(
         child: RefreshIndicator(
@@ -63,7 +63,10 @@ class _ScrollView extends StatelessWidget {
                         onAuthorTap: (model) =>
                             Navigator.of(context).maybePop(),
                         onLike: (model) => _likePressed(context, model),
-                        onExpandDescription: ({model, isExpanded}) =>
+                        onExpandDescription: ({
+                          required model,
+                          required isExpanded,
+                        }) =>
                             _expandDescription(context, model, isExpanded),
                         theme: theme,
                         localizations: localizations);

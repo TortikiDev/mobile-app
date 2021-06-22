@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/foundation.dart';
 
 class RecipeDbModel extends Equatable {
   final int id;
@@ -10,10 +9,10 @@ class RecipeDbModel extends Equatable {
   List<String> get imageUrls => _imageUrls;
 
   RecipeDbModel({
-    @required this.id,
-    @required this.title,
-    @required this.complexity,
-    @required List<String> imageUrls,
+    required this.id,
+    required this.title,
+    required this.complexity,
+    required List<String> imageUrls,
   }) : _imageUrls = imageUrls;
 
   factory RecipeDbModel.fromMap(Map<String, dynamic> map) => RecipeDbModel(
@@ -31,7 +30,7 @@ class RecipeDbModel extends Equatable {
       };
 
   @override
-  List<Object> get props => [id, title, complexity, imageUrls];
+  List<Object?> get props => [id, title, complexity, imageUrls];
 
   @override
   bool get stringify => true;

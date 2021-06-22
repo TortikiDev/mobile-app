@@ -1,7 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter/foundation.dart';
-
 import '../../data/repositories/repositories.dart';
 import '../base_bloc.dart';
 import '../error_handling/index.dart';
@@ -17,9 +15,9 @@ class PickCityBloc extends BaseBloc<PickCityEvent, PickCityState> {
   // region Lifecycle
 
   PickCityBloc({
-    @required String selectedCity,
-    @required this.citiesRepository,
-    @required ErrorHandlingBloc errorHandlingBloc,
+    required String selectedCity,
+    required this.citiesRepository,
+    required ErrorHandlingBloc errorHandlingBloc,
   }) : super(
             initialState: PickCityState.initial(selectedCity: selectedCity),
             errorHandlingBloc: errorHandlingBloc);

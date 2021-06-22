@@ -19,10 +19,10 @@ class App extends StatelessWidget {
   final WidgetFactory bottomNavigationControllerFactory;
 
   const App({
-    Key key,
-    @required this.httpClientFactory,
-    @required this.dbFactory,
-    @required this.bottomNavigationControllerFactory,
+    Key? key,
+    required this.httpClientFactory,
+    required this.dbFactory,
+    required this.bottomNavigationControllerFactory,
   }) : super(key: key);
 
   @override
@@ -42,7 +42,9 @@ class App extends StatelessWidget {
                   Provider(
                     create: (context) => httpClientFactory.createHttpClient(),
                   ),
-                  Provider<Database>(create: (context) => snapshot.data),
+                  Provider<Database>(
+                    create: (context) => snapshot.data as Database,
+                  ),
                 ],
                 child: bottomNavigationControllerFactory.createWidget(),
               );
@@ -58,7 +60,7 @@ class App extends StatelessWidget {
 
 class _ErrorHandlingDecorator extends StatelessWidget with ShowDialogMixin {
   final Widget child;
-  const _ErrorHandlingDecorator({Key key, @required this.child})
+  const _ErrorHandlingDecorator({Key? key, required this.child})
       : super(key: key);
 
   @override

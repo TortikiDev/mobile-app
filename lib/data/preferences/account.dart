@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/foundation.dart';
 
 class Account extends Equatable {
   final String phone;
@@ -7,13 +6,13 @@ class Account extends Equatable {
   final int type;
 
   Account({
-    @required this.phone,
-    @required this.city,
-    @required this.type,
+    required this.phone,
+    required this.city,
+    required this.type,
   });
 
   @override
-  List<Object> get props => [phone, city, type];
+  List<Object?> get props => [phone, city, type];
 }
 
 class AccountType {

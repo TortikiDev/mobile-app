@@ -5,7 +5,7 @@ import 'package:tortiki/bloc/recipes/index.dart';
 import 'package:tortiki/data/database/models/models.dart';
 import 'package:tortiki/data/http_client/responses/responses.dart';
 import 'package:tortiki/data/repositories/repositories.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:tortiki/ui/reusable/list_items/list_item.dart';
 import 'package:tortiki/ui/reusable/list_items/progress_indicator_item.dart';
 import 'package:tortiki/ui/screens/main/recipes/recipe/recipe_view_model.dart';
@@ -21,10 +21,10 @@ class _MockBookmarkedRecipesRepository extends Mock
     implements BookmarkedRecipesRepository {}
 
 void main() {
-  RecipesBloc sut;
-  _MockErrorHandlingBloc errorHandlingBloc;
-  _MockRecipesRepository recipesRepository;
-  _MockBookmarkedRecipesRepository bookmarkedRecipesRepository;
+  late RecipesBloc sut;
+  late _MockErrorHandlingBloc errorHandlingBloc;
+  late _MockRecipesRepository recipesRepository;
+  late _MockBookmarkedRecipesRepository bookmarkedRecipesRepository;
 
   final initialState = RecipesState.initial();
 
@@ -41,7 +41,7 @@ void main() {
   });
 
   tearDown(() {
-    sut?.close();
+    sut.close();
   });
 
   test('initial state is correct', () {
@@ -93,9 +93,9 @@ void main() {
       loadingFirstPage: false,
     );
     // when
-    when(bookmarkedRecipesRepository.getRecipes())
+    when(() => bookmarkedRecipesRepository.getRecipes())
         .thenAnswer((realInvocation) => Future.value(bookmarkedRecipesStub));
-    when(recipesRepository.getRecipes())
+    when(() => recipesRepository.getRecipes())
         .thenAnswer((realInvocation) => Future.value(recipesResponse));
     sut.add(BlocInit());
     // then
@@ -139,7 +139,7 @@ void main() {
     ]);
     // when
     sut.emit(baseState);
-    when(recipesRepository.getRecipes())
+    when(() => recipesRepository.getRecipes())
         .thenAnswer((realInvocation) => Future.value(recipesResponse));
     sut.add(PullToRefresh(() {}));
     // then
@@ -153,13 +153,13 @@ void main() {
     // given
     final event = _MockPullToRefresh();
     // when
-    when(event.onComplete).thenReturn(() {});
-    when(recipesRepository.getRecipes())
+    when(() => event.onComplete).thenReturn(() {});
+    when(() => recipesRepository.getRecipes())
         .thenAnswer((realInvocation) => Future.value([]));
     sut.add(event);
     // then
-    await untilCalled(event.onComplete);
-    verify(event.onComplete).called(1);
+    await untilCalled(() => event.onComplete);
+    verify(() => event.onComplete).called(1);
   });
 
   test('LoadNextPage loads recipes next page', () {
@@ -205,7 +205,7 @@ void main() {
       loadingNextPage: false,
     );
     // when
-    when(recipesRepository.getRecipes(lastId: 19))
+    when(() => recipesRepository.getRecipes(lastId: 19))
         .thenAnswer((realInvocation) => Future.value(recipesNextPageResponse));
     sut.emit(baseState);
     sut.add(LoadNextPage());
@@ -296,8 +296,8 @@ void main() {
     );
     // when
     sut.emit(baseState);
-    sut.add(Bookmarks(initialItems[0]));
-    sut.add(Bookmarks(initialItems[1]));
+    sut.add(Bookmarks(initialItems[0] as RecipeViewModel));
+    sut.add(Bookmarks(initialItems[1] as RecipeViewModel));
     // then
     expect(
       sut.stream,
@@ -327,17 +327,17 @@ void main() {
     );
     // when
     sut.emit(baseState);
-    sut.add(Bookmarks(initialItems[0]));
-    sut.add(Bookmarks(initialItems[1]));
+    sut.add(Bookmarks(initialItems[0] as RecipeViewModel));
+    sut.add(Bookmarks(initialItems[1] as RecipeViewModel));
     // then
-    await untilCalled(bookmarkedRecipesRepository.deleteRecipe(21));
-    await untilCalled(bookmarkedRecipesRepository.addRecipe(
-      RecipeDbModel(id: 22, title: '124', complexity: 3.1, imageUrls: []),
-    ));
-    verify(bookmarkedRecipesRepository.deleteRecipe(21)).called(1);
-    verify(bookmarkedRecipesRepository.addRecipe(
-      RecipeDbModel(id: 22, title: '124', complexity: 3.1, imageUrls: []),
-    )).called(1);
+    await untilCalled(() => bookmarkedRecipesRepository.deleteRecipe(21));
+    await untilCalled(() => bookmarkedRecipesRepository.addRecipe(
+          RecipeDbModel(id: 22, title: '124', complexity: 3.1, imageUrls: []),
+        ));
+    verify(() => bookmarkedRecipesRepository.deleteRecipe(21)).called(1);
+    verify(() => bookmarkedRecipesRepository.addRecipe(
+          RecipeDbModel(id: 22, title: '124', complexity: 3.1, imageUrls: []),
+        )).called(1);
   });
 
   test('UpdateIsInBookmarks emits state with updated recipe', () {
@@ -391,7 +391,7 @@ void main() {
       bookmarkedRecipesIds: {1},
     );
     // when
-    when(bookmarkedRecipesRepository.getRecipes())
+    when(() => bookmarkedRecipesRepository.getRecipes())
         .thenAnswer((realInvocation) => Future.value(bookmarkedRecipes));
     sut.emit(baseState);
     sut.add(UpdateIsInBookmarks(recipesModels.last));

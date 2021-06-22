@@ -6,10 +6,10 @@ class ProfileField extends StatelessWidget {
   final VoidCallback onTap;
 
   const ProfileField({
-    Key key,
-    @required this.title,
-    @required this.value,
-    @required this.onTap,
+    Key? key,
+    required this.title,
+    required this.value,
+    required this.onTap,
   }) : super(key: key);
 
   @override
@@ -37,7 +37,7 @@ class ProfileField extends StatelessWidget {
                     child: Text(
                       value,
                       style: theme.textTheme.subtitle1
-                          .copyWith(color: theme.colorScheme.onPrimary),
+                          ?.copyWith(color: theme.colorScheme.onPrimary),
                       textAlign: TextAlign.end,
                     ),
                   ),

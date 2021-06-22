@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/foundation.dart';
 
 import '../../data/http_client/requests/requests.dart';
 import '../../ui/reusable/list_items/list_item.dart';
@@ -9,27 +8,27 @@ class SearchConfectionersState extends Equatable {
   final List<ListItem> _listItems;
   final bool loadingFirstPage;
   final bool loadingNextPage;
-  final String searchQuery;
+  final String? searchQuery;
 
   List<ListItem> get listItems => List.of(_listItems);
 
   SearchConfectionersState({
-    @required this.mapCenter,
-    @required List<ListItem> listItems,
+    required this.mapCenter,
+    required List<ListItem> listItems,
     this.loadingFirstPage = false,
     this.loadingNextPage = false,
     this.searchQuery,
   }) : _listItems = listItems;
 
-  factory SearchConfectionersState.initial({@required LatLong mapCenter}) =>
+  factory SearchConfectionersState.initial({required LatLong mapCenter}) =>
       SearchConfectionersState(mapCenter: mapCenter, listItems: []);
 
   SearchConfectionersState copy({
-    LatLong mapCenter,
-    List<ListItem> listItems,
-    bool loadingFirstPage,
-    bool loadingNextPage,
-    String searchQuery,
+    LatLong? mapCenter,
+    List<ListItem>? listItems,
+    bool? loadingFirstPage,
+    bool? loadingNextPage,
+    String? searchQuery,
     bool setSearchQueryToNull = false,
   }) =>
       SearchConfectionersState(
@@ -42,7 +41,7 @@ class SearchConfectionersState extends Equatable {
       );
 
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         mapCenter,
         _listItems,
         loadingFirstPage,

@@ -1,7 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter/foundation.dart';
-
 import '../../data/http_client/responses/responses.dart';
 import '../../data/repositories/repositories.dart';
 import '../base_bloc.dart';
@@ -19,11 +17,11 @@ class ExternalConfectionerProfileBloc extends BaseBloc<
   // region Lifecycle
 
   ExternalConfectionerProfileBloc({
-    @required int confectionerId,
-    @required String confectionerName,
-    @required int confectionerGender,
-    @required this.confectionersRepository,
-    @required ErrorHandlingBloc errorHandlingBloc,
+    required int confectionerId,
+    required String confectionerName,
+    required int confectionerGender,
+    required this.confectionersRepository,
+    required ErrorHandlingBloc errorHandlingBloc,
   }) : super(
             initialState: ExternalConfectionerProfileState.initial(
               confectionerId: confectionerId,
@@ -37,7 +35,7 @@ class ExternalConfectionerProfileBloc extends BaseBloc<
       ExternalConfectionerProfileEvent event) async* {
     if (event is BlocInit) {
       yield state.copy(loading: true);
-      ConfectionerResponse confectionerResponse;
+      ConfectionerResponse? confectionerResponse;
       try {
         confectionerResponse = await confectionersRepository
             .getConfectionerDetails(id: state.confectionerId);

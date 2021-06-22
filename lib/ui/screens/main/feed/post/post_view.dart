@@ -16,20 +16,20 @@ class PostView extends StatefulWidget {
   final Function(PostViewModel) onAuthorTap;
   final Function(PostViewModel) onLike;
   final Function({
-    @required PostViewModel model,
-    @required bool isExpanded,
+    required PostViewModel model,
+    required bool isExpanded,
   }) onExpandDescription;
   final ThemeData theme;
   final AppLocalizations localizations;
 
   PostView(
-      {Key key,
-      @required this.model,
-      @required this.onAuthorTap,
-      @required this.onLike,
-      @required this.onExpandDescription,
-      @required this.theme,
-      @required this.localizations})
+      {Key? key,
+      required this.model,
+      required this.onAuthorTap,
+      required this.onLike,
+      required this.onExpandDescription,
+      required this.theme,
+      required this.localizations})
       : super(key: key);
 
   @override
@@ -43,9 +43,7 @@ class _PostViewState extends State<PostView> {
   final AppLocalizations localizations;
 
   _PostViewState(
-      {@required this.model,
-      @required this.theme,
-      @required this.localizations});
+      {required this.model, required this.theme, required this.localizations});
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +76,7 @@ class _PostViewState extends State<PostView> {
           color: Colors.grey[300],
           child: Padding(
             padding: EdgeInsets.only(top: 0.5, bottom: 0.5),
-            child: model.imageUrl?.isValidUrl() ?? false
+            child: model.imageUrl.isValidUrl()
                 // TODO: check if zoom clips image or not
                 ? PinchZoomImage(
                     zoomedBackgroundColor: Colors.black.withOpacity(0.1),

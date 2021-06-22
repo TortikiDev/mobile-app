@@ -1,7 +1,7 @@
 @Timeout(Duration(seconds: 10))
 import 'package:flutter_test/flutter_test.dart';
 import 'package:tortiki/bloc/error_handling/index.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:tortiki/bloc/external_confectioner_profile/index.dart';
 import 'package:tortiki/data/http_client/responses/responses.dart';
 import 'package:tortiki/data/repositories/repositories.dart';
@@ -12,9 +12,9 @@ class _MockConfectionersRepository extends Mock
     implements ConfectionersRepository {}
 
 void main() {
-  ExternalConfectionerProfileBloc sut;
-  _MockErrorHandlingBloc errorHandlingBloc;
-  _MockConfectionersRepository confectionersRepository;
+  late ExternalConfectionerProfileBloc sut;
+  late _MockErrorHandlingBloc errorHandlingBloc;
+  late _MockConfectionersRepository confectionersRepository;
 
   final nameStub = 'John';
   final idStub = 123;
@@ -40,7 +40,7 @@ void main() {
   });
 
   tearDown(() {
-    sut?.close();
+    sut.close();
   });
 
   test('initial state is correct', () {
@@ -48,7 +48,7 @@ void main() {
   });
 
   test('close does not emit new states', () {
-    sut?.close();
+    sut.close();
     expectLater(
       sut.stream,
       emitsDone,
@@ -68,13 +68,13 @@ void main() {
       avatarUrl: 'avatarUrl',
       starType: ConfectionerRatingStarType.silver,
       rating: 345,
-      coordinate: null,
+      coordinate: LatLongResponse(0, 0),
     );
     final expectedState1 = initialState.copy(loading: true);
     final expectedState2 =
         expectedState1.copy(confectioner: responseStub, loading: false);
     // when
-    when(confectionersRepository.getConfectionerDetails(id: idStub))
+    when(() => confectionersRepository.getConfectionerDetails(id: idStub))
         .thenAnswer((realInvocation) => Future.value(responseStub));
     sut.add(BlocInit());
     // then
@@ -94,7 +94,7 @@ void main() {
     final expectedState1 = initialState.copy(loading: true);
     final expectedState2 = expectedState1.copy(loading: false);
     // when
-    when(confectionersRepository.getConfectionerDetails(id: idStub))
+    when(() => confectionersRepository.getConfectionerDetails(id: idStub))
         .thenAnswer((realInvocation) => Future.error(Exception()));
     sut.add(BlocInit());
     // then

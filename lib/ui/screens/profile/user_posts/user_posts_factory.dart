@@ -9,16 +9,16 @@ class UserPostsScreenFactoryData {
   final bool isMyPosts;
   final int userId;
 
-  UserPostsScreenFactoryData({@required this.isMyPosts, @required this.userId});
+  UserPostsScreenFactoryData({required this.isMyPosts, required this.userId});
 }
 
 class UserPostsScreenFactory
     implements WidgetFactory<UserPostsScreenFactoryData> {
   @override
-  Widget createWidget({UserPostsScreenFactoryData data}) {
+  Widget createWidget({UserPostsScreenFactoryData? data}) {
     return BlocProvider(
       create: (context) => UserPostsBloc(
-        isMyPosts: data.isMyPosts,
+        isMyPosts: data!.isMyPosts,
         userId: data.userId,
         postsRepository: RepositoryProvider.of(context),
         errorHandlingBloc: BlocProvider.of(context),

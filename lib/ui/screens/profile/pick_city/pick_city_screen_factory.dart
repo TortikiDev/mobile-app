@@ -9,19 +9,19 @@ import 'pick_city_screen.dart';
 class PickCityScreenFactoryData {
   final String selectedCity;
 
-  PickCityScreenFactoryData({@required this.selectedCity});
+  PickCityScreenFactoryData({required this.selectedCity});
 }
 
 class PickCityScreenFactory
     implements WidgetFactory<PickCityScreenFactoryData> {
   @override
-  Widget createWidget({PickCityScreenFactoryData data}) {
+  Widget createWidget({PickCityScreenFactoryData? data}) {
     return BlocProvider(
       create: (context) {
         final citiesRepository = CitiesRepository();
 
         return PickCityBloc(
-          selectedCity: data.selectedCity,
+          selectedCity: data!.selectedCity,
           citiesRepository: citiesRepository,
           errorHandlingBloc: BlocProvider.of(context),
         )..add(BlocInit());

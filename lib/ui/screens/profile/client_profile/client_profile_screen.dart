@@ -13,13 +13,13 @@ class ClientProfileScreen extends StatelessWidget {
   final WidgetFactory pickCityScreenFactory;
 
   const ClientProfileScreen({
-    Key key,
-    @required this.pickCityScreenFactory,
+    Key? key,
+    required this.pickCityScreenFactory,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final localizations = AppLocalizations.of(context);
+    final localizations = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
         title: Text(localizations.profile),

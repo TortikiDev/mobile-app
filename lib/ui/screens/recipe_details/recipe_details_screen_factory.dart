@@ -17,25 +17,26 @@ class RecipeDetailsScreenFactoryData {
   List<String> get imageUrls => List.of(_imageUrls);
 
   RecipeDetailsScreenFactoryData({
-    @required this.id,
-    @required this.title,
-    @required this.complexity,
-    @required List<String> imageUrls,
-    @required this.isInBookmarks,
+    required this.id,
+    required this.title,
+    required this.complexity,
+    required List<String> imageUrls,
+    required this.isInBookmarks,
   }) : _imageUrls = imageUrls;
 }
 
 class RecipeDetailsScreenFactory
     implements WidgetFactory<RecipeDetailsScreenFactoryData> {
   @override
-  Widget createWidget({RecipeDetailsScreenFactoryData data}) {
+  Widget createWidget({RecipeDetailsScreenFactoryData? data}) {
     final confectionerProfileScreenFactory =
         ExternalConfectionerProfileScreenFactory();
     final recipe = RecipeResponse(
-      id: data.id,
+      id: data!.id,
       title: data.title,
       complexity: data.complexity,
       imageUrls: data.imageUrls,
+      userId: null,
     );
     return BlocProvider(
       create: (context) => RecipeDetailsBloc(

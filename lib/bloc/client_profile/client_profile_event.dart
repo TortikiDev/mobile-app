@@ -4,12 +4,12 @@ abstract class ClientProfileEvent extends Equatable {}
 
 class BlocInit extends ClientProfileEvent {
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class Logout extends ClientProfileEvent {
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class PickCity extends ClientProfileEvent {
@@ -18,5 +18,5 @@ class PickCity extends ClientProfileEvent {
   PickCity(this.city);
 
   @override
-  List<Object> get props => [city];
+  List<Object?> get props => [city];
 }

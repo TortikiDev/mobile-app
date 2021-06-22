@@ -14,8 +14,8 @@ class SearchRecipesScreen extends StatelessWidget {
   final WidgetFactory recipeDetailsScreenFactory;
 
   const SearchRecipesScreen({
-    Key key,
-    @required this.recipeDetailsScreenFactory,
+    Key? key,
+    required this.recipeDetailsScreenFactory,
   }) : super(key: key);
 
   @override
@@ -93,9 +93,9 @@ class _ScrollView extends StatefulWidget {
   final WidgetFactory recipeDetailsScreenFactory;
 
   _ScrollView({
-    Key key,
-    @required this.state,
-    @required this.recipeDetailsScreenFactory,
+    Key? key,
+    required this.state,
+    required this.recipeDetailsScreenFactory,
   }) : super(key: key);
 
   @override

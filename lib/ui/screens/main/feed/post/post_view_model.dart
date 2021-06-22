@@ -1,11 +1,10 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/foundation.dart';
 
 import '../../../../reusable/list_items/list_item.dart';
 
 class PostViewModel extends Equatable implements ListItem {
   final int id;
-  final String userAvaratUrl;
+  final String? userAvaratUrl;
   final String userName;
   final int userId;
 
@@ -18,28 +17,29 @@ class PostViewModel extends Equatable implements ListItem {
   final bool descriptionExpanded;
 
   PostViewModel(
-      {@required this.id,
-      @required this.userAvaratUrl,
-      @required this.userName,
-      @required this.userId,
-      @required this.userGender,
-      @required this.imageUrl,
-      @required this.description,
-      @required this.likes,
-      @required this.liked,
+      {required this.id,
+      required this.userAvaratUrl,
+      required this.userName,
+      required this.userId,
+      required this.userGender,
+      required this.imageUrl,
+      required this.description,
+      required this.likes,
+      required this.liked,
       this.descriptionExpanded = false});
 
-  PostViewModel copy(
-          {int id,
-          String userAvaratUrl,
-          String userName,
-          int userId,
-          int userGender,
-          String imageUrl,
-          String description,
-          int likes,
-          bool liked,
-          bool descriptionExpanded}) =>
+  PostViewModel copy({
+    int? id,
+    String? userAvaratUrl,
+    String? userName,
+    int? userId,
+    int? userGender,
+    String? imageUrl,
+    String? description,
+    int? likes,
+    bool? liked,
+    bool? descriptionExpanded,
+  }) =>
       PostViewModel(
           id: id ?? this.id,
           userAvaratUrl: userAvaratUrl ?? this.userAvaratUrl,
@@ -53,7 +53,7 @@ class PostViewModel extends Equatable implements ListItem {
           descriptionExpanded: descriptionExpanded ?? this.descriptionExpanded);
 
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         id,
         userAvaratUrl,
         userName,

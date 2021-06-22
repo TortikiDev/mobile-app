@@ -3,12 +3,12 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SearchBar extends StatefulWidget {
   final bool autofocus;
-  final String hintText;
-  final Function(String) onTextChanged;
-  final Function() onBackArrowPressed;
+  final String? hintText;
+  final Function(String)? onTextChanged;
+  final Function()? onBackArrowPressed;
 
   SearchBar({
-    Key key,
+    Key? key,
     this.autofocus = false,
     this.hintText,
     this.onTextChanged,
@@ -31,7 +31,7 @@ class _SearchBarState extends State<SearchBar> {
 
   @override
   Widget build(BuildContext context) {
-    final localizations = AppLocalizations.of(context);
+    final localizations = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
     return Container(
       height: 64,
@@ -40,7 +40,7 @@ class _SearchBarState extends State<SearchBar> {
       child: TextField(
         controller: textController,
         onChanged: (text) {
-          widget.onTextChanged(text);
+          widget.onTextChanged?.call(text);
           final showClearButton = text.isNotEmpty;
           if (showClearButton != _showClearTextButton) {
             setState(() {
@@ -68,7 +68,7 @@ class _SearchBarState extends State<SearchBar> {
                   icon: Icon(Icons.clear),
                   onPressed: () {
                     textController.clear();
-                    widget.onTextChanged('');
+                    widget.onTextChanged?.call('');
                   },
                 )
               : null,

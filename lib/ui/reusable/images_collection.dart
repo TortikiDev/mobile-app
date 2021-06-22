@@ -4,7 +4,7 @@ import '../../utils/iterable_safe_element_at.dart';
 
 class ImagesCollection extends StatefulWidget {
   final List<String> _urls;
-  const ImagesCollection({Key key, @required List<String> urls})
+  const ImagesCollection({Key? key, required List<String> urls})
       : _urls = urls,
         super(key: key);
 
@@ -62,9 +62,9 @@ class _DotsIndicator extends StatelessWidget {
   final int selectedItem;
 
   _DotsIndicator({
-    Key key,
-    @required this.itemCount,
-    @required this.theme,
+    Key? key,
+    required this.itemCount,
+    required this.theme,
     this.selectedItem = 0,
   })  : assert(selectedItem < itemCount),
         super(key: key);

@@ -5,15 +5,15 @@ import '../../../utils/string_is_valid_url.dart';
 import 'avatar_size.dart';
 
 class Avatar extends StatelessWidget {
-  final String url;
+  final String? url;
   final double cornerRadius;
   final bool male;
   final AvatarSize placeholderSize;
   final EdgeInsets placeholderPadding;
 
   const Avatar({
-    Key key,
-    @required this.url,
+    Key? key,
+    required this.url,
     this.cornerRadius = 0.0,
     this.male = false,
     this.placeholderSize = AvatarSize.small,
@@ -32,7 +32,7 @@ class Avatar extends StatelessWidget {
       clipBehavior: Clip.hardEdge,
       child: validUrl
           ? CachedNetworkImage(
-              imageUrl: url,
+              imageUrl: url!,
               fit: BoxFit.cover,
             )
           : Padding(

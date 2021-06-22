@@ -15,8 +15,8 @@ class RecipeDetailsScreen extends StatefulWidget {
   final WidgetFactory confectionerProfileScreenFactory;
 
   const RecipeDetailsScreen({
-    Key key,
-    @required this.confectionerProfileScreenFactory,
+    Key? key,
+    required this.confectionerProfileScreenFactory,
   }) : super(key: key);
 
   @override
@@ -43,7 +43,7 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen>
 
   @override
   Widget build(BuildContext context) {
-    final localizations = AppLocalizations.of(context);
+    final localizations = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
     return Scaffold(
       body: Stack(
@@ -60,8 +60,7 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen>
                   pinned: true,
                   toolbarHeight: 0,
                   flexibleSpace: FlexibleSpaceBar(
-                    background:
-                        ImagesCollection(urls: state.recipe?.imageUrls ?? []),
+                    background: ImagesCollection(urls: state.recipe.imageUrls),
                   ),
                 ),
                 SliverList(
@@ -136,9 +135,9 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen>
                               ),
                             ),
                           SizedBox(height: 8),
-                          if (!state.loading)
+                          if (!state.loading && state.recipe.myVote != null)
                             VoteWidget(
-                              voteResult: state.recipe.myVote,
+                              voteResult: state.recipe.myVote!,
                               vsync: this,
                             ),
                           SizedBox(height: 32),
@@ -199,15 +198,17 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen>
   }
 
   void _showAuthorProfile(RecipeHeaderViewModel model, BuildContext context) {
-    final screenData = ExternalConfectionerProfileScreenFactoryData(
-      confectionerId: model.authorId,
-      confectionerName: model.authorName,
-      confectionerGender: model.authorGender,
-    );
-    final screen =
-        widget.confectionerProfileScreenFactory.createWidget(data: screenData);
-    final route = MaterialPageRoute(builder: (context) => screen);
-    Navigator.of(context).push(route);
+    if (model.authorId != null) {
+      final screenData = ExternalConfectionerProfileScreenFactoryData(
+        confectionerId: model.authorId!,
+        confectionerName: model.authorName,
+        confectionerGender: model.authorGender,
+      );
+      final screen = widget.confectionerProfileScreenFactory
+          .createWidget(data: screenData);
+      final route = MaterialPageRoute(builder: (context) => screen);
+      Navigator.of(context).push(route);
+    }
   }
 
   void _onScroll() {

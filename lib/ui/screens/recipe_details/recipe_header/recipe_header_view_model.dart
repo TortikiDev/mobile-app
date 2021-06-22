@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/foundation.dart';
 
 import '../../../../data/http_client/responses/responses.dart';
 
@@ -7,30 +6,31 @@ class RecipeHeaderViewModel extends Equatable {
   final String title;
   final double complexity;
   final bool isInBookmarks;
-  final String authorAvatarUrl;
+  final String? authorAvatarUrl;
+
   /// From [Gender]
   final int authorGender;
   final String authorName;
-  final int authorId;
+  final int? authorId;
 
   RecipeHeaderViewModel({
-    @required this.title,
-    @required this.complexity,
+    required this.title,
+    required this.complexity,
     this.isInBookmarks = false,
-    @required this.authorAvatarUrl,
-    @required this.authorGender,
-    @required this.authorName,
-    @required this.authorId,
+    required this.authorAvatarUrl,
+    required this.authorGender,
+    required this.authorName,
+    required this.authorId,
   });
 
   RecipeHeaderViewModel copy({
-    String title,
-    double complexity,
-    bool isInBookmarks,
-    String authorAvatarUrl,
-    Gender authorGender,
-    String authorName,
-    String authorId,
+    String? title,
+    double? complexity,
+    bool? isInBookmarks,
+    String? authorAvatarUrl,
+    int? authorGender,
+    String? authorName,
+    int? authorId,
   }) =>
       RecipeHeaderViewModel(
         title: title ?? this.title,
@@ -43,7 +43,7 @@ class RecipeHeaderViewModel extends Equatable {
       );
 
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         title,
         complexity,
         isInBookmarks,

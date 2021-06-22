@@ -13,10 +13,10 @@ class MainScreen extends StatefulWidget {
   final WidgetFactory searchRecipesScreenFactory;
 
   const MainScreen({
-    Key key,
-    @required this.feedScreenFactory,
-    @required this.recipesScreenFactory,
-    @required this.searchRecipesScreenFactory,
+    Key? key,
+    required this.feedScreenFactory,
+    required this.recipesScreenFactory,
+    required this.searchRecipesScreenFactory,
   }) : super(key: key);
 
   @override
@@ -28,7 +28,7 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final localizations = AppLocalizations.of(context);
+    final localizations = AppLocalizations.of(context)!;
 
     return DefaultTabController(
       length: 2,
@@ -74,7 +74,7 @@ class _MainScreenState extends State<MainScreen> {
 
   void _onCreateEntityTap(BuildContext context) {
     final tabController = DefaultTabController.of(context);
-    final tabIndex = tabController.index;
+    final tabIndex = tabController?.index ?? 0;
     WidgetFactory createEntityScreenFactory;
     switch (tabIndex) {
       case 0:
@@ -94,7 +94,7 @@ class _MainScreenState extends State<MainScreen> {
       screenFactory: widget.searchRecipesScreenFactory);
 
   void _pushFullScreenRoute(BuildContext context,
-      {@required WidgetFactory screenFactory}) {
+      {required WidgetFactory screenFactory}) {
     final pageRoute = MaterialPageRoute(
       builder: (context) => screenFactory.createWidget(),
       fullscreenDialog: true,

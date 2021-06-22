@@ -11,11 +11,11 @@ class BottomNavigationController extends StatefulWidget {
   final WidgetFactory profileScreenFactory;
 
   const BottomNavigationController({
-    Key key,
-    @required this.mainScreenFactory,
-    @required this.mapScreenFactory,
-    @required this.bookmarksScreenFactory,
-    @required this.profileScreenFactory,
+    Key? key,
+    required this.mainScreenFactory,
+    required this.mapScreenFactory,
+    required this.bookmarksScreenFactory,
+    required this.profileScreenFactory,
   }) : super(key: key);
 
   @override
@@ -26,13 +26,13 @@ class BottomNavigationController extends StatefulWidget {
 class _BottomNavigationControllerState
     extends State<BottomNavigationController> {
   final pageController = PageController();
-  List<BottomNaigationControllerItem> _items;
+  List<BottomNaigationControllerItem>? _items;
   int _currentPage = 0;
 
   @override
   Widget build(BuildContext context) {
     if (_items == null) {
-      final localizations = AppLocalizations.of(context);
+      final localizations = AppLocalizations.of(context)!;
       _items = [
         BottomNaigationControllerItem(
           widget.mainScreenFactory.createWidget(),
@@ -72,14 +72,14 @@ class _BottomNavigationControllerState
     return Scaffold(
       body: PageView(
         physics: NeverScrollableScrollPhysics(),
-        children: _items.map((e) => e.page).toList(),
+        children: _items!.map((e) => e.page).toList(),
         controller: pageController,
         onPageChanged: (index) => _currentPage = index,
       ),
       bottomNavigationBar: BottomNavigationBar(
         showSelectedLabels: false,
         showUnselectedLabels: false,
-        items: _items.map((e) => e.barItem).toList(),
+        items: _items!.map((e) => e.barItem).toList(),
         currentIndex: _currentPage,
         onTap: _onItemTapped,
       ),

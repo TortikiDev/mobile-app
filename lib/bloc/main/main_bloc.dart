@@ -1,7 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter/foundation.dart';
-
 import '../../data/preferences/account.dart';
 import '../../data/repositories/repositories.dart';
 import '../base_bloc.dart';
@@ -19,9 +17,9 @@ class MainBloc extends BaseBloc<MainEvent, MainState> {
   // region Lifecycle
 
   MainBloc(
-      {@required this.jwtRepository,
-      @required this.accountRepository,
-      @required ErrorHandlingBloc errorHandlingBloc})
+      {required this.jwtRepository,
+      required this.accountRepository,
+      required ErrorHandlingBloc errorHandlingBloc})
       : super(
             initialState: MainState.initial(),
             errorHandlingBloc: errorHandlingBloc);

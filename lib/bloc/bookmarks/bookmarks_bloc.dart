@@ -1,7 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter/foundation.dart';
-
 import '../../data/database/models/recipe_db_model.dart';
 import '../../data/repositories/repositories.dart';
 import '../../ui/screens/main/recipes/recipe/recipe_view_model.dart';
@@ -19,8 +17,8 @@ class BookmarksBloc extends BaseBloc<BookmarksEvent, BookmarksState> {
   // region Lifecycle
 
   BookmarksBloc(
-      {@required this.bookmarksRepository,
-      @required ErrorHandlingBloc errorHandlingBloc})
+      {required this.bookmarksRepository,
+      required ErrorHandlingBloc errorHandlingBloc})
       : super(
             initialState: BookmarksState.initial(),
             errorHandlingBloc: errorHandlingBloc);

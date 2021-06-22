@@ -1,5 +1,3 @@
-import 'package:flutter/foundation.dart';
-
 import '../http_client/requests/requests.dart';
 import '../http_client/responses/lat_long_response.dart';
 import '../http_client/responses/responses.dart';
@@ -7,10 +5,10 @@ import '../http_client/responses/responses.dart';
 // TODO: get actual data from server
 class ConfectionersRepository {
   Future<List<ConfectionerShortResponse>> getConfectioners({
-    @required LatLong mapCenter,
-    String searchQuery,
+    required LatLong mapCenter,
+    String? searchQuery,
     int limit = 24,
-    int lastId,
+    int? lastId,
   }) async {
     await Future.delayed(Duration(seconds: 2));
     return [
@@ -50,8 +48,7 @@ class ConfectionersRepository {
     ];
   }
 
-  Future<ConfectionerResponse> getConfectionerDetails(
-      {@required int id}) async {
+  Future<ConfectionerResponse> getConfectionerDetails({required int id}) async {
     await Future.delayed(Duration(seconds: 2));
     return ConfectionerResponse(
       id: 3,

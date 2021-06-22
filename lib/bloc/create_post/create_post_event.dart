@@ -6,7 +6,7 @@ abstract class CreatePostEvent extends Equatable {}
 
 class BlocInit extends CreatePostEvent {
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class PhotoPicked extends CreatePostEvent {
@@ -15,7 +15,7 @@ class PhotoPicked extends CreatePostEvent {
   PhotoPicked(this.photo);
 
   @override
-  List<Object> get props => [photo];
+  List<Object?> get props => [photo];
 }
 
 class DescriptionChanged extends CreatePostEvent {
@@ -24,10 +24,10 @@ class DescriptionChanged extends CreatePostEvent {
   DescriptionChanged(this.text);
 
   @override
-  List<Object> get props => [text];
+  List<Object?> get props => [text];
 }
 
 class CreatePost extends CreatePostEvent {
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }

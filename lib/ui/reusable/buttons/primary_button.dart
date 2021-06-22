@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 
 class PrimaryButton extends StatelessWidget {
   final String text;
-  final Function onPressed;
+  final Function()? onPressed;
 
   const PrimaryButton({
-    Key key,
-    @required this.text,
+    Key? key,
+    required this.text,
     this.onPressed,
   }) : super(key: key);
 

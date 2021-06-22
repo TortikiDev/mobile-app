@@ -1,7 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter/foundation.dart';
-
 import '../../data/repositories/repositories.dart';
 import '../base_bloc.dart';
 import '../error_handling/index.dart';
@@ -18,8 +16,8 @@ class ClientProfileBloc
   // region Lifecycle
 
   ClientProfileBloc({
-    @required this.accountRepository,
-    @required ErrorHandlingBloc errorHandlingBloc,
+    required this.accountRepository,
+    required ErrorHandlingBloc errorHandlingBloc,
   }) : super(
           initialState: ClientProfileState.initial(),
           errorHandlingBloc: errorHandlingBloc,

@@ -5,7 +5,7 @@ import 'package:tortiki/bloc/search_confectioners/index.dart';
 import 'package:tortiki/data/http_client/requests/requests.dart';
 import 'package:tortiki/data/http_client/responses/responses.dart';
 import 'package:tortiki/data/repositories/repositories.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:tortiki/ui/reusable/list_items/list_item.dart';
 import 'package:tortiki/ui/reusable/list_items/progress_indicator_item.dart';
 import 'package:tortiki/ui/screens/map/search_confectioners/confectioner/confectioner_view_model.dart';
@@ -16,9 +16,9 @@ class _MockConfectionersRepository extends Mock
     implements ConfectionersRepository {}
 
 void main() {
-  SearchConfectionersBloc sut;
-  _MockErrorHandlingBloc errorHandlingBloc;
-  _MockConfectionersRepository confectionersRepository;
+  late SearchConfectionersBloc sut;
+  late _MockErrorHandlingBloc errorHandlingBloc;
+  late _MockConfectionersRepository confectionersRepository;
 
   final mapCenter = LatLong(50.5, 30.7);
   final initialState = SearchConfectionersState.initial(mapCenter: mapCenter);
@@ -35,7 +35,7 @@ void main() {
   });
 
   tearDown(() {
-    sut?.close();
+    sut.close();
   });
 
   test('initial state is correct', () {
@@ -80,9 +80,8 @@ void main() {
       loadingFirstPage: false,
     );
     // when
-    when(confectionersRepository.getConfectioners(
-            searchQuery: 'Max', mapCenter: mapCenter))
-        .thenAnswer(
+    when(() => confectionersRepository.getConfectioners(
+        searchQuery: 'Max', mapCenter: mapCenter)).thenAnswer(
       (realInvocation) => Future.value([
         ConfectionerShortResponse(
           id: 21,
@@ -215,7 +214,7 @@ void main() {
       loadingNextPage: false,
     );
     // when
-    when(confectionersRepository.getConfectioners(
+    when(() => confectionersRepository.getConfectioners(
             mapCenter: mapCenter, lastId: 21))
         .thenAnswer((realInvocation) => Future.value(recipesNextPageResponse));
     sut.emit(baseState);

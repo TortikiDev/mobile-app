@@ -4,17 +4,17 @@ import '../../../utils/string_is_valid_url.dart';
 import 'avatar_size.dart';
 
 class CirclarAvatar extends StatelessWidget {
-  final String url;
+  final String? url;
   final double radius;
-  final Color borderColor;
-  final Color backgroundColor;
+  final Color? borderColor;
+  final Color? backgroundColor;
   final bool male;
   final AvatarSize placeholderSize;
 
   const CirclarAvatar({
-    Key key,
-    @required this.url,
-    @required this.radius,
+    Key? key,
+    required this.url,
+    required this.radius,
     this.borderColor,
     this.backgroundColor,
     this.male = false,
@@ -30,7 +30,7 @@ class CirclarAvatar extends StatelessWidget {
       backgroundColor: borderColor ?? Colors.grey[300],
       child: isValidUrl
           ? CachedNetworkImage(
-              imageUrl: url,
+              imageUrl: url!,
               imageBuilder: (context, imageProvider) {
                 return CircleAvatar(
                   radius: radius - 0.5,

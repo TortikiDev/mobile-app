@@ -1,7 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter/foundation.dart';
-
 import '../../data/repositories/posts_repository.dart';
 import '../base_bloc.dart';
 import '../error_handling/index.dart';
@@ -17,8 +15,8 @@ class CreatePostBloc extends BaseBloc<CreatePostEvent, CreatePostState> {
   // region Lifecycle
 
   CreatePostBloc(
-      {@required this.postsRepository,
-      @required ErrorHandlingBloc errorHandlingBloc})
+      {required this.postsRepository,
+      required ErrorHandlingBloc errorHandlingBloc})
       : super(
             initialState: CreatePostState.initial(),
             errorHandlingBloc: errorHandlingBloc);
@@ -36,7 +34,9 @@ class CreatePostBloc extends BaseBloc<CreatePostEvent, CreatePostState> {
       bool success;
       try {
         await postsRepository.createPost(
-            photo: state.photo, description: state.description);
+          photo: state.photo!,
+          description: state.description,
+        );
         success = true;
       } on Exception catch (error) {
         errorHandlingBloc.add(ExceptionRaised(error));

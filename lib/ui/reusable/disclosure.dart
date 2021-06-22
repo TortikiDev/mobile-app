@@ -5,8 +5,8 @@ class Disclosure extends StatelessWidget {
   final double height;
 
   const Disclosure({
-    Key key,
-    @required this.title,
+    Key? key,
+    required this.title,
     this.height = 56,
   }) : super(key: key);
 

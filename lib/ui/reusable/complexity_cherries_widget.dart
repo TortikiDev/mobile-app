@@ -7,8 +7,8 @@ class ComplexityCherriesWidget extends StatelessWidget {
   final Color textColor;
 
   ComplexityCherriesWidget({
-    @required this.complexity,
-    @required this.cherryColor,
+    required this.complexity,
+    required this.cherryColor,
     this.textColor = Colors.black,
   });
 
@@ -26,7 +26,7 @@ class ComplexityCherriesWidget extends StatelessWidget {
         padding: EdgeInsets.only(top: 4, left: 12),
         child: Text(
           normalizedComplexity.toStringAsFixed(1),
-          style: theme.textTheme.subtitle1.copyWith(color: textColor),
+          style: theme.textTheme.subtitle1?.copyWith(color: textColor),
         ),
       ),
     );

@@ -85,9 +85,9 @@ class _ScrollView extends StatefulWidget {
   final String selectedCity;
 
   _ScrollView({
-    Key key,
-    @required this.cities,
-    @required this.selectedCity,
+    Key? key,
+    required this.cities,
+    required this.selectedCity,
   }) : super(key: key);
 
   @override
@@ -114,7 +114,7 @@ class _ScrollViewState extends State<_ScrollView> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final localizations = AppLocalizations.of(context);
+    final localizations = AppLocalizations.of(context)!;
 
     return Scrollbar(
       child: ListView.builder(
@@ -132,7 +132,7 @@ class _ScrollViewState extends State<_ScrollView> {
                   Text(
                     localizations.useCurrentLocation,
                     style: theme.textTheme.subtitle2
-                        .copyWith(color: theme.colorScheme.onPrimary),
+                        ?.copyWith(color: theme.colorScheme.onPrimary),
                   ),
                   SizedBox(width: 8),
                   Icon(
@@ -156,10 +156,12 @@ class _ScrollViewState extends State<_ScrollView> {
     );
   }
 
-  void _selectCity(String city) {
-    final event = SelectCity(city);
-    BlocProvider.of<PickCityBloc>(context).add(event);
-    Navigator.of(context).pop(city);
+  void _selectCity(String? city) {
+    if (city != null) {
+      final event = SelectCity(city);
+      BlocProvider.of<PickCityBloc>(context).add(event);
+      Navigator.of(context).pop(city);
+    }
   }
 
   void _getCityFromLocationServices() {

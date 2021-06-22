@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/foundation.dart';
 
 import '../../ui/reusable/list_items/list_item.dart';
 
@@ -15,9 +14,9 @@ class UserRecipesState extends Equatable {
   Set<int> get bookmarkedRecipesIds => Set.of(_bookmarkedRecipesIds);
 
   UserRecipesState(
-      {@required this.isMyRecipes,
-      @required this.userId,
-      @required List<ListItem> listItems,
+      {required this.isMyRecipes,
+      required this.userId,
+      required List<ListItem> listItems,
       Set<int> bookmarkedRecipesIds = const {},
       this.loadingFirstPage = false,
       this.loadingNextPage = false})
@@ -26,7 +25,7 @@ class UserRecipesState extends Equatable {
 
   factory UserRecipesState.initial({
     bool isMyRecipes = false,
-    @required int userId,
+    required int userId,
   }) =>
       UserRecipesState(
         isMyRecipes: isMyRecipes,
@@ -35,12 +34,12 @@ class UserRecipesState extends Equatable {
       );
 
   UserRecipesState copy({
-    bool isMyRecipes,
-    int userId,
-    List<ListItem> listItems,
-    Set<int> bookmarkedRecipesIds,
-    bool loadingFirstPage,
-    bool loadingNextPage,
+    bool? isMyRecipes,
+    int? userId,
+    List<ListItem>? listItems,
+    Set<int>? bookmarkedRecipesIds,
+    bool? loadingFirstPage,
+    bool? loadingNextPage,
   }) =>
       UserRecipesState(
           isMyRecipes: isMyRecipes ?? this.isMyRecipes,
@@ -51,7 +50,7 @@ class UserRecipesState extends Equatable {
           loadingNextPage: loadingNextPage ?? this.loadingNextPage);
 
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         isMyRecipes,
         userId,
         _listItems,

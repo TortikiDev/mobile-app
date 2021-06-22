@@ -15,11 +15,11 @@ import '../../recipe_details/recipe_details_screen_factory.dart';
 class UserRecipesScreen extends StatelessWidget {
   final WidgetFactory recipeDetailsScreenFactory;
 
-  const UserRecipesScreen({@required this.recipeDetailsScreenFactory});
+  const UserRecipesScreen({required this.recipeDetailsScreenFactory});
 
   @override
   Widget build(BuildContext context) {
-    final localizaitons = AppLocalizations.of(context);
+    final localizaitons = AppLocalizations.of(context)!;
 
     return Scaffold(
       appBar: AppBar(title: Text(localizaitons.recipes)),
@@ -43,9 +43,9 @@ class _ScrollView extends StatelessWidget {
   final UserRecipesState state;
 
   const _ScrollView({
-    Key key,
-    @required this.state,
-    @required this.recipeDetailsScreenFactory,
+    Key? key,
+    required this.state,
+    required this.recipeDetailsScreenFactory,
   }) : super(key: key);
 
   @override

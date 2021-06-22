@@ -1,13 +1,12 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 
 import '../http_client/responses/responses.dart';
 
 // TODO: inject api client and make real requests
 class PostsRepository {
-  Future<List<PostResponse>> getPosts({int limit = 24, int lastId}) {
+  Future<List<PostResponse>> getPosts({int limit = 24, int? lastId}) {
     final postsStub = [
       PostResponse(
           id: 123,
@@ -60,9 +59,9 @@ class PostsRepository {
   }
 
   Future<List<PostResponse>> getPostsOfUser({
-    @required int userId,
+    required int userId,
     int limit = 24,
-    int lastId,
+    int? lastId,
   }) {
     final postsStub = [
       PostResponse(
@@ -118,7 +117,7 @@ class PostsRepository {
 
   Future<List<PostResponse>> getMyPosts({
     int limit = 24,
-    int lastId,
+    int? lastId,
   }) {
     final postsStub = [
       PostResponse(
@@ -172,9 +171,10 @@ class PostsRepository {
         .then((_) => Future.value(limitedResult));
   }
 
-  Future<void> likePost({int postId}) => Future.delayed(Duration(seconds: 1));
+  Future<void> likePost({required int postId}) =>
+      Future.delayed(Duration(seconds: 1));
 
-  Future<void> unlikePost({int postId}) =>
+  Future<void> unlikePost({required int postId}) =>
       Future.delayed(Duration(seconds: 1)).then(
         (_) => Future.error(
           DioError(
@@ -184,8 +184,8 @@ class PostsRepository {
       );
 
   Future<void> createPost({
-    @required File photo,
-    String description,
+    required File photo,
+    String? description,
   }) =>
       Future.delayed(Duration(seconds: 2));
 }

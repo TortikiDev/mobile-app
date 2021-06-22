@@ -12,8 +12,8 @@ class ClientProfileState extends Equatable {
   factory ClientProfileState.initial() => ClientProfileState();
 
   ClientProfileState copy({
-    String phone,
-    String city,
+    String? phone,
+    String? city,
   }) =>
       ClientProfileState(
         phone: phone ?? this.phone,
@@ -21,5 +21,5 @@ class ClientProfileState extends Equatable {
       );
 
   @override
-  List<Object> get props => [phone, city];
+  List<Object?> get props => [phone, city];
 }

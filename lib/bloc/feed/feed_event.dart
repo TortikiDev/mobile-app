@@ -8,12 +8,12 @@ abstract class PostEvent extends FeedEvent {
   PostEvent(this.postId);
 
   @override
-  List<Object> get props => [postId];
+  List<Object?> get props => [postId];
 }
 
 class BlocInit extends FeedEvent {
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class Like extends PostEvent {
@@ -38,10 +38,10 @@ class PullToRefresh extends FeedEvent {
   PullToRefresh(this.onComplete);
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class LoadNextPage extends FeedEvent {
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }

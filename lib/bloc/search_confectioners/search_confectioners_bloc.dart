@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -24,9 +23,9 @@ class SearchConfectionersBloc
   // region Lifecycle
 
   SearchConfectionersBloc(
-      {@required LatLong mapCenter,
-      @required this.confectionersRepository,
-      @required ErrorHandlingBloc errorHandlingBloc})
+      {required LatLong mapCenter,
+      required this.confectionersRepository,
+      required ErrorHandlingBloc errorHandlingBloc})
       : super(
             initialState:
                 SearchConfectionersState.initial(mapCenter: mapCenter),
@@ -85,8 +84,8 @@ class SearchConfectionersBloc
   // region Private methods
 
   Future<List<ConfectionerViewModel>> _getConfectionersFirstPage(
-      {@required String searchQuery}) async {
-    List<ConfectionerShortResponse> firstPageResponse;
+      {required String searchQuery}) async {
+    List<ConfectionerShortResponse>? firstPageResponse;
     try {
       firstPageResponse = await confectionersRepository.getConfectioners(
         mapCenter: state.mapCenter,
@@ -94,7 +93,6 @@ class SearchConfectionersBloc
       );
     } on Exception catch (e) {
       errorHandlingBloc.add(ExceptionRaised(e));
-      return null;
     }
     final result = firstPageResponse != null
         ? firstPageResponse.map(_mapConfectionerResponseToViewModel).toList()
@@ -103,7 +101,7 @@ class SearchConfectionersBloc
   }
 
   Future<List<ConfectionerViewModel>> _getConfectionersNextPage(
-      {@required String searchQuery}) async {
+      {String? searchQuery}) async {
     final lastItem = state.listItems
         .lastWhere((e) => e is ConfectionerViewModel) as ConfectionerViewModel;
     final lastId = lastItem.id;

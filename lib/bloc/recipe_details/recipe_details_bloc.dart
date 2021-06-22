@@ -1,7 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter/foundation.dart';
-
 import '../../data/database/models/models.dart';
 import '../../data/http_client/responses/responses.dart';
 import '../../data/repositories/repositories.dart';
@@ -22,11 +20,11 @@ class RecipeDetailsBloc
   // region Lifecycle
 
   RecipeDetailsBloc({
-    @required RecipeResponse recipe,
-    @required bool isInBookmarks,
-    @required this.recipesRepository,
-    @required this.bookmarkedRecipesRepository,
-    @required ErrorHandlingBloc errorHandlingBloc,
+    required RecipeResponse recipe,
+    required bool isInBookmarks,
+    required this.recipesRepository,
+    required this.bookmarkedRecipesRepository,
+    required ErrorHandlingBloc errorHandlingBloc,
   }) : super(
           initialState: RecipeDetailsState.initial(
             recipe: recipe,
@@ -49,7 +47,7 @@ class RecipeDetailsBloc
         title: recipe.title,
         complexity: recipe.complexity,
         authorAvatarUrl: recipe.userAvaratUrl,
-        authorName: recipe.userName,
+        authorName: recipe.userName ?? '',
         authorId: recipe.userId,
         authorGender: recipe.userGender,
         isInBookmarks: state.headerViewModel.isInBookmarks,

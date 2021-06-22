@@ -14,7 +14,7 @@ import 'recipe/recipe_view_model.dart';
 class RecipesScreen extends StatefulWidget {
   final WidgetFactory recipeDetailsScreenFactory;
 
-  const RecipesScreen({Key key, @required this.recipeDetailsScreenFactory})
+  const RecipesScreen({Key? key, required this.recipeDetailsScreenFactory})
       : super(key: key);
 
   @override
@@ -47,9 +47,9 @@ class _ScrollView extends StatelessWidget {
   final RecipesState state;
 
   const _ScrollView({
-    Key key,
-    @required this.state,
-    @required this.recipeDetailsScreenFactory,
+    Key? key,
+    required this.state,
+    required this.recipeDetailsScreenFactory,
   }) : super(key: key);
 
   @override

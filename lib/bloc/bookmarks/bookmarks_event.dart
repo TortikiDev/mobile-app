@@ -6,7 +6,7 @@ abstract class BookmarksEvent extends Equatable {}
 
 class BlocInit extends BookmarksEvent {
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class RemoveFromBookmarks extends BookmarksEvent {
@@ -15,7 +15,7 @@ class RemoveFromBookmarks extends BookmarksEvent {
   RemoveFromBookmarks(this.recipe);
 
   @override
-  List<Object> get props => [recipe];
+  List<Object?> get props => [recipe];
 }
 
 class UpdateIsInBookmarks extends BookmarksEvent {
@@ -24,5 +24,5 @@ class UpdateIsInBookmarks extends BookmarksEvent {
   UpdateIsInBookmarks(this.recipe);
 
   @override
-  List<Object> get props => [recipe];
+  List<Object?> get props => [recipe];
 }

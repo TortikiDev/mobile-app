@@ -4,7 +4,7 @@ abstract class PickCityEvent extends Equatable {}
 
 class BlocInit extends PickCityEvent {
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class SearchQueryChanged extends PickCityEvent {
@@ -13,7 +13,7 @@ class SearchQueryChanged extends PickCityEvent {
   SearchQueryChanged(this.query);
 
   @override
-  List<Object> get props => [query];
+  List<Object?> get props => [query];
 }
 
 class SelectCity extends PickCityEvent {
@@ -22,5 +22,5 @@ class SelectCity extends PickCityEvent {
   SelectCity(this.city);
 
   @override
-  List<Object> get props => [city];
+  List<Object?> get props => [city];
 }

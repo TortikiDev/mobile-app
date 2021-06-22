@@ -6,7 +6,7 @@ abstract class SearchRecipesEvent extends Equatable {}
 
 class BlocInit extends SearchRecipesEvent {
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class Bookmarks extends SearchRecipesEvent {
@@ -15,7 +15,7 @@ class Bookmarks extends SearchRecipesEvent {
   Bookmarks(this.recipe);
 
   @override
-  List<Object> get props => [recipe];
+  List<Object?> get props => [recipe];
 }
 
 class SearchQueryChanged extends SearchRecipesEvent {
@@ -24,12 +24,12 @@ class SearchQueryChanged extends SearchRecipesEvent {
   SearchQueryChanged(this.query);
 
   @override
-  List<Object> get props => [query];
+  List<Object?> get props => [query];
 }
 
 class LoadNextPage extends SearchRecipesEvent {
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class UpdateIsInBookmarks extends SearchRecipesEvent {
@@ -38,5 +38,5 @@ class UpdateIsInBookmarks extends SearchRecipesEvent {
   UpdateIsInBookmarks(this.recipe);
 
   @override
-  List<Object> get props => [recipe];
+  List<Object?> get props => [recipe];
 }

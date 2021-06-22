@@ -32,15 +32,15 @@ class CreateRecipeState extends Equatable {
   factory CreateRecipeState.initial() => CreateRecipeState();
 
   CreateRecipeState copy({
-    String title,
-    String description,
-    double complexity,
-    List<String> ingredients,
-    String cookingSteps,
-    List<File> photos,
-    bool canCreateRecipe,
-    bool creatingRecipe,
-    bool recipeSuccessfulyCreated,
+    String? title,
+    String? description,
+    double? complexity,
+    List<String>? ingredients,
+    String? cookingSteps,
+    List<File>? photos,
+    bool? canCreateRecipe,
+    bool? creatingRecipe,
+    bool? recipeSuccessfulyCreated,
   }) =>
       CreateRecipeState(
         title: title ?? this.title,
@@ -56,7 +56,7 @@ class CreateRecipeState extends Equatable {
       );
 
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         title,
         description,
         complexity,

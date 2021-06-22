@@ -14,8 +14,8 @@ class SearchConfectionersScreen extends StatelessWidget {
   final WidgetFactory confectionerProfileScreenFactory;
 
   const SearchConfectionersScreen({
-    Key key,
-    @required this.confectionerProfileScreenFactory,
+    Key? key,
+    required this.confectionerProfileScreenFactory,
   }) : super(key: key);
 
   @override
@@ -94,9 +94,9 @@ class _ScrollView extends StatefulWidget {
   final WidgetFactory confectionerProfileScreenFactory;
 
   _ScrollView({
-    Key key,
-    @required this.state,
-    @required this.confectionerProfileScreenFactory,
+    Key? key,
+    required this.state,
+    required this.confectionerProfileScreenFactory,
   }) : super(key: key);
 
   @override

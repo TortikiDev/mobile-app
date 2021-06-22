@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:tortiki/bloc/feed/index.dart';
 import 'package:widget_factory/widget_factory.dart';
 import 'package:tortiki/ui/screens/main/feed/feed_screen.dart';
@@ -15,8 +15,8 @@ class TestFeedScreenFactory implements WidgetFactory {
   Widget createWidget({dynamic data}) {
     final feedBloc = _MockFeedBloc();
     final feedInitialState = FeedState.initial();
-    when(feedBloc.state).thenReturn(feedInitialState);
-    when(feedBloc.stream).thenAnswer(
+    when(() => feedBloc.state).thenReturn(feedInitialState);
+    when(() => feedBloc.stream).thenAnswer(
         (realInvocation) => Stream<FeedState>.value(feedInitialState));
 
     final confectionerProfileScreenFactory =

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tortiki/bloc/external_confectioner_profile/index.dart';
 import 'package:tortiki/ui/screens/profile/external_confectioner_profile/external_confectioner_profile_screen.dart';
@@ -15,15 +15,15 @@ class _MockScreenFactory extends Mock implements WidgetFactory {}
 class TestExternalConfectionerProfileScreenFactory
     implements WidgetFactory<ExternalConfectionerProfileScreenFactoryData> {
   @override
-  Widget createWidget({ExternalConfectionerProfileScreenFactoryData data}) {
+  Widget createWidget({ExternalConfectionerProfileScreenFactoryData? data}) {
     final recipeDetailsBloc = _MockExternalConfectionerProfileBloc();
     final recipeDetailsState = ExternalConfectionerProfileState.initial(
-      confectionerName: data.confectionerName,
+      confectionerName: data!.confectionerName,
       confectionerId: data.confectionerId,
       confectionerGender: data.confectionerGender,
     );
-    when(recipeDetailsBloc.state).thenReturn(recipeDetailsState);
-    when(recipeDetailsBloc.stream).thenAnswer((_) =>
+    when(() => recipeDetailsBloc.state).thenReturn(recipeDetailsState);
+    when(() => recipeDetailsBloc.stream).thenAnswer((_) =>
         Stream<ExternalConfectionerProfileState>.value(recipeDetailsState));
 
     final userPostsScreenFacory = _MockScreenFactory();

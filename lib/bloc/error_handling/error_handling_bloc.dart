@@ -26,7 +26,7 @@ class ErrorHandlingBloc extends Bloc<ErrorHandlingEvent, ErrorHandlingState> {
             dialogMessage = ErrorDialogMessage.connectionTimeout;
             break;
           case DioErrorType.response:
-            switch (exception.response.statusCode) {
+            switch (exception.response?.statusCode) {
               case 400:
                 dialogMessage = ErrorDialogMessage.badRequest;
                 break;

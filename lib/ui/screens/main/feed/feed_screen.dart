@@ -16,8 +16,8 @@ class FeedScreen extends StatefulWidget {
   final WidgetFactory confectionerProfileScreenFactory;
 
   const FeedScreen({
-    Key key,
-    @required this.confectionerProfileScreenFactory,
+    Key? key,
+    required this.confectionerProfileScreenFactory,
   }) : super(key: key);
 
   @override
@@ -56,15 +56,15 @@ class _ScrollView extends StatelessWidget {
   final WidgetFactory confectionerProfileScreenFactory;
 
   const _ScrollView({
-    Key key,
-    @required this.state,
-    @required this.confectionerProfileScreenFactory,
+    Key? key,
+    required this.state,
+    required this.confectionerProfileScreenFactory,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final localizations = AppLocalizations.of(context);
+    final localizations = AppLocalizations.of(context)!;
 
     return Scrollbar(
         child: RefreshIndicator(
@@ -85,7 +85,10 @@ class _ScrollView extends StatelessWidget {
                         onAuthorTap: (model) =>
                             _showAuthorProfile(context, model),
                         onLike: (model) => _likePressed(context, model),
-                        onExpandDescription: ({model, isExpanded}) =>
+                        onExpandDescription: ({
+                          required model,
+                          required isExpanded,
+                        }) =>
                             _expandDescription(context, model, isExpanded),
                         theme: theme,
                         localizations: localizations);

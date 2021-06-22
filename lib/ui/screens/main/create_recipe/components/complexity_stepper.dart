@@ -9,7 +9,7 @@ import '../../../../reusable/show_dialog_mixin.dart';
 class ComplexityStepper extends StatelessWidget with ShowDialogMixin {
   final double complexity;
 
-  const ComplexityStepper({Key key, @required this.complexity})
+  const ComplexityStepper({Key? key, required this.complexity})
       : super(key: key);
 
   @override
@@ -63,7 +63,7 @@ class ComplexityStepper extends StatelessWidget with ShowDialogMixin {
           allowHalfRating: true,
           itemCount: 5,
           itemSize: 20,
-          onRatingUpdate: null,
+          onRatingUpdate: (_) {},
           ratingWidget: RatingWidget(
             full: _getRatingImage('assets/cherry/cherry_filled.png', theme),
             half: _getRatingImage('assets/cherry/cherry_half.png', theme),
@@ -90,7 +90,7 @@ class ComplexityStepper extends StatelessWidget with ShowDialogMixin {
       );
 
   void _showComplexityInfoDialog(BuildContext context) {
-    final localizations = AppLocalizations.of(context);
+    final localizations = AppLocalizations.of(context)!;
     showSimpleDialog(context: context, message: localizations.complexityPrompt);
   }
 }

@@ -1,8 +1,6 @@
 import 'dart:async';
 import 'dart:math';
 
-import 'package:flutter/foundation.dart';
-
 import '../../data/http_client/responses/responses.dart';
 import '../../data/repositories/repositories.dart';
 import '../../ui/reusable/list_items/progress_indicator_item.dart';
@@ -21,8 +19,8 @@ class FeedBloc extends BaseBloc<FeedEvent, FeedState> {
   // region Lifecycle
 
   FeedBloc(
-      {@required this.postsRepository,
-      @required ErrorHandlingBloc errorHandlingBloc})
+      {required this.postsRepository,
+      required ErrorHandlingBloc errorHandlingBloc})
       : super(
             initialState: FeedState.initial(),
             errorHandlingBloc: errorHandlingBloc);
@@ -59,7 +57,7 @@ class FeedBloc extends BaseBloc<FeedEvent, FeedState> {
       firstPageResponse = await postsRepository.getPosts();
     } on Exception catch (e) {
       errorHandlingBloc.add(ExceptionRaised(e));
-      return null;
+      return [];
     }
     final result = firstPageResponse.map(_mapPostResponseToViewModel).toList();
     return result;
@@ -82,52 +80,49 @@ class FeedBloc extends BaseBloc<FeedEvent, FeedState> {
 
   PostViewModel _mapPostResponseToViewModel(PostResponse response) =>
       PostViewModel(
-          id: response.id,
-          userAvaratUrl: response.userAvaratUrl,
-          userName: response.userName,
-          userId: response.userId,
-          userGender: response.userGender,
-          imageUrl: response.imageUrl,
-          description: response.description,
-          likes: response.likes,
-          liked: response.liked);
+        id: response.id,
+        userAvaratUrl: response.userAvaratUrl,
+        userName: response.userName,
+        userId: response.userId,
+        userGender: response.userGender,
+        imageUrl: response.imageUrl,
+        description: response.description,
+        likes: response.likes,
+        liked: response.liked,
+      );
 
   FeedState _mapPostEventToState(PostEvent event) {
     final post = state.feedItems
             .firstWhere((e) => e is PostViewModel && e.id == event.postId)
         as PostViewModel;
-    if (post != null) {
-      PostViewModel postToUpdate;
-      if (event is Like) {
-        final likes = post.likes + 1;
-        postToUpdate = post.copy(liked: true, likes: likes);
-        try {
-          postsRepository.likePost(postId: event.postId);
-        } on Exception catch (e) {
-          errorHandlingBloc.add(ExceptionRaised(e));
-        }
-      } else if (event is Unlike) {
-        final likes = max<int>(0, post.likes - 1);
-        postToUpdate = post.copy(liked: false, likes: likes);
-        try {
-          postsRepository.unlikePost(postId: event.postId);
-        } on Exception catch (e) {
-          errorHandlingBloc.add(ExceptionRaised(e));
-        }
-      } else if (event is ExpandDescription) {
-        postToUpdate = post.copy(descriptionExpanded: true);
-      } else if (event is CollapseDescription) {
-        postToUpdate = post.copy(descriptionExpanded: false);
+    late PostViewModel postToUpdate;
+    if (event is Like) {
+      final likes = post.likes + 1;
+      postToUpdate = post.copy(liked: true, likes: likes);
+      try {
+        postsRepository.likePost(postId: event.postId);
+      } on Exception catch (e) {
+        errorHandlingBloc.add(ExceptionRaised(e));
       }
-
-      final updatedPostsViewModels = state.feedItems;
-      final postIndex = updatedPostsViewModels.indexOf(post);
-      updatedPostsViewModels
-          .replaceRange(postIndex, postIndex + 1, [postToUpdate]);
-      return state.copy(feedItems: updatedPostsViewModels);
-    } else {
-      return state.copy();
+    } else if (event is Unlike) {
+      final likes = max<int>(0, post.likes - 1);
+      postToUpdate = post.copy(liked: false, likes: likes);
+      try {
+        postsRepository.unlikePost(postId: event.postId);
+      } on Exception catch (e) {
+        errorHandlingBloc.add(ExceptionRaised(e));
+      }
+    } else if (event is ExpandDescription) {
+      postToUpdate = post.copy(descriptionExpanded: true);
+    } else if (event is CollapseDescription) {
+      postToUpdate = post.copy(descriptionExpanded: false);
     }
+
+    final updatedPostsViewModels = state.feedItems;
+    final postIndex = updatedPostsViewModels.indexOf(post);
+    updatedPostsViewModels
+        .replaceRange(postIndex, postIndex + 1, [postToUpdate]);
+    return state.copy(feedItems: updatedPostsViewModels);
   }
 
   // endregion

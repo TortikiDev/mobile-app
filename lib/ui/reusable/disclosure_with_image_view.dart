@@ -3,16 +3,16 @@ import 'package:flutter/material.dart';
 import 'image_views/circlar_avatar.dart';
 
 class DisclosureWithAvatar extends StatelessWidget {
-  final String imageUrl;
+  final String? imageUrl;
   final bool male;
   final String title;
   final double height;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
 
   const DisclosureWithAvatar({
-    Key key,
-    @required this.title,
-    this.imageUrl,
+    Key? key,
+    required this.title,
+    required this.imageUrl,
     this.male = false,
     this.height = 56,
     this.onTap,

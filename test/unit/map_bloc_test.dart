@@ -6,7 +6,7 @@ import 'package:tortiki/data/http_client/requests/requests.dart';
 import 'package:tortiki/data/http_client/responses/responses.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:tortiki/data/repositories/repositories.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:tortiki/ui/constants.dart';
 
 class _MockErrorHandlingBloc extends Mock implements ErrorHandlingBloc {}
@@ -15,9 +15,9 @@ class _MockConfectionersRepository extends Mock
     implements ConfectionersRepository {}
 
 void main() {
-  MapBloc sut;
-  _MockErrorHandlingBloc errorHandlingBloc;
-  _MockConfectionersRepository confectionersRepository;
+  late MapBloc sut;
+  late _MockErrorHandlingBloc errorHandlingBloc;
+  late _MockConfectionersRepository confectionersRepository;
 
   final initialState = MapState.initial();
 
@@ -32,7 +32,7 @@ void main() {
   });
 
   tearDown(() {
-    sut?.close();
+    sut.close();
   });
 
   test('initial state is correct', () {
@@ -81,7 +81,7 @@ void main() {
     final expectedState2 =
         expectedState1.copy(confectioners: confectionersStub, loading: false);
     // when
-    when(confectionersRepository.getConfectioners(mapCenter: mapCenter))
+    when(() => confectionersRepository.getConfectioners(mapCenter: mapCenter))
         .thenAnswer((realInvocation) => Future.value(confectionersStub));
     sut.add(BlocInit());
     // then
@@ -121,7 +121,8 @@ void main() {
     final expectedState2 =
         expectedState1.copy(confectioners: confectionersStub, loading: false);
     // when
-    when(confectionersRepository.getConfectioners(mapCenter: LatLong(57, 34)))
+    when(() => confectionersRepository.getConfectioners(
+            mapCenter: LatLong(57, 34)))
         .thenAnswer((realInvocation) => Future.value(confectionersStub));
     sut.add(UpdateMapCenter(LatLng(57, 34)));
     // then

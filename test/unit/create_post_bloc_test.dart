@@ -2,7 +2,7 @@
 import 'dart:io';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:tortiki/bloc/error_handling/index.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:tortiki/bloc/create_post/index.dart';
 import 'package:tortiki/data/repositories/repositories.dart';
 
@@ -11,9 +11,9 @@ class _MockErrorHandlingBloc extends Mock implements ErrorHandlingBloc {}
 class _MockPostsRepository extends Mock implements PostsRepository {}
 
 void main() {
-  CreatePostBloc sut;
-  _MockErrorHandlingBloc errorHandlingBloc;
-  _MockPostsRepository postsRepository;
+  late CreatePostBloc sut;
+  late _MockErrorHandlingBloc errorHandlingBloc;
+  late _MockPostsRepository postsRepository;
 
   final initialState = CreatePostState.initial();
 
@@ -26,7 +26,7 @@ void main() {
   });
 
   tearDown(() {
-    sut?.close();
+    sut.close();
   });
 
   test('initial state is correct', () {
@@ -34,7 +34,7 @@ void main() {
   });
 
   test('close does not emit new states', () {
-    sut?.close();
+    sut.close();
     expectLater(
       sut.stream,
       emitsDone,
@@ -90,7 +90,8 @@ void main() {
     sut.add(CreatePost());
     sut.close();
     // then
-    verifyNever(postsRepository.createPost(photo: anyNamed('photo')));
+    verifyNever(
+        () => () => postsRepository.createPost(photo: any(named: 'photo')));
   });
 
   test('CreatePost flow test', () {
@@ -106,7 +107,8 @@ void main() {
         expectedState3.copy(creatingPost: false, postSuccessfulyCreated: true);
 
     // when
-    when(postsRepository.createPost(photo: photo, description: description))
+    when(() =>
+            postsRepository.createPost(photo: photo, description: description))
         .thenAnswer((realInvocation) => Future.value());
     sut.add(DescriptionChanged(description));
     sut.add(PhotoPicked(photo));

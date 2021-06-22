@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tortiki/ui/bottom_navigation/bottom_navigation_controller.dart';
 import 'package:widget_factory/widget_factory.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 
 class _MockMainScreenFactory extends Mock implements WidgetFactory {}
 
@@ -19,9 +19,9 @@ class TestBottomNaigationControllerFactory implements WidgetFactory {
     final bookmarksScreenFactory = _MockBookmarksScreenFactory();
     final profileScreenFactory = _MockProfileScreenFactory();
 
-    when(mainScreenFactory.createWidget()).thenReturn(Container());
-    when(mapScreenFactory.createWidget()).thenReturn(Container());
-    when(bookmarksScreenFactory.createWidget()).thenReturn(Container());
+    when(mainScreenFactory.createWidget).thenReturn(Container());
+    when(mapScreenFactory.createWidget).thenReturn(Container());
+    when(bookmarksScreenFactory.createWidget).thenReturn(Container());
 
     return BottomNavigationController(
       mainScreenFactory: mainScreenFactory,

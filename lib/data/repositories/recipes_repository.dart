@@ -2,15 +2,13 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:math';
 
-import 'package:flutter/foundation.dart';
-
 import '../http_client/responses/responses.dart';
 
 class RecipesRepository {
   Future<List<RecipeShortResponse>> getRecipes({
-    String searchQuery,
+    String? searchQuery,
     int limit = 24,
-    int lastId,
+    int? lastId,
   }) {
     final recipesStub = [
       RecipeShortResponse(
@@ -67,9 +65,9 @@ class RecipesRepository {
   }
 
   Future<List<RecipeShortResponse>> getRecipesOfUser({
-    @required int userId,
+    required int userId,
     int limit = 24,
-    int lastId,
+    int? lastId,
   }) {
     final recipesStub = [
       RecipeShortResponse(
@@ -120,7 +118,7 @@ class RecipesRepository {
 
   Future<List<RecipeShortResponse>> getMyRecipes({
     int limit = 24,
-    int lastId,
+    int? lastId,
   }) =>
       getRecipes(limit: limit, lastId: lastId);
 
@@ -181,18 +179,18 @@ class RecipesRepository {
       );
 
   Future<void> createRecipe({
-    @required String title,
-    @required double complexity,
-    @required String description,
-    @required List<String> ingredients,
-    @required String cookingSteps,
-    @required List<File> photos,
+    required String title,
+    required double complexity,
+    required String description,
+    required List<String> ingredients,
+    required String cookingSteps,
+    required List<File> photos,
   }) =>
       Future.delayed(Duration(seconds: 2));
 
-  Future<void> voteUpRecipe({@required int recipeId}) =>
+  Future<void> voteUpRecipe({required int recipeId}) =>
       Future.delayed(Duration(seconds: 2));
 
-  Future<void> voteDownRecipe({@required int recipeId}) =>
+  Future<void> voteDownRecipe({required int recipeId}) =>
       Future.delayed(Duration(seconds: 2));
 }

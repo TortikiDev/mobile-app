@@ -10,19 +10,19 @@ import 'confectioner_view_model.dart';
 class ConfectionerView extends StatelessWidget {
   final ConfectionerViewModel model;
   final ThemeData theme;
-  final Function(ConfectionerViewModel) showDetails;
+  final Function(ConfectionerViewModel)? showDetails;
 
   const ConfectionerView({
-    Key key,
-    @required this.model,
-    @required this.theme,
+    Key? key,
+    required this.model,
+    required this.theme,
     this.showDetails,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => showDetails(model),
+      onTap: () => showDetails?.call(model),
       child: Container(
         height: 88,
         color: Colors.transparent,
@@ -64,7 +64,7 @@ class ConfectionerView extends StatelessWidget {
                         Text(
                           model.address,
                           style: theme.textTheme.caption
-                              .copyWith(color: theme.colorScheme.onSurface),
+                              ?.copyWith(color: theme.colorScheme.onSurface),
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -87,7 +87,7 @@ class ConfectionerView extends StatelessWidget {
                               padding: EdgeInsets.only(left: 4, top: 2),
                               child: Text(
                                 model.rating.toString(),
-                                style: theme.textTheme.subtitle2.copyWith(
+                                style: theme.textTheme.subtitle2?.copyWith(
                                     color: theme.colorScheme.onPrimary),
                                 maxLines: 1,
                               ),

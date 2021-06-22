@@ -16,13 +16,13 @@ class CreateRecipeScreen extends StatelessWidget {
   final ImagePicker imagePicker;
 
   const CreateRecipeScreen({
-    Key key,
-    @required this.imagePicker,
+    Key? key,
+    required this.imagePicker,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final localizations = AppLocalizations.of(context);
+    final localizations = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
 
     return BlocConsumer<CreateRecipeBloc, CreateRecipeState>(
@@ -174,9 +174,9 @@ class _PhotosCollection extends StatelessWidget with PickImageMixin {
   final ImagePicker imagePicker;
 
   _PhotosCollection({
-    Key key,
+    Key? key,
     List<File> pickedPhotos = const [],
-    @required this.imagePicker,
+    required this.imagePicker,
   })  : _pickedPhotos = pickedPhotos,
         super(key: key);
 
@@ -191,7 +191,7 @@ class _PhotosCollection extends StatelessWidget with PickImageMixin {
                 Positioned.fill(
                   child: Container(
                     decoration: BoxDecoration(
-                      border: Border.all(width: 0.5, color: Colors.grey[400]),
+                      border: Border.all(width: 0.5, color: Colors.grey[400]!),
                     ),
                     clipBehavior: Clip.hardEdge,
                     child: Image.file(photo, fit: BoxFit.cover),
@@ -224,8 +224,12 @@ class _PhotosCollection extends StatelessWidget with PickImageMixin {
         onTap: () => pickImage(
           context: context,
           imagePicker: imagePicker,
-          completion: (image) => BlocProvider.of<CreateRecipeBloc>(context)
-              .add(PhotoPicked(image)),
+          completion: (image) {
+            if (image != null) {
+              BlocProvider.of<CreateRecipeBloc>(context)
+                  .add(PhotoPicked(image));
+            }
+          },
         ),
       );
       photosWidgets.add(addPhotoButton);

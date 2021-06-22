@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tortiki/bloc/recipe_details/index.dart';
 import 'package:tortiki/data/http_client/responses/responses.dart';
@@ -17,14 +17,14 @@ class TestRecipeDetailsScreenFactory implements WidgetFactory {
       id: 1,
       title: '1',
       complexity: 4,
-      imageUrls: null,
+      imageUrls: [],
     );
 
     final recipeDetailsBloc = _MockRecipeDetailsBloc();
     final recipeDetailsState =
         RecipeDetailsState.initial(recipe: recipe, isInBookmarks: false);
-    when(recipeDetailsBloc.state).thenReturn(recipeDetailsState);
-    when(recipeDetailsBloc.stream).thenAnswer((realInvocation) =>
+    when(() => recipeDetailsBloc.state).thenReturn(recipeDetailsState);
+    when(() => recipeDetailsBloc.stream).thenAnswer((realInvocation) =>
         Stream<RecipeDetailsState>.value(recipeDetailsState));
 
     final confectionerProfileScreenFactory = _MockScreenFactory();

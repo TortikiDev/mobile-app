@@ -4,5 +4,5 @@ abstract class ExternalConfectionerProfileEvent extends Equatable {}
 
 class BlocInit extends ExternalConfectionerProfileEvent {
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }

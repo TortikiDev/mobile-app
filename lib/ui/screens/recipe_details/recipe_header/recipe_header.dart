@@ -10,12 +10,12 @@ import 'recipe_header_view_model.dart';
 
 class RecipeHeader extends StatelessWidget with ShowDialogMixin {
   final RecipeHeaderViewModel model;
-  final Function(RecipeHeaderViewModel) addToBookmarks;
-  final Function(RecipeHeaderViewModel) showAuthorProfile;
+  final Function(RecipeHeaderViewModel)? addToBookmarks;
+  final Function(RecipeHeaderViewModel)? showAuthorProfile;
 
   const RecipeHeader({
-    Key key,
-    @required this.model,
+    Key? key,
+    required this.model,
     this.addToBookmarks,
     this.showAuthorProfile,
   }) : super(key: key);
@@ -32,7 +32,7 @@ class RecipeHeader extends StatelessWidget with ShowDialogMixin {
           padding: EdgeInsets.symmetric(horizontal: 16),
           child: Text(
             model.title,
-            style: theme.textTheme.headline4.copyWith(color: Colors.black),
+            style: theme.textTheme.headline4?.copyWith(color: Colors.black),
           ),
         ),
         SizedBox(height: 12),
@@ -60,7 +60,7 @@ class RecipeHeader extends StatelessWidget with ShowDialogMixin {
               ),
               Spacer(),
               IconButton(
-                onPressed: _sharePressed,
+                onPressed: () => _sharePressed,
                 icon: Icon(
                   Icons.share,
                   color: theme.colorScheme.primaryVariant,
@@ -84,14 +84,14 @@ class RecipeHeader extends StatelessWidget with ShowDialogMixin {
           title: model.authorName,
           imageUrl: model.authorAvatarUrl,
           male: model.authorGender == Gender.male,
-          onTap: () => showAuthorProfile(model),
+          onTap: () => showAuthorProfile?.call(model),
         ),
         Divider(),
       ],
     );
   }
 
-  void _sharePressed({@required recipeId}) {
+  void _sharePressed({required int recipeId}) {
     // TODO: specify actual base url
     final baseUrl = 'https://tortiki.ru';
     final postUrl = '$baseUrl/recipe/$recipeId';
@@ -99,7 +99,7 @@ class RecipeHeader extends StatelessWidget with ShowDialogMixin {
   }
 
   void _showComplexityInfoDialog(BuildContext context) {
-    final localizations = AppLocalizations.of(context);
+    final localizations = AppLocalizations.of(context)!;
     showSimpleDialog(context: context, message: localizations.complexityPrompt);
   }
 }

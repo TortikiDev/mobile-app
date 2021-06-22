@@ -1,5 +1,5 @@
 extension SafeElementAt<E> on Iterable<E> {
-  E safeElementAt(int index) {
+  E? safeElementAt(int index) {
     try {
       return elementAt(index);
     // ignore: avoid_catching_errors

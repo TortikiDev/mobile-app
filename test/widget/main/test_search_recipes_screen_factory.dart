@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:tortiki/bloc/search_recipes/index.dart';
 import 'package:widget_factory/widget_factory.dart';
 import 'package:tortiki/ui/screens/main/search_recipes/search_recipes_screen.dart';
@@ -14,8 +14,8 @@ class TestSearchRecipesScreenFactory implements WidgetFactory {
   Widget createWidget({dynamic data}) {
     final feedBloc = _MockSearchRecipesBloc();
     final feedInitialState = SearchRecipesState.initial();
-    when(feedBloc.state).thenReturn(feedInitialState);
-    when(feedBloc.stream).thenAnswer(
+    when(() => feedBloc.state).thenReturn(feedInitialState);
+    when(() => feedBloc.stream).thenAnswer(
         (realInvocation) => Stream<SearchRecipesState>.value(feedInitialState));
 
     final recipeDetailsScreenFactory = _MockRecipeDetailsScreenFactory();

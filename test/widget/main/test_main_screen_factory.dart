@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:tortiki/bloc/main/index.dart';
 import 'package:widget_factory/widget_factory.dart';
 import 'package:tortiki/ui/screens/main/main_screen.dart';
@@ -16,8 +16,8 @@ class TestMainScreenFactory implements WidgetFactory {
   Widget createWidget({dynamic data}) {
     final mainBloc = _MockMainBloc();
     final mainInitialState = MainState.initial();
-    when(mainBloc.state).thenReturn(mainInitialState);
-    when(mainBloc.stream).thenAnswer(
+    when(() => mainBloc.state).thenReturn(mainInitialState);
+    when(() => mainBloc.stream).thenAnswer(
         (realInvocation) => Stream<MainState>.value(mainInitialState));
 
     return BlocProvider<MainBloc>(

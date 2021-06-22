@@ -9,13 +9,13 @@ import 'recipe_view_model.dart';
 class RecipeView extends StatelessWidget {
   final RecipeViewModel model;
   final ThemeData theme;
-  final Function(RecipeViewModel) addToBookmarks;
-  final Function(RecipeViewModel) showDetails;
+  final Function(RecipeViewModel)? addToBookmarks;
+  final Function(RecipeViewModel)? showDetails;
 
   const RecipeView({
-    Key key,
-    @required this.model,
-    @required this.theme,
+    Key? key,
+    required this.model,
+    required this.theme,
     this.addToBookmarks,
     this.showDetails,
   }) : super(key: key);

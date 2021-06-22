@@ -1,10 +1,10 @@
-import 'package:flutter/material.dart';
+
 
 enum AvatarSize { small, large }
 
 String getPlaceholderAssetName({
-  @required AvatarSize size,
-  @required bool male,
+  required AvatarSize size,
+  required bool male,
 }) {
   String sizeSuffix;
   switch (size) {
