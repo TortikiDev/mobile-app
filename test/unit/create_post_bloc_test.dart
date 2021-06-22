@@ -10,12 +10,18 @@ class _MockErrorHandlingBloc extends Mock implements ErrorHandlingBloc {}
 
 class _MockPostsRepository extends Mock implements PostsRepository {}
 
+class _FakeFile extends Fake implements File {}
+
 void main() {
   late CreatePostBloc sut;
   late _MockErrorHandlingBloc errorHandlingBloc;
   late _MockPostsRepository postsRepository;
 
   final initialState = CreatePostState.initial();
+
+  setUpAll(() {
+    registerFallbackValue(_FakeFile());
+  });
 
   setUp(() {
     errorHandlingBloc = _MockErrorHandlingBloc();
@@ -90,8 +96,7 @@ void main() {
     sut.add(CreatePost());
     sut.close();
     // then
-    verifyNever(
-        () => () => postsRepository.createPost(photo: any(named: 'photo')));
+    verifyNever(() => postsRepository.createPost(photo: any(named: 'photo')));
   });
 
   test('CreatePost flow test', () {

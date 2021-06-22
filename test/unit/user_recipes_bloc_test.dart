@@ -20,6 +20,8 @@ class _MockPullToRefresh extends Mock implements PullToRefresh {}
 class _MockBookmarkedRecipesRepository extends Mock
     implements BookmarkedRecipesRepository {}
 
+class _FakeRecipeDbModel extends Fake implements RecipeDbModel {}
+
 void main() {
   late UserRecipesBloc sut;
   late _MockErrorHandlingBloc errorHandlingBloc;
@@ -28,6 +30,10 @@ void main() {
 
   final userIdStub = 123;
   final initialState = UserRecipesState.initial(userId: userIdStub);
+
+  setUpAll(() {
+    registerFallbackValue(_FakeRecipeDbModel());
+  });
 
   setUp(() {
     recipesRepository = _MockRecipesRepository();
@@ -298,6 +304,10 @@ void main() {
       bookmarkedRecipesIds: {20, 23},
     );
     // when
+    when(() => bookmarkedRecipesRepository.addRecipe(any()))
+        .thenAnswer((invocation) => Future.value());
+    when(() => bookmarkedRecipesRepository.deleteRecipe(21))
+        .thenAnswer((invocation) => Future.value());
     sut.emit(baseState);
     sut.add(Bookmarks(initialItems[0] as RecipeViewModel));
     sut.add(Bookmarks(initialItems[1] as RecipeViewModel));
@@ -329,6 +339,10 @@ void main() {
       bookmarkedRecipesIds: {21},
     );
     // when
+    when(() => bookmarkedRecipesRepository.addRecipe(any()))
+        .thenAnswer((invocation) => Future.value());
+    when(() => bookmarkedRecipesRepository.deleteRecipe(21))
+        .thenAnswer((invocation) => Future.value());
     sut.emit(baseState);
     sut.add(Bookmarks(initialItems[0] as RecipeViewModel));
     sut.add(Bookmarks(initialItems[1] as RecipeViewModel));

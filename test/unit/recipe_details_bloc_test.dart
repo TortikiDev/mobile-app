@@ -15,6 +15,8 @@ class _MockRecipesRepository extends Mock implements RecipesRepository {}
 class _MockBookmarkedRecipesRepository extends Mock
     implements BookmarkedRecipesRepository {}
 
+class _FakeRecipeDbModel extends Fake implements RecipeDbModel {}
+
 void main() {
   late RecipeDetailsBloc sut;
   late _MockErrorHandlingBloc errorHandlingBloc;
@@ -32,10 +34,24 @@ void main() {
     isInBookmarks: false,
   );
 
+  setUpAll(() {
+    registerFallbackValue(_FakeRecipeDbModel());
+  });
+
   setUp(() {
     recipesRepository = _MockRecipesRepository();
     bookmarkedRecipesRepository = _MockBookmarkedRecipesRepository();
     errorHandlingBloc = _MockErrorHandlingBloc();
+
+    when(() => bookmarkedRecipesRepository.addRecipe(any()))
+        .thenAnswer((invocation) => Future.value());
+    when(() => bookmarkedRecipesRepository.deleteRecipe(any()))
+        .thenAnswer((invocation) => Future.value());
+    when(() =>
+            recipesRepository.voteDownRecipe(recipeId: any(named: 'recipeId')))
+        .thenAnswer((invocation) => Future.value());
+    when(() => recipesRepository.voteUpRecipe(recipeId: any(named: 'recipeId')))
+        .thenAnswer((invocation) => Future.value());
 
     sut = RecipeDetailsBloc(
       recipesRepository: recipesRepository,

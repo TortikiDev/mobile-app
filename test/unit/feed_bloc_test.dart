@@ -331,7 +331,7 @@ void main() {
   });
 
   test('Like event invokes likePost() repository method', () async {
-// given
+    // given
     final feedItemsStub = [
       PostViewModel(
           id: 123,
@@ -349,6 +349,8 @@ void main() {
     final currentState = initialState.copy(feedItems: feedItemsStub);
 
     // when
+    when(() => postsRepository.likePost(postId: 123))
+        .thenAnswer((invocation) => Future.value());
     sut.emit(currentState);
     sut.add(Like(123));
 
@@ -400,7 +402,7 @@ void main() {
   });
 
   test('Unike event invokes likePost() repository method', () async {
-// given
+    // given
     final feedItemsStub = [
       PostViewModel(
           id: 123,
@@ -418,6 +420,8 @@ void main() {
     final currentState = initialState.copy(feedItems: feedItemsStub);
 
     // when
+    when(() => postsRepository.unlikePost(postId: 123))
+        .thenAnswer((invocation) => Future.value());
     sut.emit(currentState);
     sut.add(Unlike(123));
 

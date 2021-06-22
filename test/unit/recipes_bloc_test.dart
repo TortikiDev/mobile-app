@@ -20,6 +20,8 @@ class _MockPullToRefresh extends Mock implements PullToRefresh {}
 class _MockBookmarkedRecipesRepository extends Mock
     implements BookmarkedRecipesRepository {}
 
+class _FakeRecipeDbModel extends Fake implements RecipeDbModel {}
+
 void main() {
   late RecipesBloc sut;
   late _MockErrorHandlingBloc errorHandlingBloc;
@@ -28,10 +30,19 @@ void main() {
 
   final initialState = RecipesState.initial();
 
+  setUpAll(() {
+    registerFallbackValue(_FakeRecipeDbModel());
+  });
+
   setUp(() {
     recipesRepository = _MockRecipesRepository();
     bookmarkedRecipesRepository = _MockBookmarkedRecipesRepository();
     errorHandlingBloc = _MockErrorHandlingBloc();
+
+    when(() => bookmarkedRecipesRepository.addRecipe(any()))
+        .thenAnswer((invocation) => Future.value());
+    when(() => bookmarkedRecipesRepository.deleteRecipe(any()))
+        .thenAnswer((invocation) => Future.value());
 
     sut = RecipesBloc(
       recipesRepository: recipesRepository,

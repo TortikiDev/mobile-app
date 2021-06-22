@@ -22,6 +22,7 @@ class TestBottomNaigationControllerFactory implements WidgetFactory {
     when(mainScreenFactory.createWidget).thenReturn(Container());
     when(mapScreenFactory.createWidget).thenReturn(Container());
     when(bookmarksScreenFactory.createWidget).thenReturn(Container());
+    when(profileScreenFactory.createWidget).thenReturn(Container());
 
     return BottomNavigationController(
       mainScreenFactory: mainScreenFactory,

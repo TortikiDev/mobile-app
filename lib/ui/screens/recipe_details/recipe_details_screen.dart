@@ -4,6 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:widget_factory/widget_factory.dart';
 
 import '../../../bloc/recipe_details/index.dart';
+import '../../../data/http_client/responses/responses.dart';
 import '../../reusable/content_shimmer.dart';
 import '../../reusable/images_collection.dart';
 import '../profile/external_confectioner_profile/external_confectioner_profile_screen_factory.dart';
@@ -135,9 +136,10 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen>
                               ),
                             ),
                           SizedBox(height: 8),
-                          if (!state.loading && state.recipe.myVote != null)
+                          if (!state.loading)
                             VoteWidget(
-                              voteResult: state.recipe.myVote!,
+                              voteResult:
+                                  state.recipe.myVote ?? VoteResult.unvoted,
                               vsync: this,
                             ),
                           SizedBox(height: 32),

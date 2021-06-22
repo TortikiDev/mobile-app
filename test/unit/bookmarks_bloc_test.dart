@@ -125,6 +125,8 @@ void main() {
       )
     ]);
     // when
+    when(() => bookmarksRepository.deleteRecipe(2))
+        .thenAnswer((invocation) => Future.value());
     sut.emit(baseState);
     sut.add(RemoveFromBookmarks(recipesModels.last));
     // then
@@ -152,6 +154,8 @@ void main() {
 
     final baseState = initialState.copy(listItems: recipesModels);
     // when
+    when(() => bookmarksRepository.deleteRecipe(2))
+        .thenAnswer((invocation) => Future.value());
     sut.emit(baseState);
     sut.add(RemoveFromBookmarks(recipesModels.last));
     // then
