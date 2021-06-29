@@ -6,6 +6,9 @@ class PickCityState extends Equatable {
   final String selectedCity;
   final String searchQuery;
   final bool loading;
+  final bool detectingCity;
+  final String? detectedCity;
+  final bool detectedCityNotAllowed;
 
   const PickCityState({
     this.allCities = const [],
@@ -13,6 +16,9 @@ class PickCityState extends Equatable {
     required this.selectedCity,
     this.searchQuery = '',
     this.loading = false,
+    this.detectingCity = false,
+    this.detectedCity,
+    this.detectedCityNotAllowed = false,
   });
 
   factory PickCityState.initial({
@@ -26,6 +32,10 @@ class PickCityState extends Equatable {
     String? selectedCity,
     String? searchQuery,
     bool? loading,
+    bool? detectingCity,
+    String? detectedCity,
+    bool removeDetectedCity = false,
+    bool? detectedCityNotAllowed,
   }) =>
       PickCityState(
         allCities: allCities ?? this.allCities,
@@ -33,6 +43,11 @@ class PickCityState extends Equatable {
         selectedCity: selectedCity ?? this.selectedCity,
         searchQuery: searchQuery ?? this.searchQuery,
         loading: loading ?? this.loading,
+        detectingCity: detectingCity ?? this.detectingCity,
+        detectedCity:
+            removeDetectedCity ? null : (detectedCity ?? this.detectedCity),
+        detectedCityNotAllowed:
+            detectedCityNotAllowed ?? this.detectedCityNotAllowed,
       );
 
   @override
@@ -42,5 +57,8 @@ class PickCityState extends Equatable {
         selectedCity,
         searchQuery,
         loading,
+        detectingCity,
+        detectedCity,
+        detectedCityNotAllowed,
       ];
 }

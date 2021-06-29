@@ -24,3 +24,8 @@ class SelectCity extends PickCityEvent {
   @override
   List<Object?> get props => [city];
 }
+
+class GetLocationFromServices extends PickCityEvent {
+  @override
+  List<Object?> get props => [];
+}

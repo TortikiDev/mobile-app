@@ -1,0 +1,1 @@
+class NullLocationException implements Exception {}

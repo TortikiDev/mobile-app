@@ -117,6 +117,9 @@ mixin ShowDialogMixin {
       case ErrorDialogMessage.badGateway:
         message = localizations.badGateway;
         break;
+      case ErrorDialogMessage.failedToGetLocation:
+        message = localizations.failedToGetLocation;
+        break;
     }
 
     showDialog(

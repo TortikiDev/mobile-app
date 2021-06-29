@@ -19,6 +19,7 @@
   "description": "Description",
   "doYouLikeThisRecipe": "Do you like this recipe?",
   "error": "Error",
+  "failedToGetLocation": "Failed to get location",
   "feed": "Feed",
   "forbidder": "Forbidden",
   "goToLocationSettingsMessage": "To show your current location, grant permission to the geolocation service in the application settings ",
@@ -55,5 +56,12 @@
   "tablespoons": "tablespoons",
   "teaspoons": "teaspoons",
   "toSettings": "To settings",
+  "yourCityIsNotAllowedYet": "Unfortunately your city {city} is not allowed yet. Please pick city from list.",
+  "@yourCityIsNotAllowedYet": {
+    "type": "text",
+    "placeholders": {
+      "city": {}
+    }
+  },
   "useCurrentLocation": "Use current location"
 }

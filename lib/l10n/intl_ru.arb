@@ -19,6 +19,7 @@
   "description": "Описание",
   "doYouLikeThisRecipe": "Вам понравился рецепт?",
   "error": "Ошибка",
+  "failedToGetLocation": "Ошибка определения местоположения",
   "feed": "Лента",
   "forbidder": "Отказано в доступе",
   "goToLocationSettingsMessage": "Для использования вашего текущего местоположения предоставьте разрешение сервису геолокации в настройках приложения",
@@ -55,5 +56,12 @@
   "tablespoons": "ст.л.",
   "teaspoons": "ч.л.",
   "toSettings": "В настройки",
+  "yourCityIsNotAllowedYet": "К сожалению ваш населенный пункт {city} не доступен для выбора. Пожалуйста, выберите город из списка.",
+  "@yourCityIsNotAllowedYet": {
+    "type": "text",
+    "placeholders": {
+      "city": {}
+    }
+  },
   "useCurrentLocation": "Текущее местоположение"
 }

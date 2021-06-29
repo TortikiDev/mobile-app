@@ -50,6 +50,7 @@ dependencies:
   map_launcher: ^2.0.0
   flutter_svg: ^0.22.0
   app_settings: ^4.1.1
+  location: ^4.3.0
 
 dev_dependencies:
   # Test

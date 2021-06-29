@@ -5,68 +5,84 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../../bloc/pick_city/index.dart';
 import '../../../reusable/loading_indicator.dart';
 import '../../../reusable/search_bar.dart';
+import '../../../reusable/show_dialog_mixin.dart';
 
-class PickCityScreen extends StatelessWidget {
+class PickCityScreen extends StatelessWidget with ShowDialogMixin {
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
 
-    return BlocBuilder<PickCityBloc, PickCityState>(
-      builder: (context, state) => Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
-          child: Stack(
-            children: [
-              Positioned(
-                top: 0,
-                left: 0,
-                right: 0,
-                child: Container(
-                  color: theme.colorScheme.primary,
-                  height: 52,
+    return BlocListener<PickCityBloc, PickCityState>(
+      listenWhen: (prev, curr) => prev.selectedCity != curr.selectedCity,
+      listener: (context, state) =>
+          Navigator.of(context).pop(state.selectedCity),
+      child: BlocConsumer<PickCityBloc, PickCityState>(
+        listenWhen: (prev, curr) =>
+            !prev.detectedCityNotAllowed &&
+            curr.detectedCityNotAllowed &&
+            curr.detectedCity != null,
+        listener: (context, state) => showSimpleDialog(
+          context: context,
+          message: localizations.yourCityIsNotAllowedYet(state.detectedCity!),
+        ),
+        builder: (context, state) => Scaffold(
+          resizeToAvoidBottomInset: false,
+          body: GestureDetector(
+            onTap: () => FocusScope.of(context).unfocus(),
+            child: Stack(
+              children: [
+                Positioned(
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  child: Container(
+                    color: theme.colorScheme.primary,
+                    height: 52,
+                  ),
                 ),
-              ),
-              Positioned(
-                top: 144,
-                left: 0,
-                right: 0,
-                child: Visibility(
-                  visible: state.loading,
-                  child: Center(
-                    child: SizedBox(
-                      height: 32,
-                      width: 32,
-                      child: LoadingIndicator(),
+                Positioned(
+                  top: 144,
+                  left: 0,
+                  right: 0,
+                  child: Visibility(
+                    visible: state.loading,
+                    child: Center(
+                      child: SizedBox(
+                        height: 32,
+                        width: 32,
+                        child: LoadingIndicator(),
+                      ),
                     ),
                   ),
                 ),
-              ),
-              Center(
-                child: Image.asset('assets/logo_transparent.png'),
-              ),
-              SafeArea(
-                bottom: false,
-                child: Column(
-                  children: [
-                    SearchBar(
-                      onTextChanged: (text) =>
-                          _onSearchTextChanged(context, text),
-                      onBackArrowPressed: () {
-                        FocusScope.of(context).unfocus();
-                        Navigator.of(context).maybePop();
-                      },
-                    ),
-                    Expanded(
-                      child: _ScrollView(
-                        cities: state.citiesToShow,
-                        selectedCity: state.selectedCity,
-                      ),
-                    ),
-                  ],
+                Center(
+                  child: Image.asset('assets/logo_transparent.png'),
                 ),
-              ),
-            ],
+                SafeArea(
+                  bottom: false,
+                  child: Column(
+                    children: [
+                      SearchBar(
+                        onTextChanged: (text) =>
+                            _onSearchTextChanged(context, text),
+                        onBackArrowPressed: () {
+                          FocusScope.of(context).unfocus();
+                          Navigator.of(context).maybePop();
+                        },
+                      ),
+                      Expanded(
+                        child: _ScrollView(
+                          cities: state.citiesToShow,
+                          selectedCity: state.selectedCity,
+                          detectingCity: state.detectingCity,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -83,11 +99,13 @@ class PickCityScreen extends StatelessWidget {
 class _ScrollView extends StatefulWidget {
   final List<String> cities;
   final String selectedCity;
+  final bool detectingCity;
 
   _ScrollView({
     Key? key,
     required this.cities,
     required this.selectedCity,
+    required this.detectingCity,
   }) : super(key: key);
 
   @override
@@ -124,24 +142,36 @@ class _ScrollViewState extends State<_ScrollView> {
         itemCount: widget.cities.length + 1,
         itemBuilder: (context, index) {
           if (index == 0) {
-            return TextButton(
-              onPressed: _getCityFromLocationServices,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    localizations.useCurrentLocation,
-                    style: theme.textTheme.subtitle2
-                        ?.copyWith(color: theme.colorScheme.onPrimary),
-                  ),
-                  SizedBox(width: 8),
-                  Icon(
-                    Icons.location_on,
-                    color: theme.colorScheme.onPrimary,
-                  ),
-                ],
-              ),
-            );
+            if (widget.detectingCity) {
+              return Container(
+                padding: const EdgeInsets.only(top: 16, bottom: 8),
+                alignment: Alignment.center,
+                child: SizedBox(
+                  height: 24,
+                  width: 24,
+                  child: LoadingIndicator(),
+                ),
+              );
+            } else {
+              return TextButton(
+                onPressed: _getCityFromLocationServices,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      localizations.useCurrentLocation,
+                      style: theme.textTheme.subtitle2
+                          ?.copyWith(color: theme.colorScheme.onPrimary),
+                    ),
+                    SizedBox(width: 8),
+                    Icon(
+                      Icons.location_on,
+                      color: theme.colorScheme.onPrimary,
+                    ),
+                  ],
+                ),
+              );
+            }
           } else {
             final city = widget.cities[index - 1];
             return RadioListTile(
@@ -160,12 +190,11 @@ class _ScrollViewState extends State<_ScrollView> {
     if (city != null) {
       final event = SelectCity(city);
       BlocProvider.of<PickCityBloc>(context).add(event);
-      Navigator.of(context).pop(city);
     }
   }
 
-  void _getCityFromLocationServices() {
-    // TODO: needs implement
-    print('auto location');
+  Future<void> _getCityFromLocationServices() async {
+    final event = GetLocationFromServices();
+    BlocProvider.of<PickCityBloc>(context).add(event);
   }
 }
