@@ -12,20 +12,20 @@ import 'search_confectioners_screen.dart';
 class SearchConfectionersScreenFactoryData {
   final LatLong mapCenter;
 
-  SearchConfectionersScreenFactoryData({@required this.mapCenter});
+  SearchConfectionersScreenFactoryData({required this.mapCenter});
 }
 
 class SearchConfectionersScreenFactory
     implements WidgetFactory<SearchConfectionersScreenFactoryData> {
   @override
-  Widget createWidget({SearchConfectionersScreenFactoryData data}) {
+  Widget createWidget({SearchConfectionersScreenFactoryData? data}) {
     final confectionerProfileScreenFactory =
         ExternalConfectionerProfileScreenFactory();
 
     return BlocProvider(
       create: (context) {
         return SearchConfectionersBloc(
-          mapCenter: data.mapCenter,
+          mapCenter: data!.mapCenter,
           confectionersRepository:
               RepositoryProvider.of<ConfectionersRepository>(context),
           errorHandlingBloc: BlocProvider.of<ErrorHandlingBloc>(context),

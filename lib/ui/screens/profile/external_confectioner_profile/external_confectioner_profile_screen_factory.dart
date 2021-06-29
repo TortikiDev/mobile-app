@@ -13,22 +13,22 @@ class ExternalConfectionerProfileScreenFactoryData {
   final int confectionerGender;
 
   ExternalConfectionerProfileScreenFactoryData({
-    @required this.confectionerId,
-    @required this.confectionerName,
-    @required this.confectionerGender,
+    required this.confectionerId,
+    required this.confectionerName,
+    required this.confectionerGender,
   });
 }
 
 class ExternalConfectionerProfileScreenFactory
     implements WidgetFactory<ExternalConfectionerProfileScreenFactoryData> {
   @override
-  Widget createWidget({ExternalConfectionerProfileScreenFactoryData data}) {
+  Widget createWidget({ExternalConfectionerProfileScreenFactoryData? data}) {
     final userPostsScreenFacory = UserPostsScreenFactory();
     final userRecipesScreenFacory = UserRecipesScreenFactory();
 
     return BlocProvider(
       create: (context) => ExternalConfectionerProfileBloc(
-        confectionerId: data.confectionerId,
+        confectionerId: data!.confectionerId,
         confectionerName: data.confectionerName,
         confectionerGender: data.confectionerGender,
         confectionersRepository: RepositoryProvider.of(context),

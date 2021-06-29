@@ -1,7 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter/foundation.dart';
-
 import '../../data/database/models/models.dart';
 import '../../data/http_client/responses/responses.dart';
 import '../../data/repositories/repositories.dart';
@@ -23,10 +21,10 @@ class UserRecipesBloc extends BaseBloc<UserRecipesEvent, UserRecipesState> {
 
   UserRecipesBloc({
     bool isMyRecipes = false,
-    @required int userId,
-    @required this.recipesRepository,
-    @required this.bookmarkedRecipesRepository,
-    @required ErrorHandlingBloc errorHandlingBloc,
+    required int userId,
+    required this.recipesRepository,
+    required this.bookmarkedRecipesRepository,
+    required ErrorHandlingBloc errorHandlingBloc,
   }) : super(
             initialState: UserRecipesState.initial(
               isMyRecipes: isMyRecipes,
@@ -106,7 +104,7 @@ class UserRecipesBloc extends BaseBloc<UserRecipesEvent, UserRecipesState> {
       firstPageResponse = await request;
     } on Exception catch (e) {
       errorHandlingBloc.add(ExceptionRaised(e));
-      return null;
+      return [];
     }
     final result =
         firstPageResponse.map(_mapRecipeResponseToViewModel).toList();

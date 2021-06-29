@@ -6,7 +6,7 @@ abstract class UserRecipesEvent extends Equatable {}
 
 class BlocInit extends UserRecipesEvent {
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class Bookmarks extends UserRecipesEvent {
@@ -15,7 +15,7 @@ class Bookmarks extends UserRecipesEvent {
   Bookmarks(this.recipe);
 
   @override
-  List<Object> get props => [recipe];
+  List<Object?> get props => [recipe];
 }
 
 class UpdateIsInBookmarks extends UserRecipesEvent {
@@ -24,7 +24,7 @@ class UpdateIsInBookmarks extends UserRecipesEvent {
   UpdateIsInBookmarks(this.recipe);
 
   @override
-  List<Object> get props => [recipe];
+  List<Object?> get props => [recipe];
 }
 
 class PullToRefresh extends UserRecipesEvent {
@@ -33,10 +33,10 @@ class PullToRefresh extends UserRecipesEvent {
   PullToRefresh(this.onComplete);
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class LoadNextPage extends UserRecipesEvent {
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }

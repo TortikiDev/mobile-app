@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/foundation.dart';
 
 import '../../../../../data/http_client/responses/responses.dart';
 import '../../../../reusable/list_items/list_item.dart';
@@ -9,7 +8,7 @@ class ConfectionerViewModel extends Equatable implements ListItem {
   final String name;
   final String address;
   final int gender;
-  final String avatarUrl;
+  final String? avatarUrl;
   final LatLongResponse coordinate;
 
   /// Star type from [ConfectionerRatingStarType]
@@ -17,18 +16,18 @@ class ConfectionerViewModel extends Equatable implements ListItem {
   final int rating;
 
   ConfectionerViewModel({
-    @required this.id,
-    @required this.name,
-    @required this.address,
-    @required this.gender,
-    @required this.avatarUrl,
-    @required this.coordinate,
-    @required this.starType,
-    @required this.rating,
+    required this.id,
+    required this.name,
+    required this.address,
+    required this.gender,
+    required this.avatarUrl,
+    required this.coordinate,
+    required this.starType,
+    required this.rating,
   });
 
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         id,
         name,
         address,

@@ -7,8 +7,8 @@ class LatLong extends Equatable {
   LatLong(this.lat, this.long);
 
   LatLong copy({
-    double lat,
-    double long,
+    double? lat,
+    double? long,
   }) =>
       LatLong(
         lat ?? this.lat,
@@ -16,7 +16,7 @@ class LatLong extends Equatable {
       );
 
   @override
-  List<Object> get props => [lat, long];
+  List<Object?> get props => [lat, long];
 
   @override
   bool get stringify => true;

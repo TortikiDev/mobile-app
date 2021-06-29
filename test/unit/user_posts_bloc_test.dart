@@ -2,7 +2,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:tortiki/bloc/error_handling/index.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:tortiki/bloc/user_posts/index.dart';
 import 'package:tortiki/data/repositories/repositories.dart';
 import 'package:tortiki/data/http_client/responses/responses.dart';
@@ -15,9 +15,9 @@ class _MockErrorHandlingBloc extends Mock implements ErrorHandlingBloc {}
 class _MockPostsRepository extends Mock implements PostsRepository {}
 
 void main() {
-  UserPostsBloc sut;
-  _MockErrorHandlingBloc errorHandlingBloc;
-  _MockPostsRepository postsRepository;
+  late UserPostsBloc sut;
+  late _MockErrorHandlingBloc errorHandlingBloc;
+  late _MockPostsRepository postsRepository;
 
   final userIdStub = 123;
   final initialState = UserPostsState.initial(userId: userIdStub);
@@ -34,7 +34,7 @@ void main() {
   });
 
   tearDown(() {
-    sut?.close();
+    sut.close();
   });
 
   test('initial state is correct', () {
@@ -42,7 +42,7 @@ void main() {
   });
 
   test('close does not emit new states', () {
-    sut?.close();
+    sut.close();
     expectLater(
       sut.stream,
       emitsDone,
@@ -102,7 +102,7 @@ void main() {
         initialState.copy(feedItems: feedItemsStub, loadingFirstPage: false);
 
     // when
-    when(postsRepository.getPostsOfUser(userId: userIdStub))
+    when(() => postsRepository.getPostsOfUser(userId: userIdStub))
         .thenAnswer((realInvocation) => Future.value(postsResponseStub));
     sut.add(BlocInit());
 
@@ -121,7 +121,7 @@ void main() {
     final expectedState2 = initialState.copy(loadingFirstPage: false);
 
     // when
-    when(postsRepository.getPostsOfUser(userId: userIdStub)).thenAnswer(
+    when(() => postsRepository.getPostsOfUser(userId: userIdStub)).thenAnswer(
       (invoccation) => Future.error(
         DioError(requestOptions: RequestOptions(path: '/')),
       ),
@@ -186,7 +186,7 @@ void main() {
     final expectedState = initialState.copy(feedItems: feedItemsStub);
 
     // when
-    when(postsRepository.getPostsOfUser(userId: userIdStub))
+    when(() => postsRepository.getPostsOfUser(userId: userIdStub))
         .thenAnswer((realInvocation) => Future.value(postsResponseStub));
     sut.add(PullToRefresh(() {}));
 
@@ -203,7 +203,7 @@ void main() {
     // given
 
     // when
-    when(postsRepository.getPostsOfUser(userId: userIdStub)).thenAnswer(
+    when(() => postsRepository.getPostsOfUser(userId: userIdStub)).thenAnswer(
       (invoccation) =>
           Future.error(DioError(requestOptions: RequestOptions(path: '/'))),
     );
@@ -284,7 +284,7 @@ void main() {
 
     // when
     sut.emit(currentState);
-    when(postsRepository.getPostsOfUser(userId: userIdStub, lastId: 100))
+    when(() => postsRepository.getPostsOfUser(userId: userIdStub, lastId: 100))
         .thenAnswer((realInvocation) => Future.value(nextPageResponseStub));
     sut.add(LoadNextPage());
 
@@ -329,7 +329,7 @@ void main() {
 
     // when
     sut.emit(currentState);
-    when(postsRepository.likePost(postId: 123))
+    when(() => postsRepository.likePost(postId: 123))
         .thenAnswer((realInvocation) => Future.value());
     sut.add(Like(123));
 
@@ -338,7 +338,7 @@ void main() {
   });
 
   test('Like event invokes likePost() repository method', () async {
-// given
+    // given
     final feedItemsStub = [
       PostViewModel(
           id: 123,
@@ -356,12 +356,14 @@ void main() {
     final currentState = initialState.copy(feedItems: feedItemsStub);
 
     // when
+    when(() => postsRepository.likePost(postId: 123))
+        .thenAnswer((invocation) => Future.value());
     sut.emit(currentState);
     sut.add(Like(123));
 
     // then
-    await untilCalled(postsRepository.likePost(postId: 123));
-    verify(postsRepository.likePost(postId: 123)).called(1);
+    await untilCalled(() => postsRepository.likePost(postId: 123));
+    verify(() => postsRepository.likePost(postId: 123)).called(1);
   });
 
   test('Unike event emits state with unliked post', () {
@@ -398,7 +400,7 @@ void main() {
 
     // when
     sut.emit(currentState);
-    when(postsRepository.unlikePost(postId: 123))
+    when(() => postsRepository.unlikePost(postId: 123))
         .thenAnswer((realInvocation) => Future.value());
     sut.add(Unlike(123));
 
@@ -407,7 +409,7 @@ void main() {
   });
 
   test('Unike event invokes likePost() repository method', () async {
-// given
+    // given
     final feedItemsStub = [
       PostViewModel(
           id: 123,
@@ -425,11 +427,13 @@ void main() {
     final currentState = initialState.copy(feedItems: feedItemsStub);
 
     // when
+    when(() => postsRepository.unlikePost(postId: 123))
+        .thenAnswer((invocation) => Future.value());
     sut.emit(currentState);
     sut.add(Unlike(123));
 
     // then
-    await untilCalled(postsRepository.unlikePost(postId: 123));
-    verify(postsRepository.unlikePost(postId: 123)).called(1);
+    await untilCalled(() => postsRepository.unlikePost(postId: 123));
+    verify(() => postsRepository.unlikePost(postId: 123)).called(1);
   });
 }

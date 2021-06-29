@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/foundation.dart';
 
 import '../../ui/reusable/list_items/list_item.dart';
 
@@ -14,24 +13,24 @@ class UserPostsState extends Equatable {
 
   UserPostsState({
     this.isMyPosts = false,
-    @required this.userId,
-    @required List<ListItem> feedItems,
+    required this.userId,
+    required List<ListItem> feedItems,
     this.loadingFirstPage = false,
     this.loadingNextPage = false,
   }) : _feedItems = feedItems;
 
   factory UserPostsState.initial({
     bool isMyPosts = false,
-    @required int userId,
+    required int userId,
   }) =>
       UserPostsState(isMyPosts: isMyPosts, userId: userId, feedItems: []);
 
   UserPostsState copy({
-    bool isMyPosts,
-    int userId,
-    List<ListItem> feedItems,
-    bool loadingFirstPage,
-    bool loadingNextPage,
+    bool? isMyPosts,
+    int? userId,
+    List<ListItem>? feedItems,
+    bool? loadingFirstPage,
+    bool? loadingNextPage,
   }) =>
       UserPostsState(
           isMyPosts: isMyPosts ?? this.isMyPosts,
@@ -41,7 +40,7 @@ class UserPostsState extends Equatable {
           loadingNextPage: loadingNextPage ?? this.loadingNextPage);
 
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         isMyPosts,
         userId,
         _feedItems,

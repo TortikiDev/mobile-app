@@ -11,7 +11,7 @@ class ${upperName}ScreenFactory implements WidgetFactory {
   Widget createWidget({dynamic data}) {
     return BlocProvider(
         create: (context) => ${upperName}Bloc(
-            errorHandlingBloc: BlocProvider.of<ErrorHandlingBloc>(context),)
+            errorHandlingBloc: BlocProvider.of(context),)
           ..add(BlocInit()),
         child: ${upperName}Screen(),);
   }

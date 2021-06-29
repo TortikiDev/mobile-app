@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../pick_city/null_location_exception.dart';
 import 'error_dialog_message.dart';
 import 'index.dart';
 
@@ -18,6 +20,8 @@ class ErrorHandlingBloc extends Bloc<ErrorHandlingEvent, ErrorHandlingState> {
 
       if (exception is TimeoutException) {
         dialogMessage = ErrorDialogMessage.connectionTimeout;
+      } else if (exception is NullLocationException) {
+        dialogMessage = ErrorDialogMessage.failedToGetLocation;
       } else if (exception is DioError) {
         switch (exception.type) {
           case DioErrorType.sendTimeout:
@@ -26,7 +30,7 @@ class ErrorHandlingBloc extends Bloc<ErrorHandlingEvent, ErrorHandlingState> {
             dialogMessage = ErrorDialogMessage.connectionTimeout;
             break;
           case DioErrorType.response:
-            switch (exception.response.statusCode) {
+            switch (exception.response?.statusCode) {
               case 400:
                 dialogMessage = ErrorDialogMessage.badRequest;
                 break;

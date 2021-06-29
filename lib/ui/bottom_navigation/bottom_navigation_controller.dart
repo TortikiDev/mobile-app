@@ -2,19 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:widget_factory/widget_factory.dart';
 
-import '../app_theme.dart';
 import 'bottom_navigation_controller_item.dart';
 
 class BottomNavigationController extends StatefulWidget {
   final WidgetFactory mainScreenFactory;
   final WidgetFactory mapScreenFactory;
   final WidgetFactory bookmarksScreenFactory;
+  final WidgetFactory profileScreenFactory;
 
   const BottomNavigationController({
-    Key key,
-    @required this.mainScreenFactory,
-    @required this.mapScreenFactory,
-    @required this.bookmarksScreenFactory,
+    Key? key,
+    required this.mainScreenFactory,
+    required this.mapScreenFactory,
+    required this.bookmarksScreenFactory,
+    required this.profileScreenFactory,
   }) : super(key: key);
 
   @override
@@ -25,14 +26,13 @@ class BottomNavigationController extends StatefulWidget {
 class _BottomNavigationControllerState
     extends State<BottomNavigationController> {
   final pageController = PageController();
-  List<BottomNaigationControllerItem> _items;
+  List<BottomNaigationControllerItem>? _items;
   int _currentPage = 0;
 
   @override
   Widget build(BuildContext context) {
     if (_items == null) {
-      final theme = Theme.of(context);
-      final localizations = AppLocalizations.of(context);
+      final localizations = AppLocalizations.of(context)!;
       _items = [
         BottomNaigationControllerItem(
           widget.mainScreenFactory.createWidget(),
@@ -60,12 +60,7 @@ class _BottomNavigationControllerState
           ),
         ),
         BottomNaigationControllerItem(
-          Container(
-            color: appTheme.colorScheme.background,
-            child: Center(
-              child: Text(localizations.profile, style: theme.textTheme.button),
-            ),
-          ),
+          widget.profileScreenFactory.createWidget(),
           BottomNavigationBarItem(
             label: localizations.profile,
             icon: Icon(Icons.account_circle),
@@ -77,14 +72,14 @@ class _BottomNavigationControllerState
     return Scaffold(
       body: PageView(
         physics: NeverScrollableScrollPhysics(),
-        children: _items.map((e) => e.page).toList(),
+        children: _items!.map((e) => e.page).toList(),
         controller: pageController,
         onPageChanged: (index) => _currentPage = index,
       ),
       bottomNavigationBar: BottomNavigationBar(
         showSelectedLabels: false,
         showUnselectedLabels: false,
-        items: _items.map((e) => e.barItem).toList(),
+        items: _items!.map((e) => e.barItem).toList(),
         currentIndex: _currentPage,
         onTap: _onItemTapped,
       ),

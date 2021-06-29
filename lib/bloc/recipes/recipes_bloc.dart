@@ -1,7 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter/foundation.dart';
-
 import '../../data/database/models/recipe_db_model.dart';
 import '../../data/http_client/responses/responses.dart';
 import '../../data/repositories/repositories.dart';
@@ -22,9 +20,9 @@ class RecipesBloc extends BaseBloc<RecipesEvent, RecipesState> {
   // region Lifecycle
 
   RecipesBloc(
-      {@required this.recipesRepository,
-      @required this.bookmarkedRecipesRepository,
-      @required ErrorHandlingBloc errorHandlingBloc})
+      {required this.recipesRepository,
+      required this.bookmarkedRecipesRepository,
+      required ErrorHandlingBloc errorHandlingBloc})
       : super(
             initialState: RecipesState.initial(),
             errorHandlingBloc: errorHandlingBloc);
@@ -98,7 +96,7 @@ class RecipesBloc extends BaseBloc<RecipesEvent, RecipesState> {
       firstPageResponse = await recipesRepository.getRecipes();
     } on Exception catch (e) {
       errorHandlingBloc.add(ExceptionRaised(e));
-      return null;
+      return [];
     }
     final result =
         firstPageResponse.map(_mapRecipeResponseToViewModel).toList();

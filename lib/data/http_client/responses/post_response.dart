@@ -1,11 +1,11 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/foundation.dart';
 
 class PostResponse extends Equatable {
   final int id;
-  final String userAvaratUrl;
+  final String? userAvaratUrl;
   final String userName;
   final int userId;
+
   /// From [Gender]
   final int userGender;
   final String imageUrl;
@@ -14,29 +14,31 @@ class PostResponse extends Equatable {
   final bool liked;
   final bool descriptionExpanded;
 
-  PostResponse(
-      {@required this.id,
-      @required this.userAvaratUrl,
-      @required this.userName,
-      @required this.userId,
-      @required this.userGender,
-      @required this.imageUrl,
-      @required this.description,
-      @required this.likes,
-      @required this.liked,
-      this.descriptionExpanded = false});
+  PostResponse({
+    required this.id,
+    required this.userAvaratUrl,
+    required this.userName,
+    required this.userId,
+    required this.userGender,
+    required this.imageUrl,
+    required this.description,
+    required this.likes,
+    required this.liked,
+    this.descriptionExpanded = false,
+  });
 
-  PostResponse copy(
-          {int id,
-          String userAvaratUrl,
-          String userName,
-          int userId,
-          int userGender,
-          String imageUrl,
-          String description,
-          int likes,
-          bool liked,
-          bool descriptionExpanded}) =>
+  PostResponse copy({
+    int? id,
+    String? userAvaratUrl,
+    String? userName,
+    int? userId,
+    int? userGender,
+    String? imageUrl,
+    String? description,
+    int? likes,
+    bool? liked,
+    bool? descriptionExpanded,
+  }) =>
       PostResponse(
           id: id ?? this.id,
           userAvaratUrl: userAvaratUrl ?? this.userAvaratUrl,
@@ -50,7 +52,7 @@ class PostResponse extends Equatable {
           descriptionExpanded: descriptionExpanded ?? this.descriptionExpanded);
 
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         id,
         userAvaratUrl,
         userName,

@@ -2,16 +2,16 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class ExpandableText extends StatefulWidget {
-  const ExpandableText(this.text,
-      {Key key,
-      @required this.readMoreText,
-      @required this.readLessText,
-      @required this.theme,
-      this.trimLines = 2,
-      this.initialExpandedValue = false,
-      this.onExpand})
-      : assert(text != null),
-        super(key: key);
+  const ExpandableText(
+    this.text, {
+    Key? key,
+    required this.readMoreText,
+    required this.readLessText,
+    required this.theme,
+    this.trimLines = 2,
+    this.initialExpandedValue = false,
+    this.onExpand,
+  })  : super(key: key);
 
   final String text;
   final String readMoreText;
@@ -19,7 +19,7 @@ class ExpandableText extends StatefulWidget {
   final ThemeData theme;
   final int trimLines;
   final bool initialExpandedValue;
-  final Function(bool) onExpand;
+  final Function(bool)? onExpand;
 
   @override
   ExpandableTextState createState() =>
@@ -28,9 +28,9 @@ class ExpandableText extends StatefulWidget {
 
 class ExpandableTextState extends State<ExpandableText> {
   bool _expanded;
-  TapGestureRecognizer _readMoreTapGesture;
+  late TapGestureRecognizer _readMoreTapGesture;
 
-  ExpandableTextState({@required bool expanded}) : _expanded = expanded;
+  ExpandableTextState({required bool expanded}) : _expanded = expanded;
 
   @override
   void initState() {
@@ -42,7 +42,7 @@ class ExpandableTextState extends State<ExpandableText> {
   Widget build(BuildContext context) {
     final textStyle = widget.theme.textTheme.bodyText2;
     final readMoreTextStyle = widget.theme.textTheme.bodyText2
-        .copyWith(color: widget.theme.colorScheme.onSurface);
+        ?.copyWith(color: widget.theme.colorScheme.onSurface);
 
     final readMoreTextSpan = TextSpan(
       text: _expanded ? "  ${widget.readLessText}" : "  ${widget.readMoreText}",
@@ -77,12 +77,11 @@ class ExpandableTextState extends State<ExpandableText> {
         );
         final textSize = textPainter.size;
 
-        int endIndex;
         final pos = textPainter.getPositionForOffset(Offset(
           textSize.width - readMoreSize.width,
           textSize.height,
         ));
-        endIndex = textPainter.getOffsetBefore(pos.offset);
+        final endIndex = textPainter.getOffsetBefore(pos.offset) ?? 0;
 
         TextSpan textSpan;
         if (textPainter.didExceedMaxLines) {
@@ -112,6 +111,6 @@ class ExpandableTextState extends State<ExpandableText> {
   void _onTapExpand() {
     final newExpandedValue = !_expanded;
     setState(() => _expanded = !newExpandedValue);
-    widget.onExpand(newExpandedValue);
+    widget.onExpand?.call(newExpandedValue);
   }
 }

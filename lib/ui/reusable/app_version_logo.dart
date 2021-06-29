@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:package_info/package_info.dart';
 
 class AppVersionLogo extends StatelessWidget {
-  const AppVersionLogo({Key key}) : super(key: key);
+  const AppVersionLogo({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,9 +19,9 @@ class AppVersionLogo extends StatelessWidget {
           future: _getVersionString(),
           builder: (context, snapshot) => snapshot.data != null
               ? Text(
-                  snapshot.data,
+                  snapshot.data.toString(),
                   style: theme.textTheme.caption
-                      .copyWith(color: theme.colorScheme.secondaryVariant),
+                      ?.copyWith(color: theme.colorScheme.secondaryVariant),
                 )
               : Container(),
         ),

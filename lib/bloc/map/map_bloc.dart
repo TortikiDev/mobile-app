@@ -1,8 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
-
 import '../../data/http_client/requests/lat_long.dart';
 import '../../data/repositories/repositories.dart';
 import '../../ui/constants.dart';
@@ -20,8 +17,8 @@ class MapBloc extends BaseBloc<MapEvent, MapState> {
   // region Lifecycle
 
   MapBloc({
-    @required this.confectionersRepository,
-    @required ErrorHandlingBloc errorHandlingBloc,
+    required this.confectionersRepository,
+    required ErrorHandlingBloc errorHandlingBloc,
   }) : super(
           initialState: MapState.initial(),
           errorHandlingBloc: errorHandlingBloc,

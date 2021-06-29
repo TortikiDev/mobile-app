@@ -10,5 +10,6 @@ enum ErrorDialogMessage {
   resourceNotFound,
   methodNotAllowed,
   internalServerError,
-  badGateway
+  badGateway,
+  failedToGetLocation,
 }

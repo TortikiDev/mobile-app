@@ -6,7 +6,7 @@ abstract class CreateRecipeEvent extends Equatable {}
 
 class BlocInit extends CreateRecipeEvent {
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class TitleChanged extends CreateRecipeEvent {
@@ -15,17 +15,17 @@ class TitleChanged extends CreateRecipeEvent {
   TitleChanged(this.text);
 
   @override
-  List<Object> get props => [text];
+  List<Object?> get props => [text];
 }
 
 class PlusComplexity extends CreateRecipeEvent {
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class MinusComplexity extends CreateRecipeEvent {
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class DescriptionChanged extends CreateRecipeEvent {
@@ -34,7 +34,7 @@ class DescriptionChanged extends CreateRecipeEvent {
   DescriptionChanged(this.text);
 
   @override
-  List<Object> get props => [text];
+  List<Object?> get props => [text];
 }
 
 class IngredientsChanged extends CreateRecipeEvent {
@@ -43,7 +43,7 @@ class IngredientsChanged extends CreateRecipeEvent {
   IngredientsChanged(this.ingredients);
 
   @override
-  List<Object> get props => [ingredients];
+  List<Object?> get props => [ingredients];
 }
 
 class CookingStepsChanged extends CreateRecipeEvent {
@@ -52,7 +52,7 @@ class CookingStepsChanged extends CreateRecipeEvent {
   CookingStepsChanged(this.text);
 
   @override
-  List<Object> get props => [text];
+  List<Object?> get props => [text];
 }
 
 class PhotoPicked extends CreateRecipeEvent {
@@ -61,7 +61,7 @@ class PhotoPicked extends CreateRecipeEvent {
   PhotoPicked(this.photo);
 
   @override
-  List<Object> get props => [photo];
+  List<Object?> get props => [photo];
 }
 
 class PhotoDeleted extends CreateRecipeEvent {
@@ -70,10 +70,10 @@ class PhotoDeleted extends CreateRecipeEvent {
   PhotoDeleted(this.photo);
 
   @override
-  List<Object> get props => [photo];
+  List<Object?> get props => [photo];
 }
 
 class CreateRecipe extends CreateRecipeEvent {
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }

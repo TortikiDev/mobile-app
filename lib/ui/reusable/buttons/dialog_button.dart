@@ -4,7 +4,7 @@ class DialogButton extends StatelessWidget {
   final String title;
   final GestureTapCallback onPressed;
 
-  const DialogButton({@required this.title, @required this.onPressed});
+  const DialogButton({required this.title, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {

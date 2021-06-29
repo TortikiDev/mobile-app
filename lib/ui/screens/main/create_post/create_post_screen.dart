@@ -2,21 +2,22 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:image_picker/image_picker.dart';
 
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../../bloc/create_post/index.dart';
+import '../../../reusable/loading_indicator.dart';
 import '../../../reusable/pick_image_mixin.dart';
 
 class CreatePostScreen extends StatelessWidget with PickImageMixin {
   final ImagePicker imagePicker;
 
-  const CreatePostScreen({Key key, @required this.imagePicker})
+  const CreatePostScreen({Key? key, required this.imagePicker})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final localizations = AppLocalizations.of(context);
+    final localizations = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
 
     return BlocConsumer<CreatePostBloc, CreatePostState>(
@@ -34,7 +35,7 @@ class CreatePostScreen extends StatelessWidget with PickImageMixin {
                         child: SizedBox(
                           width: 16,
                           height: 16,
-                          child: CircularProgressIndicator(strokeWidth: 3),
+                          child: LoadingIndicator(strokeWidth: 3),
                         ),
                       ),
                     )
@@ -89,13 +90,13 @@ class CreatePostScreen extends StatelessWidget with PickImageMixin {
     BlocProvider.of<CreatePostBloc>(context).add(event);
   }
 
-  Widget _getPhotoWidget(BuildContext context, {File photo}) {
+  Widget _getPhotoWidget(BuildContext context, {File? photo}) {
     Widget photoWidget;
     if (photo != null) {
       photoWidget = Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
-          border: Border.all(width: 0.5, color: Colors.grey[400]),
+          border: Border.all(width: 0.5, color: Colors.grey[400]!),
         ),
         clipBehavior: Clip.hardEdge,
         child: ClipRRect(
@@ -111,8 +112,11 @@ class CreatePostScreen extends StatelessWidget with PickImageMixin {
       onTap: () => pickImage(
         context: context,
         imagePicker: imagePicker,
-        completion: (image) =>
-            BlocProvider.of<CreatePostBloc>(context).add(PhotoPicked(image)),
+        completion: (image) {
+          if (image != null) {
+            BlocProvider.of<CreatePostBloc>(context).add(PhotoPicked(image));
+          }
+        },
       ),
     );
   }

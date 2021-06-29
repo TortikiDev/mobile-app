@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:tortiki/bloc/create_recipe/index.dart';
 import 'package:tortiki/bloc/error_handling/index.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:tortiki/data/repositories/repositories.dart';
 
 class _MockErrorHandlingBloc extends Mock implements ErrorHandlingBloc {}
@@ -11,9 +11,9 @@ class _MockErrorHandlingBloc extends Mock implements ErrorHandlingBloc {}
 class _MockRecipesRepository extends Mock implements RecipesRepository {}
 
 void main() {
-  CreateRecipeBloc sut;
-  _MockErrorHandlingBloc errorHandlingBloc;
-  _MockRecipesRepository recipesRepository;
+  late CreateRecipeBloc sut;
+  late _MockErrorHandlingBloc errorHandlingBloc;
+  late _MockRecipesRepository recipesRepository;
 
   final initialState = CreateRecipeState.initial();
 
@@ -28,7 +28,7 @@ void main() {
   });
 
   tearDown(() {
-    sut?.close();
+    sut.close();
   });
 
   test('initial state is correct', () {
@@ -36,7 +36,7 @@ void main() {
   });
 
   test('close does not emit new states', () {
-    sut?.close();
+    sut.close();
     expectLater(
       sut.stream,
       emitsDone,
@@ -160,14 +160,14 @@ void main() {
     sut.add(CreateRecipe());
     sut.close();
     // then
-    verifyNever(recipesRepository.createRecipe(
-      title: anyNamed('title'),
-      complexity: anyNamed('complexity'),
-      description: anyNamed('description'),
-      ingredients: anyNamed('ingredients'),
-      cookingSteps: anyNamed('cookingSteps'),
-      photos: anyNamed('photos'),
-    ));
+    verifyNever(() => recipesRepository.createRecipe(
+          title: any(named: 'title'),
+          complexity: any(named: 'complexity'),
+          description: any(named: 'description'),
+          ingredients: any(named: 'ingredients'),
+          cookingSteps: any(named: 'cookingSteps'),
+          photos: any(named: 'photos'),
+        ));
   });
 
   test('CreateRecipe flow test', () {
@@ -199,14 +199,14 @@ void main() {
         creatingRecipe: false, recipeSuccessfulyCreated: true);
 
     // when
-    when(recipesRepository.createRecipe(
-      title: title,
-      complexity: initialState.complexity,
-      description: description,
-      ingredients: ingredients,
-      cookingSteps: cookingSteps,
-      photos: [photo1, photo2],
-    )).thenAnswer((realInvocation) => Future.value());
+    when(() => recipesRepository.createRecipe(
+          title: title,
+          complexity: initialState.complexity,
+          description: description,
+          ingredients: ingredients,
+          cookingSteps: cookingSteps,
+          photos: [photo1, photo2],
+        )).thenAnswer((realInvocation) => Future.value());
     sut.add(TitleChanged(title));
     sut.add(PlusComplexity());
     sut.add(MinusComplexity());

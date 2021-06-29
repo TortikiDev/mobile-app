@@ -7,6 +7,7 @@ import 'package:widget_factory/widget_factory.dart';
 
 import '../../../../bloc/user_recipes/index.dart';
 import '../../../reusable/list_items/progress_indicator_item.dart';
+import '../../../reusable/loading_indicator.dart';
 import '../../main/recipes/recipe/recipe_view.dart';
 import '../../main/recipes/recipe/recipe_view_model.dart';
 import '../../recipe_details/recipe_details_screen_factory.dart';
@@ -14,11 +15,11 @@ import '../../recipe_details/recipe_details_screen_factory.dart';
 class UserRecipesScreen extends StatelessWidget {
   final WidgetFactory recipeDetailsScreenFactory;
 
-  const UserRecipesScreen({@required this.recipeDetailsScreenFactory});
+  const UserRecipesScreen({required this.recipeDetailsScreenFactory});
 
   @override
   Widget build(BuildContext context) {
-    final localizaitons = AppLocalizations.of(context);
+    final localizaitons = AppLocalizations.of(context)!;
 
     return Scaffold(
       appBar: AppBar(title: Text(localizaitons.recipes)),
@@ -26,8 +27,8 @@ class UserRecipesScreen extends StatelessWidget {
           builder: (context, state) {
         return state.loadingFirstPage
             ? Center(
-                child: SizedBox(
-                    width: 32, height: 32, child: CircularProgressIndicator()))
+                child:
+                    SizedBox(width: 32, height: 32, child: LoadingIndicator()))
             : _ScrollView(
                 state: state,
                 recipeDetailsScreenFactory: recipeDetailsScreenFactory,
@@ -42,9 +43,9 @@ class _ScrollView extends StatelessWidget {
   final UserRecipesState state;
 
   const _ScrollView({
-    Key key,
-    @required this.state,
-    @required this.recipeDetailsScreenFactory,
+    Key? key,
+    required this.state,
+    required this.recipeDetailsScreenFactory,
   }) : super(key: key);
 
   @override
@@ -53,6 +54,7 @@ class _ScrollView extends StatelessWidget {
 
     return Scrollbar(
       child: RefreshIndicator(
+        color: theme.accentColor,
         child: ListView.builder(
           padding: EdgeInsets.only(bottom: 8),
           itemCount: state.listItems.length,
@@ -78,7 +80,7 @@ class _ScrollView extends StatelessWidget {
                   child: SizedBox(
                     width: 24,
                     height: 24,
-                    child: CircularProgressIndicator(),
+                    child: LoadingIndicator(),
                   ),
                 ),
               );

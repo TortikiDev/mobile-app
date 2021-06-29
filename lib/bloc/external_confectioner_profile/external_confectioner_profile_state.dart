@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/foundation.dart';
 
 import '../../data/http_client/responses/responses.dart';
 
@@ -7,21 +6,21 @@ class ExternalConfectionerProfileState extends Equatable {
   final int confectionerId;
   final String confectionerName;
   final int confectionerGender;
-  final ConfectionerResponse confectioner;
+  final ConfectionerResponse? confectioner;
   final bool loading;
 
   const ExternalConfectionerProfileState({
-    @required this.confectionerId,
-    @required this.confectionerName,
-    @required this.confectionerGender,
+    required this.confectionerId,
+    required this.confectionerName,
+    required this.confectionerGender,
     this.confectioner,
     this.loading = false,
   });
 
   factory ExternalConfectionerProfileState.initial({
-    @required int confectionerId,
-    @required String confectionerName,
-    @required int confectionerGender,
+    required int confectionerId,
+    required String confectionerName,
+    required int confectionerGender,
   }) =>
       ExternalConfectionerProfileState(
         confectionerId: confectionerId,
@@ -30,11 +29,11 @@ class ExternalConfectionerProfileState extends Equatable {
       );
 
   ExternalConfectionerProfileState copy({
-    int confectionerId,
-    String confectionerName,
-    int confectionerGender,
-    ConfectionerResponse confectioner,
-    bool loading,
+    int? confectionerId,
+    String? confectionerName,
+    int? confectionerGender,
+    ConfectionerResponse? confectioner,
+    bool? loading,
   }) =>
       ExternalConfectionerProfileState(
         confectionerId: confectionerId ?? this.confectionerId,
@@ -45,7 +44,7 @@ class ExternalConfectionerProfileState extends Equatable {
       );
 
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         confectionerId,
         confectionerName,
         confectionerGender,

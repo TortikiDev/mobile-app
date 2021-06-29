@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/foundation.dart';
 
 import '../lat_long_response.dart';
 
@@ -10,7 +9,7 @@ class ConfectionerShortResponse extends Equatable {
 
   /// Confectioner's gender from [Gender]
   final int gender;
-  final String avatarUrl;
+  final String? avatarUrl;
   final LatLongResponse coordinate;
 
   /// Star type from [ConfectionerRatingStarType]
@@ -18,25 +17,25 @@ class ConfectionerShortResponse extends Equatable {
   final int rating;
 
   ConfectionerShortResponse({
-    @required this.id,
-    @required this.name,
-    @required this.address,
-    @required this.gender,
-    @required this.avatarUrl,
-    @required this.starType,
-    @required this.rating,
-    @required this.coordinate,
+    required this.id,
+    required this.name,
+    required this.address,
+    required this.gender,
+    required this.avatarUrl,
+    required this.starType,
+    required this.rating,
+    required this.coordinate,
   });
 
   ConfectionerShortResponse copy({
-    int id,
-    String name,
-    String address,
-    int gender,
-    String avatarUrl,
-    int starType,
-    int rating,
-    LatLongResponse coordinate,
+    int? id,
+    String? name,
+    String? address,
+    int? gender,
+    String? avatarUrl,
+    int? starType,
+    int? rating,
+    LatLongResponse? coordinate,
   }) =>
       ConfectionerShortResponse(
         id: id ?? this.id,
@@ -50,7 +49,7 @@ class ConfectionerShortResponse extends Equatable {
       );
 
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         id,
         name,
         address,

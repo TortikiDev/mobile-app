@@ -6,15 +6,15 @@ import 'buttons/dialog_button.dart';
 
 mixin ShowDialogMixin {
   void showSimpleDialog(
-      {@required BuildContext context,
-      @required String message,
-      VoidCallback onOkPressed,
-      VoidCallback onDismiss}) {
+      {required BuildContext context,
+      required String message,
+      VoidCallback? onOkPressed,
+      VoidCallback? onDismiss}) {
     showDialog(
         context: context,
         barrierDismissible: false,
         builder: (context) {
-          final localizations = AppLocalizations.of(context);
+          final localizations = AppLocalizations.of(context)!;
           return WillPopScope(
             onWillPop: () {
               onDismiss?.call();
@@ -36,17 +36,17 @@ mixin ShowDialogMixin {
   }
 
   void showTwoButtonsDialog(
-      {@required BuildContext context,
-      @required String message,
-      String okButtonTitle,
-      String cancelButtonTitle,
-      VoidCallback onOkPressed,
-      VoidCallback onDismiss}) {
+      {required BuildContext context,
+      required String message,
+      String? okButtonTitle,
+      String? cancelButtonTitle,
+      VoidCallback? onOkPressed,
+      VoidCallback? onDismiss}) {
     showDialog(
         context: context,
         barrierDismissible: false,
         builder: (context) {
-          final localizations = AppLocalizations.of(context);
+          final localizations = AppLocalizations.of(context)!;
           return WillPopScope(
             onWillPop: () {
               onDismiss?.call();
@@ -73,12 +73,12 @@ mixin ShowDialogMixin {
   }
 
   void showErrorDialog({
-    @required BuildContext context,
-    @required ErrorDialogMessage errorMessage,
-    VoidCallback onOkPressed,
-    VoidCallback onDismiss,
+    required BuildContext context,
+    required ErrorDialogMessage errorMessage,
+    VoidCallback? onOkPressed,
+    VoidCallback? onDismiss,
   }) {
-    final localizations = AppLocalizations.of(context);
+    final localizations = AppLocalizations.of(context)!;
     String message;
     switch (errorMessage) {
       case ErrorDialogMessage.somethingWentWrong:
@@ -116,6 +116,9 @@ mixin ShowDialogMixin {
         break;
       case ErrorDialogMessage.badGateway:
         message = localizations.badGateway;
+        break;
+      case ErrorDialogMessage.failedToGetLocation:
+        message = localizations.failedToGetLocation;
         break;
     }
 

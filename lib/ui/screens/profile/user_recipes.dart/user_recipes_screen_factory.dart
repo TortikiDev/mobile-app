@@ -11,19 +11,19 @@ class UserRecipesScreenFactoryData {
   final int userId;
 
   UserRecipesScreenFactoryData({
-    @required this.isMyRecipes,
-    @required this.userId,
+    required this.isMyRecipes,
+    required this.userId,
   });
 }
 
 class UserRecipesScreenFactory
     implements WidgetFactory<UserRecipesScreenFactoryData> {
   @override
-  Widget createWidget({UserRecipesScreenFactoryData data}) {
+  Widget createWidget({UserRecipesScreenFactoryData? data}) {
     final recipeDetailsScreenFactory = RecipeDetailsScreenFactory();
     return BlocProvider(
       create: (context) => UserRecipesBloc(
-        isMyRecipes: data.isMyRecipes,
+        isMyRecipes: data!.isMyRecipes,
         userId: data.userId,
         recipesRepository: RepositoryProvider.of(context),
         bookmarkedRecipesRepository: RepositoryProvider.of(context),

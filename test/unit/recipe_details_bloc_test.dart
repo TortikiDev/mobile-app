@@ -5,7 +5,7 @@ import 'package:tortiki/bloc/recipe_details/index.dart';
 import 'package:tortiki/data/database/models/models.dart';
 import 'package:tortiki/data/http_client/responses/responses.dart';
 import 'package:tortiki/data/repositories/repositories.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:tortiki/ui/screens/recipe_details/recipe_header/recipe_header_view_model.dart';
 
 class _MockErrorHandlingBloc extends Mock implements ErrorHandlingBloc {}
@@ -15,11 +15,13 @@ class _MockRecipesRepository extends Mock implements RecipesRepository {}
 class _MockBookmarkedRecipesRepository extends Mock
     implements BookmarkedRecipesRepository {}
 
+class _FakeRecipeDbModel extends Fake implements RecipeDbModel {}
+
 void main() {
-  RecipeDetailsBloc sut;
-  _MockErrorHandlingBloc errorHandlingBloc;
-  _MockRecipesRepository recipesRepository;
-  _MockBookmarkedRecipesRepository bookmarkedRecipesRepository;
+  late RecipeDetailsBloc sut;
+  late _MockErrorHandlingBloc errorHandlingBloc;
+  late _MockRecipesRepository recipesRepository;
+  late _MockBookmarkedRecipesRepository bookmarkedRecipesRepository;
 
   final initialRecipeStub = RecipeResponse(
     id: 123,
@@ -32,10 +34,24 @@ void main() {
     isInBookmarks: false,
   );
 
+  setUpAll(() {
+    registerFallbackValue(_FakeRecipeDbModel());
+  });
+
   setUp(() {
     recipesRepository = _MockRecipesRepository();
     bookmarkedRecipesRepository = _MockBookmarkedRecipesRepository();
     errorHandlingBloc = _MockErrorHandlingBloc();
+
+    when(() => bookmarkedRecipesRepository.addRecipe(any()))
+        .thenAnswer((invocation) => Future.value());
+    when(() => bookmarkedRecipesRepository.deleteRecipe(any()))
+        .thenAnswer((invocation) => Future.value());
+    when(() =>
+            recipesRepository.voteDownRecipe(recipeId: any(named: 'recipeId')))
+        .thenAnswer((invocation) => Future.value());
+    when(() => recipesRepository.voteUpRecipe(recipeId: any(named: 'recipeId')))
+        .thenAnswer((invocation) => Future.value());
 
     sut = RecipeDetailsBloc(
       recipesRepository: recipesRepository,
@@ -47,7 +63,7 @@ void main() {
   });
 
   tearDown(() {
-    sut?.close();
+    sut.close();
   });
 
   test('initial state is correct', () {
@@ -93,7 +109,7 @@ void main() {
       ),
     );
     // when
-    when(recipesRepository.getRecipe(123))
+    when(() => recipesRepository.getRecipe(123))
         .thenAnswer((realInvocation) => Future.value(recipeResponse));
     sut.add(BlocInit());
     // then
@@ -183,25 +199,25 @@ void main() {
     sut.add(Bookmarks(headerViewModelStub));
     sut.add(Bookmarks(headerViewModelStub.copy(isInBookmarks: true)));
     // then
-    await untilCalled(bookmarkedRecipesRepository.addRecipe(
-      RecipeDbModel(
-        id: 123,
-        title: 'title',
-        complexity: 4.0,
-        imageUrls: ['http://123.png'],
-      ),
-    ));
-    await untilCalled(bookmarkedRecipesRepository.deleteRecipe(123));
+    await untilCalled(() => bookmarkedRecipesRepository.addRecipe(
+          RecipeDbModel(
+            id: 123,
+            title: 'title',
+            complexity: 4.0,
+            imageUrls: ['http://123.png'],
+          ),
+        ));
+    await untilCalled(() => bookmarkedRecipesRepository.deleteRecipe(123));
 
-    verify(bookmarkedRecipesRepository.addRecipe(
-      RecipeDbModel(
-        id: 123,
-        title: 'title',
-        complexity: 4.0,
-        imageUrls: ['http://123.png'],
-      ),
-    )).called(1);
-    verify(bookmarkedRecipesRepository.deleteRecipe(123)).called(1);
+    verify(() => bookmarkedRecipesRepository.addRecipe(
+          RecipeDbModel(
+            id: 123,
+            title: 'title',
+            complexity: 4.0,
+            imageUrls: ['http://123.png'],
+          ),
+        )).called(1);
+    verify(() => bookmarkedRecipesRepository.deleteRecipe(123)).called(1);
   });
 
   test('VoteUp event emits new state voted up recipe', () {
@@ -237,7 +253,7 @@ void main() {
     sut.add(VoteUp());
     // then
     await untilCalled(
-        recipesRepository.voteUpRecipe(recipeId: initialRecipeStub.id));
+        () => recipesRepository.voteUpRecipe(recipeId: initialRecipeStub.id));
   });
 
   test('VoteDown event invokes voteUpRecipe() method of recipe repository',
@@ -247,6 +263,6 @@ void main() {
     sut.add(VoteDown());
     // then
     await untilCalled(
-        recipesRepository.voteDownRecipe(recipeId: initialRecipeStub.id));
+        () => recipesRepository.voteDownRecipe(recipeId: initialRecipeStub.id));
   });
 }

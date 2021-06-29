@@ -9,6 +9,7 @@ import '../../data/repositories/repositories.dart';
 import '../screens/bookmarks/bookmarks_screen_factory.dart';
 import '../screens/main/main_screen_factory.dart';
 import '../screens/map/map_screen_factory.dart';
+import '../screens/profile/client_profile/client_profile_factory.dart';
 import 'bottom_navigation_controller.dart';
 
 class BottomNavigationControllerFactory implements WidgetFactory {
@@ -19,6 +20,8 @@ class BottomNavigationControllerFactory implements WidgetFactory {
         final mainScreenFactory = MainScreenFactory();
         final mapScreenFactory = MapScreenFactory();
         final bookmarksScreenFactory = BookmarksScreenFactory();
+        // TODO: use confectioner profile factory if user is confectioner
+        final profileScreenFactory = ClientProfileScreenFactory();
         final db = Provider.of<Database>(context, listen: false);
 
         return MultiRepositoryProvider(
@@ -40,6 +43,7 @@ class BottomNavigationControllerFactory implements WidgetFactory {
                     mainScreenFactory: mainScreenFactory,
                     mapScreenFactory: mapScreenFactory,
                     bookmarksScreenFactory: bookmarksScreenFactory,
+                    profileScreenFactory: profileScreenFactory,
                   );
                 },
               );

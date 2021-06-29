@@ -9,13 +9,13 @@ class VoteWidget extends StatelessWidget {
   final int voteResult;
   final TickerProvider vsync;
 
-  const VoteWidget({Key key, @required this.voteResult, @required this.vsync})
+  const VoteWidget({Key? key, required this.voteResult, required this.vsync})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final localizations = AppLocalizations.of(context);
+    final localizations = AppLocalizations.of(context)!;
 
     return Column(
       children: [
@@ -27,7 +27,7 @@ class VoteWidget extends StatelessWidget {
             child: Center(
               child: Text(
                 localizations.doYouLikeThisRecipe,
-                style: theme.textTheme.subtitle2.copyWith(color: Colors.grey),
+                style: theme.textTheme.subtitle2?.copyWith(color: Colors.grey),
               ),
             ),
           ),

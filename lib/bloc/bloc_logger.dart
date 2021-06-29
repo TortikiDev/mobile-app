@@ -5,7 +5,7 @@ class BlocLogger extends BlocObserver {
   static const _tag = "BlocLogger";
 
   @override
-  void onEvent(Bloc bloc, Object event) {
+  void onEvent(Bloc bloc, Object? event) {
     debugPrint(
         "[$_tag event ${DateTime.now().toString()}] ${event.toString()}");
     super.onEvent(bloc, event);

@@ -4,7 +4,7 @@ abstract class UserPostsEvent extends Equatable {}
 
 class BlocInit extends UserPostsEvent {
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 abstract class PostEvent extends UserPostsEvent {
@@ -13,7 +13,7 @@ abstract class PostEvent extends UserPostsEvent {
   PostEvent(this.postId);
 
   @override
-  List<Object> get props => [postId];
+  List<Object?> get props => [postId];
 }
 
 class Like extends PostEvent {
@@ -38,10 +38,10 @@ class PullToRefresh extends UserPostsEvent {
   PullToRefresh(this.onComplete);
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class LoadNextPage extends UserPostsEvent {
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }

@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -25,9 +24,9 @@ class SearchRecipesBloc
   // region Lifecycle
 
   SearchRecipesBloc(
-      {@required this.recipesRepository,
-      @required this.bookmarkedRecipesRepository,
-      @required ErrorHandlingBloc errorHandlingBloc})
+      {required this.recipesRepository,
+      required this.bookmarkedRecipesRepository,
+      required ErrorHandlingBloc errorHandlingBloc})
       : super(
             initialState: SearchRecipesState.initial(),
             errorHandlingBloc: errorHandlingBloc);
@@ -118,14 +117,13 @@ class SearchRecipesBloc
   // region Private methods
 
   Future<List<RecipeViewModel>> _getRecipesFirstPage(
-      {@required String searchQuery}) async {
-    List<RecipeShortResponse> firstPageResponse;
+      {required String searchQuery}) async {
+    List<RecipeShortResponse>? firstPageResponse;
     try {
       firstPageResponse =
           await recipesRepository.getRecipes(searchQuery: searchQuery);
     } on Exception catch (e) {
       errorHandlingBloc.add(ExceptionRaised(e));
-      return null;
     }
     final result = firstPageResponse != null
         ? firstPageResponse.map(_mapRecipeResponseToViewModel).toList()
@@ -134,7 +132,7 @@ class SearchRecipesBloc
   }
 
   Future<List<RecipeViewModel>> _getRecipesNextPage(
-      {@required String searchQuery}) async {
+      {String? searchQuery}) async {
     final lastItem = state.listItems.lastWhere((e) => e is RecipeViewModel)
         as RecipeViewModel;
     final lastId = lastItem.id;

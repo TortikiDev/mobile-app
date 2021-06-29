@@ -1,8 +1,6 @@
 import 'dart:async';
 import 'dart:math';
 
-import 'package:flutter/foundation.dart';
-
 import '../../data/repositories/repositories.dart';
 import '../base_bloc.dart';
 import '../error_handling/index.dart';
@@ -18,8 +16,8 @@ class CreateRecipeBloc extends BaseBloc<CreateRecipeEvent, CreateRecipeState> {
   // region Lifecycle
 
   CreateRecipeBloc(
-      {@required this.recipesRepository,
-      @required ErrorHandlingBloc errorHandlingBloc})
+      {required this.recipesRepository,
+      required ErrorHandlingBloc errorHandlingBloc})
       : super(
             initialState: CreateRecipeState.initial(),
             errorHandlingBloc: errorHandlingBloc);
@@ -46,11 +44,9 @@ class CreateRecipeBloc extends BaseBloc<CreateRecipeEvent, CreateRecipeState> {
       yield state.copy(cookingSteps: event.text);
       yield state.copy(canCreateRecipe: _canCreateRecipe());
     } else if (event is PhotoPicked) {
-      if (event.photo != null) {
-        final updatedPhotos = state.photos + [event.photo];
-        yield state.copy(photos: updatedPhotos);
-        yield state.copy(canCreateRecipe: _canCreateRecipe());
-      }
+      final updatedPhotos = state.photos + [event.photo];
+      yield state.copy(photos: updatedPhotos);
+      yield state.copy(canCreateRecipe: _canCreateRecipe());
     } else if (event is PhotoDeleted) {
       final updatedPhotos = state.photos;
       updatedPhotos.removeWhere((e) => e == event.photo);

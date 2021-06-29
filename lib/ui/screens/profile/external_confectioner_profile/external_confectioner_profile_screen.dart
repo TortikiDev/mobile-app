@@ -18,21 +18,21 @@ class ExternalConfectionerProfileScreen extends StatelessWidget {
   final WidgetFactory userRecipesScreenFacory;
 
   const ExternalConfectionerProfileScreen({
-    Key key,
-    @required this.userPostsScreenFacory,
-    @required this.userRecipesScreenFacory,
+    Key? key,
+    required this.userPostsScreenFacory,
+    required this.userRecipesScreenFacory,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final localizations = AppLocalizations.of(context);
+    final localizations = AppLocalizations.of(context)!;
 
     return BlocBuilder<ExternalConfectionerProfileBloc,
         ExternalConfectionerProfileState>(builder: (context, state) {
       final confectioner = state.confectioner ??
           ConfectionerResponse(
-            id: null,
+            id: 123,
             name: '',
             address: '',
             about: '',
@@ -40,7 +40,7 @@ class ExternalConfectionerProfileScreen extends StatelessWidget {
             gender: Gender.none,
             starType: ConfectionerRatingStarType.none,
             rating: 0,
-            coordinate: null,
+            coordinate: LatLongResponse(0, 0),
           );
 
       return Scaffold(
@@ -121,7 +121,7 @@ class ExternalConfectionerProfileScreen extends StatelessWidget {
                                       child: Text(
                                         confectioner.rating.toString(),
                                         style: theme.textTheme.subtitle1
-                                            .copyWith(
+                                            ?.copyWith(
                                                 color: theme
                                                     .colorScheme.onPrimary),
                                         maxLines: 1,
@@ -138,7 +138,8 @@ class ExternalConfectionerProfileScreen extends StatelessWidget {
                                     SizedBox(width: 8),
                                     Text(
                                       confectioner.address,
-                                      style: theme.textTheme.bodyText2.copyWith(
+                                      style:
+                                          theme.textTheme.bodyText2?.copyWith(
                                         color: theme.colorScheme.onSurface,
                                       ),
                                     ),
@@ -179,7 +180,7 @@ class ExternalConfectionerProfileScreen extends StatelessWidget {
     });
   }
 
-  void _goToPublications(BuildContext context, {@required int confectionerId}) {
+  void _goToPublications(BuildContext context, {required int confectionerId}) {
     final data =
         UserPostsScreenFactoryData(isMyPosts: false, userId: confectionerId);
     final screen = userPostsScreenFacory.createWidget(data: data);
@@ -187,7 +188,7 @@ class ExternalConfectionerProfileScreen extends StatelessWidget {
     Navigator.of(context).push(route);
   }
 
-  void _goToRecipes(BuildContext context, {@required int confectionerId}) {
+  void _goToRecipes(BuildContext context, {required int confectionerId}) {
     final data = UserRecipesScreenFactoryData(
         isMyRecipes: false, userId: confectionerId);
     final screen = userRecipesScreenFacory.createWidget(data: data);

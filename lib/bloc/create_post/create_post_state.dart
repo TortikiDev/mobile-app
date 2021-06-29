@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:equatable/equatable.dart';
 
 class CreatePostState extends Equatable {
-  final File photo;
+  final File? photo;
   final String description;
   final bool canCreatePost;
   final bool creatingPost;
@@ -20,11 +20,11 @@ class CreatePostState extends Equatable {
   factory CreatePostState.initial() => CreatePostState();
 
   CreatePostState copy({
-    File photo,
-    String description,
-    bool canCreatePost,
-    bool creatingPost,
-    bool postSuccessfulyCreated,
+    File? photo,
+    String? description,
+    bool? canCreatePost,
+    bool? creatingPost,
+    bool? postSuccessfulyCreated,
   }) =>
       CreatePostState(
         photo: photo ?? this.photo,
@@ -36,7 +36,7 @@ class CreatePostState extends Equatable {
       );
 
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         photo,
         description,
         canCreatePost,

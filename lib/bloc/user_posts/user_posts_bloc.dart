@@ -1,8 +1,6 @@
 import 'dart:async';
 import 'dart:math';
 
-import 'package:flutter/foundation.dart';
-
 import '../../data/http_client/responses/responses.dart';
 import '../../data/repositories/repositories.dart';
 import '../../ui/reusable/list_items/progress_indicator_item.dart';
@@ -22,9 +20,9 @@ class UserPostsBloc extends BaseBloc<UserPostsEvent, UserPostsState> {
 
   UserPostsBloc({
     bool isMyPosts = false,
-    @required int userId,
-    @required this.postsRepository,
-    @required ErrorHandlingBloc errorHandlingBloc,
+    required int userId,
+    required this.postsRepository,
+    required ErrorHandlingBloc errorHandlingBloc,
   }) : super(
             initialState: UserPostsState.initial(
               isMyPosts: isMyPosts,
@@ -67,7 +65,7 @@ class UserPostsBloc extends BaseBloc<UserPostsEvent, UserPostsState> {
       firstPageResponse = await request;
     } on Exception catch (e) {
       errorHandlingBloc.add(ExceptionRaised(e));
-      return null;
+      return [];
     }
     final result = firstPageResponse.map(_mapPostResponseToViewModel).toList();
     return result;
@@ -107,38 +105,34 @@ class UserPostsBloc extends BaseBloc<UserPostsEvent, UserPostsState> {
     final post = state.feedItems
             .firstWhere((e) => e is PostViewModel && e.id == event.postId)
         as PostViewModel;
-    if (post != null) {
-      PostViewModel postToUpdate;
-      if (event is Like) {
-        final likes = post.likes + 1;
-        postToUpdate = post.copy(liked: true, likes: likes);
-        try {
-          postsRepository.likePost(postId: event.postId);
-        } on Exception catch (e) {
-          errorHandlingBloc.add(ExceptionRaised(e));
-        }
-      } else if (event is Unlike) {
-        final likes = max<int>(0, post.likes - 1);
-        postToUpdate = post.copy(liked: false, likes: likes);
-        try {
-          postsRepository.unlikePost(postId: event.postId);
-        } on Exception catch (e) {
-          errorHandlingBloc.add(ExceptionRaised(e));
-        }
-      } else if (event is ExpandDescription) {
-        postToUpdate = post.copy(descriptionExpanded: true);
-      } else if (event is CollapseDescription) {
-        postToUpdate = post.copy(descriptionExpanded: false);
+    late PostViewModel postToUpdate;
+    if (event is Like) {
+      final likes = post.likes + 1;
+      postToUpdate = post.copy(liked: true, likes: likes);
+      try {
+        postsRepository.likePost(postId: event.postId);
+      } on Exception catch (e) {
+        errorHandlingBloc.add(ExceptionRaised(e));
       }
-
-      final updatedPostsViewModels = state.feedItems;
-      final postIndex = updatedPostsViewModels.indexOf(post);
-      updatedPostsViewModels
-          .replaceRange(postIndex, postIndex + 1, [postToUpdate]);
-      return state.copy(feedItems: updatedPostsViewModels);
-    } else {
-      return state.copy();
+    } else if (event is Unlike) {
+      final likes = max<int>(0, post.likes - 1);
+      postToUpdate = post.copy(liked: false, likes: likes);
+      try {
+        postsRepository.unlikePost(postId: event.postId);
+      } on Exception catch (e) {
+        errorHandlingBloc.add(ExceptionRaised(e));
+      }
+    } else if (event is ExpandDescription) {
+      postToUpdate = post.copy(descriptionExpanded: true);
+    } else if (event is CollapseDescription) {
+      postToUpdate = post.copy(descriptionExpanded: false);
     }
+
+    final updatedPostsViewModels = state.feedItems;
+    final postIndex = updatedPostsViewModels.indexOf(post);
+    updatedPostsViewModels
+        .replaceRange(postIndex, postIndex + 1, [postToUpdate]);
+    return state.copy(feedItems: updatedPostsViewModels);
   }
 
   // endregion

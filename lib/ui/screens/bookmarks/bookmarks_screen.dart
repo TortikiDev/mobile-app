@@ -4,6 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:widget_factory/widget_factory.dart';
 
 import '../../../bloc/bookmarks/index.dart';
+import '../../reusable/loading_indicator.dart';
 import '../main/recipes/recipe/recipe_view.dart';
 import '../main/recipes/recipe/recipe_view_model.dart';
 import '../recipe_details/recipe_details_screen_factory.dart';
@@ -12,13 +13,13 @@ class BookmarksScreen extends StatelessWidget {
   final WidgetFactory recipeDetailsScreenFactory;
 
   const BookmarksScreen({
-    Key key,
-    @required this.recipeDetailsScreenFactory,
+    Key? key,
+    required this.recipeDetailsScreenFactory,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final localizations = AppLocalizations.of(context);
+    final localizations = AppLocalizations.of(context)!;
 
     return Scaffold(
       appBar: AppBar(title: Text(localizations.bookmarks)),
@@ -36,7 +37,7 @@ class BookmarksScreen extends StatelessWidget {
                     child: SizedBox(
                       height: 32,
                       width: 32,
-                      child: CircularProgressIndicator(),
+                      child: LoadingIndicator(),
                     ),
                   ),
                 ),
@@ -61,9 +62,9 @@ class _ScrollView extends StatelessWidget {
   final BookmarksState state;
 
   const _ScrollView({
-    Key key,
-    @required this.state,
-    @required this.recipeDetailsScreenFactory,
+    Key? key,
+    required this.state,
+    required this.recipeDetailsScreenFactory,
   }) : super(key: key);
 
   @override

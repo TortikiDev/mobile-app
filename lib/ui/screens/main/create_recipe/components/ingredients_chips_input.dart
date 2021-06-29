@@ -11,16 +11,16 @@ class IngredientsChipsInput extends StatelessWidget {
   final List<String> unitSuggestions;
 
   const IngredientsChipsInput({
-    Key key,
+    Key? key,
     this.initialItems = const [],
-    @required this.theme,
-    @required this.itemsChanged,
-    @required this.unitSuggestions,
+    required this.theme,
+    required this.itemsChanged,
+    required this.unitSuggestions,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final localizations = AppLocalizations.of(context);
+    final localizations = AppLocalizations.of(context)!;
     return ChipsInput<String>(
       key: ObjectKey(initialItems),
       keyboardAppearance: theme.brightness,

@@ -7,11 +7,12 @@ class MainState extends Equatable {
 
   factory MainState.initial() => MainState();
 
-  MainState copy({bool showCreatePostButton}) => MainState(
-      showCreatePostButton: showCreatePostButton ?? this.showCreatePostButton);
+  MainState copy({bool? showCreatePostButton}) => MainState(
+        showCreatePostButton: showCreatePostButton ?? this.showCreatePostButton,
+      );
 
   @override
-  List<Object> get props => [showCreatePostButton];
+  List<Object?> get props => [showCreatePostButton];
 
   @override
   bool get stringify => true;

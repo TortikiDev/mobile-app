@@ -13,7 +13,7 @@ class ${upperName}Bloc extends BaseBloc<${upperName}Event, ${upperName}State> {
 
   // region Lifecycle
 
-  ${upperName}Bloc({@required ErrorHandlingBloc errorHandlingBloc})
+  ${upperName}Bloc({required ErrorHandlingBloc errorHandlingBloc})
       : super(
             initialState: ${upperName}State.initial(), 
             errorHandlingBloc: errorHandlingBloc);

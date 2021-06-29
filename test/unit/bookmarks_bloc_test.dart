@@ -2,7 +2,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:tortiki/bloc/bookmarks/index.dart';
 import 'package:tortiki/bloc/error_handling/index.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:tortiki/data/database/models/models.dart';
 import 'package:tortiki/data/repositories/repositories.dart';
 import 'package:tortiki/ui/screens/main/recipes/recipe/recipe_view_model.dart';
@@ -13,9 +13,9 @@ class _MockBookmarkedRecipesRepository extends Mock
     implements BookmarkedRecipesRepository {}
 
 void main() {
-  BookmarksBloc sut;
-  _MockErrorHandlingBloc errorHandlingBloc;
-  _MockBookmarkedRecipesRepository bookmarksRepository;
+  late BookmarksBloc sut;
+  late _MockErrorHandlingBloc errorHandlingBloc;
+  late _MockBookmarkedRecipesRepository bookmarksRepository;
 
   final initialState = BookmarksState.initial();
 
@@ -30,7 +30,7 @@ void main() {
   });
 
   tearDown(() {
-    sut?.close();
+    sut.close();
   });
 
   test('initial state is correct', () {
@@ -38,7 +38,7 @@ void main() {
   });
 
   test('close does not emit new states', () {
-    sut?.close();
+    sut.close();
     expectLater(
       sut.stream,
       emitsDone,
@@ -82,7 +82,7 @@ void main() {
     final expectedState2 =
         expectedState1.copy(listItems: recipesModels, loading: false);
     // when
-    when(bookmarksRepository.getRecipes())
+    when(() => bookmarksRepository.getRecipes())
         .thenAnswer((realInvocation) => Future.value(bookmarkedRecipes));
     sut.add(BlocInit());
     // then
@@ -125,6 +125,8 @@ void main() {
       )
     ]);
     // when
+    when(() => bookmarksRepository.deleteRecipe(2))
+        .thenAnswer((invocation) => Future.value());
     sut.emit(baseState);
     sut.add(RemoveFromBookmarks(recipesModels.last));
     // then
@@ -152,11 +154,13 @@ void main() {
 
     final baseState = initialState.copy(listItems: recipesModels);
     // when
+    when(() => bookmarksRepository.deleteRecipe(2))
+        .thenAnswer((invocation) => Future.value());
     sut.emit(baseState);
     sut.add(RemoveFromBookmarks(recipesModels.last));
     // then
-    await untilCalled(bookmarksRepository.deleteRecipe(2));
-    verify(bookmarksRepository.deleteRecipe(2)).called(1);
+    await untilCalled(() => bookmarksRepository.deleteRecipe(2));
+    verify(() => bookmarksRepository.deleteRecipe(2)).called(1);
   });
 
   test('UpdateIsInBookmarks with false flag emits state without deleted recipe',
@@ -198,7 +202,7 @@ void main() {
       )
     ]);
     // when
-    when(bookmarksRepository.getRecipes())
+    when(() => bookmarksRepository.getRecipes())
         .thenAnswer((realInvocation) => Future.value(bookmarkedRecipes));
     sut.emit(baseState);
     sut.add(UpdateIsInBookmarks(recipesModels.last));

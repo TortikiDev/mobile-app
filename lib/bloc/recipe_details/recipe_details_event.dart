@@ -6,7 +6,7 @@ abstract class RecipeDetailsEvent extends Equatable {}
 
 class BlocInit extends RecipeDetailsEvent {
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class Bookmarks extends RecipeDetailsEvent {
@@ -15,15 +15,15 @@ class Bookmarks extends RecipeDetailsEvent {
   Bookmarks(this.recipe);
 
   @override
-  List<Object> get props => [recipe];
+  List<Object?> get props => [recipe];
 }
 
 class VoteUp extends RecipeDetailsEvent {
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class VoteDown extends RecipeDetailsEvent {
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }

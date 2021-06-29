@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/foundation.dart';
 
 import '../../ui/reusable/list_items/list_item.dart';
 
@@ -8,14 +7,14 @@ class SearchRecipesState extends Equatable {
   final Set<int> _bookmarkedRecipesIds;
   final bool loadingFirstPage;
   final bool loadingNextPage;
-  final String searchQuery;
+  final String? searchQuery;
 
   List<ListItem> get listItems => List.of(_listItems);
   Set<int> get bookmarkedRecipesIds => Set.of(_bookmarkedRecipesIds);
 
   SearchRecipesState({
-    @required List<ListItem> listItems,
-    Set<int> bookmarkedRecipesIds,
+    required List<ListItem> listItems,
+    Set<int> bookmarkedRecipesIds = const {},
     this.loadingFirstPage = false,
     this.loadingNextPage = false,
     this.searchQuery,
@@ -25,11 +24,11 @@ class SearchRecipesState extends Equatable {
   factory SearchRecipesState.initial() => SearchRecipesState(listItems: []);
 
   SearchRecipesState copy({
-    List<ListItem> listItems,
-    Set<int> bookmarkedRecipesIds,
-    bool loadingFirstPage,
-    bool loadingNextPage,
-    String searchQuery,
+    List<ListItem>? listItems,
+    Set<int>? bookmarkedRecipesIds,
+    bool? loadingFirstPage,
+    bool? loadingNextPage,
+    String? searchQuery,
     bool setSearchQueryToNull = false,
   }) =>
       SearchRecipesState(
@@ -42,7 +41,7 @@ class SearchRecipesState extends Equatable {
       );
 
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         _listItems,
         _bookmarkedRecipesIds,
         loadingFirstPage,

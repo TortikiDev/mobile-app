@@ -4,9 +4,11 @@
   "authorizationError": "Authorization error",
   "badGateway": "Bad Gateway",
   "badRequest": "Bad request",
+  "becomeConfectioner": "Become a confectioner",
   "bookmarks": "Bookmarks",
   "camera": "Camera",
   "cancel": "Cancel",
+  "city": "City",
   "clear": "Clear",
   "complexityAndDescription": "Complexity and description",
   "complexityPrompt": "The complexity of a recipe is determined by the combination of the following parameters: cooking time, cooking method, quantity and cost of ingredients.",
@@ -17,6 +19,7 @@
   "description": "Description",
   "doYouLikeThisRecipe": "Do you like this recipe?",
   "error": "Error",
+  "failedToGetLocation": "Failed to get location",
   "feed": "Feed",
   "forbidder": "Forbidden",
   "goToLocationSettingsMessage": "To show your current location, grant permission to the geolocation service in the application settings ",
@@ -24,6 +27,7 @@
   "ingredients": "Ingredients",
   "ingredientsPlaceholder": "sugar 10 g, eggs 2 pcs...",
   "internalServerError": "Internal server error",
+  "logout": "Logout",
   "main": "Main",
   "map": "Map",
   "methodNotAllowed": "Method Not Allowed",
@@ -34,6 +38,7 @@
   "newRecipe": "New recipe",
   "ok": "OK",
   "pcs": "pcs",
+  "phone": "Phone",
   "photo": "Photo",
   "photoLibrary": "Photo library",
   "photos": "Photos",
@@ -42,6 +47,7 @@
   "recipes": "Recipes",
   "resourceNotFound": "Resource not found",
   "route": "Route",
+  "search": "Search",
   "searchConfectioner": "Search confectioner",
   "serverIsNotAvailable": "Server is not available",
   "shortDescription": "Short description",
@@ -49,5 +55,13 @@
   "somethingWentWrong": "Something went wrong",
   "tablespoons": "tablespoons",
   "teaspoons": "teaspoons",
-  "toSettings": "To settings"
+  "toSettings": "To settings",
+  "yourCityIsNotAllowedYet": "Unfortunately your city {city} is not allowed yet. Please pick city from list.",
+  "@yourCityIsNotAllowedYet": {
+    "type": "text",
+    "placeholders": {
+      "city": {}
+    }
+  },
+  "useCurrentLocation": "Use current location"
 }

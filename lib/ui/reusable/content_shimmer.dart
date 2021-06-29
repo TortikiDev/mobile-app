@@ -4,7 +4,7 @@ class ContentShimmer extends StatefulWidget {
   final Color backgroundColor;
 
   const ContentShimmer({
-    Key key,
+    Key? key,
     this.backgroundColor = const Color(0xFFE0E0E0),
   }) : super(key: key);
 
@@ -14,8 +14,8 @@ class ContentShimmer extends StatefulWidget {
 
 class _ContentShimmerState extends State<ContentShimmer>
     with SingleTickerProviderStateMixin {
-  AnimationController _animationController;
-  Animation<Color> _colorAnimation;
+  late AnimationController _animationController;
+  late Animation<Color?> _colorAnimation;
 
   @override
   void initState() {

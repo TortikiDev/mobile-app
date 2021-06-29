@@ -4,9 +4,11 @@
   "authorizationError": "Ошибка авторизации",
   "badGateway": "Ошибочный шлюз",
   "badRequest": "Неверный запрос",
+  "becomeConfectioner": "Стать кондитером",
   "bookmarks": "Избранное",
   "camera": "Камера",
   "cancel": "Отмена",
+  "city": "Город",
   "clear": "Очистить",
   "complexityAndDescription": "Сложность и описание",
   "complexityPrompt": "Сложность рецепта определяется по совокупности следующих параметров: время приготовления, способ приготовления, количество и стоимость ингредиентов.",
@@ -17,6 +19,7 @@
   "description": "Описание",
   "doYouLikeThisRecipe": "Вам понравился рецепт?",
   "error": "Ошибка",
+  "failedToGetLocation": "Ошибка определения местоположения",
   "feed": "Лента",
   "forbidder": "Отказано в доступе",
   "goToLocationSettingsMessage": "Для использования вашего текущего местоположения предоставьте разрешение сервису геолокации в настройках приложения",
@@ -24,6 +27,7 @@
   "ingredients": "Ингредиенты",
   "ingredientsPlaceholder": "сахар 10 г, яйца 2 шт...",
   "internalServerError": "Внутренняя ошибка сервера",
+  "logout": "Выйти",
   "main": "Главная",
   "map": "Карта",
   "methodNotAllowed": "Метод не доступен",
@@ -34,6 +38,7 @@
   "newRecipe": "Новый рецепт",
   "ok": "OK",
   "pcs": "шт",
+  "phone": "Телефон",
   "photo": "Фото",
   "photoLibrary": "Галерея",
   "photos": "Фото",
@@ -42,6 +47,7 @@
   "recipes": "Рецепты",
   "resourceNotFound": "Ресурс не найден",
   "route": "Маршрут",
+  "search": "Поиск",
   "searchConfectioner": "Поиск кондитера",
   "serverIsNotAvailable": "Сервер недоступен",
   "shortDescription": "Краткое описание",
@@ -49,5 +55,13 @@
   "somethingWentWrong": "Что-то пошло не так",
   "tablespoons": "ст.л.",
   "teaspoons": "ч.л.",
-  "toSettings": "В настройки"
+  "toSettings": "В настройки",
+  "yourCityIsNotAllowedYet": "К сожалению ваш населенный пункт {city} не доступен для выбора. Пожалуйста, выберите город из списка.",
+  "@yourCityIsNotAllowedYet": {
+    "type": "text",
+    "placeholders": {
+      "city": {}
+    }
+  },
+  "useCurrentLocation": "Текущее местоположение"
 }

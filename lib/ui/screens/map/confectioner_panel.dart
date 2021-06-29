@@ -17,15 +17,15 @@ class ConfectionerPanel extends StatelessWidget {
   final ConfectionerShortResponse confectioner;
 
   const ConfectionerPanel({
-    Key key,
-    @required this.confectionerProfileScreenFactory,
-    @required this.confectioner,
+    Key? key,
+    required this.confectionerProfileScreenFactory,
+    required this.confectioner,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final localizations = AppLocalizations.of(context);
+    final localizations = AppLocalizations.of(context)!;
 
     return Container(
       height: 164,
@@ -85,7 +85,7 @@ class ConfectionerPanel extends StatelessWidget {
                       Text(
                         confectioner.address,
                         style: theme.textTheme.caption
-                            .copyWith(color: theme.colorScheme.onSurface),
+                            ?.copyWith(color: theme.colorScheme.onSurface),
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -109,8 +109,8 @@ class ConfectionerPanel extends StatelessWidget {
                             padding: EdgeInsets.only(left: 4, top: 2),
                             child: Text(
                               confectioner.rating.toString(),
-                              style: theme.textTheme.subtitle2
-                                  .copyWith(color: theme.colorScheme.onPrimary),
+                              style: theme.textTheme.subtitle2?.copyWith(
+                                  color: theme.colorScheme.onPrimary),
                               maxLines: 1,
                             ),
                           )

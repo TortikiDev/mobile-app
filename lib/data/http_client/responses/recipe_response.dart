@@ -1,55 +1,57 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/foundation.dart';
+
+import 'confectioner/gender.dart';
 
 class RecipeResponse extends Equatable {
   final int id;
   final String title;
   final double complexity;
   final List<String> _imageUrls;
-  final String userAvaratUrl;
-  final String userName;
-  final int userId;
+  final String? userAvaratUrl;
+  final String? userName;
+  final int? userId;
+
   /// From [Gender]
   final int userGender;
-  final String description;
-  final List<String> _ingredients;
-  final String cookingSteps;
+  final String? description;
+  final List<String>? _ingredients;
+  final String? cookingSteps;
 
   /// Value from [VoteResult]
-  final int myVote;
+  final int? myVote;
 
-  List<String> get imageUrls => List.of(_imageUrls ?? []);
+  List<String> get imageUrls => List.of(_imageUrls);
   List<String> get ingredients => List.of(_ingredients ?? []);
 
   RecipeResponse({
-    @required this.id,
-    @required this.title,
-    @required this.complexity,
-    @required List<String> imageUrls,
+    required this.id,
+    required this.title,
+    required this.complexity,
+    required List<String> imageUrls,
     this.userAvaratUrl,
     this.userName,
     this.userId,
-    this.userGender,
+    this.userGender = Gender.none,
     this.description,
-    List<String> ingredients,
+    List<String>? ingredients,
     this.cookingSteps,
     this.myVote,
   })  : _imageUrls = imageUrls,
         _ingredients = ingredients;
 
   RecipeResponse copy({
-    int id,
-    String title,
-    double complexity,
-    List<String> imageUrls,
-    String userAvaratUrl,
-    String userName,
-    int userId,
-    int userGender,
-    String description,
-    List<String> ingredients,
-    String cookingSteps,
-    int myVote,
+    int? id,
+    String? title,
+    double? complexity,
+    List<String>? imageUrls,
+    String? userAvaratUrl,
+    String? userName,
+    int? userId,
+    int? userGender,
+    String? description,
+    List<String>? ingredients,
+    String? cookingSteps,
+    int? myVote,
   }) =>
       RecipeResponse(
         id: id ?? this.id,
@@ -67,7 +69,7 @@ class RecipeResponse extends Equatable {
       );
 
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         id,
         title,
         complexity,

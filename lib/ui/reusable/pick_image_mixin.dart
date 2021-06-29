@@ -7,12 +7,12 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 mixin PickImageMixin {
   void pickImage({
-    @required BuildContext context,
-    @required ImagePicker imagePicker,
-    Function(File) completion,
+    required BuildContext context,
+    required ImagePicker imagePicker,
+    required Function(File?) completion,
   }) async {
     final theme = Theme.of(context);
-    final localizations = AppLocalizations.of(context);
+    final localizations = AppLocalizations.of(context)!;
 
     showModalBottomSheet(
       context: context,
@@ -51,14 +51,14 @@ mixin PickImageMixin {
     );
   }
 
-  Future<File> _pickImageFromCamera(
+  Future<File?> _pickImageFromCamera(
       BuildContext context, ImagePicker imagePicker) async {
     final image = await imagePicker.getImage(
         source: ImageSource.camera, imageQuality: 50);
     return (image != null) ? File(image.path) : null;
   }
 
-  Future<File> _pickImageFromGallery(
+  Future<File?> _pickImageFromGallery(
       BuildContext context, ImagePicker imagePicker) async {
     final image = await imagePicker.getImage(
         source: ImageSource.gallery, imageQuality: 50);

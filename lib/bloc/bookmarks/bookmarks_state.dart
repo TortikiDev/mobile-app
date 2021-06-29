@@ -16,8 +16,8 @@ class BookmarksState extends Equatable {
   factory BookmarksState.initial() => BookmarksState();
 
   BookmarksState copy({
-    List<RecipeViewModel> listItems,
-    bool loading,
+    List<RecipeViewModel>? listItems,
+    bool? loading,
   }) =>
       BookmarksState(
         listItems: listItems ?? _listItems,
@@ -25,7 +25,7 @@ class BookmarksState extends Equatable {
       );
 
   @override
-  List<Object> get props => [_listItems, loading];
+  List<Object?> get props => [_listItems, loading];
 
   @override
   bool get stringify => true;

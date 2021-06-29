@@ -6,13 +6,14 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../bloc/user_posts/index.dart';
 import '../../../reusable/list_items/progress_indicator_item.dart';
+import '../../../reusable/loading_indicator.dart';
 import '../../main/feed/post/post_view.dart';
 import '../../main/feed/post/post_view_model.dart';
 
 class UserPostsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final localizaitons = AppLocalizations.of(context);
+    final localizaitons = AppLocalizations.of(context)!;
 
     return Scaffold(
       appBar: AppBar(title: Text(localizaitons.publications)),
@@ -23,7 +24,7 @@ class UserPostsScreen extends StatelessWidget {
                 child: SizedBox(
                   width: 32,
                   height: 32,
-                  child: CircularProgressIndicator(),
+                  child: LoadingIndicator(),
                 ),
               )
             : _ScrollView(state: state);
@@ -35,15 +36,16 @@ class UserPostsScreen extends StatelessWidget {
 class _ScrollView extends StatelessWidget {
   final UserPostsState state;
 
-  const _ScrollView({Key key, @required this.state}) : super(key: key);
+  const _ScrollView({Key? key, required this.state}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final localizations = AppLocalizations.of(context);
+    final localizations = AppLocalizations.of(context)!;
 
     return Scrollbar(
         child: RefreshIndicator(
+            color: theme.accentColor,
             child: ListView.builder(
                 padding: EdgeInsets.only(bottom: 8),
                 itemCount: state.feedItems.length,
@@ -61,7 +63,10 @@ class _ScrollView extends StatelessWidget {
                         onAuthorTap: (model) =>
                             Navigator.of(context).maybePop(),
                         onLike: (model) => _likePressed(context, model),
-                        onExpandDescription: ({model, isExpanded}) =>
+                        onExpandDescription: ({
+                          required model,
+                          required isExpanded,
+                        }) =>
                             _expandDescription(context, model, isExpanded),
                         theme: theme,
                         localizations: localizations);
@@ -72,7 +77,7 @@ class _ScrollView extends StatelessWidget {
                         child: SizedBox(
                           width: 24,
                           height: 24,
-                          child: CircularProgressIndicator(),
+                          child: LoadingIndicator(),
                         ),
                       ),
                     );

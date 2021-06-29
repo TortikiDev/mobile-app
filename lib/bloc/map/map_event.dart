@@ -1,11 +1,11 @@
 import 'package:equatable/equatable.dart';
-import 'package:latlong/latlong.dart';
+import 'package:latlong2/latlong.dart';
 
 abstract class MapEvent extends Equatable {}
 
 class BlocInit extends MapEvent {
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class UpdateMapCenter extends MapEvent {
@@ -14,5 +14,5 @@ class UpdateMapCenter extends MapEvent {
   UpdateMapCenter(this.coordinate);
 
   @override
-  List<Object> get props => [coordinate];
+  List<Object?> get props => [coordinate];
 }
