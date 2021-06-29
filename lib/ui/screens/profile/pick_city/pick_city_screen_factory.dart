@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:geocoding/geocoding.dart' as geocoding;
 import 'package:location/location.dart';
 import 'package:widget_factory/widget_factory.dart';
 
@@ -21,11 +22,13 @@ class PickCityScreenFactory
       create: (context) {
         final citiesRepository = CitiesRepository();
         final locationService = Location();
+        final geocoder = geocoding.GeocodingPlatform.instance;
 
         return PickCityBloc(
           selectedCity: data!.selectedCity,
           citiesRepository: citiesRepository,
           locationService: locationService,
+          geocodingService: geocoder,
           errorHandlingBloc: BlocProvider.of(context),
         )..add(BlocInit());
       },

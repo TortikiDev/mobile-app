@@ -64,7 +64,7 @@ void main() {
     );
   });
 
-  test('PickCity emits statewith picked city', () {
+  test('PickCity emits state with picked city', () {
     // given
     final city = 'LA';
     final excpectedState = initialState.copy(city: city);

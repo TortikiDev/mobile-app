@@ -14,6 +14,7 @@ class PickCityBloc extends BaseBloc<PickCityEvent, PickCityState> {
 
   final CitiesRepository citiesRepository;
   final Location locationService;
+  final geocoding.GeocodingPlatform geocodingService;
 
   // endregion
 
@@ -23,6 +24,7 @@ class PickCityBloc extends BaseBloc<PickCityEvent, PickCityState> {
     required String selectedCity,
     required this.citiesRepository,
     required this.locationService,
+    required this.geocodingService,
     required ErrorHandlingBloc errorHandlingBloc,
   }) : super(
             initialState: PickCityState.initial(selectedCity: selectedCity),
@@ -60,14 +62,15 @@ class PickCityBloc extends BaseBloc<PickCityEvent, PickCityState> {
       if (locationResult != null) {
         if (locationResult.latitude != null &&
             locationResult.longitude != null) {
-          final placemarks = await geocoding.placemarkFromCoordinates(
+          final placemarks = await geocodingService.placemarkFromCoordinates(
               locationResult.latitude!, locationResult.longitude!);
 
           final cityMatches = state.allCities.where(
             (city) => placemarks
                 .where((place) => place.locality != null)
                 .map((place) => place.locality!.toLowerCase())
-                .where((detectedCity) => city.contains(detectedCity))
+                .where(
+                    (detectedCity) => city.toLowerCase().contains(detectedCity))
                 .isNotEmpty,
           );
           final isCityAllowed = cityMatches.isNotEmpty;
