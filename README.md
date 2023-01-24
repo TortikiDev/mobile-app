@@ -1,7 +1,9 @@
 [![codecov](https://codecov.io/gh/TortikiDev/mobile-app/branch/master/graph/badge.svg?token=EIMU6414GR)](https://codecov.io/gh/TortikiDev/mobile-app)
 # tortiki
 
-A new Flutter project.
+A Flutter project of "Tirtiki" mobile app.
+
+[Design in Figma](https://www.figma.com/file/MQmgGHIpLjKsp0IIbC26EE/Tortiki?node-id=3%3A239)
 
 ## Getting Started
 
